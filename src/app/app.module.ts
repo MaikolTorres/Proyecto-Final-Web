@@ -30,7 +30,7 @@ import { CrearCursoComponent } from './listar-curso/crear-curso.component';
 import { SeleccionActividadComponent } from './seleccion-actividad/seleccion-actividad.component';
 import { AsignaturaComponent } from './asignatura/asignatura.component';
 import { CrearAsignaturaComponent } from './asignatura/crear-asignatura.component';
-//vale vrg la vida de programadir
+//da
 import { ActividadesNoDocenteComponent } from './actividades-no-docente/actividades-no-docente.component';
 import { ListarActividadesNoDocentesComponent } from './listar-actividades-no-docentes/listar-actividades-no-docentes.component';
 import { DocenteComponent } from './docente/docente.component';
@@ -63,6 +63,7 @@ import { CrearCarreraComponent } from './carrera/crear-carrera.component';
 
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
+import { ActualizarExtraModalComponent } from './extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -123,7 +124,7 @@ const routes: Routes = [
 
   //
   {path: 'extra-actividades', component: ExtraActividadesComponent},
-  {path: 'extra-actividades/:id', component: ExtraActividadesComponent},
+  {path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent},
   {path: 'listar-extra-actividades', component: ListarExtraActividadesComponent},
 
   {path: 'actividades-docente', component: ActividadesDocenteComponent},
@@ -206,6 +207,7 @@ const routes: Routes = [
     ModalModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,25 +1,29 @@
 body {
   /* font-family: Arial, sans-serif; */
   font-family: "Poppins", sans-serif;
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  margin: 0;
+  margin: 0; */
 }
 
 .panel {
-  max-width: 450px;
-  width: 100%;
-  padding: 20px;
+  padding: 50px 20px 0 20px;
+  width: 550px;
+  height: 300px;
+  margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  margin-top: 50px;
 }
 
-p.txt-2 {
-  font-weight: bold;
+.txt-2 {
+  /* font-weight: bold; */
   text-align: center;
   margin-bottom: 20px;
 }
@@ -34,6 +38,20 @@ p.txt-2 {
   margin-bottom: 5px;
 }
 
+label {
+  margin-right: 10px;
+  margin-top: 20px;
+}
+.label2 {
+  margin-right: 55px;
+}
+.barra {
+  width: 350px;
+  height: 35px;
+}
+/* .botones {
+  text-align: center;
+} */
 .input-container input {
   width: 97%;
   padding: 10px;
@@ -52,10 +70,8 @@ p.txt-2 {
   pointer-events: none;
 }
 
-
 .buttons {
-  display: flex;
-  justify-content: center;
+  margin-top: 30px;
 }
 
 button {
@@ -64,7 +80,7 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 4px;
-  background-color: #46adfa ; /* Color de fondo del botón */
+  background-color: #46adfa; /* Color de fondo del botón */
   color: #fff; /* Color del texto del botón */
 }
 
@@ -72,11 +88,11 @@ button:hover {
   background-color: #0056b3; /* Color al pasar el mouse */
 }
 
-button#cancelar {
+.cancel {
   background-color: #f44336;
 }
 
-button#cancelar:hover {
+.cancel:hover {
   background-color: #f3362c;
 }
 
@@ -100,167 +116,4 @@ button#cancelar:hover {
 
 .input-container:hover .dropdown-content {
   display: block;
-}
-/*  */
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-* {
-  margin: 0;
-  box-sizing: border-box;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-}
-.nav {
-  background-color: #46adfa;
-
-  --img1: scale(1);
-  --img2: scale(0);
-}
-
-.nav:has(.dropdown:target) {
-  --img1: scale(0);
-  --img2: scale(1);
-
-  --clip: inset(0 0 0 0);
-}
-
-.nav__container {
-  width: 90%;
-  margin: 0 auto;
-  height: 55px;
-
-  display: grid;
-  grid-template-columns: max-content max-content;
-  grid-template-areas: "title img";
-  justify-content: space-between;
-  align-items: center;
-
-  overflow: hidden;
-}
-
-/* .nav__title {
-  color: #fff;
-  grid-area: title;
-} */
-
-.nav__menu {
-  grid-area: title;
-  /* grid-area: img; */
-  position: relative;
-  z-index: 10;
-
-  transform: var(--img1);
-}
-
-.nav__menu--second {
-  transform: var(--img2);
-}
-
-.nav__icon {
-  width: 30px;
-  display: block;
-}
-
-.dropdown {
-  padding-top: 200px;
-  margin-bottom: 70px;
-  font-size: 12px;
-
-  position: absolute;
-  background-color: #fffbfb;
-  width: 75%;
-  max-width: 300px;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  /* padding: 1em; */
-
-  display: grid;
-  align-content: center;
-  gap: 1rem;
-
-  overflow-y: auto;
-
-  /* clip-path: var(--clip, inset(100% 0 0 100%)); */
-  clip-path: var(--clip, inset(0 100% 100% 0));
-  transition: clip-path 0.5s;
-}
-
-.dropdown__list {
-  list-style: none;
-}
-
-.dropdown__link {
-  color: rgb(0, 0, 0);
-  padding: 1em 0.7em;
-  text-decoration: none;
-
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-
-  position: relative;
-  background-color: var(--bg, transparent);
-  border-radius: 6px;
-}
-
-.dropdown__list:has(:checked) {
-  --rows: 1fr;
-  --rotate: rotate(180deg);
-  --bg: #6cb7e9;
-}
-
-.dropdown__check {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.dropdown__arrow {
-  margin-left: auto;
-  transform: var(--rotate, 0);
-  transition: 0.2s transform;
-}
-
-.dropdown__content {
-  display: grid;
-  grid-template-rows: var(--rows, 0fr);
-  transition: 0.3s grid-template-rows;
-}
-
-.dropdown__sub {
-  overflow: hidden;
-}
-
-.dropdown__li {
-  width: 85%;
-  list-style: none;
-  margin-left: auto;
-}
-
-.dropdown__anchor {
-  padding: 1em 0;
-  display: block;
-  color: #000000;
-  text-decoration: none;
-}
-/* footer */
-.texto_footer {
-  width: 100%;
-  height: 50px;
-  background-color: #46adfa;
-  padding: 5px 0;
-  text-align: center;
-  color: black;
-}
-.texto-1 {
-  font-size: 12px;
-  padding: 0;
-  margin: 0;
 }

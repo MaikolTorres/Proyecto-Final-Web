@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Persona } from '../persona';
 import { PersonaService } from '../persona.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actualizar-persona-modal',
@@ -12,15 +13,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ActualizarPersonaModalComponent implements OnInit {
   @Input() persona: Persona | undefined;
-  per_id: number | undefined;
+  @Output() personaActualizada = new EventEmitter<void>();
   updateForm!: FormGroup;
 
-  constructor(public modalRef: BsModalRef, private fb: FormBuilder, private PersonaService: PersonaService) { }
+  constructor(
+    public modalRef: BsModalRef,
+    private fb: FormBuilder,
+    private personaService: PersonaService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.createForm();
- 
-    this.loadpERSONADetails();
+    this.populateFormWithPersonaDetails();
   }
 
   createForm() {
@@ -32,27 +37,33 @@ export class ActualizarPersonaModalComponent implements OnInit {
       per_apellido_materno: ['', Validators.required],
       per_telefono: ['', Validators.required],
       per_email: ['', Validators.required],
-
-      // Otros campos según tu modelo Jornada
+      // Otros campos según tu modelo Persona
     });
   }
 
-  loadpERSONADetails() {
-    if (this.per_id) {
-      // Asegúrate de que jornada_Id tenga un valor antes de hacer la llamada al servicio
-      this.PersonaService.getpersonaid(this.per_id).subscribe(Persona => {
-        // Asegúrate de que this.updateForm esté inicializado
-        this.updateForm.patchValue({
-          per_cedula: this.persona?.per_cedula,
-          per_primer_nombre:this.persona?.per_primer_nombre,
-          per_segundo_nombre:this.persona?.per_segundo_nombre,
-          per_apellido_paterno:this.persona?.per_apellido_paterno,
-          per_apellido_materno:this.persona?.per_apellido_materno,
-          per_telefono:this.persona?.per_telefono,
-          per_email:this.persona?.per_email
-          // Otros campos según tu modelo Jornada
-        });
-      });
+  populateFormWithPersonaDetails() {
+    if (this.persona && this.persona.per_id) {
+      this.personaService.getpersonaid(this.persona.per_id).subscribe(
+        (personaDetails: Persona) => {
+          this.updateForm.patchValue({
+            per_cedula: personaDetails.per_cedula,
+            per_primer_nombre: personaDetails.per_primer_nombre,
+            per_segundo_nombre: personaDetails.per_segundo_nombre,
+            per_apellido_paterno: personaDetails.per_apellido_paterno,
+            per_apellido_materno: personaDetails.per_apellido_materno,
+            per_telefono: personaDetails.per_telefono,
+            per_email: personaDetails.per_email,
+            // Otros campos según tu modelo Persona
+          });
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Error al cargar los detalles de la persona:', error);
+          // Manejar el error adecuadamente
+        }
+      );
+    } else {
+      console.error('Error: No se ha proporcionado una persona válida o su ID.');
+      // Manejar el caso en el que la persona no esté definida o no tenga un ID válido
     }
   }
 
@@ -60,27 +71,34 @@ export class ActualizarPersonaModalComponent implements OnInit {
     if (this.updateForm && this.updateForm.valid) {
       const updatedPersona = this.updateForm.value;
       updatedPersona.per_id = this.persona?.per_id || 0;
-  
-      console.log('persoona ID seleccionado:', updatedPersona.per_id);
+
       if (!updatedPersona.per_id) {
         console.error('Error: ID de persona no válido');
         return;
       }
-  
-      this.PersonaService.updatePersona(updatedPersona).subscribe(
-        data => {
-          console.log('persona actualizada con éxito:', data);
-          this.modalRef.hide();  // Cierra la ventana desplegable después de la actualización
+
+      this.personaService.updatePersona(updatedPersona).subscribe(
+        (data) => {
+          console.log('Persona actualizada con éxito:', data);
+          this.modalRef.hide(); // Cierra la ventana modal después de la actualización
+          this.personaActualizada.emit(); // Emitir evento de persona actualizada
+          alert('Persona actualizada exitosamente');
+          this.router.navigate(['/actualizar-persona']); // Ruta de la misma página
         },
-        error => {
+        (error) => {
           console.error('Error al actualizar la persona:', error);
-      
           if (error instanceof HttpErrorResponse && error.status === 200) {
             console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+            // Mostrar el mensaje de éxito al usuario
+            this.modalRef.hide(); // Cierra la ventana modal después de actualizar la persona
+            this.personaActualizada.emit(); // Emitir evento de persona actualizada
+            alert('Persona actualizada exitosamente');
+            this.router.navigate(['/actualizar-persona']); // Ruta de la misma página
           } else {
             // Manejar otros tipos de errores
           }
         }
       );
-  }}
+    }
+  }
 }

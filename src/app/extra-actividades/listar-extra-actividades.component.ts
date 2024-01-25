@@ -34,15 +34,16 @@ export class ListarExtraActividadesComponent implements OnInit {
     this.router.navigate(['/extra-actividades'], { queryParams: { editar: id } });
   }
 
-  eliminarActividad(id: number) {
-    this.extraActividadesService.delete(id).subscribe(
-      (response) => {
-        console.log('Actividad extra eliminada exitosamente', response);
-        this.cargarActividades();
-      },
-      (error) => {
-        console.error('Error al eliminar la actividad extra', error);
-      }
-    );
+  eliminarActividad(id: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar esta actividad extra?')) {
+      this.extraActividadesService.delete(id).subscribe(
+        data => {
+          console.log('Actividad eliminada con éxito:', data);
+        },
+        error => {
+          console.error('Error al eliminar actividad', error);
+        }
+      );
+    }
   }
 }
