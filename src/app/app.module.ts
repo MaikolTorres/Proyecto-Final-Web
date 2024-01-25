@@ -65,6 +65,8 @@ import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
 import { ActualizarCursoModalComponent } from './listar-curso/actualizar-curso-modal/actualizar-curso-modal.component';
 import { ActualizarExtraModalComponent } from './extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
+import { ActualizarCarreraModalComponent } from './carrera/actualizar-carrera-modal/actualizar-carrera-modal.component';
+import { ActualizarPeriodoModalComponent } from './periodos/actualizar-periodo-modal/actualizar-periodo-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -197,6 +199,8 @@ const routes: Routes = [
     ListarPeriodoComponent,
     ActualizarCursoModalComponent,
     ActuaizarCursoComponent,
+    ActualizarCarreraModalComponent,
+    ActualizarPeriodoModalComponent,
   ],
 
   imports: [
@@ -215,3 +219,4 @@ const routes: Routes = [
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+ppModule {}

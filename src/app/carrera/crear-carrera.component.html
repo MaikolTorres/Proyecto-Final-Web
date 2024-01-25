@@ -1,44 +1,27 @@
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
 <div>
+
   <body>
     <div class="panel">
       <h2 class="txt-2">Carreras</h2>
 
       <form (submit)="crearCarrera()">
         <div>
-          <label for="nombreProyecto">Nombre Carrera:</label>
-          <input
-            class="barra"
-            type="text"
-            id="nombreCarrera"
-            name="nombreCarrera"
-            required
-            autocomplete="off"
-            [(ngModel)]="actividadEnEdicion.carrera_nombre"
-          />
+          <label for="nombreCarrera">Nombre Carrera:</label>
+          <input class="barra" type="text" id="nombreCarrera" name="nombreCarrera" required autocomplete="off"
+            [(ngModel)]="nuevaCarrea.carrera_nombre" />
         </div>
 
         <div>
-          <label class="label2" for="horasInvestigacion">Modalidad:</label>
-          <input
-            class="barra"
-            type="number"
-            id="Modalidad"
-            name="modalidad"
-            placeholder="Ingrese las modalidad"
-            [(ngModel)]="actividadEnEdicion.carrera_modalidad"
-          />
+          <label class="label2" for="modalidad">Modalidad:</label>
+          <input class="barra" type="text" id="Modalidad" name="modalidad" placeholder="Ingrese las modalidad"
+            [(ngModel)]="nuevaCarrea.carrera_modalidad" />
         </div>
 
         <div class="botones">
           <button class="buttons" type="submit">Enviar</button>
-          <button
-            class="buttons"
-            type="button"
-            class="cancel"
-            routerLink="/listar-carrera"
-          >
+          <button class="buttons" type="button" class="cancel" routerLink="/listar-carrera">
             Cancelar
           </button>
         </div>

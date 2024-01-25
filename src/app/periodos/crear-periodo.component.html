@@ -1,6 +1,7 @@
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
 <div>
+
   <body>
     <div class="panel">
       <h2 class="txt-2">Carreras</h2>
@@ -8,35 +9,24 @@
       <form (submit)="crearPeriodo()">
         <div>
           <label for="mesInicio">Mes Inicio:</label>
-          <input
-            type="text"
-            id="mesInicio"
-            name="mesinicio"
-            required
-            autocomplete="off"
-            [(ngModel)]="periodoEdicion.periodo_mes_inicio"
-          />
+          <input type="text" id="mesInicio" name="mesinicio" required autocomplete="off"
+            [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" />
         </div>
 
         <div>
           <label for="mesFin">Mes Fin:</label>
-          <input
-            type="number"
-            id="mesFin"
-            name="mesfin"
-            placeholder="Ingrese las modalidad"
-            [(ngModel)]="periodoEdicion.periodo_mes_fin"
-          />
+          <input type="number" id="mesFin" name="mesfin" placeholder="Ingrese las modalidad"
+            [(ngModel)]="nuevoPeriodo.periodo_mes_fin" />
         </div>
 
         <div>
           <label for="añoInicio">Año Inicio:</label>
-          <input type="text" [(ngModel)]="periodoEdicion.periodo_anio_inicio" />
+          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" />
         </div>
 
         <div>
           <label for="añoFin">Año Fin:</label>
-          <input type="text" [(ngModel)]="periodoEdicion.periodo_anio_fin" />
+          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" />
         </div>
 
         <div>
