@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Importa el HttpClientModule
 import { ActualizarCargoModalComponent } from './cargo/actualizar-cargo-modal/actualizar-cargo-modal.component';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -51,7 +50,7 @@ import { ActualizarPersonaModalComponent } from './persona/actualizar-persona-mo
 import { ActualizarUsuarioModalComponent } from './usuario/actualizar-usuario-modal/actualizar-usuario-modal.component';
 import { ActualizarRoleComponent } from './roles/actualizar-role-modal/actualizar-role-modal.component';
 import { ActualizarTipocontratoModalComponent } from './tipo-contrato/actualizar-tipocontrato-modal/actualizar-tipocontrato-modal.component';
-
+import { ActuaizarCursoComponent } from './listar-curso/actuaizar-curso/actuaizar-curso.component';
 //
 import { ExtraActividadesComponent } from './extra-actividades/extra-actividades.component';
 import { ListarExtraActividadesComponent } from './extra-actividades/listar-extra-actividades.component';
@@ -64,6 +63,7 @@ import { CrearCarreraComponent } from './carrera/crear-carrera.component';
 
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
+import { ActualizarCursoModalComponent } from './listar-curso/actualizar-curso-modal/actualizar-curso-modal.component';
 import { ActualizarExtraModalComponent } from './extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
 
 const routes: Routes = [
@@ -101,7 +101,7 @@ const routes: Routes = [
   { path: 'seleccion-actividad', component: SeleccionActividadComponent },
   { path: 'asignatura', component: AsignaturaComponent },
   { path: 'crearasignatura', component: CrearAsignaturaComponent },
-
+{path:'actualizarcurso',component:ActuaizarCursoComponent},
   { path: 'actividades-no-docente', component: ActividadesNoDocenteComponent },
   { path: 'seleccion-actividades', component: SeleccionActividadComponent },
   {path: 'listar-actividades-no-docentes',component: ListarActividadesNoDocentesComponent,},
@@ -195,7 +195,8 @@ const routes: Routes = [
     CrearCarreraComponent,
     CrearPeriodoComponent,
     ListarPeriodoComponent,
-    ActualizarExtraModalComponent,
+    ActualizarCursoModalComponent,
+    ActuaizarCursoComponent,
   ],
 
   imports: [

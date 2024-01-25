@@ -31,11 +31,11 @@
               {{ actividad.extra_horas_direccion_gestion_academica_semanal }}
             </td>
             <td>
-              <button [routerLink]="['/editar-extra-actividad', actividad.extra_id]">
+              <button (click)="abrirModalActualizar(actividad)">
                 Editar
               </button>
             </td>
-            <td>
+            <td> 
               <button (click)="eliminarActividad(actividad.extra_id)">
                 Eliminar
               </button>

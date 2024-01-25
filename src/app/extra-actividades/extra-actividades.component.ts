@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ExtraActividades } from './extra-actividades';
 import { ExtraActividadesService } from './extra-actividades.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-extra-actividades',
@@ -17,7 +17,7 @@ export class ExtraActividadesComponent{
   botonDesactivado: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
     private extraActividadesService: ExtraActividadesService
   ) {}
 
@@ -42,5 +42,9 @@ export class ExtraActividadesComponent{
         this.botonDesactivado = false;
       }
     );
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/listar-extra-actividades']);
   }
 }

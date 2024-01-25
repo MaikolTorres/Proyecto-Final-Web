@@ -21,6 +21,12 @@
         <h2>Bienvenido</h2>
         <p class="txt-2">Sistema Gestion Administrativa</p>
         <div class="inputs">
+          <input type="text" class="box" placeholder="Ingresa tu usuario" />
+          <input type="password" class="box" placeholder="Ingresa tu contraseña" />
+
+
+          <button type="submit" routerLink="/persona">Iniciar Sesión  </button>
+          <a id="forgot-password" href="/recuperacion-contrasena">¿Olvidaste tu Contraseña?</a>
           <!-- Agrega la directiva ngModel para enlazar los campos de entrada a las propiedades del componente Angular -->
           <input type="email" class="box" placeholder="Ingresa tu correo" />
           <input type="password" class="box" placeholder="Ingresa tu contraseña"/>

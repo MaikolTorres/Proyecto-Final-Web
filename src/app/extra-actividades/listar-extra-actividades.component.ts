@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ExtraActividadesService } from './extra-actividades.service';
 import { Router } from '@angular/router';
 import { ExtraActividades } from './extra-actividades';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormsModule } from '@angular/forms';
+import { ActualizarExtraModalComponent } from './actualizar-extra-modal/actualizar-extra-modal.component';
 
 
 @Component({
@@ -10,13 +13,19 @@ import { ExtraActividades } from './extra-actividades';
   styleUrls: ['./listar-extra-actividades.component.css']
 })
 
-export class ListarExtraActividadesComponent implements OnInit {
-  actividades: ExtraActividades[] = [];
+export class ListarExtraActividadesComponent {
 
-  constructor(private extraActividadesService: ExtraActividadesService, private router: Router) { }
+  actividades: ExtraActividades[] = [];
+  modalRef: BsModalRef | undefined;
+  extra: ExtraActividades | undefined;
+
+  constructor(private extraActividadesService: ExtraActividadesService,
+     private modalService: BsModalService)
+     { }
 
   ngOnInit(): void {
     this.cargarActividades();
+    FormsModule;
   }
 
   cargarActividades() {
@@ -30,8 +39,20 @@ export class ListarExtraActividadesComponent implements OnInit {
     );
   }
 
-  editarActividad(id: number): void {
-    this.router.navigate(['/extra-actividades'], { queryParams: { editar: id } });
+  cargarLista(): void {
+    this.extraActividadesService.getAll().subscribe((extra) => (this.actividades = extra));
+  }
+
+  abrirModalActualizar(extra: ExtraActividades) {
+    const initialState = {
+      extra: extra, 
+    };
+
+    this.extra = extra;
+
+    this.modalRef = this.modalService.show(ActualizarExtraModalComponent, {
+      initialState,
+    });
   }
 
   eliminarActividad(id: number): void {

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-/*Estilos formulario */
+
+/* Estilos generales */
 * {
   margin: 0;
   box-sizing: border-box;
@@ -10,13 +11,14 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-/* estilos de las tablas */
+/* Estilos de las tablas */
 .center-container {
   padding-top: 50px;
   width: 90%;
   height: 300px;
   margin: 0 auto;
 }
+
 .inputs button {
   width: 130px;
   height: 35px;
@@ -24,34 +26,30 @@ body {
   margin-right: 30px;
   border: 0;
 }
+
 .button1 {
   background-color: #46adfa;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
+
 .button2 {
   background-color: #e70027;
   border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
+
 .inputs input {
   width: 300px;
   height: 35px;
   padding: 5px;
 }
+
 table {
   margin-top: 20px;
   width: 100%;
-  /* height: 100vh; */
   text-align: center;
   border: 1px solid black;
 }
+
 th,
 tr,
 thead,
@@ -59,71 +57,88 @@ tbody,
 td {
   border: 1px solid black;
 }
+
 .fila {
   background-color: #46adfa;
   height: 35px;
 }
+
 tbody {
   height: 35px;
 }
 
-/*Estilos formulario */
+/* Estilos del formulario */
+
 .formulario {
   margin: auto;
   margin-top: 40px;
-  margin-bottom: 60px;
   width: 400px;
-  height: 550px;
-  border: 1px solid black;
+  height: 400px;
+  border: 2px solid black; /* Borde más grueso */
   border-radius: 7px;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   -ms-border-radius: 7px;
   -o-border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 .titulo_formulario {
-  /* background-color: rgb(156, 214, 156); */
   color: black;
-  font-size: 15px;
-  padding: 10px;
+  font-size: 20px; /* Tamaño del título más grande */
+  font-weight: bold; /* Texto en negrita */
   text-align: center;
+  margin-bottom: 20px; /* Espacio debajo del título */
 }
+
 .contenedor_formulario {
-  padding: 40px;
+  padding: 20px; /* Ajusta el espacio interno del contenedor */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Espacio entre elementos internos */
 }
+
 .form-control {
-  width: 320px;
+  width: 80%; /* Ajusta el ancho del campo de entrada */
   padding: 8px;
-  margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-right: 10px; /* Ajusta el margen derecho del campo de entrada */
 }
+
 .btn {
-  width: 130px;
+  width: 80%; /* Ajusta el ancho de los botones */
   padding: 8px;
   margin-bottom: 10px;
 }
-.btn1 {
-  margin-right: 58px;
+
+.btn2 {
+  width: 80%; /* Ajusta el ancho del botón Cancelar */
+  padding: 8px;
+  margin-bottom: 10px;
 }
-.texto_formulario {
-  text-align: center;
+/*titulo texto entrada*/
+.mb-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px; /* Espacio entre el bloque y el siguiente elemento */
 }
-.enlace_formulario {
-  text-decoration: none;
+
+.form-label {
+  font-size: 16px; /* Tamaño de la etiqueta */
+  margin-bottom: 5px; /* Espacio entre la etiqueta y el campo de entrada */
 }
-/* footer */
-/* .footer {
-  margin-top: 32px;
-} */
-.texto_footer {
-  width: 100%;
-  height: 50px;
-  background-color: #46adfa;
-  padding: 5px 0;
-  text-align: center;
-  color: black;
+
+.form-control {
+  width: 80%; /* Ajusta el ancho del campo de entrada */
+  padding: 8px;
+  margin-bottom: 10px;
+  margin-right: 10px; /* Ajusta el margen derecho del campo de entrada */
 }
-.texto-1 {
-  font-size: 12px;
-  padding: 0;
-  margin: 0;
-}
+

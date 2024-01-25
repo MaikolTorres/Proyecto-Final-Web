@@ -6,7 +6,8 @@ import { Usuario } from '../Usuario';
 import { UsuarioService } from '../usuario.service';
 import { Persona } from 'src/app/persona/persona';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http'; // Agrega esta importación
+import { HttpClient } from '@angular/common/http';
+import { Rol } from 'src/app/roles/roles';
 
 @Component({
   selector: 'app-actualizar-usuario-modal',
@@ -19,23 +20,31 @@ export class ActualizarUsuarioModalComponent implements OnInit {
   updateForm!: FormGroup;
   usuario1: Usuario[] = [];
   persona: Persona[] = [];
+  persona1: Persona[] = [];
+  roles: Rol[] = [];
+  isLoading: boolean = true;
 
-  // Agrega HttpClient al constructor
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private http: HttpClient // Agrega esta línea
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     this.createForm();
-    this.cargarPersonas(); // Llama a cargarPersonas al inicializar el componente
+    this.cargarPersonas();
     this.loadUsuDetails();
+    this.cargarLista();
+    this.cargarListarol(); // Corregido para agregar paréntesis
   }
 
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
+  }
+
+  getRoles(): Observable<Rol[]> {
+    return this.http.get<Rol[]>('http://localhost:8080/roles'); // Corregido el tipo de retorno a Rol[]
   }
 
   // Cargar personas al inicializar el componente
@@ -51,6 +60,10 @@ export class ActualizarUsuarioModalComponent implements OnInit {
       rol_id: ['', Validators.required],
       // Otros campos según tu modelo Jornada
     });
+  }
+
+  cargarRoles() {
+    this.getRoles().subscribe(roles => (this.roles = roles));
   }
 
   loadUsuDetails() {
@@ -70,6 +83,34 @@ export class ActualizarUsuarioModalComponent implements OnInit {
         }
       );
     }
+  }
+
+  cargarLista(): void {
+    this.usuarioService.getpers().subscribe(
+      personas => {
+        this.persona1 = personas;
+        this.isLoading = false;
+        console.error('Error al cargar las usuarios:', personas);
+      },
+      error => {
+        console.error('Error al cargar las usuarios:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  cargarListarol(): void {
+    this.usuarioService.getrol().subscribe(
+      roles => {
+        this.roles = roles;
+        this.isLoading = false;
+        console.error('Error al cargar las roles:', roles);
+      },
+      error => {
+        console.error('Error al cargar las roles:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   onSubmit() {

@@ -18,10 +18,10 @@
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
 
-            <label for="personId">ID Persona:</label>
-            <select id="personId" name="personId" required>
-                <option *ngFor="let persona of personas" [value]="persona.id">{{persona.nombre}}</option>
-            </select>
+            <label for="per_id"> per_id :</label>
+  <select class="form-control" id="per_id" formControlName="per_id" required>
+    <option *ngFor="let usuario of  usuario1" [value]="usuario"> {{ usuario.persona.per_id}}</option>
+  </select>
             <label for="roleId">ID Rol:</label>
             <select id="roleId" name="roleId" required>
                 <!-- Opciones para ID Rol -->
