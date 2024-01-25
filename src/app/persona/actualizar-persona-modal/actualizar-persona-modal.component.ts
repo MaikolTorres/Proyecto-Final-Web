@@ -42,29 +42,19 @@ export class ActualizarPersonaModalComponent implements OnInit {
   }
 
   populateFormWithPersonaDetails() {
-    if (this.persona && this.persona.per_id) {
-      this.personaService.getpersonaid(this.persona.per_id).subscribe(
-        (personaDetails: Persona) => {
-          this.updateForm.patchValue({
-            per_cedula: personaDetails.per_cedula,
-            per_primer_nombre: personaDetails.per_primer_nombre,
-            per_segundo_nombre: personaDetails.per_segundo_nombre,
-            per_apellido_paterno: personaDetails.per_apellido_paterno,
-            per_apellido_materno: personaDetails.per_apellido_materno,
-            per_telefono: personaDetails.per_telefono,
-            per_email: personaDetails.per_email,
-            // Otros campos según tu modelo Persona
-          });
-        },
-        (error: HttpErrorResponse) => {
-          console.error('Error al cargar los detalles de la persona:', error);
-          // Manejar el error adecuadamente
-        }
-      );
-    } else {
-      console.error('Error: No se ha proporcionado una persona válida o su ID.');
-      // Manejar el caso en el que la persona no esté definida o no tenga un ID válido
-    }
+    if (this.persona ) {
+      this.updateForm.patchValue({
+        per_cedula: this.persona.per_cedula,
+        per_primer_nombre: this.persona.per_primer_nombre,
+        per_segundo_nombre: this.persona.per_segundo_nombre,
+        per_apellido_paterno:this.persona.per_apellido_paterno,
+        per_apellido_materno: this.persona.per_apellido_materno,
+        per_telefono: this.persona.per_telefono,
+        per_email: this.persona.per_email,
+        // Otros campos según tu modelo Persona
+      })
+        
+    }    
   }
 
   onSubmit() {

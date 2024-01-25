@@ -1,32 +1,44 @@
 <div class="modal-header">
-    <h4 class="modal-title">Actualizar Persona</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-      <!-- Campos del formulario -->
-      <div class="form-group">
-        <label for="per_cedula">cedula:</label>
-        <input type="text" class="form-control" id="per_cedula" formControlName="per_cedula" required>
-        <label for="per_primer_nombre"> primer nombre  :</label>
-        <input type="text" class="form-control" id="per_primer_nombre" formControlName="per_primer_nombre" required>
-        <label for="per_segundo_nombre"> segundo nombre  :</label>
-        <input type="text" class="form-control" id="per_segundo_nombre" formControlName="per_segundo_nombre" required>
-        <label for="per_apellido_paterno"> apellido paterno  :</label>
-        <input type="text" class="form-control" id="per_apellido_paterno" formControlName="per_apellido_paterno" required>
-        <label for="per_apellido_materno"> apellido materno  :</label>
-        <input type="text" class="form-control" id="per_apellido_materno" formControlName="per_apellido_materno" required>
-        <label for="per_telefono"> telefono   :</label>
-        <input type="text" class="form-control" id="per_telefono" formControlName="per_telefono" required>
-        <label for="per_email"> email   :</label>
-        <input type="text" class="form-control" id="per_email" formControlName="per_email" required>
-
+  <h4 class="modal-title">Actualizar Persona</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <!-- Campos del formulario -->
+    <div class="form-group">
+      <label for="per_cedula">Cédula:</label>
+      <input type="text" class="form-control" id="per_cedula" formControlName="per_cedula" required>
     </div>
-      <!-- Otros campos del formulario según tu modelo Jornada -->
+    <div class="form-group">
+      <label for="per_primer_nombre">Primer Nombre:</label>
+      <input type="text" class="form-control" id="per_primer_nombre" formControlName="per_primer_nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="per_segundo_nombre">Segundo Nombre:</label>
+      <input type="text" class="form-control" id="per_segundo_nombre" formControlName="per_segundo_nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="per_apellido_paterno">Apellido Paterno:</label>
+      <input type="text" class="form-control" id="per_apellido_paterno" formControlName="per_apellido_paterno" required>
+    </div>
+    <div class="form-group">
+      <label for="per_apellido_materno">Apellido Materno:</label>
+      <input type="text" class="form-control" id="per_apellido_materno" formControlName="per_apellido_materno" required>
+    </div>
+    <div class="form-group">
+      <label for="per_telefono">Teléfono:</label>
+      <input type="text" class="form-control" id="per_telefono" formControlName="per_telefono" required>
+    </div>
+    <div class="form-group">
+      <label for="per_email">Email:</label>
+      <input type="text" class="form-control" id="per_email" formControlName="per_email" required>
+    </div>
+    <!-- Otros campos del formulario según tu modelo Persona -->
 
+    <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
-  </div>
-  
+    </div>
+  </form>
+</div>

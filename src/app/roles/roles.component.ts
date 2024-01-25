@@ -26,7 +26,7 @@ export class RolesComponent implements OnInit {
   rolesFiltradas: Rol[] = [];  // Nuevo array para las jornadas filtradas
   todasLosroles: Rol[] = [];
 
-  constructor(private rolesService: RolesService, private modalService: BsModalService) {}
+  constructor(private rolesService: RolesService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.cargarLista();
@@ -83,23 +83,23 @@ export class RolesComponent implements OnInit {
           console.error('Error al eliminar el rol:', error);
           // Manejar el error según sea necesario
         }
-        
+
       );
     }
   }
   textoBusqueda: string = '';
 
   // buscar
-  
+
   rolMatchesSearch(rol: Rol): boolean {
     return rol.rol_nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
   }
 
   buscar(): void {
-    if (this.textoBusqueda.trim() !== '' ) {
+    if (this.textoBusqueda.trim() !== '') {
       this.roles = this.roles.filter((rol: Rol) => this.rolMatchesSearch(rol));
     } else {
       this.cargarLista(); // Vuelve a cargar todas las jornadas
-    }
-  }
+    }
+  }
 }
