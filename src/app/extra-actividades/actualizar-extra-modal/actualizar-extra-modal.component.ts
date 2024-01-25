@@ -44,7 +44,7 @@ export class ActualizarExtraModalComponent implements OnInit {
           extra_nombre_proyecto_investigacion: actividad.extra_nombre_proyecto_investigacion,
           extra_horas_investigacion: actividad.extra_horas_investigacion,
           extra_detalle_hora_gestion_academico: actividad.extra_detalle_hora_gestion_academico,
-          extra_horas_direccion_gestion_academico_semanal: actividad.extra_horas_direccion_gestion_academica_semanal,
+          extra_horas_direccion_gestion_academica_semanal: actividad.extra_horas_direccion_gestion_academica_semanal,
         });
       });
     }
