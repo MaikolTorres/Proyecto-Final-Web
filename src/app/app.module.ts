@@ -64,6 +64,7 @@ import { CrearCarreraComponent } from './carrera/crear-carrera.component';
 
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
+import { ActualizarExtraModalComponent } from './extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -124,7 +125,7 @@ const routes: Routes = [
 
   //
   {path: 'extra-actividades', component: ExtraActividadesComponent},
-  {path: 'extra-actividades/:id', component: ExtraActividadesComponent},
+  {path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent},
   {path: 'listar-extra-actividades', component: ListarExtraActividadesComponent},
 
   {path: 'actividades-docente', component: ActividadesDocenteComponent},
@@ -194,6 +195,7 @@ const routes: Routes = [
     CrearCarreraComponent,
     CrearPeriodoComponent,
     ListarPeriodoComponent,
+    ActualizarExtraModalComponent,
   ],
 
   imports: [

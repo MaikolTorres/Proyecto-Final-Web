@@ -1,6 +1,7 @@
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
 <div>
+
   <body>
     <div class="center-container">
       <p class="txt-2">Listado de Actividades Extras</p>
@@ -17,7 +18,8 @@
             <th>Horas Investigación</th>
             <th>Gestión Académica</th>
             <th>Horas Gestión Semanal</th>
-            <th>Opciones</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -29,8 +31,13 @@
               {{ actividad.extra_horas_direccion_gestion_academica_semanal }}
             </td>
             <td>
-              <button (click)="editarActividad(actividad.extra_id)">
+              <button [routerLink]="['/editar-extra-actividad', actividad.extra_id]">
                 Editar
+              </button>
+            </td>
+            <td>
+              <button (click)="eliminarActividad(actividad.extra_id)">
+                Eliminar
               </button>
             </td>
           </tr>

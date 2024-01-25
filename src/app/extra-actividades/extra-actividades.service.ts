@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ExtraActividades } from './extra-actividades';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +11,11 @@ export class ExtraActividadesService {
 
   private urlEndPoint:string = 'http://localhost:8080/api/extrasactividades/listarExtrasActividades';
   private urlEndPoint_1:string = 'http://localhost:8080/api/extrasactividades/guardarExtraActividad';
+  private urlEndPoint_2: string = 'http://localhost:8080/api/extrasactividades/eliminarExtraActividad';
+  private urlEndPoint_3: string = 'http://localhost:8080/api/extrasactividades/actualizarExtraActividad';
+  private urlEndPoint_4: string = 'http://localhost:8080/api/extrasactividades/buscarExtraActividad';
 
-  private urlEndPoint_2:string = 'http://localhost:8080/api/extrasactividades/eliminarExtraActividad/{id}';
-  private urlEndPoint_3:string = 'http://localhost:8080/api/extrasactividades/actualizarExtraActividad/{id}';
-  private urlEndPoint_4:string = 'http://localhost:8080/api/extrasactividades/buscarExtraActividad/{id}';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,  private fb: FormBuilder) { }
 
   getAll(): Observable<ExtraActividades[]> {
     return this.http.get<ExtraActividades[]>(this.urlEndPoint);
@@ -33,7 +33,7 @@ export class ExtraActividadesService {
     return this.http.put<ExtraActividades>(`${this.urlEndPoint_3}/${id}`, data);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.urlEndPoint_2}/${id}`);
+  delete(id: number): Observable<ExtraActividades> {
+    return this.http.delete<ExtraActividades>(`${this.urlEndPoint_2}/${id}`);
   }
 }
