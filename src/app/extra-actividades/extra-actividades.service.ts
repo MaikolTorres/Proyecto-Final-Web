@@ -29,10 +29,12 @@ export class ExtraActividadesService {
     return this.http.post<ExtraActividades>(this.urlEndPoint_1, data);
   }
 
-  update(id: number, data: ExtraActividades): Observable<ExtraActividades> {
-    return this.http.put<ExtraActividades>(`${this.urlEndPoint_3}/${id}`, data);
+  updateExtra(extra: ExtraActividades): Observable<ExtraActividades> {
+    const url = `http://localhost:8080/api/extrasactividades/actualizarExtraActividad/${extra.extra_id}`;
+    console.log('URL de actualización:', url);
+    return this.http.put<ExtraActividades>(url, extra);
   }
-
+  
   delete(id: number): Observable<ExtraActividades> {
     return this.http.delete<ExtraActividades>(`${this.urlEndPoint_2}/${id}`);
   }
