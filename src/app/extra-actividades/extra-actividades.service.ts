@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ExtraActividades } from './extra-actividades';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +14,7 @@ export class ExtraActividadesService {
   private urlEndPoint_3: string = 'http://localhost:8080/api/extrasactividades/actualizarExtraActividad';
   private urlEndPoint_4: string = 'http://localhost:8080/api/extrasactividades/buscarExtraActividad';
 
-  constructor(private http: HttpClient,  private fb: FormBuilder) { }
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<ExtraActividades[]> {
     return this.http.get<ExtraActividades[]>(this.urlEndPoint);
@@ -32,7 +31,7 @@ export class ExtraActividadesService {
   updateExtra(extra: ExtraActividades): Observable<ExtraActividades> {
     const url = `http://localhost:8080/api/extrasactividades/actualizarExtraActividad/${extra.extra_id}`;
     console.log('URL de actualización:', url);
-    return this.http.put<ExtraActividades>(url, extra);
+    return this.http.put<ExtraActividades>(this.urlEndPoint_3, extra);
   }
   
   delete(id: number): Observable<ExtraActividades> {

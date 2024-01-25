@@ -1,4 +1,5 @@
 <div>
+
     <body>
 
         <div class="center-container">
@@ -23,11 +24,11 @@
                     <tr *ngFor="let actividad of actividades">
                         <td>{{ actividad.actividoc_horas_docencia }}</td>
                         <td>{{ actividad.actividoc_nombre_actividad }}</td>
-                        <td>{{ actividad.asignatura_id }}</td>
-                        <td>{{ actividad.extra_id}}</td>
-                        <td><button (click)="editarActividad(actividad.extra_id)">Editar</button>
+                        <td>{{ actividad.asignatura_id }}</td> //para las llaves forenas de la tabla asignatura
+                        <td>{{ actividad.extra_id}}</td> // para la tabla de extra actividades
+                        <td><button (click)="eliminarActividad(actividad.actividoc_id)">Editar</button>
                         </td>
-                      </tr>
+                    </tr>
                 </tbody>
             </table>
 

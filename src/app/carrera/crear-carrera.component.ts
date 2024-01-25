@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CarreraService } from './carrera.service';
 import { Carrera } from './carrera';
 
@@ -8,59 +8,47 @@ import { Carrera } from './carrera';
   templateUrl: './crear-carrera.component.html',
   styleUrls: ['./crear-carrera.component.css']
 })
-export class CrearCarreraComponent implements OnInit {
+export class CrearCarreraComponent {
 
-  idEditar: number = 0;
-  
-  actividadEnEdicion: Carrera = {
-    'carrera_id': 0,
-    'carrera_nombre': '',
-    'carrera_modalidad': '',
-  };
+  [x: string]: any;
+
+
+  nuevaCarrea: Carrera = new Carrera();
+  botonDesactivado: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
     private carreraService: CarreraService
   ) {}
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.idEditar = +params['editar'];
-      if (this.idEditar) {
-        this.carreraService.getById(this.idEditar).subscribe(
-          (carrera) => {
-            this.actividadEnEdicion = carrera;
-          },
-          (error) => {
-            console.error('Error al obtener la carrera para editar', error);
-          }
-        );
-      }
-    });
-  }
 
   crearCarrera() {
-    if (this.idEditar) {
-      this.carreraService
-        .update(this.idEditar, this.actividadEnEdicion)
-        .subscribe(
-          (response) => {
-            console.log('carrera actualizada exitosamente', response);
-          },
-          (error) => {
-            console.error('Error al actualizar la carrera', error);
-          }
-        );
-    } else {
-      this.carreraService.create(this.actividadEnEdicion).subscribe(
-        (response) => {
-          console.log('Carrera creada exitosamente', response);
-        },
-        (error) => {
-          console.error('Error al crear la carrera', error);
+    
+
+    this.botonDesactivado = true;
+  
+    this.carreraService.createCarrera(this.nuevaCarrea).subscribe(
+      (response) => {
+        console.log('Carrera creada exitosamente:', response);
+        window.close();
+      },
+      (error) => {
+        console.error('Error al crear:', error);
+        if (error.status === 401) {
+          this['router'].navigate(['/login']);
+        } else if (error.error && error.error.error) {
+          alert(error.error.error);
+        } else {
+          alert('Error al crear carrera. Por favor, inténtelo de nuevo.');
         }
-      );
-    }
+        this.botonDesactivado = false;
+      }
+    );
+
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/listar-carrera']);
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PeriodoService } from './periodo.service';
 import { Periodos } from './periodo';
 
@@ -8,60 +8,42 @@ import { Periodos } from './periodo';
   templateUrl: './crear-periodo.component.html',
   styleUrls: ['./crear-periodo.component.css']
 })
-export class CrearPeriodoComponent implements OnInit {
+export class CrearPeriodoComponent {
 
-  idEditar: number = 0;
-  
-  periodoEdicion: Periodos = {
-    'periodo_id': 0,
-    'periodo_mes_inicio': '',
-    'periodo_mes_fin': '',
-    'periodo_anio_inicio':0,
-    'periodo_anio_fin':0,
-  };
+  [x: string]: any;
+  nuevoPeriodo: Periodos = new Periodos();
+  botonDesactivado: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
     private periodoService: PeriodoService
   ) {}
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.idEditar = +params['editar'];
-      if (this.idEditar) {
-        this.periodoService.getById(this.idEditar).subscribe(
-          (periodo) => {
-            this.periodoEdicion = periodo;
-          },
-          (error) => {
-            console.error('Error al obtener la carrera para editar', error);
-          }
-        );
-      }
-    });
-  }
 
   crearPeriodo() {
-    if (this.idEditar) {
-      this.periodoService
-        .update(this.idEditar, this.periodoEdicion)
-        .subscribe(
-          (response) => {
-            console.log('periodo actualizada exitosamente', response);
-          },
-          (error) => {
-            console.error('Error al actualizar eñ periodo', error);
-          }
-        );
-    } else {
-      this.periodoService.create(this.periodoEdicion).subscribe(
-        (response) => {
-          console.log('Periodo creada exitosamente', response);
-        },
-        (error) => {
-          console.error('Error al crear el periodo', error);
+   
+    this.botonDesactivado = true;
+  
+    this.periodoService.createPeriodo(this.nuevoPeriodo).subscribe(
+      (response) => {
+        console.log('Periodo creada exitosamente:', response);
+        window.close();
+      },
+      (error) => {
+        console.error('Error al crear:', error);
+        if (error.status === 401) {
+          this['router'].navigate(['/login']);
+        } else if (error.error && error.error.error) {
+          alert(error.error.error);
+        } else {
+          alert('Error al crear periodo. Por favor, inténtelo de nuevo.');
         }
-      );
-    }
+        this.botonDesactivado = false;
+      }
+    );
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/listar-periodo-actividades']);
   }
 }

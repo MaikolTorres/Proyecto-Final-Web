@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { PeriodoService } from './periodo.service';
 import { Periodos } from './periodo';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -9,18 +10,21 @@ import { Periodos } from './periodo';
   templateUrl: './listar-periodo.component.html',
   styleUrls: ['./listar-periodo.component.css']
 })
-export class ListarPeriodoComponent implements OnInit{
+export class ListarPeriodoComponent {
 
   periodo: Periodos[] = [];
+  modalRef: BsModalRef | undefined;
+  per: Periodos | undefined;
 
-  constructor(private periodoService: PeriodoService, private router: Router) { }
+  constructor(private periodoService: PeriodoService) { }
 
   ngOnInit(): void {
     this.cargarPeriodo();
+    FormsModule;
   }
 
   cargarPeriodo() {
-    this.periodoService.getAll().subscribe(
+    this.periodoService.getPeriodo().subscribe(
       (data: Periodos[]) => {
         this.periodo = data;
       },
@@ -30,20 +34,21 @@ export class ListarPeriodoComponent implements OnInit{
     );
   }
 
-  editarPeriodo(id: number): void {
-    this.router.navigate(['/crear-periodo'], { queryParams: { editar: id } });
+  cargarLista(): void {
+    this.periodoService.getPeriodo().subscribe((per) => (this.periodo = per));
   }
 
   eliminarPeriodo(id: number) {
-    this.periodoService.delete(id).subscribe(
-      (response) => {
-        console.log('Periodos eliminado exitosamente', response);
-        this.cargarPeriodo();
-      },
-      (error) => {
-        console.error('Error al eliminar periodo', error);
-      }
-    );
+    if (confirm('¿Estás seguro de que deseas eliminar este periodo?')) {
+      this.periodoService.delete(id).subscribe(
+        data => {
+          console.log('Periodo eliminada con éxito:', data);
+        },
+        error => {
+          console.error('Error al eliminar periodo', error);
+        }
+      );
+    }
   }
 
 }

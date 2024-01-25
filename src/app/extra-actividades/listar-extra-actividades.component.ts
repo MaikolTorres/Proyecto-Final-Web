@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ExtraActividadesService } from './extra-actividades.service';
-import { Router } from '@angular/router';
 import { ExtraActividades } from './extra-actividades';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';

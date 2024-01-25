@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { CarreraService } from './carrera.service';
 import { Carrera } from './carrera';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-carrera',
   templateUrl: './listar-carrera.component.html',
   styleUrls: ['./listar-carrera.component.css']
 })
-export class ListarCarreraComponent implements OnInit{
+export class ListarCarreraComponent {
 
   carrera: Carrera[] = [];
+  modalRef: BsModalRef | undefined;
+  carr: Carrera | undefined;
 
-  constructor(private carreraService: CarreraService, private router: Router) { }
+  constructor(private carreraService: CarreraService) { }
 
   ngOnInit(): void {
     this.cargarCarrera();
+    FormsModule;
   }
 
   cargarCarrera() {
-    this.carreraService.getAll().subscribe(
+    this.carreraService.getCarrera().subscribe(
       (data: Carrera[]) => {
         this.carrera = data;
       },
@@ -29,20 +33,23 @@ export class ListarCarreraComponent implements OnInit{
     );
   }
 
-  editarCarrera(id: number): void {
-    this.router.navigate(['/crear-carrera'], { queryParams: { editar: id } });
+  cargarLista(): void {
+    this.carreraService.getCarrera().subscribe((carr) => (this.carrera = carr));
   }
 
-  eliminarCarrera(id: number) {
-    this.carreraService.delete(id).subscribe(
-      (response) => {
-        console.log('Carrera eliminada exitosamente', response);
-        this.cargarCarrera();
-      },
-      (error) => {
-        console.error('Error al eliminar la carrera', error);
-      }
-    );
+
+  eliminarCarrera(id: number): void{
+    
+    if (confirm('¿Estás seguro de que deseas eliminar esta carrera?')) {
+      this.carreraService.delete(id).subscribe(
+        data => {
+          console.log('Carrera eliminada con éxito:', data);
+        },
+        error => {
+          console.error('Error al eliminar carrera', error);
+        }
+      );
+    }
   }
 
 }
