@@ -12,14 +12,12 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    // Redirige a la página sistema-administrativo al iniciar el componente
     this.router.navigate(['/sistema_administrativo']);
   }
 
   redirectToSistemaAdministrativo() {
-    // Redirige a la ruta '/sistema-administrativo'
-    console.log("Redirigiendo a sistema-administrativo");
-    this.router.navigate(['/sistema-administrativo']);
-  
+   
+    this.router.navigate(['/sistema_administrativo']);
+
   }
 }

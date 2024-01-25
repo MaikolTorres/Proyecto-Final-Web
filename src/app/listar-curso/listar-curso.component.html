@@ -1,46 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+</head>
+
 <body>
   <app-header></app-header>
   <app-menudesp></app-menudesp>
   <div class="center-container">
-    <p class="txt-2">Listado de Cursos</p>
-
-    <div class="inputs">
-      <button class="button1" routerLink="/crearcurso">Crear</button>
-      <button class="button1">Editar</button>
-      <button class="button2">Eliminar</button>
-      <input class="buscar" type="buscar" class="box" placeholder="Buscar" />
-    </div>
+    <h2>Lista de cursos P</h2>
+         <button class="crear-button" routerLink="/crearcurso">Crear</button>
+                        
+         
+                        <input class="buscar" type="buscar" class="box" placeholder="Buscar" />
 
     <table>
       <thead>
-        <tr class="fila">
+        <tr>
+          <th>ID</th>
           <th>Nombre</th>
-          <th>Jornada</th>
+          
           <th>Paralelo</th>
+          <th>Jornada</th>
           <th>Carrera</th>
           <th>Periodo</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+          <!-- Agrega más columnas según los atributos de Jornada -->
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Fundamentos de Redes</td>
-          <td>Matutina</td>
-          <td>A</td>
-          <td>Desarrollo de Software</td>
-          <td>Octubre-Febrero</td>
-        </tr>
-      </tbody>
-
-      <tbody>
-        <tr>
-          <td>Fundamentos de Redes</td>
-          <td>Matutina</td>
-          <td>A</td>
-          <td>Desarrollo de Software</td>
-          <td>Octubre-Febrero</td>
+        <tr *ngFor="let curso of cursos">
+          <td>{{ curso.curso_id }}</td>
+          <td>{{ curso.curso_nombre }}</td>
+          <td>{{ curso.curso_paralelo }}</td>
+          <td>{{ "curso" }}</td>
+          <td>{{ "curso" }}</td>
+          <td>{{ "curso" }}</td>
+          <!-- Agrega más celdas según los atributos de Jornada -->
+          <td>
+            <button style="border: none; background: transparent;" (click)="abrirModalActualizar(curso)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="eliminarCurso(curso.curso_id)">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Añade un router-outlet para cargar componentes Angular -->
+  <router-outlet></router-outlet>
+
   <app-footer></app-footer>
 </body>
+
+</html>
