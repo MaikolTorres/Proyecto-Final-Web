@@ -197,6 +197,7 @@ const routes: Routes = [
     ListarPeriodoComponent,
     ActualizarCursoModalComponent,
     ActuaizarCursoComponent,
+    ActualizarExtraModalComponent
   ],
 
   imports: [

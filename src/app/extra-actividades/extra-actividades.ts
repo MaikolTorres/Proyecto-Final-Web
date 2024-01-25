@@ -1,4 +1,5 @@
 export class ExtraActividades{
+    [x: string]: any;
 
     'extra_id':number;
     'extra_nombre_proyecto_investigacion':string;
