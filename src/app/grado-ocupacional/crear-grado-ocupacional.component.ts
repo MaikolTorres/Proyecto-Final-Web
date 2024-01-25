@@ -19,40 +19,44 @@ export class CrearGradoOcupacionalComponent {
   constructor(private GradoService: GradoOcupacionalService, private router: Router) { }
 
   crearGrado() {
-    // Desactivar el botón durante la solicitud
-    this.botonDesactivado = true;
-  
-    this.GradoService.create(this.nuevoGrado).subscribe(
-      (response) => {
-        // Éxito
-        console.log('Grado creada exitosamente:', response);
-        // Resto de la lógica después de la creación exitosa
-  
-        // Cerrar la ventana después de guardar la jornada
-        window.close();
-      },
-      (error) => {
-        // Manejo de errores
-        console.error('Error al crear grado ocupacional:', error);
-        if (error.status === 401) {
-          // Redirigir al usuario a la página de inicio de sesión
-          // Redirigir al usuario a la página de inicio de sesión
-          this['router'].navigate(['/login']);
-        } else if (error.error && error.error.error) {
-          // Muestra el mensaje de error específico del servidor al usuario
-          alert(error.error.error);
-        } else {
-          // Muestra un mensaje de error genérico al usuario
-          alert('Error al crear grado ocupacional. Por favor, inténtelo de nuevo.');
-        }
-  
-        // Reactivar el botón después de un error
-        this.botonDesactivado = false;
+  // Desactivar el botón durante la solicitud
+  this.botonDesactivado = true;
+
+  this.GradoService.create(this.nuevoGrado).subscribe(
+    (response) => {
+      // Éxito
+      if (response.status === 201) {
+        console.log('Grado creado exitosamente:', response);
+
+        setTimeout(() => {
+          window.close();
+        }, 100);
+      } else {
+        console.error('Error: El servidor respondió con un código de estado inesperado:', response.status);
+        alert('Error al crear el grado ocupacional. Por favor, inténtelo de nuevo.');
       }
-    );
-  }
+    },
+    (error) => {
+      // Manejo de errores
+      console.error('Error al crear el grado ocupacional:', error);
+      if (error.status === 401) {
+        // Redirigir al usuario a la página de inicio de sesión
+        this.router.navigate(['/login']);
+      } else if (error.error && error.error.error) {
+        // Mostrar el mensaje de error específico del servidor al usuario
+        alert(error.error.error);
+      } else {
+        // Mostrar un mensaje de error genérico al usuario
+        alert('Error al crear el grado ocupacional. Por favor, inténtelo de nuevo.');
+      }
+
+      // Reactivar el botón después de un error
+      this.botonDesactivado = false;
+    }
+  );
+}
   cancelar(): void {
-    // Navegar a la lista de jornadas
+    // Navegar a la lista de grados
     this.router.navigate(['/listarGrado']);
   }
 
