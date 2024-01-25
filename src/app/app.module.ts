@@ -64,6 +64,7 @@ import { CrearCarreraComponent } from './carrera/crear-carrera.component';
 
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
+import { ActualizarCursoModalComponent } from './listar-curso/actualizar-curso-modal/actualizar-curso-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -194,6 +195,7 @@ const routes: Routes = [
     CrearCarreraComponent,
     CrearPeriodoComponent,
     ListarPeriodoComponent,
+    ActualizarCursoModalComponent,
   ],
 
   imports: [
