@@ -14,32 +14,43 @@
     <table>
       <thead>
         <tr class="fila">
+          <th>id</th>
+
           <th>Nombre</th>
           <th>Jornada</th>
           <th>Paralelo</th>
           <th>Carrera</th>
           <th>Periodo</th>
+          <th>actualizar</th>
+        <th>eliminar</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Fundamentos de Redes</td>
-          <td>Matutina</td>
-          <td>A</td>
-          <td>Desarrollo de Software</td>
-          <td>Octubre-Febrero</td>
+        <tr *ngFor="let curso of cursos">
+          <td>{{ curso.curso_id }}</td>
+          <td>{{ curso.curso_nombre }}</td>
+
+          <td>{{ curso.jornada }}</td>
+          <td>{{ curso.curso_paralelo }}</td>
+
+          <td>{{ curso.carrera.carrera_nombre }}</td>
+          <td>{{ curso.periodo.periodo_id }}</td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="arirModalActualizar(curso)">
+              <i class="fas fa-pencil-alt"></i>
+            </button> 
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="eliminarcurso(curso.curso_id)">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
+          </td>
         </tr>
+
+
       </tbody>
 
-      <tbody>
-        <tr>
-          <td>Fundamentos de Redes</td>
-          <td>Matutina</td>
-          <td>A</td>
-          <td>Desarrollo de Software</td>
-          <td>Octubre-Febrero</td>
-        </tr>
-      </tbody>
+    
     </table>
   </div>
   <app-footer></app-footer>

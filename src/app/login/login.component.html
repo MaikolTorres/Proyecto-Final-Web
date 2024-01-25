@@ -19,9 +19,11 @@
         <h2>Bienvenido</h2>
         <p class="txt-2">Sistema Gestión Administrativa</p>
         <div class="inputs">
-          <input type="text" class="box" placeholder="Ingresa tu usuario" [(ngModel)]="usuario" name="usuario" required />
-          <input type="password" class="box" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required />
-          <button type="submit">Iniciar Sesión</button>
+          <input type="text" class="box" placeholder="Ingresa tu usuario" />
+          <input type="password" class="box" placeholder="Ingresa tu contraseña" />
+
+
+          <button type="submit" routerLink="/persona">Iniciar Sesión  </button>
           <a id="forgot-password" href="/recuperacion-contrasena">¿Olvidaste tu Contraseña?</a>
         </div>
       </form>

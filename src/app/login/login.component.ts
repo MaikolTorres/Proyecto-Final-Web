@@ -13,25 +13,12 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
-    // Puedes realizar alguna lógica inicial si es necesario
+    this.router.navigate(['/sistema_administrativo']);
   }
 
   redirectToSistemaAdministrativo() {
-    this.loginService.login(this.usuario, this.password).subscribe(
-      (isAuthenticated: boolean) => {
-        if (isAuthenticated) {
-          this.router.navigate(['/sistema_administrativo']);
-        } else {
-          alert('Inicio de sesión fallido. Verifica tus credenciales.');
-          alert(isAuthenticated);
-        }
-        alert(isAuthenticated);
-      },
-      error => {
-        console.error('Error al intentar iniciar sesión', error);
-        
-        // Puedes mostrar un mensaje de error al usuario si es necesario
-      }
-    );
+   
+    this.router.navigate(['/sistema_administrativo']);
+
   }
 }
