@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="distributivo.component.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="distributivo.component.css" />
     <title>Distributivo</title>
-</head>
-<app-header></app-header>
-<app-menudesp></app-menudesp>
-<body>
+  </head>
+  <app-header></app-header>
+  <app-menudesp></app-menudesp>
+  <body>
     <div class="page-container">
-        <h2>Distributivo</h2>
-        <div class="button-container">
-            <button class="create-button" routerLink="/creardistributivo">Crear</button>
-            <button class="delete-button">Eliminar</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Distributivo ID</th>
-                    <th>Carrera ID</th>
-                    <th>Jornada ID</th>
-                    <th>Curso ID</th>
-                    <th>Periodo ID</th>
-                    <th>Asignatura ID</th>
-                    <th>Actividad Docente ID</th>
-                    <th>Actividad No Docente ID</th>
-                    <th>Docente ID</th>
-                    <th>Registro Contrato ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí irán las filas de la tabla con datos del distributivo -->
-                <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <!-- Puedes agregar más celdas con datos del distributivo -->
-                </tr>
-                <!-- Puedes agregar más filas según tus necesidades -->
-            </tbody>
-        </table>
+      <h2>Distributivo</h2>
+      <div class="button-container">
+        <button class="create-button" routerLink="/creardistributivo">
+          Crear
+        </button>
+        <button class="delete-button">Eliminar</button>
+      </div>
+      <table>
+        <thead>
+          <tr class="fila">
+            <th>Distributivo ID</th>
+            <th>Carrera ID</th>
+            <th>Jornada ID</th>
+            <th>Curso ID</th>
+            <th>Periodo ID</th>
+            <th>Asignatura ID</th>
+            <th>Actividad Docente ID</th>
+            <th>Actividad No Docente ID</th>
+            <th>Docente ID</th>
+            <th>Registro Contrato ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí irán las filas de la tabla con datos del distributivo -->
+          <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <!-- Puedes agregar más celdas con datos del distributivo -->
+          </tr>
+          <!-- Puedes agregar más filas según tus necesidades -->
+        </tbody>
+      </table>
     </div>
-</body>
-<app-footer></app-footer>
+  </body>
+  <app-footer></app-footer>
 </html>

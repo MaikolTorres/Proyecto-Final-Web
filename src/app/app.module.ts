@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Importa el HttpClientModule
 import { ActualizarCargoModalComponent } from './cargo/actualizar-cargo-modal/actualizar-cargo-modal.component';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -31,7 +30,7 @@ import { CrearCursoComponent } from './listar-curso/crear-curso.component';
 import { SeleccionActividadComponent } from './seleccion-actividad/seleccion-actividad.component';
 import { AsignaturaComponent } from './asignatura/asignatura.component';
 import { CrearAsignaturaComponent } from './asignatura/crear-asignatura.component';
-//vale vrg la vida de programadir
+//da
 import { ActividadesNoDocenteComponent } from './actividades-no-docente/actividades-no-docente.component';
 import { ListarActividadesNoDocentesComponent } from './listar-actividades-no-docentes/listar-actividades-no-docentes.component';
 import { DocenteComponent } from './docente/docente.component';
@@ -51,7 +50,7 @@ import { ActualizarPersonaModalComponent } from './persona/actualizar-persona-mo
 import { ActualizarUsuarioModalComponent } from './usuario/actualizar-usuario-modal/actualizar-usuario-modal.component';
 import { ActualizarRoleComponent } from './roles/actualizar-role-modal/actualizar-role-modal.component';
 import { ActualizarTipocontratoModalComponent } from './tipo-contrato/actualizar-tipocontrato-modal/actualizar-tipocontrato-modal.component';
-
+import { ActuaizarCursoComponent } from './listar-curso/actuaizar-curso/actuaizar-curso.component';
 //
 import { ExtraActividadesComponent } from './extra-actividades/extra-actividades.component';
 import { ListarExtraActividadesComponent } from './extra-actividades/listar-extra-actividades.component';
@@ -65,6 +64,7 @@ import { CrearCarreraComponent } from './carrera/crear-carrera.component';
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
 import { ActualizarCursoModalComponent } from './listar-curso/actualizar-curso-modal/actualizar-curso-modal.component';
+import { ActualizarExtraModalComponent } from './extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -101,7 +101,7 @@ const routes: Routes = [
   { path: 'seleccion-actividad', component: SeleccionActividadComponent },
   { path: 'asignatura', component: AsignaturaComponent },
   { path: 'crearasignatura', component: CrearAsignaturaComponent },
-
+{path:'actualizarcurso',component:ActuaizarCursoComponent},
   { path: 'actividades-no-docente', component: ActividadesNoDocenteComponent },
   { path: 'seleccion-actividades', component: SeleccionActividadComponent },
   {path: 'listar-actividades-no-docentes',component: ListarActividadesNoDocentesComponent,},
@@ -125,7 +125,7 @@ const routes: Routes = [
 
   //
   {path: 'extra-actividades', component: ExtraActividadesComponent},
-  {path: 'extra-actividades/:id', component: ExtraActividadesComponent},
+  {path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent},
   {path: 'listar-extra-actividades', component: ListarExtraActividadesComponent},
 
   {path: 'actividades-docente', component: ActividadesDocenteComponent},
@@ -196,6 +196,7 @@ const routes: Routes = [
     CrearPeriodoComponent,
     ListarPeriodoComponent,
     ActualizarCursoModalComponent,
+    ActuaizarCursoComponent,
   ],
 
   imports: [
@@ -208,6 +209,7 @@ const routes: Routes = [
     ModalModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

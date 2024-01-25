@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Curso } from './curso';
-
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,9 @@ export class CursoService {
 
   [x: string]: any;
   
+  cursos:Curso[]=[];
+  
+  constructor(private http: HttpClient) { }
 
     private urlEndPoint:string = 'http://localhost:8080/api/curso/listarCurso'
     private urlEndPoint_1:string = 'http://localhost:8080/api/curso/guardarCurso'
@@ -20,7 +22,6 @@ export class CursoService {
   
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
     
-    constructor(private http:HttpClient) {}
   
       get(): Observable<Curso[]> {
    
@@ -50,5 +51,6 @@ export class CursoService {
   console.log('URL de actualización:', url);
   return this.http.put<Curso>(url, curso);
 }
-///
+
+
 }

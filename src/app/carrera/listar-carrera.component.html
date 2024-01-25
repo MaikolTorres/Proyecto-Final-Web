@@ -6,13 +6,13 @@
       <p class="txt-2">Listado de Carreras</p>
 
       <div class="inputs">
-        <button routerLink="/crear-carrera">Crear</button>
+        <button class="button1" routerLink="/crear-carrera">Crear</button>
         <input type="text" class="box" placeholder="Buscar" />
       </div>
 
       <table>
         <thead>
-          <tr>
+          <tr class="fila">
             <th>Carrera</th>
             <th>Modalidad</th>
             <th>Opciones</th>
@@ -23,8 +23,11 @@
             <td>{{ carrera.carrera_nombre }}</td>
             <td>{{ carrera.carrera_modalidad }}</td>
             <td>
-              <button (click)="editarCarrera(carrera.carrera_id)">
-                Editar
+              <button
+                style="border: none; background: transparent"
+                (click)="editarCarrera(carrera.carrera_id)"
+              >
+                <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
           </tr>
