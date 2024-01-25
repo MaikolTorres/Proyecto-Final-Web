@@ -1,37 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from './login-service.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  usuario: string = '';
-  password: string = '';
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  // Inyecta el servicio Router en el constructor
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    // Puedes realizar alguna lógica inicial si es necesario
+    // Redirige a la página sistema-administrativo al iniciar el componente
+    this.router.navigate(['/sistema_administrativo']);
   }
 
   redirectToSistemaAdministrativo() {
-    this.loginService.login(this.usuario, this.password).subscribe(
-      (isAuthenticated: boolean) => {
-        if (isAuthenticated) {
-          this.router.navigate(['/sistema_administrativo']);
-        } else {
-          alert('Inicio de sesión fallido. Verifica tus credenciales.');
-          alert(isAuthenticated);
-        }
-        alert(isAuthenticated);
-      },
-      error => {
-        console.error('Error al intentar iniciar sesión', error);
-        
-        // Puedes mostrar un mensaje de error al usuario si es necesario
-      }
-    );
+    // Redirige a la ruta '/sistema-administrativo'
+    console.log("Redirigiendo a sistema-administrativo");
+    this.router.navigate(['/sistema-administrativo']);
+  
   }
 }

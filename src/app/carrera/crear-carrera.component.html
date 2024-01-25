@@ -9,6 +9,7 @@
         <div>
           <label for="nombreProyecto">Nombre Carrera:</label>
           <input
+            class="barra"
             type="text"
             id="nombreCarrera"
             name="nombreCarrera"
@@ -19,8 +20,9 @@
         </div>
 
         <div>
-          <label for="horasInvestigacion">Modalidad:</label>
+          <label class="label2" for="horasInvestigacion">Modalidad:</label>
           <input
+            class="barra"
             type="number"
             id="Modalidad"
             name="modalidad"
@@ -29,9 +31,14 @@
           />
         </div>
 
-        <div>
-          <button type="submit">Enviar</button>
-          <button type="button" class="cancel" routerLink="/listar-carrera">
+        <div class="botones">
+          <button class="buttons" type="submit">Enviar</button>
+          <button
+            class="buttons"
+            type="button"
+            class="cancel"
+            routerLink="/listar-carrera"
+          >
             Cancelar
           </button>
         </div>

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Iniciar Sesión</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Asegúrate de que la ruta al archivo CSS sea correcta -->
   <link rel="stylesheet" href="login.component.css">
   <meta name="robots" content="noindex, follow">
 </head>
@@ -15,18 +16,24 @@
       <div class="image-holder">
         <img src="assets/tec_azuay.png" alt="Logo de la aplicación">
       </div>
+      <!-- Agrega un evento (ngSubmit) al formulario para llamar al método redirectToSistemaAdministrativo() -->
       <form class="form" (ngSubmit)="redirectToSistemaAdministrativo()">
         <h2>Bienvenido</h2>
-        <p class="txt-2">Sistema Gestión Administrativa</p>
+        <p class="txt-2">Sistema Gestion Administrativa</p>
         <div class="inputs">
-          <input type="text" class="box" placeholder="Ingresa tu usuario" [(ngModel)]="usuario" name="usuario" required />
-          <input type="password" class="box" placeholder="Ingresa tu contraseña" [(ngModel)]="password" name="password" required />
-          <button type="submit">Iniciar Sesión</button>
-          <a id="forgot-password" href="/recuperacion-contrasena">¿Olvidaste tu Contraseña?</a>
+          <!-- Agrega la directiva ngModel para enlazar los campos de entrada a las propiedades del componente Angular -->
+          <input type="email" class="box" placeholder="Ingresa tu correo" />
+          <input type="password" class="box" placeholder="Ingresa tu contraseña"/>
+  
+          <button type="submit">Iniciar sesión</button>
+
+          <!-- En lugar de usar un enlace, puedes usar un botón con un evento clic que llame al método redirectToSistemaAdministrativo() -->
+          <button type="button" (click)="redirectToSistemaAdministrativo()">¿Olvidaste tu contraseña?</button>
         </div>
       </form>
     </div>
   </div>
+
 </body>
 
 </html>

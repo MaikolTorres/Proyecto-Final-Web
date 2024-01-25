@@ -31,7 +31,7 @@ import { CrearCursoComponent } from './listar-curso/crear-curso.component';
 import { SeleccionActividadComponent } from './seleccion-actividad/seleccion-actividad.component';
 import { AsignaturaComponent } from './asignatura/asignatura.component';
 import { CrearAsignaturaComponent } from './asignatura/crear-asignatura.component';
-//vale vrg la vida de programadir
+//da
 import { ActividadesNoDocenteComponent } from './actividades-no-docente/actividades-no-docente.component';
 import { ListarActividadesNoDocentesComponent } from './listar-actividades-no-docentes/listar-actividades-no-docentes.component';
 import { DocenteComponent } from './docente/docente.component';
@@ -208,6 +208,7 @@ const routes: Routes = [
     ModalModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
