@@ -104,4 +104,5 @@ export class UsuarioComponent implements OnInit{
           this.cargarLista(); // Vuelve a cargar todas las jornadas
         }
       }
+    
 }

@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Usuario } from './Usuario';
+import { Rol } from '../roles/roles';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -17,74 +19,112 @@ export class CrearUsuarioComponent implements OnInit {
   usu_id: number | undefined;
   updateForm!: FormGroup;
   usuario1: Usuario[] = [];
-  
+  persona1: Persona[] = [];
+  roles: Rol[] = [];
   personas: Persona[] = [];
-  isLoading: boolean = true; // Nueva propiedad para rastrear si la carga está en progreso
+  isLoading: boolean = true;
+  nuevoUsu: Usuario = new Usuario();
+  botonDesactivado: boolean = false;
 
-  // Agrega HttpClient al constructor
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private http: HttpClient // Agrega esta línea
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.createForm();
-    this.cargarPersonas(); // Llama a cargarPersonas al inicializar el componente
-    this.loadUsuDetails();
-    this.cargarListap();
+    this.cargarPersonas();
+    this.cargarRoles();
+    this.cargarLista();
+    this.cargarListarol();
   }
 
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }
 
-  // Cargar personas al inicializar el componente
+// Cargar personas al inicializar el componente
   cargarPersonas() {
     this.getPersonas().subscribe(personas => (this.personas = personas));
   }
-  
+
+  getRoles(): Observable<Rol[]> {
+    return this.http.get<Rol[]>('http://localhost:8080/roles');
+  }
+
+  cargarRoles() {
+    this.getRoles().subscribe(roles => (this.roles = roles));
+  }
 
   createForm() {
     this.updateForm = this.fb.group({
       usu_usuario: ['', Validators.required],
-      usu_contrase: ['', Validators.required],
+      usu_contrasena: ['', Validators.required], // Corregir el nombre del campo
       per_id: ['', Validators.required],
-      rol_id: ['', Validators.required],
-      // Otros campos según tu modelo Jornada
+      rol_id: ['', Validators.required]
     });
   }
 
-  loadUsuDetails() {
-    if (this.usu_id) {
-      this.usuarioService.getUsuarioid(this.usu_id).subscribe(
-        (usuario: Usuario) => {
-          this.updateForm.patchValue({
-            usu_usuario: usuario.usu_usuario,
-            usu_contrase: usuario.usu_contrasena,
-            per_id: usuario.persona.per_id,
-            rol_id: usuario.rol.rol_id,
-            // Otros campos según tu modelo Jornada
-          });
-        },
-        error => {
-          console.error('Error al cargar detalles del usuario:', error);
-        }
-      );
-    }
-  }
-  cargarListap(): void {
-    this.usuarioService.getPersonas().subscribe(
+  cargarLista(): void {
+    this.usuarioService.getpers().subscribe(
       personas => {
-        this.personas = personas;
+        this.persona1 = personas;
         this.isLoading = false;
-        console.error('Error al cargar las usuarios:', personas);
-        // Marcar la carga como completa después de recibir los roles
+        console.log('Personas cargadas exitosamente:', personas);
       },
       error => {
-        console.error('Error al cargar las usuarios:', error);
-        this.isLoading = false; // Marcar la carga como completa en caso de error
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  cargarListarol(): void {
+    this.usuarioService.getrol().subscribe(
+      roles => {
+        this.roles = roles;
+        this.isLoading = false;
+        console.log('Roles cargados exitosamente:', roles);
+      },
+      error => {
+        console.error('Error al cargar los roles:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+  crearUsu() {
+    // Desactivar el botón durante la solicitud
+    this.botonDesactivado = true;
+  
+    this.usuarioService.create(this.nuevoUsu).subscribe(
+      (response) => {
+        // Éxito
+        console.log('usuario creada exitosamente:', response);
+        // Resto de la lógica después de la creación exitosa
+  
+        // Cerrar la ventana después de guardar la jornada
+        window.close();
+      },
+      (error) => {
+        // Manejo de errores
+        console.error('Error al crear el usu:', error);
+        if (error.status === 401) {
+          // Redirigir al usuario a la página de inicio de sesión
+          // Redirigir al usuario a la página de inicio de sesión
+          this['router'].navigate(['/login']);
+        } else if (error.error && error.error.error) {
+          // Muestra el mensaje de error específico del servidor al usuario
+          alert(error.error.error);
+        } else {
+          // Muestra un mensaje de error genérico al usuario
+          alert('Error al crear la usu. Por favor, inténtelo de nuevo.');
+        }
+  
+        // Reactivar el botón después de un error
+        this.botonDesactivado = false;
       }
     );
   }
@@ -93,27 +133,36 @@ export class CrearUsuarioComponent implements OnInit {
       const updatedUsu = this.updateForm.value;
       updatedUsu.usu_id = this.usuario?.usu_id || 0;
 
-      console.log('usuario ID seleccionado:', updatedUsu.usu_id);
+      console.log('Usuario ID seleccionado:', updatedUsu.usu_id);
+
       if (!updatedUsu.usu_id) {
-        console.error('Error: ID de usu no válido');
+        console.error('Error: ID de usuario no válido');
         return;
       }
 
       this.usuarioService.updateUsuario(updatedUsu).subscribe(
         data => {
-          console.log('usuario actualizado con éxito:', data);
-          this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
+          console.log('Usuario actualizado con éxito:', data);
+          this.modalRef.hide();
         },
         error => {
           console.error('Error al actualizar el usuario:', error);
 
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            this.router.navigate(['/login']);
+          } else if (error.error && error.error.error) {
+            alert(error.error.error);
           } else {
-            // Manejar otros tipos de errores
+            alert('Error al actualizar el usuario. Por favor, inténtelo de nuevo.');
           }
+
+          this.botonDesactivado = false;
         }
       );
     }
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/usuario']);
   }
 }

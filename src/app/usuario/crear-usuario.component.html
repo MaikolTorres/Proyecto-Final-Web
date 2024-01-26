@@ -9,34 +9,61 @@
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
 <body>
-    <div class="form-container">
-        <h2>Crear Usuario</h2>
-        <form id="create-user-form">
-            <label for="username">Nombre de Usuario:</label>
-            <input type="text" id="username" name="username" required>
+  <app-header></app-header>
+  <app-menudesp></app-menudesp>
+  <div class="container">
+      <form class="formulario" (ngSubmit)="crearUsu()">
+      <fieldset>
+          <legend class="titulo_formulario">Crear usu</legend>
 
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
+      
+          <div class="contenedor_formulario">
+              <div class="mb-3">
 
-            <label for="per_id"> per_id :</label>
-  <select class="form-control" id="per_id" formControlName="per_id" required>
-    <option *ngFor="let usuario of  usuario1" [value]="usuario"> {{ usuario.persona.per_id}}</option>
-  </select>
-            <label for="roleId">ID Rol:</label>
-            <select id="roleId" name="roleId" required>
-                <!-- Opciones para ID Rol -->
-                <option value="1">Rol 1</option>
-                <option value="2">Rol 2</option>
-                <option value="3">Rol 3</option>
-                <!-- Agrega más opciones según sea necesario -->
-            </select>
+                  <label for="usu_usuario"class="form-label">usuario:</label>
+                  <input type="text" [(ngModel)]="nuevoUsu.usu_usuario" name="usu_usuario"required class="form-control">
+              </div>
+              <div class="mb-3">
+                  <label for="usu_contrasena"class="form-label"> contraseña:</label>
+                  <input type="text" [(ngModel)]="nuevoUsu.usu_contrasena" name="usu_contrasena" required class="form-control">
+              </div>
+              <div class="mb-3">
 
-            <div class="button-container">
-                <button type="submit" class="create-button">Crear</button>
-                <button  class="cancel-button" routerLink="/usuario">Cancelar</button>
-            </div>
-        </form>
-    </div>
+                  <label for="per_id" class="form-label"> per_id</label>
+                  <input type="text" [(ngModel)]="nuevoUsu.persona.per_primer_nombre" name="per_primer_nombre"required class="form-control">
+              </div>
+              <div class="mb-3">
+
+                  <label for="rol_nombr" class="form-label">rol_nombre  :</label>
+                  <input type="text" [(ngModel)]="nuevoUsu.rol.rol_nombre" name="per_id"required class="form-control">
+              </div>
+              <div class="mb-3">
+
+                  <label for="per_apellido_materno" class="form-label">apellido materno :</label>
+                  <input type="text" [(ngModel)]="nuevaPer.per_apellido_materno" name="per_apellido_materno"required class="form-control">
+              </div>
+              <div class="mb-3">
+
+                  <label for="per_telefono" class="form-label">telefono :</label>
+                  <input type="text" [(ngModel)]="nuevaPer.per_telefono" name="per_telefono"required class="form-control">
+              </div>
+              <div class="mb-3">
+
+                  <label for="per_email" class="form-label">email :</label>
+                  <input type="text" [(ngModel)]="nuevaPer.per_email" name="per_email"required class="form-control">
+              </div>
+              <button type="submit" class="btn btn-primary">
+                  <i class="fa fa-check"></i> Registrar
+                </button>
+                <button type="button" class="btn btn-danger" (click)="cancelar()">
+                  <i class="fa fa-times"></i> Cancelar
+                </button>
+      </div>
+  </fieldset>
+</form>
+
+  </div>
+ 
+  <app-footer></app-footer>
 </body>
-<app-footer></app-footer>
 </html>

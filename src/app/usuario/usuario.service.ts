@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from './Usuario';
 import { Persona } from '../persona/persona';
 import { Rol } from '../roles/roles';
@@ -17,13 +17,28 @@ export class UsuarioService {
   
   roles: Rol[] = [];
   personas: Persona[] = [];
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.urlEndPoint);
   }
-
+  create(usuarios: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.urlEndPoint_1, usuarios, {headers: this.httpHeaders})
+  }
+  getusuariosId(id:number):Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.urlEndPoint_1}/${id}`)
+  }
+  deleteusuario(usuario_id: number): Observable<Usuario> {
+    const url = `http://localhost:8080/api/usuario/eliminar/${usuario_id}`; // Ajusta la URL según tu estructura
+     return this.http.delete<Usuario>(url);
+  }
+     updateUsuario(usuario: Usuario): Observable<Usuario> {
+      const url = `http://localhost:8080/api/usuario/actualizar/${usuario.usu_id}`;
+      console.log('URL de actualización:', url);
+      return this.http.put<Usuario>(url, Usuario);
+}
   getpers(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlEndPoint_2);
   }
@@ -41,10 +56,7 @@ export class UsuarioService {
     return this.http.delete<Usuario>(url);
   }
 
-  updateUsuario(usuario: Usuario): Observable<Usuario> {
-    const url = `http://localhost:8080/api/usuario/actualizar/${usuario.usu_id}`;
-    return this.http.put<Usuario>(url, usuario);
-  }
+  
 
   // Obtener personas para cargar en el select
   getPersonas(): Observable<Persona[]> {
