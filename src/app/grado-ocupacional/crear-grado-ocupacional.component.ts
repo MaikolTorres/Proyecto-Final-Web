@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GradoOcupacional } from './grado-ocupacional';
 import { Router } from '@angular/router';
 import { GradoOcupacionalService } from './grado-ocupacional.service';
+import { AlertService } from '../service/Alert.service';
 
 @Component({
   selector: 'app-crear-grado-ocupacional',
@@ -16,45 +17,59 @@ export class CrearGradoOcupacionalComponent {
   nuevoGrado: GradoOcupacional = new GradoOcupacional();
   botonDesactivado: boolean = false;
 
-  constructor(private GradoService: GradoOcupacionalService, private router: Router) { }
+  constructor(private GradoService: GradoOcupacionalService, private router: Router, private alertService: AlertService) { }
 
   crearGrado() {
-  // Desactivar el botón durante la solicitud
-  this.botonDesactivado = true;
+    // Desactivar el botón durante la solicitud
+    this.botonDesactivado = true;
 
-  this.GradoService.create(this.nuevoGrado).subscribe(
-    (response) => {
-      // Éxito
-      if (response.status === 201) {
-        console.log('Grado creado exitosamente:', response);
+    this.alertService.question(
+      '¿Crear grado ocupacional?',
+      '',
+      true, // Mostrar botón de confirmación
+      true, // Mostrar botón de cancelar
+      'Confirmar', // Texto del botón de confirmación
+      'Cancelar', // Texto del botón de cancelar
+      'assets/icons/check.png' // Opcional: URL de la imagen
+    ).then((result) => {
+      if (result) {
+        // Si se confirma la pregunta, realizar la solicitud HTTP
+        this.GradoService.create(this.nuevoGrado).subscribe(
+          (response) => {
+            // Éxito
+            console.log('Grado creada exitosamente:', response);
+            // Resto de la lógica después de la creación exitosa
 
-        setTimeout(() => {
-          window.close();
-        }, 100);
+            // Cerrar la ventana después de guardar la jornada
+            window.close();
+          },
+          (error) => {
+            // Manejo de errores
+            console.error('Error al crear grado ocupacional:', error);
+            if (error.status === 401) {
+              // Redirigir al usuario a la página de inicio de sesión
+              this['router'].navigate(['/login']);
+            } else if (error.error && error.error.error) {
+              // Muestra el mensaje de error específico del servidor al usuario
+              alert(error.error.error);
+            } else {
+              // Muestra un mensaje de error genérico al usuario
+              alert('Error al crear grado ocupacional. Por favor, inténtelo de nuevo.');
+            }
+
+            // Reactivar el botón después de un error
+            this.botonDesactivado = false;
+          }
+        );
       } else {
-        console.error('Error: El servidor respondió con un código de estado inesperado:', response.status);
-        alert('Error al crear el grado ocupacional. Por favor, inténtelo de nuevo.');
+        // Si se cancela la pregunta, no realizar ninguna acción
+        console.log('La creación del grado fue cancelada.');
+        // Reactivar el botón después de la cancelación
+        this.botonDesactivado = false;
       }
-    },
-    (error) => {
-      // Manejo de errores
-      console.error('Error al crear el grado ocupacional:', error);
-      if (error.status === 401) {
-        // Redirigir al usuario a la página de inicio de sesión
-        this.router.navigate(['/login']);
-      } else if (error.error && error.error.error) {
-        // Mostrar el mensaje de error específico del servidor al usuario
-        alert(error.error.error);
-      } else {
-        // Mostrar un mensaje de error genérico al usuario
-        alert('Error al crear el grado ocupacional. Por favor, inténtelo de nuevo.');
-      }
+    });
+  }
 
-      // Reactivar el botón después de un error
-      this.botonDesactivado = false;
-    }
-  );
-}
   cancelar(): void {
     // Navegar a la lista de grados
     this.router.navigate(['/listarGrado']);
