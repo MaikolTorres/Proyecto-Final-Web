@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="tipo-contrato.component.css" />
-    <title>Título</title>
-  </head>
-  <app-header> </app-header>
-  <app-menudesp></app-menudesp>
-  <body>
-    <div class="titulo-container">
-      <h2>Lista de tipo contrato</h2>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="tipo-contrato.component.css" />
+  <title>Título</title>
+</head>
+
+<app-header> </app-header>
+<app-menudesp></app-menudesp>
+
+<body>
+  <div class="titulo-container">
+    <h2>Lista de tipo contrato</h2>
+
+    <div class="button-container"> <!-- Contenedor de los botones -->
       <button class="crear-button" routerLink="/crearcontrato">crear</button>
+    </div>
 
-      <button class="eliminar-button">Eliminar</button>
-      <input class="buscar" type="buscar" class="box" placeholder="Buscar" />
+    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula"
+        (input)="buscar()" />
+    </div>
 
-      <table>
+    <div class="table-container"> <!-- Contenedor de la tabla -->
+      <table class="tipo-contrato-table">
         <thead>
           <tr>
             <th>Tipo ID</th>
@@ -33,18 +42,12 @@
             <td>{{ tipocontrato.tipo_horas }}</td>
             <!-- Agrega más celdas según los atributos de Jornada -->
             <td>
-              <button
-                style="border: none; background: transparent"
-                (click)="abrirModalActualizar(tipocontrato)"
-              >
+              <button style="border: none; background: transparent" (click)="abrirModalActualizar(tipocontrato)">
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
             <td>
-              <button
-                style="border: none; background: transparent"
-                (click)="eliminarCargo(tipocontrato.tipo_id)"
-              >
+              <button style="border: none; background: transparent" (click)="eliminarCargo(tipocontrato.tipo_id)">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>
@@ -52,6 +55,8 @@
         </tbody>
       </table>
     </div>
+  </div>
   </body>
   <app-footer></app-footer>
-</html>
+  
+  </html>

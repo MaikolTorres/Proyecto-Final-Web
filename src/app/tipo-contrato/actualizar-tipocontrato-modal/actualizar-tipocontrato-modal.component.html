@@ -1,11 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Actualizar Tipo Contrato</h4>
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    (click)="modalRef.hide()"
-  >
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -14,23 +9,13 @@
     <!-- Campos del formulario -->
     <div class="form-group">
       <label for="tipo_contrato">Nombre del Tipo Contrato:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="tipo_contrato"
-        formControlName="tipo_contrato"
-        required
-      />
-      <label for="tipo_horas">Horas Contrato:</label>
-      <input
-        type="text"
-        class="form-control"
-        id="tipo_horas"
-        formControlName="tipo_horas"
-        required
-      />
+      <input type="text" class="form-control" id="tipo_contrato" formControlName="tipo_contrato" required>
     </div>
-    <!-- Otros campos del formulario según tu modelo Jornada -->
+    <div class="form-group">
+      <label for="tipo_horas">Horas Contrato:</label>
+      <input type="text" class="form-control" id="tipo_horas" formControlName="tipo_horas" required>
+    </div>
+    <!-- Otros campos del formulario según tu modelo TipoContrato -->
 
     <button type="submit" class="btn btn-primary">Actualizar</button>
   </form>

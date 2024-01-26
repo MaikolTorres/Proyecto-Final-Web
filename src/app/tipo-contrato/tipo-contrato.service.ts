@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TipoContrato } from './tipo-contrato';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +39,23 @@ export class TipoContratoService {
   updateTipoContrato(tipocontrato: TipoContrato): Observable<TipoContrato> {
     const url = `http://localhost:8080/api/tipocontratos/actualizar/${tipocontrato.tipo_id}`;
     console.log('URL de actualización:', url);
-    return this.http.put<TipoContrato>(url, tipocontrato);
+    return this.http.put<TipoContrato>(url, tipocontrato).pipe(
+      map(response => {
+        // Verificar si la respuesta es un JSON válido
+        try {
+          JSON.parse(JSON.stringify(response));
+          // La respuesta es un JSON válido
+          console.log('OK'); // Muestra un mensaje de OK en la consola
+          return response;
+        } catch (error) {
+          console.error('La respuesta no es un JSON válido:', error);
+          throw error;
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al actualizar el Tipo Contrato:', error);
+        throw error;
+      })
+    );
   }
 }

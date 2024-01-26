@@ -19,7 +19,7 @@ export class TipoContratoComponent {
   constructor(
     private tipocontratoService: TipoContratoService,
     private modalService: BsModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarLista();
@@ -61,6 +61,21 @@ export class TipoContratoComponent {
           // Manejar el error según sea necesario
         }
       );
+    }
+  }
+  textoBusqueda: string = '';
+
+  // buscar
+
+  perMatchesSearch(tipocontrato: TipoContrato): boolean {
+    return tipocontrato.tipo_contrato.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+  }
+
+  buscar(): void {
+    if (this.textoBusqueda.trim() !== '') {
+      this.tipocontrato = this.tipocontrato.filter((tipocontrato: TipoContrato) => this.perMatchesSearch(tipocontrato));
+    } else {
+      this.cargarLista(); // Vuelve a cargar todas las jornadas
     }
   }
 }

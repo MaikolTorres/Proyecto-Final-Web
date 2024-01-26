@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,61 +9,60 @@
 </head>
 
 <body>
+
     <app-header></app-header>
     <app-menudesp></app-menudesp>
-    <div class="container">
-        <form class="formulario" (ngSubmit)="crearPer()">
+    <div class="container"></div>
+    <form class="formulario" (ngSubmit)="crearPer()">
         <fieldset>
             <legend class="titulo_formulario">Crear persona</legend>
-
-        
             <div class="contenedor_formulario">
                 <div class="mb-3">
-
-                    <label for="per_cedula" class="form-label">cedula:</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_cedula" name="per_cedula"required class="form-control">
+                    <label for="per_cedula" class="form-label">Cédula:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_cedula" name="per_cedula" required
+                        class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="per_primer_nombre" class="form-label">primer nombre:</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_primer_nombre" name="per_primer_nombre" required class="form-control">
+                    <label for="per_primer_nombre" class="form-label">Primer nombre:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_primer_nombre" name="per_primer_nombre" required
+                        class="form-control">
                 </div>
                 <div class="mb-3">
-
-                    <label for="per_segundo_nombre" class="form-label">segundo nombre:</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_segundo_nombre" name="per_segundo_nombre"required class="form-control">
+                    <label for="per_segundo_nombre" class="form-label">Segundo nombre:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_segundo_nombre" name="per_segundo_nombre" required
+                        class="form-control">
                 </div>
                 <div class="mb-3">
-
-                    <label for="per_apellido_paterno" class="form-label">apellido paterno :</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_apellido_paterno" name="per_apellido_paterno"required class="form-control">
+                    <label for="per_apellido_paterno" class="form-label">Apellido paterno:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_apellido_paterno" name="per_apellido_paterno" required
+                        class="form-control">
                 </div>
                 <div class="mb-3">
-
-                    <label for="per_apellido_materno" class="form-label">apellido materno :</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_apellido_materno" name="per_apellido_materno"required class="form-control">
+                    <label for="per_apellido_materno" class="form-label">Apellido materno:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_apellido_materno" name="per_apellido_materno" required
+                        class="form-control">
                 </div>
                 <div class="mb-3">
-
-                    <label for="per_telefono" class="form-label">telefono :</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_telefono" name="per_telefono"required class="form-control">
+                    <label for="per_telefono" class="form-label">Teléfono:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_telefono" name="per_telefono" required
+                        class="form-control">
                 </div>
                 <div class="mb-3">
-
-                    <label for="per_email" class="form-label">email :</label>
-                    <input type="text" [(ngModel)]="nuevaPer.per_email" name="per_email"required class="form-control">
+                    <label for="per_email" class="form-label">Email:</label>
+                    <input type="text" [(ngModel)]="nuevaPer.per_email" name="per_email" required class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-check"></i> Registrar
-                  </button>
-                  <button type="button" class="btn btn-danger" (click)="cancelar()">
-                    <i class="fa fa-times"></i> Cancelar
-                  </button>
-        </div>
-    </fieldset>
-</form>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-check"></i> Registrar
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="cancelar()">
+                        <i class="fa fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 
-    </div>
-   
     <app-footer></app-footer>
 </body>
 
