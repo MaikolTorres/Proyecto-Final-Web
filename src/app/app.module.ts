@@ -140,7 +140,8 @@ const routes: Routes = [
   {path: 'crear-periodo', component: CrearPeriodoComponent},
   {path: 'listar-periodo', component: ListarPeriodoComponent},
   //
-  {path: 'listar-extraactividades', component: ListarExtraActividadesComponent}
+  {path: 'listar-extraactividades', component: ListarExtraActividadesComponent},
+  {path:'actualizarcarrera',component:ActualizarCarreraModalComponent}
 ];
 
 @NgModule({
@@ -205,7 +206,8 @@ const routes: Routes = [
     ActualizarCarreraModalComponent,
     ActualizarPeriodoModalComponent,
     ActualizarExtraModalComponent,
-    ActualizarDocenteModalComponent
+    ActualizarDocenteModalComponent,
+    ActualizarCarreraModalComponent
   ],
 
   imports: [

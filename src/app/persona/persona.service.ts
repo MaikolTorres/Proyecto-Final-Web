@@ -12,9 +12,7 @@ import { Persona } from './persona';
   
     private urlEndPoint:string = 'http://localhost:8080/api/personas/listar'
     private urlEndPoint_1:string = 'http://localhost:8080/api/personas/guardar'
-    private urlEndPoint_2:string = 'http://localhost:8080/api/personas/eliminar/{{id}}'
-    private urlEndPoint_3:string = 'http://localhost:8080/api/personas/actualizar/{{id}}'
-    private urlEndPoint_4:string = 'http://localhost:8080/api/personas/buscar/{{id}}'
+
   
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
     

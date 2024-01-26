@@ -1,33 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Personas</title>
+  <link rel="stylesheet" href="listar-carrera.component.css">
+</head>
+
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
-<div>
-  <body>
-    <div class="center-container">
-      <p class="txt-2">Listado de Carreras</p>
 
-      <div class="inputs">
-        <button class="button1" routerLink="/crear-carrera">Crear</button>
-        <input type="text" class="box" placeholder="Buscar" />
-      </div>
 
-      <table>
-        <thead>
-          <tr class="fila">
-            <th>Carrera</th>
-            <th>Modalidad</th>
-            <th>Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let carrera of carrera">
-            <td>{{ carrera.carrera_nombre }}</td>
-            <td>{{ carrera.carrera_modalidad }}</td>
-            <td>
-              <button></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<body>
+  <h2>Lista de Carreras</h2>
+
+  <div class="button-container"> <!-- Contenedor de los botones -->
+      <button class="button1" routerLink="/crear-carrera">Crear</button>
     </div>
-  </body>
-</div>
+
+    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+    </div>
+  
+    <div class="table-container"> <!-- Contenedor de la tabla -->
+      <table class="carrera-table">
+        <thead>
+        <tr class="fila">
+          <th>Carrera</th>
+          <th>Modalidad</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let carrera of carrera">
+          <td>{{ carrera.carrera_nombre }}</td>
+          <td>{{ carrera.carrera_modalidad }}</td>
+          
+          <td>
+            <button style="border: none; background: transparent;" (click)="abrirModalActualizar(carrera)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="eliminarCarrera(carrera.carrera_id)">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<app-footer></app-footer>
+
+</html>
