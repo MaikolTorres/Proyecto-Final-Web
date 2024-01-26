@@ -34,7 +34,7 @@ export class ActualizarExtraModalComponent implements OnInit {
       extra_nombre_proyecto_investigacion: ['', Validators.required],
       extra_horas_investigacion: ['', Validators.required],
       extra_detalle_hora_gestion_academico: ['', Validators.required],
-      extra_horas_direccion_gestion_academico_semanal: ['', Validators.required],
+      extra_horas_direccion_gestion_academica_semanal: ['', Validators.required],
     });
   }
 
@@ -44,7 +44,7 @@ export class ActualizarExtraModalComponent implements OnInit {
         extra_nombre_proyecto_investigacion: this.extra.extra_nombre_proyecto_investigacion,
         extra_horas_investigacion: this.extra.extra_horas_investigacion,
         extra_detalle_hora_gestion_academico: this.extra.extra_detalle_hora_gestion_academico,
-        extra_horas_direccion_gestion_academico_semanal: this.extra.extra_detalle_hora_gestion_academico,
+        extra_horas_direccion_gestion_academica_semanal: this.extra.extra_horas_direccion_gestion_academica_semanal,
       });
     }
   }
@@ -67,6 +67,10 @@ export class ActualizarExtraModalComponent implements OnInit {
     } else {
       console.error('Error: formulario inválido o ID de actividad no proporcionado.');
     }
+  }
+
+  cancelar(): void {
+    this.router.navigate(['/listar-extra-actividades']);
   }
 
 }

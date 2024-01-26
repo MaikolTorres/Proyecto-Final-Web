@@ -1,42 +1,40 @@
-<div>
+<app-header></app-header>
+  <app-menudesp></app-menudesp><body>
+    <div class="panel">
+        <h2 class="txt-2">Actividades Docentes</h2>
 
-    <body>
-        <div class="panel">
-            <h2 class="txt-2">Actividades Docentes</h2>
-
-            <form [formGroup]=" updateForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]=" updateForm" (ngSubmit)="onSubmit()">
+            <div>
                 <div>
-                    <label for="horasDocencia">Horas Docencia:</label>
+                    <label for="horasDocencia">Horas Docencia</label>
                     <input type="number" id="horasDocencia" name="horasDocencia"
                         placeholder="Ingrese las horas de docencia">
                 </div>
 
+
                 <div>
-                    <label for="nombreActividad">Nombre Actividad:</label>
-                    <input type="text" class="form-control" id="cargo_nombre"
-                        formControlName="actividoc_nombre_actividad" required>
+                    <label for="nombreActividad">Nombre Actividad</label><input type="text" class="form-control"
+                        id="cargo_nombre" formControlName="actividoc_nombre_actividad" required>
                 </div>
 
                 <div>
-                    <label for="asignatura">Asignatura:</label>
+                    <label for="asignatura">Asignatura</label>
                     <select id="actividadesExtra" name="actividadesExtra">
                         <option value="" disabled selected>Seleccione una asignatura</option>
                     </select>
                 </div>
 
-                <div>
-                    <label for="actividadesExtra">Actividades Extra:</label>
+
+                <div> <label for="actividadesExtra">Actividades Extra </label>
                     <select id="actividadesExtra" name="actividadesExtra">
                         <option value="" disabled selected>Seleccione una actividad extra</option>
                     </select>
                 </div>
 
-                <div>
-                    <button type="submit">Enviar</button>
-                    <button type="button" class="cancel" routerLink="/listar-actividades-docente">Cancelar</button>
-                </div>
-            </form>
-        </div>
-    </body>
 
-</div>
+                <div> <button type="submit">Enviar</button> </div>
+
+            </div>
+        </form>
+    </div>
+</body>

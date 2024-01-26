@@ -17,6 +17,8 @@
             <th>Mes fin</th>
             <th>Año Inicio</th>
             <th>Año Fin</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -26,8 +28,13 @@
             <td>{{ periodo.periodo_anio_inicio }}</td>
             <td>{{ periodo.periodo_anio_fin }}</td>
             <td>
-              <button>
+              <button (click)="abrirModalActualizar(periodo)">
                 Editar
+              </button>
+            </td>
+            <td> 
+              <button (click)="eliminarPeriodo(periodo.periodo_id)">
+                Eliminar
               </button>
             </td>
           </tr>
