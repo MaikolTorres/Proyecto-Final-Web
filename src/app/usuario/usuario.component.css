@@ -1,66 +1,100 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
-/*Estilos formulario */
-
-* {
+/* Estilos para el cuerpo y encabezado */
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
-  box-sizing: border-box;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  background-color: #f4f4f4;
 }
-/* estilos de las tablas */
-.center-container {
-  padding-top: 50px;
-  width: 90%;
-  height: 300px;
-  margin: 0 auto;
+
+h2 {
+  text-align: center;
+  color: #333;
 }
-.inputs button {
-  width: 130px;
-  height: 35px;
-  margin-top: 20px;
-  margin-right: 30px;
-  border: 0;
+
+/* Estilos para el contenedor principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra los elementos horizontalmente */
+  justify-content: center; /* Centra los elementos verticalmente */
+  min-height: 100vh; /* Altura mínima igual al tamaño de la ventana */
+  padding: 20px; /* Ajusta el espacio alrededor del contenedor */
 }
+
+/* Estilos para el contenedor de botones */
+.button-container {
+  display: flex;
+  position: absolute; /* Posiciona los botones de forma absoluta */
+  left: 200px; /* Posición horizontal */
+  top: 270px; /* Posición vertical */
+  background-color: #f4f4f4;
+  /* Puedes ajustar las posiciones horizontales y verticales aquí */
+}
+
+/* Estilos para los botones */
+.button1,
+.button2 {
+  background-color: #46adfa; /* Verde */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-right: 30px; /* Ajusta el espacio entre los botones */
+    font-size: 20px;
+    transition: background-color 0.3s ease; /* Agrega transición suave al color de fondo */
+}
+
 .button1 {
   background-color: #46adfa;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  color: white;
 }
-.button2 {
-  background-color: #e70027;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+
+.button-container button:hover {
+  background-color: #4CAF50; /* Cambia el color de fondo al pasar el mouse */
+  color: white;
 }
-.inputs input {
-  width: 300px;
-  height: 35px;
-  padding: 5px;
+
+.buscar-container {
+  position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
+  right: 180px; /* Posición horizontal */
+  top: 260px; /* Posición vertical */
 }
-table {
-  margin-top: 20px;
-  width: 100%;
-  /* height: 100vh; */
-  text-align: center;
-  border: 1px solid black;
+.buscar {
+  padding: 10px 20px; /* Ajusta el relleno */
+  border-radius: 20px; /* Agrega bordes redondeados */
+  border: 2px solid #ccc;
+  font-size: 16px;
 }
-th,
-tr,
-thead,
-tbody,
-td {
-  border: 1px solid black;
+
+.table-container {
+  width: 80%; /* Ajusta el ancho de la tabla */
+  margin: 0 auto; /* Centra la tabla horizontalmente */
+  position: absolute; /* Posiciona la tabla de forma absoluta */
+  left: 50%; /* Posición horizontal */
+  top: 350px; /* Posición vertical */
+  transform: translateX(-50%); /* Centra horizontalmente la tabla */
 }
-.fila {
+.usua-table {
+  width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+  border-collapse: collapse;
+  border-radius: 18px; /* Agrega bordes redondeados */
+  overflow: hidden; /* Para que los bordes redondeados funcionen correctamente */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+}
+
+.usua-table th,
+.usua-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.usua-table th {
   background-color: #46adfa;
-  height: 35px;
+  color: #333;
 }
-tbody {
-  height: 35px;
+
+.usua-table tbody tr:hover {
+  background-color: #f5f5f5;
 }

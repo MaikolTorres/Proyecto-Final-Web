@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,49 +9,54 @@
 </head>
 <app-header></app-header>
 <app-menudesp></app-menudesp>
+
 <body>
     <h2>Lista de Títulos</h2>
-   
-   
 
     <div class="titulo-container">
-        <div class="button-container">
 
+        <div class="button-container"> <!-- Contenedor de los botones -->
             <button class="crear-button" routerLink="/creartitulo">crear</button>
-    
-            <button class="eliminar-button">Eliminar</button>
-            <input class="buscar" type="buscar" class="box" placeholder="Buscar" />
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Título</th>
-                    <th>Nombre Título</th>
-                    <th>actualizar</th>
-                    <th>eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí irán las filas de la tabla con datos de títulos -->
-                <tr *ngFor="let titulo of titulos">
-                    <td>{{ titulo.titulo_id }}</td>
-                    <td>{{ titulo.titulo_nombre}}</td>
-        
-                    
-                    <td>
-                      <button style="border: none; background: transparent;" (click)="abrirModalActualizar(titulo)">
-                        <i class="fas fa-pencil-alt"></i>
-                      </button> 
-                    </td>
-                    <td>
-                      <button style="border: none; background: transparent;" (click)="eliminartitulo(titulo.titulo_id)">
-                        <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-                      </button>
-                  </tr>
-                <!-- Puedes agregar más filas según tus necesidades -->
-            </tbody>
-        </table>
+        <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+            <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por titulo"
+                (input)="buscar()" />
+        </div>
+        <div class="table-container"> <!-- Contenedor de la tabla -->
+            <table class="titulo-table">
+                <thead>
+                    <tr>
+                        <th>ID Título</th>
+                        <th>Nombre Título</th>
+                        <th>actualizar</th>
+                        <th>eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí irán las filas de la tabla con datos de títulos -->
+                    <tr *ngFor="let titulo of titulos">
+                        <td>{{ titulo.titulo_id }}</td>
+                        <td>{{ titulo.titulo_nombre}}</td>
+
+
+                        <td>
+                            <button style="border: none; background: transparent;"
+                                (click)="abrirModalActualizar(titulo)">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button style="border: none; background: transparent;"
+                                (click)="eliminartitulo(titulo.titulo_id)">
+                                <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 <app-footer></app-footer>
+
 </html>
