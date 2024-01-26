@@ -28,6 +28,7 @@
           <th>Jornada</th>
           <th>Carrera</th>
           <th>Periodo</th>
+
           <th>Editar</th>
           <th>Eliminar</th>
           <!-- Agrega más columnas según los atributos de Jornada -->
@@ -38,9 +39,10 @@
           <td>{{ curso.curso_id }}</td>
           <td>{{ curso.curso_nombre }}</td>
           <td>{{ curso.curso_paralelo }}</td>
-          <td>{{ "curso" }}</td>
-          <td>{{ "curso" }}</td>
-          <td>{{ "curso" }}</td>
+          <td>{{ curso.carrera.carrera_nombre }}</td>
+          
+          <td>{{ curso.jornada.jornada_nombre }}</td>
+          <td>{{ curso.periodo.periodo_anio_inicio }}</td>
           <!-- Agrega más celdas según los atributos de Jornada -->
           <td>
             <button style="border: none; background: transparent;" (click)="abrirModalActualizar(curso)">
