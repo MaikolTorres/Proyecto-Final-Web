@@ -3,6 +3,7 @@ import { ActividadesDocente } from './actividades-docente';
 import { ActividadesDocenteService } from './actividades-docente.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
+import { ActualizarDocenteModalComponent } from './actualizar-docente-modal/actualizar-docente-modal.component';
 
 @Component({
   selector: 'app-listar-actividades-docente',
@@ -15,26 +16,29 @@ export class ListarActividadesDocenteComponent {
   modalRef: BsModalRef | undefined;
   act: ActividadesDocente | undefined;
 
-  constructor(private actividadesService: ActividadesDocenteService) {}
+  constructor(private actividadesService: ActividadesDocenteService,
+    private modalService: BsModalService
+    ) {}
 
   ngOnInit(): void {
-    this.cargarActividad();
+    this.cargarLista();
     FormsModule;
-  }
-
-  cargarActividad() {
-    this.actividadesService.getActividades().subscribe(
-      (data: ActividadesDocente[]) => {
-        this.actividades = data;
-      },
-      (error) => {
-        console.error('Error al cargar periodos:', error);
-      }
-    );
   }
 
   cargarLista(): void {
     this.actividadesService.getActividades().subscribe((act) => (this.actividades = act));
+  }
+
+  abrirModalActualizar(activi: ActividadesDocente) {
+    const initialState = {
+      activi: activi,
+    };
+
+    this.act = activi;
+
+    this.modalRef = this.modalService.show(ActualizarDocenteModalComponent, {
+      initialState,
+    });
   }
 
   eliminarActividad(id: number) {

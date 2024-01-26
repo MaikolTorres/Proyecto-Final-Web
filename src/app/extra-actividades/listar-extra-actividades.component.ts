@@ -23,19 +23,8 @@ export class ListarExtraActividadesComponent {
      { }
 
   ngOnInit(): void {
-    this.cargarActividades();
+    this.cargarLista();
     FormsModule;
-  }
-
-  cargarActividades() {
-    this.extraActividadesService.getAll().subscribe(
-      (data: ExtraActividades[]) => {
-        this.actividades = data;
-      },
-      (error) => {
-        console.error('Error al cargar actividades:', error);
-      }
-    );
   }
 
   cargarLista(): void {

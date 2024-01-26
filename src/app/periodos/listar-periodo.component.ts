@@ -3,6 +3,7 @@ import { PeriodoService } from './periodo.service';
 import { Periodos } from './periodo';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
+import { ActualizarPeriodoModalComponent } from './actualizar-periodo-modal/actualizar-periodo-modal.component';
 
 
 @Component({
@@ -16,26 +17,28 @@ export class ListarPeriodoComponent {
   modalRef: BsModalRef | undefined;
   per: Periodos | undefined;
 
-  constructor(private periodoService: PeriodoService) { }
+  constructor(private periodoService: PeriodoService,
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
-    this.cargarPeriodo();
+    this.cargarLista();
     FormsModule;
-  }
-
-  cargarPeriodo() {
-    this.periodoService.getPeriodo().subscribe(
-      (data: Periodos[]) => {
-        this.periodo = data;
-      },
-      (error) => {
-        console.error('Error al cargar periodos:', error);
-      }
-    );
   }
 
   cargarLista(): void {
     this.periodoService.getPeriodo().subscribe((per) => (this.periodo = per));
+  }
+
+  abrirModalActualizar(periodo: Periodos) {
+    const initialState = {
+      periodo: periodo, 
+    };
+
+    this.per = periodo;
+
+    this.modalRef = this.modalService.show(ActualizarPeriodoModalComponent, {
+      initialState,
+    });
   }
 
   eliminarPeriodo(id: number) {

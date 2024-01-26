@@ -28,7 +28,7 @@ export class PeriodoService {
     return this.http.post<Periodos>(this.urlEndPoint_1, data);
   }
 
-  updateExtra(periodo: Periodos): Observable<Periodos> {
+  updatePeriodo(periodo: Periodos): Observable<Periodos> {
     const url = `http://localhost:8080/api/periodos/actualizar/${periodo.periodo_id}`;
     console.log('URL de actualización:', url);
     return this.http.put<Periodos>(this.urlEndPoint_3, periodo);
