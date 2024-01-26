@@ -4,6 +4,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CursoService } from './curso.service';
 import { FormsModule } from '@angular/forms';
 import { ActualizarCursoModalComponent } from './actualizar-curso-modal/actualizar-curso-modal.component';
+import { JornadaComponent } from '../jornada/jornada.component';
+import { ListarCarreraComponent } from '../carrera/listar-carrera.component';
+import { ListarPeriodoComponent } from '../periodos/listar-periodo.component';
 
 
 @Component({
@@ -13,6 +16,11 @@ import { ActualizarCursoModalComponent } from './actualizar-curso-modal/actualiz
 })
 export class ListarCursoComponent {
   [x: string]: any;
+  carrera: ListarCarreraComponent | undefined; 
+
+  jornada: JornadaComponent | undefined; 
+
+  periodo: ListarPeriodoComponent | undefined; 
 
 
   cursos: Curso[] = [];
@@ -22,10 +30,12 @@ export class ListarCursoComponent {
   modalRef: BsModalRef | undefined ;
   curso: Curso | undefined;
   nombreABuscar: any;
+
   //
   isLoading: boolean = true; // Nueva propiedad para rastrear si la carga está en progreso
   Filtradas: Curso[] = [];  // Nuevo array para las jornadas filtradas
   todasLasCursos: Curso[] = []; 
+
 
   constructor(private curservice: CursoService, private modalService: BsModalService ) {}
 
@@ -38,7 +48,16 @@ export class ListarCursoComponent {
   
   cargarLista(): void {
     this.curservice.get().subscribe(
-      cursos => this.cursos = cursos
+      cursos => {
+        this.cursos = cursos;
+        this.isLoading = false;
+        console.error('Error al cargar las usuarios:', cursos);
+        // Llamada a la función para abrir el modal
+      },
+      error => {
+        console.error('Error al cargar las usuarios:', error);
+        this.isLoading = false; // Marcar la carga como completa en caso de error
+     }
     );
   }
 
@@ -46,6 +65,8 @@ export class ListarCursoComponent {
     this.curservice.getcursoId(cursoId).subscribe(
       data => {
         this.curso = data;
+        this.isLoading = false;
+
         console.log(data); // Muestra la respuesta en la consola
         this.eliminarCurso(this.curso.curso_id);  // Llamada a la función para abrir el modal
       },
@@ -63,6 +84,7 @@ export class ListarCursoComponent {
   
     // Asignar la jornada al contexto del componente
     this.curso = curso;
+    this.cargarLista;
   
     this.modalRef = this.modalService.show(ActualizarCursoModalComponent, { initialState });
   }

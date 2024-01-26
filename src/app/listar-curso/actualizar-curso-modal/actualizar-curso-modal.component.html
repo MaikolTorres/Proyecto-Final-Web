@@ -1,37 +1,35 @@
 <div class="modal-header">
-    <h4 class="modal-title">Actualizar Curso</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-      <!-- Campos del formulario -->
-      <div class="form-group">
-        <label for="curso_nombre">Nombre:</label>
-        <input type="text" class="form-control" id="curso_nombre" formControlName="curso_nombre" required>
-  
-        <label for="curso_paralelo">Paralelo:</label>
-        <!-- ^^^^ Corregí el texto del label aquí ^^^^ -->
-        <input type="text" class="form-control" id="curso_paralelo" formControlName="curso_paralelo" required>
+  <h4 class="modal-title">Actualizar Curso</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <!-- Campos del formulario -->
+    <div class="form-group">
+      <label for="curso_nombre">Nombre:</label>
+      <input type="text" class="form-control" id="curso_nombre" formControlName="curso_nombre" required>
 
+      <label for="curso_paralelo">Paralelo:</label>
+      <input type="text" class="form-control" id="curso_paralelo" formControlName="curso_paralelo" required>
 
+      <label for="carrera_id">Carrera:</label>
+      <select class="form-control" id="carrera_id" formControlName="carrera_id" required>
+        <option *ngFor="let carrera of carrera1" [value]="carrera.carrera_id">{{ carrera.carrera_nombre }}</option>
+      </select>
 
+      <label for="periodo_id">Periodo:</label>
+      <select class="form-control" id="periodo_id" formControlName="periodo_id" required>
+        <option *ngFor="let period of periodo1" [value]="period.periodo_id">{{ period.periodo_anio_inicio }}</option>
+      </select>
 
-        <label for="carrera_id">Carrera:</label>
-        <input type="text" class="form-control" id="carrera_id" formControlName="carrera_id" required>
-  
-        <label for="periodo_id">Periodo:</label>
-        <!-- ^^^^ Corregí el texto del label aquí ^^^^ -->
-        <input type="text" class="form-control" id="periodo_id" formControlName="periodo_id" required>
-
-        <label for="jornada_id">Jornada:</label>
-        <input type="text" class="form-control" id="jornada_id" formControlName="jornada_id" required>
-  
-      </div>
-      <!-- Otros campos del formulario según tu modelo GradoOcupacional -->
-  
-      <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
-  </div>
-  
+      <label for="jornada_id">Jornada:</label>
+      <select class="form-control" id="jornada_id" formControlName="jornada_id" required>
+        <option *ngFor="let jornada of jornada1" [value]="jornada.jornada_id">{{ jornada.jornada_nombre }}</option>
+      </select>
+    </div>
+    <!-- Otros campos del formulario según tu modelo GradoOcupacional -->
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+  </form>
+</div>
