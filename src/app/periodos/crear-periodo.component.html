@@ -1,41 +1,35 @@
-<app-header> </app-header>
+<!-- crear-periodo-component.html -->
+
+<app-header></app-header>
 <app-menudesp></app-menudesp>
-<div>
 
-  <body>
-    <div class="panel">
-      <h2 class="txt-2">Periodo Nuevo</h2>
+<div class="center-container">
+  <h2 class="txt-2">Crear Periodo</h2>
 
-      <form (submit)="crearPeriodo()">
-        <div>
-          <label for="mesInicio">Mes Inicio:</label>
-          <input type="text" id="mesInicio" name="mesinicio" required autocomplete="off"
-            [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" />
-        </div>
-
-        <div>
-          <label for="mesFin">Mes Fin:</label>
-          <input type="number" id="mesFin" name="mesfin" placeholder="Ingrese las modalidad"
-            [(ngModel)]="nuevoPeriodo.periodo_mes_fin" />
-        </div>
-
-        <div>
-          <label for="añoInicio">Año Inicio:</label>
-          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" />
-        </div>
-
-        <div>
-          <label for="añoFin">Año Fin:</label>
-          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" />
-        </div>
-
-        <div>
-          <button type="submit">Enviar</button>
-          <button type="button" class="cancel" routerLink="/listar-periodo">
-            Cancelar
-          </button>
-        </div>
-      </form>
+  <form (submit)="crearPeriodo()">
+    <div>
+      <label for="mesInicio">Mes Inicio:</label>
+      <input type="text" id="mesInicio" name="mesInicio" [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" />
     </div>
-  </body>
+
+    <div>
+      <label for="mesFin">Mes Fin:</label>
+      <input type="text" id="mesFin" name="mesFin" [(ngModel)]="nuevoPeriodo.periodo_mes_fin" />
+    </div>
+
+    <div>
+      <label for="anioInicio">Año Inicio:</label>
+      <input type="number" id="anioInicio" name="anioInicio" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" />
+    </div>
+
+    <div>
+      <label for="anioFin">Año Fin:</label>
+      <input type="number" id="anioFin" name="anioFin" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" />
+    </div>
+
+    <div>
+      <button type="submit">Guardar</button>
+      <a class="cancel" routerLink="/listar-periodo">Cancelar</a>
+    </div>
+  </form>
 </div>
