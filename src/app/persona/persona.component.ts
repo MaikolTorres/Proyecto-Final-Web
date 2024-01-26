@@ -91,7 +91,7 @@ modalRef: BsModalRef | undefined;
   // buscar
   
   perMatchesSearch(persona: Persona): boolean {
-    return persona.per_primer_nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+    return persona.per_cedula.toLowerCase().includes(this.textoBusqueda.toLowerCase());
   }
 
   buscar(): void {
