@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="cargo.component.css" />
-    <title>Grado Ocupacional</title>
-  </head>
-  <app-header> </app-header>
-  <app-menudesp></app-menudesp>
-  <body>
-    <div class="grado-container">
-      <h2>Lista de Cargos</h2>
-      <div class="acciones-container">
-        <button class="crear-button" routerLink="/crearcargo">Crear</button>
-        <button class="eliminar-button">Eliminar</button>
-        <input class="buscar" type="buscar" class="box" placeholder="Buscar" />
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Cargo ID</th>
-            <th>Cargo Nombre</th>
-            <th>Cargo Descripción</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let cargo of cargo">
-            <td>{{ cargo.cargo_id }}</td>
-            <td>{{ cargo.cargo_nombre }}</td>
-            <td>{{ cargo.cargo_descripcion }}</td>
-            <!-- Agrega más celdas según los atributos de Jornada -->
-            <td>
-              <button
-                style="border: none; background: transparent"
-                (click)="abrirModalActualizar(cargo)"
-              >
-                <i class="fas fa-pencil-alt"></i>
-              </button>
-            </td>
-            <td>
-              <button
-                style="border: none; background: transparent"
-                (click)="eliminarCargo(cargo.cargo_id)"
-              >
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="cargo.component.css" />
+  <title>Grado Ocupacional</title>
+</head>
+
+<app-header> </app-header>
+<app-menudesp></app-menudesp>
+
+<body>
+
+    <h2>Lista de Cargos</h2>
+
+    <div class="button-container"> <!-- Contenedor de los botones -->
+      <button class="button1" routerLink="/crearcargo">Crear</button>
     </div>
-  </body>
-  <app-footer></app-footer>
+    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+    </div>
+
+    <div class="table-container"> <!-- Contenedor de la tabla -->
+      <table class="cargo-table">
+        <thead>
+        <tr>
+          <th>Cargo ID</th>
+          <th>Cargo Nombre</th>
+          <th>Cargo Descripción</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cargo of cargo">
+          <td>{{ cargo.cargo_id }}</td>
+          <td>{{ cargo.cargo_nombre }}</td>
+          <td>{{ cargo.cargo_descripcion }}</td>
+          <!-- Agrega más celdas según los atributos de Jornada -->
+          <td>
+            <button style="border: none; background: transparent" (click)="abrirModalActualizar(cargo)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent" (click)="eliminarCargo(cargo.cargo_id)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<app-footer></app-footer>
+
 </html>

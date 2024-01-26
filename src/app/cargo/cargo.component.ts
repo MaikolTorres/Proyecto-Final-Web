@@ -20,7 +20,7 @@ export class CargoComponent {
   constructor(
     private cargoService: CargoserviceService,
     private modalService: BsModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarLista();
@@ -57,6 +57,21 @@ export class CargoComponent {
           // Manejar el error según sea necesario
         }
       );
+    }
+  }
+  textoBusqueda: string = '';
+
+  // buscar
+
+  perMatchesSearch(cargo: Cargo): boolean {
+    return cargo.cargo_nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+  }
+
+  buscar(): void {
+    if (this.textoBusqueda.trim() !== '') {
+      this.cargo = this.cargo.filter((cargo: Cargo) => this.perMatchesSearch(cargo));
+    } else {
+      this.cargarLista(); // Vuelve a cargar todas las jornadas
     }
   }
 }

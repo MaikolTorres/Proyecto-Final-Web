@@ -19,14 +19,14 @@ export class CrearCarreraComponent {
   constructor(
     private router: Router,
     private carreraService: CarreraService
-  ) {}
+  ) { }
 
 
   crearCarrera() {
-    
+
 
     this.botonDesactivado = true;
-  
+
     this.carreraService.createCarrera(this.nuevaCarrea).subscribe(
       (response) => {
         console.log('Carrera creada exitosamente:', response);

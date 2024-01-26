@@ -15,7 +15,6 @@ h2 {
     left: 200px; /* Posición horizontal */
     top: 270px; /* Posición vertical */
   }
-  
   .button1,
   .button2 {
     background-color: #46adfa; /* Verde */
@@ -83,3 +82,4 @@ h2 {
   .tipo-contrato-table tbody tr:hover {
     background-color: #f5f5f5;
   }
+  
