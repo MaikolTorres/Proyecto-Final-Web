@@ -68,6 +68,7 @@ import { ActualizarExtraModalComponent } from './extra-actividades/actualizar-ex
 import { ActualizarCarreraModalComponent } from './carrera/actualizar-carrera-modal/actualizar-carrera-modal.component';
 import { ActualizarPeriodoModalComponent } from './periodos/actualizar-periodo-modal/actualizar-periodo-modal.component';
 import { ActualizarDocenteModalComponent } from './actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
+import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
@@ -208,6 +209,7 @@ const routes: Routes = [
     ActualizarExtraModalComponent,
     ActualizarDocenteModalComponent,
     ActualizarCarreraModalComponent,
+    ActualizarAsignaturaModalComponent,
     ///
     ActualizarPeriodoModalComponent
   ],

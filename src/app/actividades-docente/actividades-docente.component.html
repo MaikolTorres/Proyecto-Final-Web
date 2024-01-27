@@ -4,39 +4,44 @@
     <div class="panel">
       <h2 class="txt-2">Actividades Docentes</h2>
 
-      <form (submit)="crearActividadDocente()">
-        <div>
-          <label for="horasDocencia">Horas Docencia:</label>
-          <input type="number" id="horasDocencia" name="horasDocencia" placeholder="Ingrese las horas de docencia"
-            [(ngModel)]="nuevaActivi.actividoc_horas_docencia">
-        </div>
-
-        <div>
-          <label for="nombreActividad">Nombre Actividad:</label>
-          <input type="text" id="nombreActividad" name="nombreActividad" placeholder="Ingrese el nombre de la actividad"
-            [(ngModel)]="nuevaActivi.actividoc_nombre_actividad">
-        </div>
-
-        <div>
-          <label for="asignatura">Asignatura:</label>
-          <select id="actividadesExtra" name="actividadesExtra" [(ngModel)]="nuevaActivi.asignatura_id">
-            <option value="" disabled selected>Seleccione una asignatura</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="actividadesExtra">Actividades Extra:</label>
-          <select id="actividadesExtra" name="actividadesExtra" [(ngModel)]="nuevaActivi.extra_id">
-            <option value="" disabled selected>Seleccione una actividad extra</option>
-          </select>
-        </div>
-
-        <div>
-          <button type="submit">Enviar</button>
-          <button type="button" class="cancel" routerLink="/listar-actividades-docente">Cancelar</button>
-        </div>
+      <form (submit)="crearAct()">
+        <fieldset>
+          <legend class="titulo_formulario">Crear Actividad docente</legend>
+          <div class="contenedor_formulario">
+            <div class="mb-3">
+              <label for="actividoc_nombre" class="form-label">Nombre:</label>
+              <input type="text" formControlName="actividoc_nombre" required>
+  
+              <label for="actividoc_nombre_horas" class="form-label">Hora Docente semanal:</label>
+              <input type="text" formControlName="actividoc_nombre_horas" required>
+  
+              
+  
+              <label for="asignatura_id" class="form-label">Asignatura:</label>
+              <select class="form-control" formControlName="asignatura_id" required>
+                <option *ngFor="let curso of asignatura1" [value]="curso.asignatura_id">{{ curso.asignatura_nombre }}
+                </option>
+              </select>
+  
+              <label for="extra_id" class="form-label">Actividades extra:</label>
+              <select class="form-control" formControlName="extra_id" required>
+                <option *ngFor="let docente of extra1" [value]="docente.extra_id">{{ docente.extra_nombre_proyecto_investigacion }}
+                </option>
+              </select>
+  
+              
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-check"></i> Registrar
+            </button>
+            <button type="button" class="btn2 btn btn-danger" (click)="cancelar()">
+              <i class="fa fa-times"></i> Cancelar
+            </button>
+          </div>
+        </fieldset>
       </form>
+  
     </div>
+  
+    <app-footer></app-footer>
   </body>
-
-</div>
