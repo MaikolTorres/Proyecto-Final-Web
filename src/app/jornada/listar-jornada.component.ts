@@ -74,10 +74,13 @@ export class ListarJornadaComponent  implements OnInit {
       this.jornadaService.deleteJornada(jornadaId).subscribe(
         data => {
           console.log('Jornada eliminada con éxito:', data);
+          window.location.reload();
           // Aquí puedes realizar acciones adicionales después de la eliminación
         },
         error => {
           console.error('Error al eliminar la jornada:', error);
+          window.location.reload();
+
           // Manejar el error según sea necesario
         }
       );
