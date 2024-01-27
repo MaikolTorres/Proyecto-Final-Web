@@ -16,89 +16,90 @@ import { ActualizarPersonaModalComponent } from './actualizar-persona-modal/actu
 
 export class PersonaComponent implements OnInit {
   [x: string]: any;
-personas:Persona[] = [];
-urlEndPoint_3: any;
-http: any;
-isLoading: boolean = true; // Nueva propiedad para rastrear si la carga está en progreso
-perFiltradas: Persona[] = [];  // Nuevo array para las jornadas filtradas
-todasLasper: Persona[] = [];
+  personas: Persona[] = [];
+  urlEndPoint_3: any;
+  http: any;
+  isLoading: boolean = true; // Nueva propiedad para rastrear si la carga está en progreso
+  perFiltradas: Persona[] = [];  // Nuevo array para las jornadas filtradas
+  todasLasper: Persona[] = [];
 
-modalRef: BsModalRef | undefined;
+  modalRef: BsModalRef | undefined;
   persona: Persona | undefined;
-  constructor(private personaService: PersonaService, private modalService: BsModalService) {}
+  constructor(private personaService: PersonaService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.cargarLista();
-    FormsModule;  }
+    FormsModule;
+  }
 
 
-    cargarLista(): void {
-      this.personaService.getPersona().subscribe(
-        personas => {
-          this.personas = personas;
-          this.isLoading = false; // Marcar la carga como completa después de recibir los roles
-        },
-        error => {
-          console.error('Error al cargar las personas:', error);
-          this.isLoading = false; // Marcar la carga como completa en caso de error
-        }
-      );
-    }
-
-    cargarPersona(per_id: number): void {
-      this.personaService.getpersonaid(per_id).subscribe(
-        data => {
-          this.persona = data;
-          console.log(data); // Muestra la respuesta en la consola
-          this.eliminarPer(this.persona.per_id);  // Llamada a la función para abrir el modal
-        },
-        error => {
-          console.error(error);
-        }
-      );
-    }
-    abrirModalActualizar(persona: Persona) {
-      const initialState = {
-        persona: persona,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
-      };
-  
-      // Asignar la jornada al contexto del componente
-      this.persona= persona;
-      this.cargarLista;
-  
-      this.modalRef = this.modalService.show(ActualizarPersonaModalComponent, { initialState });
-    }
-  
-
-    eliminarPer(per_id: number): void {
-      if (confirm('¿Estás seguro de que deseas eliminar esta persona?')) {
-        // Llama al servicio para eliminar el rol
-        this.personaService.deletePersona(per_id).subscribe(
-          data => {
-            console.log('persona eliminado con éxito:', data);
-            // Aquí puedes realizar acciones adicionales después de la eliminación
-          },
-          error => {
-            console.error('Error al eliminar el persona:', error);
-            // Manejar el error según sea necesario
-          }
-          
-        );
+  cargarLista(): void {
+    this.personaService.getPersona().subscribe(
+      personas => {
+        this.personas = personas;
+        this.isLoading = false; // Marcar la carga como completa después de recibir los roles
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false; // Marcar la carga como completa en caso de error
       }
+    );
+  }
+
+  cargarPersona(per_id: number): void {
+    this.personaService.getpersonaid(per_id).subscribe(
+      data => {
+        this.persona = data;
+        console.log(data); // Muestra la respuesta en la consola
+        this.eliminarPer(this.persona.per_id);  // Llamada a la función para abrir el modal
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+  abrirModalActualizar(persona: Persona) {
+    const initialState = {
+      persona: persona,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
+    };
+
+    // Asignar la jornada al contexto del componente
+    this.persona = persona;
+    this.cargarLista;
+
+    this.modalRef = this.modalService.show(ActualizarPersonaModalComponent, { initialState });
+  }
+
+
+  eliminarPer(per_id: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar esta persona?')) {
+      // Llama al servicio para eliminar el rol
+      this.personaService.deletePersona(per_id).subscribe(
+        data => {
+          console.log('persona eliminado con éxito:', data);
+          // Aquí puedes realizar acciones adicionales después de la eliminación
+        },
+        error => {
+          console.error('Error al eliminar el persona:', error);
+          // Manejar el error según sea necesario
+        }
+
+      );
     }
-    textoBusqueda: string = '';
+  }
+  textoBusqueda: string = '';
 
   // buscar
-  
+
   perMatchesSearch(persona: Persona): boolean {
     return persona.per_cedula.toLowerCase().includes(this.textoBusqueda.toLowerCase());
   }
 
   buscar(): void {
-    if (this.textoBusqueda.trim() !== '' ) {
+    if (this.textoBusqueda.trim() !== '') {
       this.personas = this.personas.filter((persona: Persona) => this.perMatchesSearch(persona));
     } else {
       this.cargarLista(); // Vuelve a cargar todas las jornadas
-    }
-  }
+    }
+  }
 }

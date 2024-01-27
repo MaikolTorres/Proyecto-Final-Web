@@ -1,48 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Personas</title>
+  <link rel="stylesheet" href="listar-extra-actividades.component.css">
+</head>
+
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
-<div>
 
-  <body>
-    <div class="center-container">
-      <p class="txt-2">Listado de Actividades Extras</p>
+<body>
+  <h2>Lista de Actividades</h2>
 
-      <div class="inputs">
-        <button routerLink="/extra-actividades">Crear</button>
-        <input type="text" class="box" placeholder="Buscar" />
-      </div>
+  <div class="button-container"> <!-- Contenedor de los botones -->
+    <button class="button1" routerLink="/crearpersona">
+      <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+    </button>
+  </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre Proyecto Vinculación</th>
-            <th>Horas Investigación</th>
-            <th>Gestión Académica</th>
-            <th>Horas Gestión Semanal</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let actividad of actividades">
-            <td>{{ actividad.extra_nombre_proyecto_investigacion }}</td>
-            <td>{{ actividad.extra_horas_investigacion }}</td>
-            <td>{{ actividad.extra_detalle_hora_gestion_academico }}</td>
-            <td>
-              {{ actividad.extra_horas_direccion_gestion_academica_semanal }}
-            </td>
-            <td>
-              <button (click)="abrirModalActualizar(actividad)">
-                Editar
-              </button>
-            </td>
-            <td> 
-              <button (click)="eliminarActividad(actividad.extra_id)">
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </body>
-</div>
+  <!--  <div class="buscar-container"> 
+    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+    <button style="border: none; background: transparent;">
+      <i class="fas fa-search"></i> 
+    </button>
+  </div>-->
+
+  <div class="table-container"> <!-- Contenedor de la tabla -->
+    <table class="extra-table">
+      <thead>
+        <tr>
+          <th>Nombre Proyecto Vinculación</th>
+          <th>Horas Investigación</th>
+          <th>Gestión Académica</th>
+          <th>Horas Gestión Semanal</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let actividad of actividades">
+          <td>{{ actividad.extra_nombre_proyecto_investigacion }}</td>
+          <td>{{ actividad.extra_horas_investigacion }}</td>
+          <td>{{ actividad.extra_detalle_hora_gestion_academico }}</td>
+          <td>
+            {{ actividad.extra_horas_direccion_gestion_academica_semanal }}
+          </td>
+
+          <td>
+            <button style="border: none; background: transparent;" (click)="null">
+              <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="null">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<app-footer></app-footer>
+
+</html>

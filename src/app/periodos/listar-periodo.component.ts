@@ -35,7 +35,7 @@ export class ListarPeriodoComponent {
     };
 
     this.per = periodo;
-
+    this.cargarLista;
     this.modalRef = this.modalService.show(ActualizarPeriodoModalComponent, {
       initialState,
     });
@@ -53,5 +53,20 @@ export class ListarPeriodoComponent {
       );
     }
   }
+  textoBusqueda: string = '';
 
+  // buscar
+
+  perMatchesSearch(periodo: Periodos): boolean {
+    // Convertir el año de inicio a una cadena de texto y luego aplicar toLowerCase()
+    const periodoAnioInicioString: string = periodo.periodo_anio_inicio.toString();
+    return periodoAnioInicioString.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+  }
+  buscar(): void {
+    if (this.textoBusqueda.trim() !== '') {
+      this.periodo = this.periodo.filter((periodo: Periodos) => this.perMatchesSearch(periodo));
+    } else {
+      this.cargarLista(); // Vuelve a cargar todas las jornadas
+    }
+  }
 }

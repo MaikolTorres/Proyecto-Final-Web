@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GradoOcupacionalService } from '../grado-ocupacional.service';
 import { ActualizarGradoModalComponent } from '../actualizar-grado-modal/actualizar-grado-modal.component';
 import { AlertService } from 'src/app/service/Alert.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-grado',
@@ -19,11 +20,13 @@ export class ListarGradoComponent implements OnInit {
   http: any;
   modalRef: BsModalRef | undefined ;
   grado: GradoOcupacional | undefined;
+  cargo: any;
 
   constructor(private Service: GradoOcupacionalService, private modalService: BsModalService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.cargarLista();
+    FormsModule;
   }
 
 
@@ -89,4 +92,19 @@ export class ListarGradoComponent implements OnInit {
       });
 
     }
+    textoBusqueda: string = '';
+
+  // buscar
+  
+  perMatchesSearch(grado: GradoOcupacional): boolean {
+    return grado.grado_titulo.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+  }
+
+  buscar(): void {
+    if (this.textoBusqueda.trim() !== '' ) {
+      this.grados = this.grados.filter((grado: GradoOcupacional) => this.perMatchesSearch(grado));
+    } else {
+      this.cargarLista(); // Vuelve a cargar todas las jornadas
+    }
+  }
 }

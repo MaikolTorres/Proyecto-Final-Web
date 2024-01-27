@@ -209,7 +209,9 @@ const routes: Routes = [
     ActualizarExtraModalComponent,
     ActualizarDocenteModalComponent,
     ActualizarCarreraModalComponent,
-    ActualizarAsignaturaModalComponent
+    ActualizarAsignaturaModalComponent,
+    ///
+    ActualizarPeriodoModalComponent
   ],
 
   imports: [

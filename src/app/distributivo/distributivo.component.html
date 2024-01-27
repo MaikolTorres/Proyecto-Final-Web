@@ -1,56 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="distributivo.component.css" />
-    <title>Distributivo</title>
-  </head>
-  <app-header></app-header>
-  <app-menudesp></app-menudesp>
-  <body>
-    <div class="page-container">
-      <h2>Distributivo</h2>
-      <div class="button-container">
-        <button class="create-button" routerLink="/creardistributivo">
-          Crear
-        </button>
-        <button class="delete-button">Eliminar</button>
-      </div>
-      <table>
-        <thead>
-          <tr class="fila">
-            <th>Distributivo ID</th>
-            <th>Carrera ID</th>
-            <th>Jornada ID</th>
-            <th>Curso ID</th>
-            <th>Periodo ID</th>
-            <th>Asignatura ID</th>
-            <th>Actividad Docente ID</th>
-            <th>Actividad No Docente ID</th>
-            <th>Docente ID</th>
-            <th>Registro Contrato ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Aquí irán las filas de la tabla con datos del distributivo -->
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <!-- Puedes agregar más celdas con datos del distributivo -->
-          </tr>
-          <!-- Puedes agregar más filas según tus necesidades -->
-        </tbody>
-      </table>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="distributivo.component.css" />
+  <title>Distributivo</title>
+</head>
+<app-header></app-header>
+<app-menudesp></app-menudesp>
+
+<body>
+    <h2>Distributivo</h2>
+    <div class="button-container"> <!-- Contenedor de los botones -->
+      <button class="button1" routerLink="/creardistributivo">
+        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+      </button>
     </div>
-  </body>
-  <app-footer></app-footer>
+    
+     <!--<div class="buscar-container">  
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+      <button style="border: none; background: transparent;">
+        <i class="fas fa-search"></i> 
+      </button>
+    </div>-->
+
+    <div class="table-container"> <!-- Contenedor de la tabla -->
+      <table class="distributivo-table">
+        <thead>
+        <tr class="fila">
+          <th>Distributivo ID</th>
+          <th>Carrera ID</th>
+          <th>Jornada ID</th>
+          <th>Curso ID</th>
+          <th>Periodo ID</th>
+          <th>Asignatura ID</th>
+          <th>Actividad Docente ID</th>
+          <th>Actividad No Docente ID</th>
+          <th>Docente ID</th>
+          <th>Registro Contrato ID</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí irán las filas de la tabla con datos del distributivo -->
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="null">
+              <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="null">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
+          </td>
+       
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<app-footer></app-footer>
+
 </html>

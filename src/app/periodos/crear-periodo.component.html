@@ -1,35 +1,57 @@
-<!-- crear-periodo-component.html -->
+<!DOCTYPE html>
+<html lang="es">
 
-<app-header></app-header>
-<app-menudesp></app-menudesp>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="crear-periodo.component.css">
+  <title>Crear Periodo</title>
+</head>
 
-<div class="center-container">
-  <h2 class="txt-2">Crear Periodo</h2>
 
-  <form (submit)="crearPeriodo()">
-    <div>
-      <label for="mesInicio">Mes Inicio:</label>
-      <input type="text" id="mesInicio" name="mesInicio" [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" />
-    </div>
+  <app-header></app-header>
+  <app-menudesp></app-menudesp>
+  <body>
+  <div class="container"></div>
+  <form class="formulario" (ngSubmit)="crearPeriodo()">
+    <fieldset>
+      <legend class="titulo_formulario">Crear periodo</legend>
+      <div class="contenedor_formulario">
+        <div class="mb-3">
+          <label for="mesInicio">Mes Inicio:</label>
+          <input type="text" id="mesInicio" name="mesinicio" required autocomplete="off"
+            [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" class="form-control" />
+        </div>
 
-    <div>
-      <label for="mesFin">Mes Fin:</label>
-      <input type="text" id="mesFin" name="mesFin" [(ngModel)]="nuevoPeriodo.periodo_mes_fin" />
-    </div>
+        <div class="mb-3">
+          <label for="mesFin">Mes Fin:</label>
+          <input type="number" id="mesFin" name="mesfin" placeholder="Ingrese las modalidad"
+            [(ngModel)]="nuevoPeriodo.periodo_mes_fin" class="form-control" />
+        </div>
 
-    <div>
-      <label for="anioInicio">Año Inicio:</label>
-      <input type="number" id="anioInicio" name="anioInicio" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" />
-    </div>
+        <div>
+          <label for="añoInicio">Año Inicio:</label>
+          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" />
+        </div>
 
-    <div>
-      <label for="anioFin">Año Fin:</label>
-      <input type="number" id="anioFin" name="anioFin" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" />
-    </div>
+        <div>
+          <label for="añoFin">Año Fin:</label>
+          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" />
+        </div>
 
-    <div>
-      <button type="submit">Guardar</button>
-      <a class="cancel" routerLink="/listar-periodo">Cancelar</a>
-    </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Registrar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="cancelar()">
+            <i class="fa fa-times"></i> Cancelar
+          </button>
+        </div>
+      </div>
+    </fieldset>
   </form>
-</div>
+</body>
+  <app-footer></app-footer>
+
+
+</html>

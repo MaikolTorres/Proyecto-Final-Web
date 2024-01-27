@@ -102,7 +102,8 @@ export class CrearUsuarioComponent implements OnInit {
     this.botonDesactivado = true;
   
     const formData = this.updateForm.value;
-  
+    console.log('per_id:', this.nuevoUsu.persona.per_id);
+    console.log('rol_id:', this.nuevoUsu.rol.rol_id);
     this.usuarioService.create(formData).subscribe(
       (response) => {
         // Éxito

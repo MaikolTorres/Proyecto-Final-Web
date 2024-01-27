@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edgm" />
@@ -11,17 +13,26 @@
 <app-menudesp></app-menudesp>
   <body>
     <div class="center-container">
-      <p class="txt-2">Listado de Roles</p>
+      <h2>Listado de Roles</h2>
 
-      <div class="inputs">
-        <button class="button1" routerLink="/crear-rol">Editar</button>
-        <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por nombre" (input)="buscar()" />
+      <div class="button-container"> <!-- Contenedor de los botones -->
+        <button class="button1" routerLink="/crear-rol">
+          <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+        </button>
+      </div>
+      
+      <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+        <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por rol" (input)="buscar()" />
+        <button style="border: none; background: transparent;">
+          <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+        </button>
       </div>
 
-      <table>
-        <thead>
-          <tr class="fila">
-            <th>Id Rol</th>
+      <div class="table-container"> <!-- Contenedor de la tabla -->
+        <table class="rol-table">
+          <thead>
+            <tr>
+            <th>Id</th>
             <th>Nombre</th>
             <th>Descripción</th>
             <th>actualizar</th>
@@ -36,20 +47,22 @@
             <td>{{ rol.rol_descripcion}}</td>
             <td>
               <button style="border: none; background: transparent;" (click)="abrirModalActualizar(rol)">
-                <i class="fas fa-pencil-alt"></i>
-              </button> 
+                <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
+              </button>
             </td>
             <td>
               <button style="border: none; background: transparent;" (click)="eliminarRol(rol.rol_id)">
                 <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
               </button>
+            </td>
+         
           </tr>
         </tbody>
-
-        
       </table>
     </div>
+  </div>
+
   </body>
   <app-footer></app-footer>
-
-</html>
+  
+  </html>

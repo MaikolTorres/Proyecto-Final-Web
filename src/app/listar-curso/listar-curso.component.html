@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 <head>
   <meta charset="UTF-8" />
@@ -8,22 +9,32 @@
   <title>Login</title>
 </head>
 
-<body>
-  <app-header></app-header>
-  <app-menudesp></app-menudesp>
-  <div class="center-container">
-    <h2>Lista de cursos P</h2>
-         <button class="crear-button" routerLink="/crearcurso">Crear</button>
-                        
-         
-                        <input class="buscar" type="buscar" class="box" placeholder="Buscar" />
+<app-header></app-header>
+<app-menudesp></app-menudesp>
 
-    <table>
+<body>
+
+    <h2>Lista de cursos </h2>
+
+    <div class="button-container"> <!-- Contenedor de los botones -->
+      <button class="button1" routerLink="/crearcurso">
+        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+      </button>
+    </div>
+    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por curso" (input)="buscar()" />
+      <button style="border: none; background: transparent;">
+        <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+      </button>
+    </div>
+
+   <div class="table-container"> <!-- Contenedor de la tabla -->
+    <table class="curso-table">
       <thead>
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          
+
           <th>Paralelo</th>
           <th>Jornada</th>
           <th>Carrera</th>
@@ -40,28 +51,27 @@
           <td>{{ curso.curso_nombre }}</td>
           <td>{{ curso.curso_paralelo }}</td>
           <td>{{ curso.carrera.carrera_nombre }}</td>
-          
+
           <td>{{ curso.jornada.jornada_nombre }}</td>
           <td>{{ curso.periodo.periodo_anio_inicio }}</td>
           <!-- Agrega más celdas según los atributos de Jornada -->
           <td>
             <button style="border: none; background: transparent;" (click)="abrirModalActualizar(curso)">
-              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
             </button>
           </td>
           <td>
             <button style="border: none; background: transparent;" (click)="eliminarCurso(curso.curso_id)">
               <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
             </button>
+          </td>
+       
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Añade un router-outlet para cargar componentes Angular -->
-  <router-outlet></router-outlet>
-
-  <app-footer></app-footer>
 </body>
+<app-footer></app-footer>
 
 </html>
