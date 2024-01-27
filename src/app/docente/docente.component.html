@@ -36,11 +36,11 @@
                     <th>Docente ID</th>
                     <th>Fecha de Ingreso</th>
                     <th>Estado</th>
-                    <th>Período ID</th>
-                    <th>Tipo ID</th>
-                    <th>Cargo ID</th>
-                    <th>Título ID</th>
-                    <th>Periodo ID</th>
+                    <th>nombre</th>
+                    <th>Período </th>
+                    <th>Tipo contrato </th>
+                    <th>Cargo </th>
+                    <th>Título </th>
                     <th>Grado ID</th>
                     <th>Actualizar</th>
                     <th>Eliminar</th>
@@ -48,28 +48,31 @@
             </thead>
             <tbody>
                 <!-- Aquí se cargarán los datos de la tabla -->
-                <tr>
-                    <td>1</td>
-                    <td>2022-01-01</td>
-                    <td>Activo</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>
-                        <button style="border: none; background: transparent;" (click)="null">
-                            <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
-                        </button>
-                    </td>
-                    <td>
-                        <button style="border: none; background: transparent;" (click)="null">
-                            <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-                        </button>
-                    </td>
+                <tr *ngFor="let docente of docentes">
+                    <td>{{ docente.docente_id }}</td>
+                    <td>{{ docente.docente_fecha_ingreso }}</td>
+                    <td>{{ docente.docente_estado }}</td>
+                    <td>{{ docente.persona.per_primer_nombre + ' ' + docente.persona.per_apellido_paterno }}</td>
+                    <td>{{ docente.periodo.periodo_mes_inicio+' '+ docente.periodo.periodo_anio_inicio+'-'+docente.periodo.periodo_mes_fin+' '+docente.periodo.periodo_anio_fin}}</td>
+                    <td>{{ docente.tipo_contrato.tipo_contrato }}</td>
+                    
+                    <td>{{ docente.cargo.cargo_nombre}}</td>
+                    <td>{{ docente.titulo.titulo_nombre}}</td>
+                    <td>{{ docente?.grado?.grado_titulo}}</td>
 
-                </tr>
+                    <td>
+                      <button style="border: none; background: transparent;" >
+                        <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
+                      </button>
+                    </td>
+                    <td>
+                      <button style="border: none; background: transparent;">
+                        <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+                      </button>
+                    </td>
+                  </tr>
+
+                
             </tbody>
         </table>
     </div>
