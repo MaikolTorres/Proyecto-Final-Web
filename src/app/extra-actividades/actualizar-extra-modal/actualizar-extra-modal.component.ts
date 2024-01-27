@@ -61,8 +61,8 @@ export class ActualizarExtraModalComponent implements OnInit {
       this.extraService.updateExtras(updatedExtra).subscribe(
         (data) => {
           console.log('Actividades Extras se ha actualizado con éxito:', data);
-          this.modalRef.hide(); // Cierra la ventana modal después de la actualización
-          this.ExtraActualizada.emit(); // Emitir evento de persona actualizada
+          this.modalRef.hide(); 
+          this.ExtraActualizada.emit(); 
           alert('Actividades Extras actualizada exitosamente');
           this.router.navigate(['/listar-extra-actividades']); // Ruta de la misma página
         },
@@ -70,13 +70,11 @@ export class ActualizarExtraModalComponent implements OnInit {
           console.error('Error al actualizar la actividad:', error);
           if (error instanceof HttpErrorResponse && error.status === 200) {
             console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-            // Mostrar el mensaje de éxito al usuario
-            this.modalRef.hide(); // Cierra la ventana modal después de actualizar la persona
-            this.ExtraActualizada.emit(); // Emitir evento de persona actualizada
+            this.modalRef.hide();
+            this.ExtraActualizada.emit(); 
             alert('Actividades Extras actualizada exitosamente');
-            this.router.navigate(['/listar-extra-actividades']); // Ruta de la misma página
+            this.router.navigate(['/listar-extra-actividades']); 
           } else {
-            // Manejar otros tipos de errores
           }
         }
       );
