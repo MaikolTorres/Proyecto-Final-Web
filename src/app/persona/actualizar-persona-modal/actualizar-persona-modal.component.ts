@@ -74,6 +74,8 @@ export class ActualizarPersonaModalComponent implements OnInit {
           this.personaActualizada.emit(); // Emitir evento de persona actualizada
           alert('Persona actualizada exitosamente');
           this.router.navigate(['/actualizar-persona']); // Ruta de la misma página
+          window.location.reload();
+
         },
         (error) => {
           console.error('Error al actualizar la persona:', error);
@@ -84,6 +86,8 @@ export class ActualizarPersonaModalComponent implements OnInit {
             this.personaActualizada.emit(); // Emitir evento de persona actualizada
             alert('Persona actualizada exitosamente');
             this.router.navigate(['/actualizar-persona']); // Ruta de la misma página
+            window.location.reload();
+
           } else {
             // Manejar otros tipos de errores
           }

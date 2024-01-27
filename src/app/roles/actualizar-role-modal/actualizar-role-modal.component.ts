@@ -63,6 +63,7 @@ export class ActualizarRoleComponent implements OnInit {
           this.modalRef.hide();  // Cierra la ventana modal después de la actualización
           this.cargoRol.emit();
           alert('Cargo actualizado exitosamente');
+          window.location.reload();
           this.router.navigate(['/roles']);
         },
         error => {
@@ -74,6 +75,7 @@ export class ActualizarRoleComponent implements OnInit {
             alert('Error: El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
             alert('Cargo actualizado exitosamente');
             this.cargoRol.emit();
+            window.location.reload();
 
             this.router.navigate(['/roles']);
           } else {

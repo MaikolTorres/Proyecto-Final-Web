@@ -128,12 +128,16 @@ export class ActualizarUsuarioModalComponent implements OnInit {
         data => {
           console.log('usuario actualizado con éxito:', data);
           this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
+          window.location.reload();
+
         },
         error => {
           console.error('Error al actualizar el usuario:', error);
 
           if (error instanceof HttpErrorResponse && error.status === 200) {
             console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+            window.location.reload();
+
           } else {
             // Manejar otros tipos de errores
           }

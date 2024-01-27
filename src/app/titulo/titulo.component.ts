@@ -72,9 +72,15 @@ export class TituloComponent implements OnInit{
 
         data => {
           console.log('titulo eliminado con éxito:', data);
+          window.location.reload();
+
+          // Aquí puedes realizar acciones adicionales después de la eliminación
         },
         error => {
           console.error('Error al eliminar el titulo:', error);
+          window.location.reload();
+
+          // Manejar el error según sea necesario
         }
         
       );

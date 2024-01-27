@@ -77,10 +77,14 @@ export class PersonaComponent implements OnInit {
       this.personaService.deletePersona(per_id).subscribe(
         data => {
           console.log('persona eliminado con éxito:', data);
+          window.location.reload();
+
           // Aquí puedes realizar acciones adicionales después de la eliminación
         },
         error => {
           console.error('Error al eliminar el persona:', error);
+          window.location.reload();
+
           // Manejar el error según sea necesario
         }
 
