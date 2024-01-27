@@ -1,40 +1,32 @@
-<app-header></app-header>
-  <app-menudesp></app-menudesp><body>
+
     <div class="panel">
         <h2 class="txt-2">Actividades Docentes</h2>
 
         <form [formGroup]=" updateForm" (ngSubmit)="onSubmit()">
-            <div>
-                <div>
-                    <label for="horasDocencia">Horas Docencia</label>
-                    <input type="number" id="horasDocencia" name="horasDocencia"
-                        placeholder="Ingrese las horas de docencia">
-                </div>
-
-
-                <div>
-                    <label for="nombreActividad">Nombre Actividad</label><input type="text" class="form-control"
-                        id="cargo_nombre" formControlName="actividoc_nombre_actividad" required>
-                </div>
-
-                <div>
-                    <label for="asignatura">Asignatura</label>
-                    <select id="actividadesExtra" name="actividadesExtra">
-                        <option value="" disabled selected>Seleccione una asignatura</option>
-                    </select>
-                </div>
-
-
-                <div> <label for="actividadesExtra">Actividades Extra </label>
-                    <select id="actividadesExtra" name="actividadesExtra">
-                        <option value="" disabled selected>Seleccione una actividad extra</option>
-                    </select>
-                </div>
-
-
-                <div> <button type="submit">Enviar</button> </div>
-
-            </div>
-        </form>
-    </div>
-</body>
+            <div class="form-group">
+                <label for="actividoc_nombre">Nombre:</label>
+                <input type="text" class="form-control" id="actividoc_nombre" formControlName="actividoc_nombre" required>
+          
+          
+                <label for="actividoc_num_horas"> Horas de la actividad :</label>
+                <input type="text" class="form-control" id="actividoc_num_horas"
+                  formControlName="actividoc_num_horas" required>
+          
+          
+                <label for="asignatura_id"> Asignatura:</label>
+                <select class="form-control" id="asignatura_id" formControlName="asignatura_id" required>
+                  <option *ngFor="let ass of  asignatura1" [value]="ass.asignatura_id"> {{ ass.asignatura_nombre}}</option>
+                </select>
+          
+                <label for="extra_id"> Actividad extra:</label>
+                <select class="form-control" id="extra_id" formControlName="extra_id" required>
+                  <option *ngFor="let  extras of  extras1" [value]="extras.extra_id">{{extras.extra_nombre_proyecto_investigacion }}</option>
+                </select>
+          
+          
+              </div>
+              <!-- Otros campos del formulario según tu modelo Jornada -->
+          
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
+          </div>
