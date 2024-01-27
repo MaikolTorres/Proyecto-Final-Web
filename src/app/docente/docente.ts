@@ -1,5 +1,5 @@
 import { Cargo } from "../cargo/cargo";
-import { PeriodosComponent } from "../periodos/periodos.component";
+import { Periodos } from "../periodos/periodo";
 import { Persona } from "../persona/persona";
 import { TipoContrato } from "../tipo-contrato/tipo-contrato";
 import { Titulo } from "../titulo/titulo";
@@ -13,5 +13,5 @@ export class Docente{
     'tipo_contrato':TipoContrato;
     'cargo':Cargo;
 'titulo':Titulo;
-'periodo':Periodo;
+'periodo':Periodos;
 }
