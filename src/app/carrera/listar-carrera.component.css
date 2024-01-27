@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -14,8 +15,8 @@ h2 {
 .button-container {
   display: flex;
   position: absolute; /* Posiciona los botones de forma absoluta */
-  left: 200px; /* Posición horizontal */
-  top: 270px; /* Posición vertical */
+  left: 450px; /* Posición horizontal */
+  top: 210px; /* Posición vertical */
 }
 
 .button1,
@@ -42,8 +43,8 @@ h2 {
 
 .buscar-container {
   position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
-  right: 180px; /* Posición horizontal */
-  top: 260px; /* Posición vertical */
+  right: 450px; /* Posición horizontal */
+  top: 210px; /* Posición vertical */
 }
 
 .buscar {
@@ -58,16 +59,26 @@ h2 {
   margin: 0 auto; /* Centra la tabla horizontalmente */
   position: absolute; /* Posiciona la tabla de forma absoluta */
   left: 50%; /* Posición horizontal */
-  top: 350px; /* Posición vertical */
+  top: 290px; /* Posición vertical */
   transform: translateX(-50%); /* Centra horizontalmente la tabla */
+  overflow-y: auto; /* Agrega scroll vertical si es necesario */
+  max-height: 500px; /* Altura máxima del contenedor */
+  overflow-x: hidden; /* Oculta el scroll horizontal */
 }
 
 .carrera-table {
   width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
   border-collapse: collapse;
   border-radius: 18px; /* Agrega bordes redondeados */
-  overflow: hidden; /* Para que los bordes redondeados funcionen correctamente */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+}
+
+/* Encabezado fijo */
+.carrera-table th {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* Fondo blanco para que el encabezado sea visible */
+  z-index: 2; /* Asegura que el encabezado esté por encima del contenido de la tabla */
 }
 
 .carrera-table th,
@@ -77,11 +88,10 @@ h2 {
   text-align: left;
 }
 
-.carrera-table th {
-  background-color: #46adfa;
-  color: #333;
-}
-
 .carrera-table tbody tr:hover {
   background-color: #f5f5f5;
+}
+
+.table-container table {
+  width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
 }

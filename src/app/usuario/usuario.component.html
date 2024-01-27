@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 <head>
   <meta charset="UTF-8">
@@ -14,10 +15,16 @@
 <body>
   <h2>Lista de Usuarios</h2>
   <div class="button-container"> <!-- Botones -->
-    <button class="button1" routerLink="/crearUsuario">Crear</button>
+    <button class="button1" routerLink="/crearUsuario">
+    <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+   </button>
+
   </div>
     <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
       <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por usuario" (input)="buscar()" />
+      <button style="border: none; background: transparent;">
+        <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+      </button>
     </div>
     <div class="table-container">
   <table class="usua-table">
@@ -43,7 +50,7 @@
         <td>{{ usuario.rol.rol_nombre }}</td>
         <td>
           <button style="border: none; background: transparent;" (click)="arirModalActualizar(usuario)">
-            <i class="fas fa-pencil-alt"></i>
+            <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
           </button>
         </td>
         <td>

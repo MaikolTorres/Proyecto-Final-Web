@@ -14,14 +14,13 @@ export class ActualizarPeriodoModalComponent implements OnInit {
 
   @Input() periodo: Periodos | undefined;
   periodo_id: number | undefined;
-  updateFormEX!: FormGroup;
+  updateForm!: FormGroup;
 
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private service: PeriodoService,
     private router: Router
-
   ) {}
 
   ngOnInit() {
@@ -30,7 +29,7 @@ export class ActualizarPeriodoModalComponent implements OnInit {
   }
 
   createForm() {
-    this.updateFormEX = this.fb.group({
+    this.updateForm = this.fb.group({
       periodo_mes_inicio: ['', Validators.required],
       periodo_mes_fin: ['', Validators.required],
       periodo_anio_inicio: ['', Validators.required],
@@ -40,7 +39,7 @@ export class ActualizarPeriodoModalComponent implements OnInit {
 
   populateFormWithExtrData()  {
     if (this.periodo) {
-      this.updateFormEX.patchValue({
+      this.updateForm.patchValue({
         periodo_mes_inicio: this.periodo.periodo_mes_inicio,
         periodo_mes_fin: this.periodo.periodo_mes_fin,
         periodo_anio_inicio: this.periodo.periodo_anio_inicio,
@@ -50,9 +49,9 @@ export class ActualizarPeriodoModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.updateFormEX.valid && this.periodo_id) {
-      const updatePeriodo = this.updateFormEX.value;
-      updatePeriodo.periodo_id = this.periodo_id;
+    if (this.updateForm.valid && this.periodo_id) {
+      const updatePeriodo = this.updateForm.value;
+      updatePeriodo.periodo_id = this.periodo?.periodo_id || 0;
 
       this.service.updatePeriodo(updatePeriodo).subscribe(
         (data) => {

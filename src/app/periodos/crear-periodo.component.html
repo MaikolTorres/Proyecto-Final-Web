@@ -1,41 +1,57 @@
-<app-header> </app-header>
-<app-menudesp></app-menudesp>
-<div>
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="crear-periodo.component.css">
+  <title>Crear Periodo</title>
+</head>
+
+
+  <app-header></app-header>
+  <app-menudesp></app-menudesp>
   <body>
-    <div class="panel">
-      <h2 class="txt-2">Periodo Nuevo</h2>
-
-      <form (submit)="crearPeriodo()">
-        <div>
+  <div class="container"></div>
+  <form class="formulario" (ngSubmit)="crearPeriodo()">
+    <fieldset>
+      <legend class="titulo_formulario">Crear periodo</legend>
+      <div class="contenedor_formulario">
+        <div class="mb-3">
           <label for="mesInicio">Mes Inicio:</label>
           <input type="text" id="mesInicio" name="mesinicio" required autocomplete="off"
-            [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" />
+            [(ngModel)]="nuevoPeriodo.periodo_mes_inicio" class="form-control" />
         </div>
 
-        <div>
+        <div class="mb-3">
           <label for="mesFin">Mes Fin:</label>
           <input type="number" id="mesFin" name="mesfin" placeholder="Ingrese las modalidad"
-            [(ngModel)]="nuevoPeriodo.periodo_mes_fin" />
+            [(ngModel)]="nuevoPeriodo.periodo_mes_fin" class="form-control" />
         </div>
 
-        <div>
+        <div class="mb-3">
           <label for="añoInicio">Año Inicio:</label>
-          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" />
+          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_inicio" class="form-control" />
         </div>
 
-        <div>
+        <div class="mb-3">
           <label for="añoFin">Año Fin:</label>
-          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" />
+          <input type="text" [(ngModel)]="nuevoPeriodo.periodo_anio_fin" class="form-control" />
         </div>
 
-        <div>
-          <button type="submit">Enviar</button>
-          <button type="button" class="cancel" routerLink="/listar-periodo">
-            Cancelar
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Registrar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="cancelar()">
+            <i class="fa fa-times"></i> Cancelar
           </button>
         </div>
-      </form>
-    </div>
-  </body>
-</div>
+      </div>
+    </fieldset>
+  </form>
+</body>
+  <app-footer></app-footer>
+
+
+</html>

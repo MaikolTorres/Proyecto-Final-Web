@@ -1,60 +1,97 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
-.grado-container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 h2 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
-table {
-    width: 100%;
-    margin-top: 20px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-th {
-    background-color: #46adfa;
-  }
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 10px;
+.button-container {
+  display: flex;
+  position: absolute; /* Posiciona los botones de forma absoluta */
+  left: 450px; /* Posición horizontal */
+  top: 210px; /* Posición vertical */
 }
 
-.acciones-container {
-    display: flex;
-    justify-content: space-between;
+.button1,
+.button2 {
+  background-color: #46adfa; /* Verde */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  margin-right: 30px; /* Ajusta el espacio entre los botones */
+  font-size: 20px;
+  transition: background-color 0.3s ease; /* Agrega transición suave al color de fondo */
 }
 
-.crear-button,
-.eliminar-button {
-    width: 80px; /* Ajusta el ancho según sea necesario */
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 10px;
+.button-container .button2 {
+  background-color: #e70027; /* Rojo */
 }
 
-.crear-button {
-     background-color: #46adfa; /* Verde */
-    ; /* Verde */
-    color: #fff;
+.button-container button:hover {
+  background-color: #4CAF50; /* Cambia el color de fondo al pasar el mouse */
+  color: white;
 }
 
-.eliminar-button {
-    background-color: #e70027; /* Rojo */
-    color: #fff;
+.buscar-container {
+  position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
+  right: 450px; /* Posición horizontal */
+  top: 210px; /* Posición vertical */
+}
+
+.buscar {
+  padding: 10px 20px; /* Ajusta el relleno */
+  border-radius: 20px; /* Agrega bordes redondeados */
+  border: 2px solid #ccc;
+  font-size: 16px;
+}
+
+.table-container {
+  width: 80%; /* Ajusta el ancho de la tabla */
+  margin: 0 auto; /* Centra la tabla horizontalmente */
+  position: absolute; /* Posiciona la tabla de forma absoluta */
+  left: 50%; /* Posición horizontal */
+  top: 290px; /* Posición vertical */
+  transform: translateX(-50%); /* Centra horizontalmente la tabla */
+  overflow-y: auto; /* Agrega scroll vertical si es necesario */
+  max-height: 500px; /* Altura máxima del contenedor */
+  overflow-x: hidden; /* Oculta el scroll horizontal */
+}
+
+.grado-table {
+  width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+  border-collapse: collapse;
+  border-radius: 18px; /* Agrega bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+}
+
+/* Encabezado fijo */
+.grado-table th {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* Fondo blanco para que el encabezado sea visible */
+  z-index: 2; /* Asegura que el encabezado esté por encima del contenido de la tabla */
+}
+
+.grado-table th,
+.grado-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.grado-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-container table {
+  width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
 }
