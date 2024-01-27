@@ -51,7 +51,7 @@ export class ActualizarPeriodoModalComponent implements OnInit {
   onSubmit() {
     if (this.updateForm.valid && this.periodo_id) {
       const updatePeriodo = this.updateForm.value;
-      updatePeriodo.periodo_id = this.periodo?.periodo_id || 0;
+      updatePeriodo.periodo_id = this.periodo_id;
 
       this.service.updatePeriodo(updatePeriodo).subscribe(
         (data) => {
