@@ -77,10 +77,14 @@ export class RolesComponent implements OnInit {
       this.rolesService.deleteRol(rol_id).subscribe(
         data => {
           console.log('Rol eliminado con éxito:', data);
+          window.location.reload();
+
           // Aquí puedes realizar acciones adicionales después de la eliminación
         },
         error => {
           console.error('Error al eliminar el rol:', error);
+          window.location.reload();
+
           // Manejar el error según sea necesario
         }
 
