@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ExtraActividades } from './extra-actividades';
 
@@ -7,34 +7,38 @@ import { ExtraActividades } from './extra-actividades';
   providedIn: 'root',
 })
 export class ExtraActividadesService {
+  [x: string]: any;
+ 
 
-  private urlEndPoint:string = 'http://localhost:8080/api/extrasactividades/listarExtrasActividades';
-  private urlEndPoint_1:string = 'http://localhost:8080/api/extrasactividades/guardarExtraActividad';
-  private urlEndPoint_2: string = 'http://localhost:8080/api/extrasactividades/eliminarExtraActividad';
-  private urlEndPoint_3: string = 'http://localhost:8080/api/extrasactividades/actualizarExtraActividad';
-  private urlEndPoint_4: string = 'http://localhost:8080/api/extrasactividades/buscarExtraActividad';
 
-  constructor(private http: HttpClient) { }
+  private urlEndPoint:string = 'http://localhost:8080/api/extrasactividades/listarExtrasActividades'
+  private urlEndPoint_1:string = 'http://localhost:8080/api/extrasactividades/guardarExtraActividad'
+  private urlEndPoint_2:string = 'http://localhost:8080/api/extrasactividades/eliminarExtraActividad/{{id}}'
+  private urlEndPoint_3:string = 'http://localhost:8080/api/extrasactividades/actualizarExtraActividad/{{id}}'
+  private urlEndPoint_4:string = 'http://localhost:8080/api/extrasactividades/buscarExtraActividad/{{id}}'
 
-  getAll(): Observable<ExtraActividades[]> {
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
+  
+  constructor(private http:HttpClient) {}
+
+  
+  getExtras(): Observable<ExtraActividades[]> {
+ 
     return this.http.get<ExtraActividades[]>(this.urlEndPoint);
   }
-
-  getById(id: number): Observable<ExtraActividades> {
-    return this.http.get<ExtraActividades>(`${this.urlEndPoint_4}/${id}`);
+  create(extras: ExtraActividades): Observable<ExtraActividades> {
+    return this.http.post<ExtraActividades>(this.urlEndPoint_1, extras, {headers: this.httpHeaders})
   }
-
-  create(data: ExtraActividades): Observable<ExtraActividades> {
-    return this.http.post<ExtraActividades>(this.urlEndPoint_1, data);
+  getextrasid(id:number):Observable<ExtraActividades> {
+    return this.http.get<ExtraActividades>(`${this.urlEndPoint_1}/${id}`)
   }
-
-  updateExtra(extra: ExtraActividades): Observable<ExtraActividades> {
-    const url = `http://localhost:8080/api/extrasactividades/actualizarExtraActividad/${extra.extra_id}`;
-    console.log('URL de actualización:', url);
-    return this.http.put<ExtraActividades>(this.urlEndPoint_3, extra);
+  deleteExtras(extra_id: number): Observable<ExtraActividades> {
+    const url = `http://localhost:8080/api/extrasactividades/eliminarExtraActividad/${extra_id}`; // Ajusta la URL según tu estructura
+     return this.http.delete<ExtraActividades>(url);
   }
-  
-  delete(id: number): Observable<ExtraActividades> {
-    return this.http.delete<ExtraActividades>(`${this.urlEndPoint_2}/${id}`);
-  }
+     updateExtras(extra: ExtraActividades): Observable<ExtraActividades> {
+      const url = `http://localhost:8080/api/extrasactividades/actualizarExtraActividad/${extra.extra_id}`;
+      console.log('URL de actualización:', url);
+      return this.http.put<ExtraActividades>(url, extra);
+}
 }

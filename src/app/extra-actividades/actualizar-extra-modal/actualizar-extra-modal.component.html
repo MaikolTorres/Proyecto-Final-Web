@@ -1,28 +1,31 @@
 <div class="modal-header">
-  <h4 class="modal-title">Actualizar Extra Actividades</h4>
+  <h4 class="modal-title">Actualizar ACTIVIDAD EXTRA</h4>
   <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="updateFormEX" (ngSubmit)="onSubmit()">
-
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-      <label for="nombreProyecto">Nombre Proyecto Vinculación:</label>
-      <input type="text" id="nombreProyecto" formControlName="extra_nombre_proyecto_investigacion" required  />
-
-      <label for="horasInvestigacion">Horas Investigación:</label>
-      <input type="text" id="horasInvestigacion" formControlName="extra_horas_investigacion" required  />
-
-      <label for="gestionAcademica">Gestión Académica:</label>
-      <input type="text" id="gestionAcademica" formControlName="extra_detalle_hora_gestion_academico" required  />
-
-      <label for="gestionAcademicaSemanal">Gestión Académica Semanal:</label>
-      <input type="text" id="gestionAcademicaSemanal" formControlName="extra_horas_direccion_gestion_academica_semanal" required  />
-
-
+      <label for="extra_nombre_proyecto_investigacion">Nombre del Proyecto de Vinculacion:</label>
+      <input type="text" class="form-control" id="extra_nombre_proyecto_investigacion" formControlName="extra_nombre_proyecto_investigacion" required>
     </div>
+    <div class="form-group">
+      <label for="extra_horas_investigacion">	Numero de horas investigación:</label>
+      <input type="text" class="form-control" id="extra_horas_investigacion" formControlName="extra_horas_investigacion" required>
+    </div>
+
+    <div class="form-group">
+      <label for="extra_detalle_hora_gestion_academico">		Gestión Académica:</label>
+      <input type="text" class="form-control" id="extra_detalle_hora_gestion_academico" formControlName="extra_detalle_hora_gestion_academico" required>
+    </div>
+
+    <div class="form-group">
+      <label for="extra_horas_direccion_gestion_academica_semanal">		Horas de gestión académica(semanal):</label>
+      <input type="text" class="form-control" id="extra_horas_direccion_gestion_academica_semanal" formControlName="extra_horas_direccion_gestion_academica_semanal" required>
+    </div>
+
 
     <button type="submit" class="btn btn-primary">Actualizar</button>
   </form>

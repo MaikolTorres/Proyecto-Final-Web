@@ -1,56 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="crear-asignatura.component.css">
+  <title>Tu Título</title>
+</head>
+
 <body>
   <app-header></app-header>
   <app-menudesp></app-menudesp>
-  <div>
+  <div class="container">
     <!-- Formulario -->
-    <form class="formulario">
+    <form class="formulario" (ngSubmit)="crearUsu()">
       <fieldset>
-        <legend class="titulo_formulario">Crear Jornada</legend>
+        <legend class="titulo_formulario">Crear Asignatura</legend>
         <div class="contenedor_formulario">
           <div class="mb-3">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Id Asignatura"
-            />
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Nombre"
-            />
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Horas clase a la semana"
-            />
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Curso"
-            />
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Docente"
-            />
-          </div>
+            <label for="curso_nombre" class="form-label">Nombre:</label>
+            <input type="text" formControlName="curso_nombre" required>
 
-          <button type="submit" class="btn1 btn btn-primary">Registrar</button>
-          <button
-            type="submit"
-            class="btn2 btn btn-danger"
-            routerLink="/asignatura"
-          >
-            Cancelar
+            <label for="curso_paralelo" class="form-label">Hora Clase semanal:</label>
+            <input type="text" formControlName="curso_paralelo" required>
+
+            
+
+            <label for="curso_id" class="form-label">Curso:</label>
+            <select class="form-control" formControlName="curso_id" required>
+              <option *ngFor="let curso of curso1" [value]="curso.curso_id">{{ curso.curso_nombre }}
+              </option>
+            </select>
+
+            <label for="docente_id" class="form-label">Docente:</label>
+            <select class="form-control" formControlName="docente_id" required>
+              <option *ngFor="let docente of docente1" [value]="docente.docente_id">{{ docente.docente_id }}
+              </option>
+            </select>
+
+            
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Registrar
+          </button>
+          <button type="button" class="btn2 btn btn-danger" (click)="cancelar()">
+            <i class="fa fa-times"></i> Cancelar
           </button>
         </div>
       </fieldset>
     </form>
+
   </div>
+
   <app-footer></app-footer>
 </body>

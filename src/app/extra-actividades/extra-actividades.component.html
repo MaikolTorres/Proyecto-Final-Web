@@ -1,46 +1,55 @@
-<app-header> </app-header>
-<app-menudesp></app-menudesp>
-<div>
+<!DOCTYPE html>
+<html lang="en">
 
-  <body>
-    <div class="panel">
-      <h2 class="txt-2">Actividades Extras Docentes</h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="extra-actividades.component.css">
+  <title>Actividades Extras</title>
+</head>
 
-      <form (submit)="crearExtraActividad()">
-        <div>
-          <label for="nombreProyecto">Nombre Proyecto Vinculación:</label>
-          <input type="text" id="nombreProyecto" name="nombreProyecto" required autocomplete="off"
-            [(ngModel)]="nuevaActividad.extra_nombre_proyecto_investigacion" />
-        </div>
+<body>
 
-        <div>
-          <label for="horasInvestigacion">Horas Investigación:</label>
-          <input type="number" id="horasInvestigacion" name="horasInvestigacion"
-            placeholder="Ingrese las horas de Investigación" [(ngModel)]="nuevaActividad.extra_horas_investigacion" />
-        </div>
+  <app-header></app-header>
+  <app-menudesp></app-menudesp>
 
-        <div>
-          <label for="gestionAcademica">Gestión Académica:</label>
-          <input type="text" id="gestionAcademica" name="gestionAcademica" placeholder="Ingrese Detalles de la Gestión"
-            [(ngModel)]="
-              nuevaActividad.extra_detalle_hora_gestion_academico
-            " />
-        </div>
+  <div class="container">
+    <!-- Formulario -->
+    <form class="formulario" (ngSubmit)="crearExtras()">
+      <fieldset>
+        <legend class="titulo_formulario">Crear Actividades</legend>
+        <div class="contenedor_formulario">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre Proyecto:</label>
+            <input type="text" [(ngModel)]="nuevoextras.extra_nombre_proyecto_investigacion" name="extra_nombre_proyecto_investigacion" required class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Numero de horas investigación:</label>
+            <input type="text" [(ngModel)]="nuevoextras.extra_horas_investigacion" name="extra_horas_investigacion" required class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Gestión Académica:</label>
+            <input type="text" [(ngModel)]="nuevoextras.extra_detalle_hora_gestion_academico" name="extra_detalle_hora_gestion_academico" required class="form-control">
+          </div>
 
-        <div>
-          <label for="gestionAcademicaSemanal">Gestión Académica Semanal:</label>
-          <input type="number" id="gestionAcademicaSemanal" name="gestionAcademicaSemanal"
-            placeholder="Ingrese Horas de Gestión Semanal" [(ngModel)]="
-              nuevaActividad.extra_horas_direccion_gestion_academica_semanal
-            " />
-        </div>
-        <div>
-          <button type="submit">Enviar</button>
-          <button type="button" class="cancel" routerLink="/listar-extra-actividades">
-            Cancelar
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Horas de gestión académica(semanal):</label>
+            <input type="text" [(ngModel)]="nuevoextras.extra_horas_direccion_gestion_academica_semanal" name="extra_horas_direccion_gestion_academica_semanal" required class="form-control">
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Registrar
+          </button>
+          <!-- Cambia el tipo de botón de submit a button para evitar enviar el formulario al presionar Cancelar -->
+          <button type="button" class="btn btn-danger" (click)="cancelar()">
+            <i class="fa fa-times"></i> Cancelar
           </button>
         </div>
-      </form>
-    </div>
-  </body>
-</div>
+      </fieldset>
+    </form>
+  </div>
+
+  <app-footer></app-footer>
+</body>
+
+</html>
