@@ -70,6 +70,8 @@ import { ActualizarPeriodoModalComponent } from './periodos/actualizar-periodo-m
 import { ActualizarDocenteModalComponent } from './actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
 import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
 import { ActuaizarDocenteModalComponent } from './docente/actuaizar-docente-modal/actuaizar-docente-modal.component';
+import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component'; 
+
 
 const routes: Routes = [
   { path: 'actualizarrDocente', component: ActuaizarDocenteModalComponent },
@@ -101,6 +103,7 @@ const routes: Routes = [
     component: RecuperacionContrasenaComponent,
   },
   { path: 'creartitulo', component: CrearTituloComponent },
+  { path: 'actualizartitulo', component: ActualizarTituloComponent },
   { path: 'gradoOcu', component: GradoOcupacionalComponent },
   { path: 'creargrado', component: CrearGradoOcupacionalComponent },
   { path: 'docente', component: DocenteComponent },
@@ -218,6 +221,7 @@ const routes: Routes = [
     ActualizarPeriodoModalComponent,
     ActuaizarDocenteModalComponent,
     
+    ActualizarTituloComponent
   ],
 
   imports: [

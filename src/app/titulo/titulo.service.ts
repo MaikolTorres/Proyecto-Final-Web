@@ -35,9 +35,9 @@ export class TituloService {
     const url = `http://localhost:8080/api/titulo/eliminar/${titulo_id}`; // Ajusta la URL según tu estructura
      return this.http.delete<Titulo>(url);
   }
-     updatetitulos(titulo: Titulo): Observable<Titulo> {
-      const url = `http://localhost:8080/api/titulo/actualizar/${titulo.titulo_id}`;
-      console.log('URL de actualización:', url);
-      return this.http.put<Titulo>(url, Titulo);
-}
+  updatetitulos(titulo: Titulo): Observable<Titulo> {
+    const url = `http://localhost:8080/api/titulo/actualizar/${titulo.titulo_id}`;
+    console.log('URL de actualización:', url);
+    return this.http.put<Titulo>(url, titulo); // Aquí cambié `Titulo` por `titulo`
+  }
 }
