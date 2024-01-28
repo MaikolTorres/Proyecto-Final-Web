@@ -11,25 +11,25 @@
 <body>
     <div class="form-container">
         <h2>Crear Nuevo Docente</h2>
-        <form id="create-docente-form" [formGroup]="updateForm">
-            <label for="fechaIngreso">Fecha de Ingreso:</label>
-            <input type="date" id="fechaIngreso" name="fechaIngreso" formControlName="docente_fecha_ingreso" required>
+        <form id="create-docente-form" [formGroup]="updateForm" (ngSubmit)="creardoce()">
+            <label for=" fechaIngreso">Fecha de Ingreso:</label>
+            <input type="date" id="fechaIngreso" name="fechaIngreso" formControlName="fechaIngreso" required>
 
             <label for="estado">Estado:</label>
-            <select id="estado" name="estado" formControlName="docente_estado" required>
+            <select id="estado" name="estado" formControlName="estado" required >
                 <option value="activo">Activo</option>
                 <option value="inactivo">Inactivo</option>
             </select>
 
             <label for="per_id">per_id:</label>
-            <select class="form-control" id="per_id" formControlName="persona_id" required>
+            <select class="form-control" id="per_id" formControlName="per_id" required>
                 <option *ngFor="let persona of personas" [value]="persona.per_id">
                     {{ persona.per_primer_nombre + ' ' + persona.per_apellido_paterno }}
                 </option>
             </select>
 
-            <label for="tipo_contrato">Tipo de Contrato:</label>
-            <select class="form-control" id="tipo_contrato" formControlName="tipo_contrato_id" required>
+            <label for="tipo_id">Tipo de Contrato:</label>
+            <select class="form-control" id="tipo_id" formControlName="tipo_id" required>
                 <option *ngFor="let tipo_contrato of contratos1" [value]="tipo_contrato.tipo_id">
                     {{ tipo_contrato.tipo_contrato }}
                 </option>
@@ -64,7 +64,9 @@
             </select>
 
             <div class="button-container">
-                <button type="submit" class="btn btn-primary">
+
+
+                <button type="submit" [disabled]="updateForm.invalid || botonDesactivado"class="btn btn-primary">
                     <i class="fa fa-check"></i> Registrar
                   </button>
                   <button type="button" class="btn btn-danger" (click)="cancelar()">

@@ -73,18 +73,17 @@ getgrado(): Observable<GradoOcupacional[]> {
 }
 createForm() {
   this.updateForm = this.fb.group({
-    docente_fecha_ingreso :['', Validators.required],
-    docente_estado:['', Validators.required],
-    persona_id:['', Validators.required],
-    tipo_contrato_id:['', Validators.required],
-    cargo_id:['', Validators.required],
-titulo_id:['', Validators.required],
-periodo_id:['', Validators.required],
-grado_id:['', Validators.required],
-   
-    // Otros campos según tu modelo Jornada
+    fechaIngreso: ['', Validators.required],
+    estado: ['', Validators.required],
+    per_id: ['', Validators.required],
+    tipo_id: ['', Validators.required],
+    cargo_id: ['', Validators.required],
+    titulo_id: ['', Validators.required],
+    periodo_id: ['', Validators.required],
+    grado_id: ['', Validators.required]
   });
 }
+
 cargarPer() {
   this.getPersonas().subscribe(personas => (this.personas = personas));
 }
@@ -126,20 +125,20 @@ grado_id:docente.grado.grado_id,
     );
   }
 }
- cargarListaper(): void {
-    this.docenteservice.getpers().subscribe(
-      personas => {
-        this.personas = personas;
-        this.isLoading = false;
-        console.error('Error al cargar las usuarios:', personas);
-      },
-      error => {
-        console.error('Error al cargar las usuarios:', error);
-        this.isLoading = false;
-      }
-    );
-  }
-  
+cargarListaper(): void {
+  this.docenteservice.getpers().subscribe(
+    personas => {
+      this.personas = personas;
+      this.isLoading = false;
+      console.log('Usuarios cargados correctamente:', personas);
+    },
+    error => {
+      console.error('Error al cargar las usuarios:', error);
+      this.isLoading = false;
+    }
+  );
+}
+
    cargarListacontrato(): void {
     this.docenteservice.getcontrato().subscribe(
       contratos => {
@@ -158,7 +157,7 @@ grado_id:docente.grado.grado_id,
       cargos => {
         this.cargos = cargos;
         this.isLoading = false;
-        console.error('Error al cargar las usuarios:', cargos);
+        console.log('bien al cargar las cargos:', cargos);
       },
       error => {
         console.error('Error al cargar las usuarios:', error);
@@ -171,7 +170,7 @@ grado_id:docente.grado.grado_id,
       titulos => {
         this.titulos = titulos;
         this.isLoading = false;
-        console.error('Error al cargar las usuarios:', titulos);
+        console.log('bien al cargar las titulos:', titulos);
       },
       error => {
         console.error('Error al cargar las usuarios:', error);
@@ -184,7 +183,7 @@ grado_id:docente.grado.grado_id,
       periodos => {
         this.periodos = periodos;
         this.isLoading = false;
-        console.error('Error al cargar las usuarios:', periodos);
+        console.log('bien al cargar las periodos:', periodos);
       },
       error => {
         console.error('Error al cargar las usuarios:', error);
@@ -198,7 +197,7 @@ cargarListagrado(): void {
       grados => {
         this.grados = grados;
         this.isLoading = false;
-        console.error('Error al cargar las usuarios:', grados);
+        console.log('bien  al cargar las grados:', grados);
       },
       error => {
         console.error('Error al cargar las usuarios:', error);
@@ -235,33 +234,43 @@ cargarListagrado(): void {
       );
     }
   }
-  crearUsu() {
+  creardoce() {
     // Desactivar el botón durante la solicitud
     this.botonDesactivado = true;
-  
+    // console.log('nuevoDocente:', this.nuevoDocente);
+    // console.log('nuevoDocente.persona:', this.nuevoDocente.persona);
     const formData = this.updateForm.value;
-    console.log('docente_id:', this.nuevoDocente.docente_id);
-    console.log('docente_fecha_ingreso: ',this.nuevoDocente.docente_fecha_ingreso);
-    console.log('docente_estado:', this.nuevoDocente.docente_estado);
-    console.log('persona_id:' ,this.nuevoDocente.persona.per_id);
-    console.log('tipo_contrato_id:',this.nuevoDocente.tipo_contrato.tipo_id);
-    console.log('cargo_id: ',this.nuevoDocente.cargo.cargo_id);
-    console.log('titulo_id: ',this.nuevoDocente.titulo.titulo_id);
-    console.log('periodo_id: ',this.nuevoDocente.periodo.periodo_id);
-    console.log('grado_id: ',this.nuevoDocente.grado.grado_id);
-    
+    console.log('Datos del formulario:', formData);
+
+    // Asegurar que nuevoDocente y sus propiedades estén definidos antes de acceder a ellas
+    // if (this.nuevoDocente && this.nuevoDocente.persona) {
+    //   console.log('docente_id:', this.nuevoDocente.docente_id);
+    //   console.log('docente_fecha_ingreso:', this.nuevoDocente.docente_fecha_ingreso);
+    //   console.log('docente_estado:', this.nuevoDocente.docente_estado);
+    //   console.log('persona_id:', this.nuevoDocente.persona.per_id);
+    //   console.log('tipo_id:', this.nuevoDocente.tipo_contrato.tipo_id);
+    //   console.log('cargo_id:', this.nuevoDocente.cargo.cargo_id);
+    //   console.log('titulo_id:', this.nuevoDocente.titulo.titulo_id);
+    //   console.log('periodo_id:', this.nuevoDocente.periodo.periodo_id);
+    //   console.log('grado_id:', this.nuevoDocente.grado.grado_id);
+    // } else {
+    //   console.error('Error: nuevoDocente o alguna de sus propiedades es nulo o indefinido.');
+    //   // Puedes decidir cómo manejar esta situación, por ejemplo, mostrar un mensaje al usuario.
+    //   return;
+    // }
+  
     this.docenteservice.create(formData).subscribe(
       (response) => {
         // Éxito
-        console.log('Usuario creado exitosamente:', response);
+        console.log('Docente creado exitosamente:', response);
         // Resto de la lógica después de la creación exitosa
   
-        // Cerrar la ventana después de guardar la jornada
+        // Cerrar la ventana después de guardar el docente
         window.close();
       },
       (error) => {
         // Manejo de errores
-        console.error('Error al crear el usuario:', error);
+        console.error('Error al crear el docente:', error);
         if (error.status === 401) {
           // Redirigir al usuario a la página de inicio de sesión
           this.router.navigate(['/login']);
@@ -270,14 +279,17 @@ cargarListagrado(): void {
           alert(error.error.error);
         } else {
           // Muestra un mensaje de error genérico al usuario
-          alert('Error al crear el usuario. Por favor, inténtelo de nuevo.');
+          alert('Error al crear el docente. Por favor, inténtelo de nuevo.');
         }
   
         // Reactivar el botón después de un error
         this.botonDesactivado = false;
       }
     );
-  }
+}
+
+  
+  
   cancelar(): void {
     this.router.navigate(['/docente']);
   }
