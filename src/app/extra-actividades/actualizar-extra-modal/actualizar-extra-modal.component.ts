@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ExtraActividades } from '../extra-actividades';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ExtraActividadesService } from '../extra-actividades.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-actualizar-extra-modal',
@@ -11,66 +12,72 @@ import { Router } from '@angular/router';
   styleUrls: ['./actualizar-extra-modal.component.css']
 })
 export class ActualizarExtraModalComponent implements OnInit {
-
   @Input() extra: ExtraActividades | undefined;
-  extra_id: number | undefined;
-  updateFormEX!: FormGroup;
+  @Output() ExtraActualizada= new EventEmitter<void>();
+  updateForm!: FormGroup;
 
-  constructor(
-    public modalRef: BsModalRef,
-    private fb: FormBuilder,
-    private serviceExtra: ExtraActividadesService,
-    private router: Router
-
-  ) {}
+  constructor(public modalRef: BsModalRef, 
+  private fb: FormBuilder, 
+  private extraService: ExtraActividadesService,
+  private router: Router) { }
 
   ngOnInit() {
     this.createForm();
-    this.populateFormWithExtrData();
+    this.populateFormWithRoleData();
   }
 
   createForm() {
-    this.updateFormEX = this.fb.group({
+    this.updateForm = this.fb.group({
       extra_nombre_proyecto_investigacion: ['', Validators.required],
       extra_horas_investigacion: ['', Validators.required],
       extra_detalle_hora_gestion_academico: ['', Validators.required],
-      extra_horas_direccion_gestion_academica_semanal: ['', Validators.required],
+      extra_horas_direccion_gestion_academica_semanal: ['', Validators.required]
+
     });
   }
 
-  populateFormWithExtrData()  {
+  populateFormWithRoleData() {
     if (this.extra) {
-      this.updateFormEX.patchValue({
+      this.updateForm.patchValue({
         extra_nombre_proyecto_investigacion: this.extra.extra_nombre_proyecto_investigacion,
         extra_horas_investigacion: this.extra.extra_horas_investigacion,
         extra_detalle_hora_gestion_academico: this.extra.extra_detalle_hora_gestion_academico,
-        extra_horas_direccion_gestion_academica_semanal: this.extra.extra_horas_direccion_gestion_academica_semanal,
+        extra_horas_direccion_gestion_academica_semanal: this.extra.extra_horas_direccion_gestion_academica_semanal
+
       });
     }
   }
 
   onSubmit() {
-    if (this.updateFormEX.valid && this.extra_id) {
-      const updateActividad = this.updateFormEX.value;
-      updateActividad.extra_id = this.extra_id;
+    if (this.updateForm && this.updateForm.valid) {
+      const updatedExtra = this.updateForm.value;
+      updatedExtra.extra_id = this.extra?.extra_id || 0;
 
-      this.serviceExtra.updateExtra(updateActividad).subscribe(
+      if (!updatedExtra.extra_id) {
+        console.error('Error: ID de la actividad no válido');
+        return;
+      }
+
+      this.extraService.updateExtras(updatedExtra).subscribe(
         (data) => {
-          console.log('Actividad actualizada con éxito:', data);
-          this.modalRef.hide();
+          console.log('Actividades Extras se ha actualizado con éxito:', data);
+          this.modalRef.hide(); 
+          this.ExtraActualizada.emit(); 
+          alert('Actividades Extras actualizada exitosamente');
+          this.router.navigate(['/listar-extra-actividades']); // Ruta de la misma página
         },
         (error) => {
           console.error('Error al actualizar la actividad:', error);
-          // Manejar otros tipos de errores
+          if (error instanceof HttpErrorResponse && error.status === 200) {
+            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+            this.modalRef.hide();
+            this.ExtraActualizada.emit(); 
+            alert('Actividades Extras actualizada exitosamente');
+            this.router.navigate(['/listar-extra-actividades']); 
+          } else {
+          }
         }
       );
-    } else {
-      console.error('Error: formulario inválido o ID de actividad no proporcionado.');
     }
   }
-
-  cancelar(): void {
-    this.router.navigate(['/listar-extra-actividades']);
-  }
-
 }

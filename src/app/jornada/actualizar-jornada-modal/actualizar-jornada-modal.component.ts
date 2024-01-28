@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ActualizarJornadaModalComponent implements OnInit {
   [x: string]: any;
+  jornadas: Jornada[] = [];
   @Input() jornada: Jornada | undefined;
   @Output() jornadaActualizada = new EventEmitter<void>();
   updateForm!: FormGroup;
@@ -22,6 +23,11 @@ export class ActualizarJornadaModalComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.populateFormWithJornadaData();
+  }
+  cargarLista(): void {
+    this.jornadaService.getJornadas().subscribe(
+      jornadas => this.jornadas = jornadas
+    );
   }
 
   createForm() {
@@ -69,6 +75,7 @@ export class ActualizarJornadaModalComponent implements OnInit {
           this.jornadaActualizada.emit(); // Emitir evento de jornada actualizada
           // Mostrar el mensaje de éxito al usuario
           alert('Jornada actualizada exitosamente');
+          this.cargarLista;
           this.router.navigate(['/actualizar-jornada']); // Ruta de la misma página
         },
         error => {
@@ -80,6 +87,7 @@ export class ActualizarJornadaModalComponent implements OnInit {
             this.jornadaActualizada.emit(); // Emitir evento de jornada actualizada
             this.jornadaActualizada.emit();
             this.router.navigate(['/actualizar-jornada']); // Ruta de la misma página
+            window.location.reload();
 
             alert('Jornada actualizada exitosamente');
           } else {

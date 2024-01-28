@@ -69,6 +69,8 @@ export class ActualizarGradoModalComponent implements OnInit {
             data => {
               console.log('Grado actualizado con éxito:', data);
               this.modalRef.hide();  // Cierra la ventana desplegable después de la actualización
+              window.location.reload();
+
             },
             error => {
               console.error('Error al actualizar el grado:', error);

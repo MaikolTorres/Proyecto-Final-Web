@@ -32,7 +32,7 @@ export class CrearUsuarioComponent implements OnInit {
     private http: HttpClient,
     private router: Router
   ) {
-
+    this.createForm();
 
   }
 
@@ -42,8 +42,11 @@ export class CrearUsuarioComponent implements OnInit {
     this.cargarRoles();
     this.cargarLista();
     this.cargarListarol();
+   
   }
-
+  initializeForm() {
+    this.createForm();
+  }
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }

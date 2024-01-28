@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h4 class="modal-title">Actualizar docente</h4>
+    <h4 class="modal-title">Actualizar docente</h4>
+
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <!-- Campos del formulario -->
+      <div class="form-group">
+        <label for="docente_fecha_ingreso">fecha de ingreso del docente:</label>
+        <input type="text" class="form-control" id="docente_fecha_ingreso" formControlName="docente_fecha_ingreso"required>
+        <label for="docente_estado"> estado del docente  :</label>
+        <input type="text" class="form-control" id="docente_estado" formControlName="docente_estado" required>
+      <label for="per_id"> per_id :</label>
+      <select class="form-control" id="per_id" formControlName="per_id" required>
+        <option *ngFor="let persona of personas" [value]="persona.per_id">
+          {{ persona.per_primer_nombre + ' ' + persona.per_apellido_paterno }} 
+        </option>
+      </select>
+      
+
+  <label for="tipo_contrato"> Tipo de Contrato :</label>
+  <select class="form-control" id="tipo_contrato" formControlName="tipo_contrato" required>
+    <option *ngFor="let  tipo_contratos of  contratos1" [value]="tipo_contratos.tipo_contrato">{{tipo_contratos.tipo_contrato }}</option>
+  </select>
+       
+  <label for="cargo"> cargo :</label>
+  <select class="form-control" id="cargo" formControlName="cargo" required>
+    <option *ngFor="let  cargos of  cargos" [value]="cargos.cargo_nombre">{{cargos.cargo_nombre }}</option>
+  </select>
+  
+  <label for="titulo"> titulo :</label>
+  <select class="form-control" id="titulo" formControlName="titulo" required>
+    <option *ngFor="let  titulos of  titulos" [value]="titulos.titulo_nombre">{{titulos.titulo_nombre }}</option>
+  </select>
+  <label for="periodo"> periodo :</label>
+  <select class="form-control" id="periodo" formControlName="periodo" required>
+    <option *ngFor="let periodo of periodos" [value]="periodo.periodo_id">
+      {{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}
+    </option>
+      </select>
+      <label for="grado"> grado ocupasional :</label>
+      <select class="form-control" id="grado" formControlName="grado" required>
+        <option *ngFor="let  grado of  grados" [value]="grado.grado_titulo">{{grado.grado_titulo }}</option>
+      </select>
+    </div>
+      <!-- Otros campos del formulario según tu modelo Jornada -->
+
+      <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+  </div>
+  

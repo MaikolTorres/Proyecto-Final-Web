@@ -1,1 +1,20 @@
-<p>actualizar-titulo works!</p>
+<div class="modal-header">
+    <h4 class="modal-title">Actualizar Titulo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="updatetituloForm" (ngSubmit)="onSubmit()">
+      <!-- Campos del formulario -->
+      <div class="form-group">
+        <label for="titulo_nombre">Nombre del Título:</label>
+        <input type="text" class="form-control" id="titulo_nombre" formControlName="titulo_nombre" required>
+      </div>
+      <!-- Otros campos del formulario según tu modelo Titulo -->
+  
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+      </div>
+    </form>
+  </div>

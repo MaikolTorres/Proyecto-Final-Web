@@ -54,10 +54,14 @@ export class TipoContratoComponent {
       this.tipocontratoService.deleteTipoContrato(tipocontratoId).subscribe(
         (data) => {
           console.log('Tipo Contrato eliminado con éxito:', data);
+          window.location.reload();
+
           // Aquí puedes realizar acciones adicionales después de la eliminación
         },
         (error) => {
           console.error('Error al eliminar el Tipo Contrato:', error);
+          window.location.reload();
+
           // Manejar el error según sea necesario
         }
       );
