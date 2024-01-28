@@ -12,57 +12,55 @@
 <app-header> </app-header>
 <app-menudesp></app-menudesp>
 
+<body>
+  <h2>Lista de Periodos</h2>
 
-  <body>
-    <h2>Lista de Periodos</h2>
-
-    <div class="button-container"> <!-- Contenedor de los botones -->
-      <button class="button1" routerLink="/crear-periodo">
-        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
-      </button>
-    </div>
-    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por Año" (input)="buscar()" />
+  <div class="button-buscar-container">
+    <div class="buscar-input">
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por año" (input)="buscar()" />
       <button style="border: none; background: transparent;">
-        <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+        <i class="fas fa-search"></i> 
       </button>
     </div>
-    <div class="table-container"> <!-- Contenedor de la tabla -->
-      <table class="periodo-table">
-        <thead>
-          <tr>
-            <th>Mes Inicio</th>
-            <th>Mes fin</th>
-            <th>Año Inicio</th>
-            <th>Año Fin</th>
-            <th>Actualizar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let periodo of periodo">
-            <td>{{ periodo.periodo_mes_inicio }}</td>
-            <td>{{ periodo.periodo_mes_fin }}</td>
-            <td>{{ periodo.periodo_anio_inicio }}</td>
-            <td>{{ periodo.periodo_anio_fin }}</td>
+    <button class="button1" routerLink="/crear-periodo">
+      <i class="fas fa-save"></i> Agregar
+    </button>
+  </div>
 
-              <td>
-                <button style="border: none; background: transparent;" (click)="abrirModalActualizar(periodo)">
-                  <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
-                </button>
-              </td>
-              <td>
-                <button style="border: none; background: transparent;" (click)="eliminarPeriodo(periodo.periodo_id)">
-                  <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-                </button>
-              </td>
-           
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    
-    </body>
-    <app-footer></app-footer>
-    
-    </html>
+  <div class="table-container">
+    <table class="periodo-table">
+      <thead>
+        <tr>
+          <th>Mes Inicio</th>
+          <th>Mes fin</th>
+          <th>Año Inicio</th>
+          <th>Año Fin</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let periodo of periodos">
+          <td>{{ periodo.periodo_mes_inicio }}</td>
+          <td>{{ periodo.periodo_mes_fin }}</td>
+          <td>{{ periodo.periodo_anio_inicio }}</td>
+          <td>{{ periodo.periodo_anio_fin }}</td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="abrirModalActualizar(periodo)">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="eliminarPeriodo(periodo.periodo_id)">
+              <i class="fas fa-trash-alt"></i> 
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+<app-footer></app-footer>
+
+</html>
