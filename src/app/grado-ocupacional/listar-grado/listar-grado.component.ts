@@ -82,10 +82,14 @@ export class ListarGradoComponent implements OnInit {
                 `Grado Ocupacional Eliminado: ${this.grado?.grado_titulo}`,
                 'success'
               );
+              window.location.reload();
+
               this.cargarLista(); // Actualizar la lista después de eliminar
             },
             (error) => {
               console.error('Error al eliminar grado ocupacional:', error);
+              window.location.reload();
+
             }
           );
         }

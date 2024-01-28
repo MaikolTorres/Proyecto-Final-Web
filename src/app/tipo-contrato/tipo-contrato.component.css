@@ -66,7 +66,7 @@ h2 {
   overflow-x: hidden; /* Oculta el scroll horizontal */
 }
 
-.persona-table {
+.tipo-contrato-table {
   width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
   border-collapse: collapse;
   border-radius: 18px; /* Agrega bordes redondeados */
@@ -74,21 +74,21 @@ h2 {
 }
 
 /* Encabezado fijo */
-.persona-table th {
+.tipo-contrato-table th {
   position: sticky;
   top: 0;
   background-color: #fff; /* Fondo blanco para que el encabezado sea visible */
   z-index: 2; /* Asegura que el encabezado esté por encima del contenido de la tabla */
 }
 
-.persona-table th,
-.persona-table td {
+.tipo-contrato-table th,
+.tipo-contrato-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
 
-.persona-table tbody tr:hover {
+.tipo-contrato-table tbody tr:hover {
   background-color: #f5f5f5;
 }
 
