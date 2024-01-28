@@ -22,39 +22,39 @@ export class DocenteService {
   private urlGrado: string = 'http://localhost:8080/api/grado/listar';
 
   private urlperiodo: string = 'http://localhost:8080/api/periodos/listar';
- docentes: Docente[] = [];
+  docentes: Docente[] = [];
   personas: Persona[] = [];
-contratos: TipoContrato[] = [];
-cargos: Cargo[] = [];
-titulos: Titulo[] = [];
-periodos: Periodos[] = [];
-grados:GradoOcupacional[]=[];
-private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
+  contratos: TipoContrato[] = [];
+  cargos: Cargo[] = [];
+  titulos: Titulo[] = [];
+  periodos: Periodos[] = [];
+  grados: GradoOcupacional[] = [];
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
-constructor(private http: HttpClient) { }
-getDocentes(): Observable<Docente[]> {
-  return this.http.get<Docente[]>(this.urlEndPoint);
-}
-create(docentes: Docente): Observable<Docente> {
-  return this.http.post<Docente>(this.urlEndPoint_1, docentes, {headers: this.httpHeaders})
-}
-getdocentesId(id:number):Observable<Docente> {
-  return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
-}
-deleteDocente(docente_id: number): Observable<Docente> {
-  const url = `http://localhost:8080/api/docente/eliminar/${docente_id}`; // Ajusta la URL según tu estructura
-   return this.http.delete<Docente>(url);
-}
-   updatedocente(docente: Docente): Observable<Docente> {
+  constructor(private http: HttpClient) { }
+  getDocentes(): Observable<Docente[]> {
+    return this.http.get<Docente[]>(this.urlEndPoint);
+  }
+  create(docentes: Docente): Observable<Docente> {
+    return this.http.post<Docente>(this.urlEndPoint_1, docentes, { headers: this.httpHeaders })
+  }
+  getdocentesId(id: number): Observable<Docente> {
+    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
+  }
+  deleteDocente(docente_id: number): Observable<Docente> {
+    const url = `http://localhost:8080/api/docente/eliminar/${docente_id}`; // Ajusta la URL según tu estructura
+    return this.http.delete<Docente>(url);
+  }
+  updatedocente(docente: Docente): Observable<Docente> {
     const url = `http://localhost:8080/api/docente/actualizar/${docente.docente_id}`;
     console.log('URL de actualización:', url);
     return this.http.put<Docente>(url, Docente);
-   }
-   getpers(): Observable<Persona[]> {
+  }
+  getpers(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlpersona);
   }
-  getcontrato(): Observable<TipoContrato[]> {
+  getTipoContrato(): Observable<TipoContrato[]> {
     return this.http.get<TipoContrato[]>(this.urlcontrato);
   }
   getcargo(): Observable<Cargo[]> {
@@ -63,7 +63,7 @@ deleteDocente(docente_id: number): Observable<Docente> {
   gettitulo(): Observable<Titulo[]> {
     return this.http.get<Titulo[]>(this.urltitulo);
   }
-  getperiodos(): Observable<Periodos[]> {
+  getPeriodo(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>(this.urlperiodo);
   }
   getgrado(): Observable<GradoOcupacional[]> {
@@ -73,7 +73,7 @@ deleteDocente(docente_id: number): Observable<Docente> {
     this.getpers().subscribe(personas => this.personas = personas);
   }
   cargarcontrato() {
-    this.getcontrato().subscribe(contratos1 => this.contratos = contratos1);
+    this.getTipoContrato().subscribe(contratos1 => this.contratos = contratos1);
   }
   cargarCargo() {
     this.getcargo().subscribe(cargos => this.cargos = cargos);
@@ -82,7 +82,7 @@ deleteDocente(docente_id: number): Observable<Docente> {
     this.gettitulo().subscribe(titulos => this.titulos = titulos);
   }
   cargarPeriodos() {
-    this.getperiodos().subscribe(periodos => this.periodos = periodos);
+    this.getPeriodo().subscribe(periodos => this.periodos = periodos);
   }
   cargarGrados() {
     this.getgrado().subscribe(grados => this.grados = grados);

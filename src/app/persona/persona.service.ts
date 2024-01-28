@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Persona } from './persona';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -47,6 +48,12 @@ import { Persona } from './persona';
   return this.http.put<Persona>(url, persona);
 }
 ///
+getRolByCedula(cedula: string): Observable<Persona> {
+  return this.http.get<Persona[]>(this.urlEndPoint).pipe(
+    map(personas => personas.find(persona => persona.per_cedula === cedula) as Persona), 
+    filter(persona => !!persona) // Filtrar null o undefined
+  );
+}
 
 
 }
