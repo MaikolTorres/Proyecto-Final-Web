@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TituloService } from './titulo.service';
 import { FormsModule } from '@angular/forms';
 import { ActualizarTituloComponent } from './actualizar-titulo/actualizar-titulo.component';
+import { AlertService } from '../service/Alert.service';
 
 @Component({
   selector: 'app-titulo',
@@ -24,7 +25,7 @@ export class TituloComponent implements OnInit{
   tituFiltradas: Titulo[] = [];  // Nuevo array para las jornadas filtradas
   todasLostitu: Titulo[] = [];
   
-  constructor(private tituloService: TituloService, private modalService: BsModalService) {}
+  constructor(private tituloService: TituloService, private modalService: BsModalService, private alertService: AlertService) {}
 
   ngOnInit(): void {
     this.cargarLista();
@@ -67,24 +68,27 @@ export class TituloComponent implements OnInit{
     this.modalRef = this.modalService.show(ActualizarTituloComponent, { initialState });
   }
   eliminartitulo(titulo_id: number): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este titulo?')) {
-      this.tituloService.deletetitulo(titulo_id).subscribe(
-
-        data => {
-          console.log('titulo eliminado con éxito:', data);
-          window.location.reload();
-
-          // Aquí puedes realizar acciones adicionales después de la eliminación
-        },
-        error => {
-          console.error('Error al eliminar el titulo:', error);
-          window.location.reload();
-
-          // Manejar el error según sea necesario
-        }
-        
-      );
-    }
+    this.alertService.question2(
+      'Confirmar eliminación',
+      '¿Eliminar este titulo?',
+      'Sí, eliminar',
+      'Cancelar'
+    ).then((confirmed) => {
+      if (confirmed) {
+        this.tituloService.deletetitulo(titulo_id).subscribe(
+          (data) => {
+            console.log('titulo eliminado con éxito:', data);
+            window.location.reload();
+          
+          },
+          (error) => {
+            console.error('Error al eliminar el titulo:', error);
+            window.location.reload();
+            
+          }
+        );
+      }
+    });
   }
   textoBusqueda: string = '';
 

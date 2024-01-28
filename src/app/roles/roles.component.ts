@@ -6,6 +6,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ActualizarRoleComponent } from './actualizar-role-modal/actualizar-role-modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from '../service/Alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-roles',
@@ -26,7 +28,7 @@ export class RolesComponent implements OnInit {
   rolesFiltradas: Rol[] = [];  // Nuevo array para las jornadas filtradas
   todasLosroles: Rol[] = [];
 
-  constructor(private rolesService: RolesService, private modalService: BsModalService) { }
+  constructor(private rolesService: RolesService, private modalService: BsModalService,private router: Router,private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.cargarLista();
@@ -72,25 +74,30 @@ export class RolesComponent implements OnInit {
   }
 
   eliminarRol(rol_id: number): void {
-    if (confirm('¿Estás seguro de que deseas eliminar este rol?')) {
-      // Llama al servicio para eliminar el rol
-      this.rolesService.deleteRol(rol_id).subscribe(
-        data => {
-          console.log('Rol eliminado con éxito:', data);
-          window.location.reload();
-
-          // Aquí puedes realizar acciones adicionales después de la eliminación
-        },
-        error => {
-          console.error('Error al eliminar el rol:', error);
-          window.location.reload();
-
-          // Manejar el error según sea necesario
-        }
-
-      );
-    }
+    this.alertService.question2(
+      'Confirmar eliminación',
+      '¿Estás seguro de que deseas eliminar este rol?',
+      'Sí, eliminar',
+      'Cancelar'
+    ).then((confirmed) => {
+      if (confirmed) {
+        this.rolesService.deleteRol(rol_id).subscribe(
+          data => {
+            console.log('Rol eliminado con éxito:', data);
+            this.alertService.notification('','Rol eliminado exitosamente');
+            window.location.reload();
+          },
+          error => {
+            console.error('Error al eliminar el rol:', error);
+            // No es necesario recargar toda la página
+            // Manejar el error según sea necesario
+          }
+        );
+      }
+    });
   }
+
+
   textoBusqueda: string = '';
 
   // buscar

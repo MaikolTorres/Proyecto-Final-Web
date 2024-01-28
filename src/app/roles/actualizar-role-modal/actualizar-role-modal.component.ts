@@ -5,6 +5,7 @@ import { Rol } from '../roles';
 import { RolesService } from '../roles.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/service/Alert.service';
 
 @Component({
   selector: 'app-actualizar-role-modal',
@@ -19,7 +20,8 @@ export class ActualizarRoleComponent implements OnInit {
   constructor(public modalRef: BsModalRef, 
   private fb: FormBuilder, 
   private rolesService: RolesService,
-  private router: Router) { }
+  private router: Router,
+  private alertService: AlertService) { }
 
   ngOnInit() {
     this.createForm();
@@ -46,43 +48,49 @@ export class ActualizarRoleComponent implements OnInit {
     if (this.updateRolForm && this.updateRolForm.valid) {
       const updatedRoles = this.updateRolForm.value;
       if (!this.rol) {
-        console.log('Error: No se ha proporcionado un rol para actualizar.');
+        console.error('Error: No se ha proporcionado un rol para actualizar.');
         return;
       }
       updatedRoles.rol_id = this.rol?.rol_id || 0;
-      if (!updatedRoles.rol_id)
-        console.log('ID del rol seleccionado:', updatedRoles.rol_id);
       if (!updatedRoles.rol_id) {
         console.error('Error: ID de rol no válido');
         return;
       }
 
-      this.rolesService.updateRoles(updatedRoles).subscribe(
-        (data) => {
-          console.log('Rol actualizado con éxito:', data);
-          this.modalRef.hide();  // Cierra la ventana modal después de la actualización
-          this.cargoRol.emit();
-          alert('Cargo actualizado exitosamente');
-          window.location.reload();
-          this.router.navigate(['/roles']);
-        },
-        error => {
-          console.error('Error al actualizar el rol:', error);
+      this.alertService.question2(
+        'Confirmar actualización',
+        '¿Actualizar este rol?',
+        'Sí, actualizar',
+        'Cancelar'
+      ).then((confirmed) => {
+        if (confirmed) {
+          this.rolesService.updateRoles(updatedRoles).subscribe(
+            (data) => {
+              console.log('Rol actualizado con éxito:', data);
+              this.modalRef.hide();  // Cierra la ventana modal después de la actualización
+              //this.cargoRol.emit();
+              this.alertService.notification('','Cargo actualizado exitosamente');
+              window.location.reload(); // No es necesario recargar toda la página
+              this.router.navigate(['/roles']);
+            },
+            error => {
+              console.error('Error al actualizar el rol:', error);
 
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-            // Mostrar un mensaje de error al usuario
-            alert('Error: El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-            alert('Cargo actualizado exitosamente');
-            this.cargoRol.emit();
-            window.location.reload();
-
-            this.router.navigate(['/roles']);
-          } else {
-            // Manejar otros tipos de errores
-          }
+              if (error instanceof HttpErrorResponse && error.status === 200) {
+                console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+                // Mostrar un mensaje de error al usuario
+                this.alertService.notification('','Error: El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+                this.alertService.notification('','Cargo actualizado exitosamente');
+                this.cargoRol.emit();
+                // window.location.reload(); // No es necesario recargar toda la página
+                this.router.navigate(['/roles']);
+              } else {
+                // Manejar otros tipos de errores
+              }
+            }
+          );
         }
-      );
+      });
     }
   }
 }
