@@ -58,10 +58,9 @@ export class TituloComponent implements OnInit{
 
   abrirModalActualizar(titulo: Titulo) {
     const initialState = {
-      titulo: titulo,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
+      titulo: titulo,  
     };
 
-    // Asignar la jornada al contexto del componente
     this.titulo = titulo;
     this.cargarLista;
 
@@ -69,7 +68,6 @@ export class TituloComponent implements OnInit{
   }
   eliminartitulo(titulo_id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este titulo?')) {
-      // Llama al servicio para eliminar el rol
       this.tituloService.deletetitulo(titulo_id).subscribe(
 
         data => {
@@ -90,7 +88,6 @@ export class TituloComponent implements OnInit{
   }
   textoBusqueda: string = '';
 
-  // buscar
   
   rolMatchesSearch(titulo: Titulo): boolean {
     return titulo.titulo_nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
