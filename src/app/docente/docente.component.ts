@@ -9,6 +9,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { Docente } from './docente';
 import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
+import { ActualizarExtraModalComponent } from '../extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
+import { ActualizarDocenteModalComponent } from '../actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
+import { ActuaizarDocenteModalComponent } from './actuaizar-docente-modal/actuaizar-docente-modal.component';
 
 @Component({
   selector: 'app-docente',
@@ -57,14 +60,26 @@ cargarDocente(docente_id: number): void {
     data => {
       this.docente = data;
       console.log(data); // Muestra la respuesta en la consola
-      this.eliminarUsu(this.docente.docente_id);  // Llamada a la función para abrir el modal
+      this.eliminardoce(this.docente.docente_id);  // Llamada a la función para abrir el modal
     },
     error => {
       console.error(error);
     }
   );
 }
-eliminarUsu(docente_id: number): void {
+arirModalActualizar(docente: Docente) {
+  const initialState = {
+    docente: docente,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
+  };
+
+  // Asignar la jornada al contexto del componente
+  this.docente= docente;
+  this.cargarLista;
+
+  this.modalRef = this.modalService.show(ActuaizarDocenteModalComponent, { initialState });
+}
+
+eliminardoce(docente_id: number): void {
   if (confirm('¿Estás seguro de que deseas eliminar esta docente?')) {
     // Llama al servicio para eliminar el rol
     this.docente_service.deleteDocente(docente_id).subscribe(
@@ -92,4 +107,5 @@ buscar(): void {
     this.cargarLista(); // Vuelve a cargar todas las jornadas
     }
   }
+
 }

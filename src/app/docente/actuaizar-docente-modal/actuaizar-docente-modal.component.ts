@@ -1,24 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Docente } from './docente';
-import { Persona } from '../persona/persona';
-import { TipoContrato } from '../tipo-contrato/tipo-contrato';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Cargo } from '../cargo/cargo';
-import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
-import { Periodos } from '../periodos/periodo';
-import { Titulo } from '../titulo/titulo';
-import { DocenteService } from './docente.service';
-import { Router } from '@angular/router';
+import { Docente } from '../docente';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Persona } from 'src/app/persona/persona';
+import { TipoContrato } from 'src/app/tipo-contrato/tipo-contrato';
+import { Cargo } from 'src/app/cargo/cargo';
+import { Titulo } from 'src/app/titulo/titulo';
+import { Periodos } from 'src/app/periodos/periodo';
+import { GradoOcupacional } from 'src/app/grado-ocupacional/grado-ocupacional';
+import { DocenteService } from '../docente.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-creardocente',
-  templateUrl: './creardocente.component.html',
-  styleUrls: ['./creardocente.component.css']
+  selector: 'app-actuaizar-docente-modal',
+  templateUrl: './actuaizar-docente-modal.component.html',
+  styleUrls: ['./actuaizar-docente-modal.component.css']
 })
-export class CreardocenteComponent implements OnInit {
+export class ActuaizarDocenteModalComponent implements OnInit {
   @Input() docente: Docente | undefined;
   docente_id: number | undefined;
   updateForm!: FormGroup;
@@ -30,15 +29,11 @@ titulos: Titulo[] = [];
 periodos: Periodos[] = [];
 grados:GradoOcupacional[]=[];
 isLoading: boolean = true;
-nuevoDocente: Docente = new Docente();
-botonDesactivado: boolean = false;
 constructor(
   public modalRef: BsModalRef,
   private fb: FormBuilder,
   private docenteservice: DocenteService,
-  private http: HttpClient,
-  private router: Router,
-
+  private http: HttpClient
 ) {}
 ngOnInit() {
   this.createForm();
@@ -235,50 +230,6 @@ cargarListagrado(): void {
       );
     }
   }
-  crearUsu() {
-    // Desactivar el botón durante la solicitud
-    this.botonDesactivado = true;
-  
-    const formData = this.updateForm.value;
-    console.log('docente_id:', this.nuevoDocente.docente_id);
-    console.log('docente_fecha_ingreso: ',this.nuevoDocente.docente_fecha_ingreso);
-    console.log('docente_estado:', this.nuevoDocente.docente_estado);
-    console.log('persona_id:' ,this.nuevoDocente.persona.per_id);
-    console.log('tipo_contrato_id:',this.nuevoDocente.tipo_contrato.tipo_id);
-    console.log('cargo_id: ',this.nuevoDocente.cargo.cargo_id);
-    console.log('titulo_id: ',this.nuevoDocente.titulo.titulo_id);
-    console.log('periodo_id: ',this.nuevoDocente.periodo.periodo_id);
-    console.log('grado_id: ',this.nuevoDocente.grado.grado_id);
-    
-    this.docenteservice.create(formData).subscribe(
-      (response) => {
-        // Éxito
-        console.log('Usuario creado exitosamente:', response);
-        // Resto de la lógica después de la creación exitosa
-  
-        // Cerrar la ventana después de guardar la jornada
-        window.close();
-      },
-      (error) => {
-        // Manejo de errores
-        console.error('Error al crear el usuario:', error);
-        if (error.status === 401) {
-          // Redirigir al usuario a la página de inicio de sesión
-          this.router.navigate(['/login']);
-        } else if (error.error && error.error.error) {
-          // Muestra el mensaje de error específico del servidor al usuario
-          alert(error.error.error);
-        } else {
-          // Muestra un mensaje de error genérico al usuario
-          alert('Error al crear el usuario. Por favor, inténtelo de nuevo.');
-        }
-  
-        // Reactivar el botón después de un error
-        this.botonDesactivado = false;
-      }
-    );
-  }
-  cancelar(): void {
-    this.router.navigate(['/docente']);
-  }
+
 }
+

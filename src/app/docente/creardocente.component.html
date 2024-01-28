@@ -6,79 +6,73 @@
     <link rel="stylesheet" href="creardocente.component.css">
     <title>Crear Docentes</title>
 </head>
-<app-header> </app-header>
+<app-header></app-header>
 <app-menudesp></app-menudesp>
 <body>
     <div class="form-container">
         <h2>Crear Nuevo Docente</h2>
-        <form id="create-docente-form">
+        <form id="create-docente-form" [formGroup]="updateForm">
             <label for="fechaIngreso">Fecha de Ingreso:</label>
-            <input type="date" id="fechaIngreso" name="fechaIngreso" required>
+            <input type="date" id="fechaIngreso" name="fechaIngreso" formControlName="docente_fecha_ingreso" required>
 
             <label for="estado">Estado:</label>
-            <select id="estado" name="estado" required>
+            <select id="estado" name="estado" formControlName="docente_estado" required>
                 <option value="activo">Activo</option>
                 <option value="inactivo">Inactivo</option>
             </select>
 
-            <label for="perId">ID Persona:</label>
-            <select id="perId" name="perId" required>
-                <!-- Opciones para ID Persona -->
-                <option value="1">Persona 1</option>
-                <option value="2">Persona 2</option>
-                <!-- Puedes agregar más opciones según sea necesario -->
+            <label for="per_id">per_id:</label>
+            <select class="form-control" id="per_id" formControlName="persona_id" required>
+                <option *ngFor="let persona of personas" [value]="persona.per_id">
+                    {{ persona.per_primer_nombre + ' ' + persona.per_apellido_paterno }}
+                </option>
             </select>
 
-            <label for="tipoId">ID Tipo:</label>
-            <select id="tipoId" name="tipoId" required>
-                <!-- Opciones para ID Tipo -->
-                <option value="1">Tipo 1</option>
-                <option value="2">Tipo 2</option>
-                <!-- Puedes agregar más opciones según sea necesario -->
+            <label for="tipo_contrato">Tipo de Contrato:</label>
+            <select class="form-control" id="tipo_contrato" formControlName="tipo_contrato_id" required>
+                <option *ngFor="let tipo_contrato of contratos1" [value]="tipo_contrato.tipo_id">
+                    {{ tipo_contrato.tipo_contrato }}
+                </option>
             </select>
 
-            <label for="cargoId">ID Cargo:</label>
-            <select id="cargoId" name="cargoId" required>
-                <!-- Opciones para ID Cargo -->
-                <option value="1">Cargo 1</option>
-                <option value="2">Cargo 2</option>
-                <!-- Puedes agregar más opciones según sea necesario -->
+            <label for="cargo">Cargo:</label>
+            <select class="form-control" id="cargo" formControlName="cargo_id" required>
+                <option *ngFor="let cargo of cargos" [value]="cargo.cargo_id">
+                    {{ cargo.cargo_nombre }}
+                </option>
             </select>
 
-            <label for="tituloId">ID Título:</label>
-            <select id="tituloId" name="tituloId" required>
-                <!-- Opciones para ID Título -->
-                <option value="1">Título 1</option>
-                <option value="2">Título 2</option>
-                <!-- Puedes agregar más opciones según sea necesario -->
+            <label for="titulo">Título:</label>
+            <select class="form-control" id="titulo" formControlName="titulo_id" required>
+                <option *ngFor="let titulo of titulos" [value]="titulo.titulo_id">
+                    {{ titulo.titulo_nombre }}
+                </option>
             </select>
 
-            <label for="periodoId">ID Periodo:</label>
-            <select id="periodoId" name="periodoId" required>
-                <!-- Opciones para ID Periodo -->
-                <option value="1">Periodo 1</option>
-                <option value="2">Periodo 2</option>
-                <!-- Puedes agregar más opciones según sea necesario -->
+            <label for="periodo">Periodo:</label>
+            <select class="form-control" id="periodo" formControlName="periodo_id" required>
+                <option *ngFor="let periodo of periodos" [value]="periodo.periodo_id">
+                    {{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}
+                </option>
             </select>
 
-            <label for="gradoId">ID Grado:</label>
-            <select id="gradoId" name="gradoId" required>
-                <!-- Opciones para ID Grado -->
-                <option value="1">Grado 1</option>
-                <option value="2">Grado 2</option>
-                <!-- Puedes agregar más opciones según sea necesario -->
+            <label for="grado">Grado Ocupasional:</label>
+            <select class="form-control" id="grado" formControlName="grado_id" required>
+                <option *ngFor="let grado of grados" [value]="grado.grado_id">
+                    {{ grado.grado_titulo }}
+                </option>
             </select>
 
             <div class="button-container">
-                <button type="submit" class="create-button">Crear</button>
-                <button class="cancel-button" routerLink="/docente">Cancelar</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check"></i> Registrar
+                  </button>
+                  <button type="button" class="btn btn-danger" (click)="cancelar()">
+                    <i class="fa fa-times"></i> Cancelar
+                </button>
             </div>
         </form>
     </div>
 </body>
 <app-footer></app-footer>
-
 </html>
-
-
-

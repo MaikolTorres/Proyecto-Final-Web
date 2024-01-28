@@ -69,8 +69,11 @@ import { ActualizarCarreraModalComponent } from './carrera/actualizar-carrera-mo
 import { ActualizarPeriodoModalComponent } from './periodos/actualizar-periodo-modal/actualizar-periodo-modal.component';
 import { ActualizarDocenteModalComponent } from './actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
 import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
+import { ActuaizarDocenteModalComponent } from './docente/actuaizar-docente-modal/actuaizar-docente-modal.component';
 
 const routes: Routes = [
+  { path: 'actualizarrDocente', component: ActuaizarDocenteModalComponent },
+
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
@@ -126,6 +129,7 @@ const routes: Routes = [
     path: 'actualizatipocontrato',
     component: ActualizarTipocontratoModalComponent,
   },
+  { path: 'actualizarDocente', component: ActualizarDocenteModalComponent },
 
   //
   {path: 'extra-actividades', component: ExtraActividadesComponent},
@@ -211,7 +215,9 @@ const routes: Routes = [
     ActualizarCarreraModalComponent,
     ActualizarAsignaturaModalComponent,
     ///
-    ActualizarPeriodoModalComponent
+    ActualizarPeriodoModalComponent,
+    ActuaizarDocenteModalComponent,
+    
   ],
 
   imports: [
