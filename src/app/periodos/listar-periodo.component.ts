@@ -13,9 +13,9 @@ import { ActualizarPeriodoModalComponent } from './actualizar-periodo-modal/actu
 })
 export class ListarPeriodoComponent {
 
-  periodo: Periodos[] = [];
+  periodos: Periodos[] = [];
   modalRef: BsModalRef | undefined;
-  per: Periodos | undefined;
+  periodo: Periodos | undefined;
 
   constructor(private periodoService: PeriodoService,
     private modalService: BsModalService) { }
@@ -26,7 +26,7 @@ export class ListarPeriodoComponent {
   }
 
   cargarLista(): void {
-    this.periodoService.getPeriodo().subscribe((per) => (this.periodo = per));
+    this.periodoService.getPeriodo().subscribe((periodos) => (this.periodos = periodos));
   }
 
   abrirModalActualizar(periodo: Periodos) {
@@ -34,11 +34,10 @@ export class ListarPeriodoComponent {
       periodo: periodo, 
     };
 
-    this.per = periodo;
+    this.periodo = periodo;
     this.cargarLista;
     this.modalRef = this.modalService.show(ActualizarPeriodoModalComponent, {
-      initialState,
-    });
+      initialState,});
   }
 
   eliminarPeriodo(id: number) {
@@ -64,9 +63,9 @@ export class ListarPeriodoComponent {
   }
   buscar(): void {
     if (this.textoBusqueda.trim() !== '') {
-      this.periodo = this.periodo.filter((periodo: Periodos) => this.perMatchesSearch(periodo));
+      this.periodos = this.periodos.filter((periodo: Periodos) => this.perMatchesSearch(periodo));
     } else {
-      this.cargarLista(); // Vuelve a cargar todas las jornadas
+      this.cargarLista();
     }
   }
 }

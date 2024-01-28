@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { PeriodoService } from '../periodo.service';
 import { Periodos } from '../periodo';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-actualizar-periodo-modal',
@@ -13,6 +14,7 @@ import { Periodos } from '../periodo';
 export class ActualizarPeriodoModalComponent implements OnInit {
 
   @Input() periodo: Periodos | undefined;
+  @Output() periodoActualizado = new EventEmitter<void>();
   periodo_id: number | undefined;
   updateForm!: FormGroup;
 
@@ -49,21 +51,40 @@ export class ActualizarPeriodoModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.updateForm.valid && this.periodo_id) {
-      const updatePeriodo = this.updateForm.value;
-      updatePeriodo.periodo_id = this.periodo_id;
 
-      this.service.updatePeriodo(updatePeriodo).subscribe(
+    if (this.updateForm && this.updateForm.valid) {
+      const updatedPeriodo = this.updateForm.value;
+      if (!this.periodo) {
+        console.error('Error: No se ha proporcionado un periodo para actualizar.');
+        return;
+      }
+      updatedPeriodo.periodo_id = this.periodo.periodo_id || 0;
+
+      if (!updatedPeriodo.periodo_id) {
+        console.error('Error: ID de periodo no válido');
+        return;
+      }
+
+      this.service.updatePeriodo(updatedPeriodo).subscribe(
         (data) => {
           console.log('Periodo actualizado con éxito:', data);
-          this.modalRef.hide();
+          this.modalRef.hide(); 
+          this.periodoActualizado.emit();
+          alert('Periodo actualizado exitosamente');
+          this.router.navigate(['/listar-periodo']);
         },
         (error) => {
           console.error('Error al actualizar el periodo:', error);
+          if (error instanceof HttpErrorResponse && error.status === 200) {
+            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+            this.modalRef.hide();
+            this.periodoActualizado.emit();
+            alert('Periodo actualizado exitosamente');
+            this.router.navigate(['/listar-periodo']);
+          } else {
+          }
         }
       );
-    } else {
-      console.error('Error: formulario inválido o ID de periodo no proporcionado.');
     }
   }
 }
