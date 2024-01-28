@@ -136,7 +136,7 @@ grado_id:docente.grado.grado_id,
   }
   
    cargarListacontrato(): void {
-    this.docenteservice.getcontrato().subscribe(
+    this.docenteservice.getTipoContrato().subscribe(
       contratos => {
         this.contratos1 = contratos;  // Corregido aquí, utiliza el nombre correcto
         this.isLoading = false;
@@ -175,7 +175,7 @@ grado_id:docente.grado.grado_id,
     );
   }
   cargarListaperiodo(): void {
-    this.docenteservice.getperiodos().subscribe(
+    this.docenteservice.getPeriodo().subscribe(
       periodos => {
         this.periodos = periodos;
         this.isLoading = false;

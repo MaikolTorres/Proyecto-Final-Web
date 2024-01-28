@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="crear-usuario.component.css">
-    <title>Crear Usuario</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="crear-usuario.component.css">
+  <title>Crear Usuario</title>
 </head>
+
 <body>
   <app-header></app-header>
   <app-menudesp></app-menudesp>
@@ -13,28 +15,26 @@
     <form class="formulario" (ngSubmit)="crearUsu()">
       <fieldset>
         <legend class="titulo_formulario">Crear Usuario</legend>
-      
+
         <div class="contenedor_formulario">
           <div class="mb-3">
             <label for="usu_usuario" class="form-label">Usuario:</label>
-            <input type="text" [(ngModel)]="nuevoUsu.usu_usuario" name="usu_usuario" required class="form-control">
+            <input type="text" [(ngModel)]="usu_usuario" name="usu_usuario" required class="form-control">
           </div>
           <div class="mb-3">
             <label for="usu_contrasena" class="form-label">Contraseña:</label>
-            <input type="text" [(ngModel)]="nuevoUsu.usu_contrasena" name="usu_contrasena" required class="form-control">
+            <input type="text" [(ngModel)]="usu_contrasena" name="usu_contrasena" required class="form-control">
           </div>
           <label for="per_id"> per_id :</label>
-          <select class="form-control" id="per_id" formControlName="per_id" required >
-            <option *ngFor="let persona of  persona1" [value]="persona.per_id">{{ persona.per_primer_nombre}} {{ persona.per_apellido_paterno }} </option>
-
+          <select class="form-control" id="per_id" formControlName="per_id" required [(ngModel)]="cedulaSeleccionada"
+            (change)="onCedulaSelected($event)">
+            <option *ngFor="let persona of persona1">{{ persona.per_cedula}} </option>
           </select>
-        
 
-          
           <label for="rol_id"> rol_id :</label>
-          <select class="form-control" id="rol_id" formControlName="rol_id" required>
-            <option *ngFor="let  roles of  roles" [value]="roles.rol_id">{{roles.rol_nombre }}</option>"
-          </select> 
+          <select class="form-control" id="rol_id" (change)="onRolSelected($event)" required>
+            <option *ngFor="let role of roles">{{ role.rol_nombre }}</option>
+          </select>
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i> Registrar
           </button>
@@ -47,4 +47,5 @@
   </div>
   <app-footer></app-footer>
 </body>
+
 </html>

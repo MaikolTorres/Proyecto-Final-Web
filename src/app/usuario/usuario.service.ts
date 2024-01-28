@@ -56,13 +56,10 @@ export class UsuarioService {
     return this.http.delete<Usuario>(url);
   }
 
-  
-
   // Obtener personas para cargar en el select
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlPersonas);
   }
-
   // Cargar personas al inicializar el componente
   cargarPersonas() {
     this.getpers().subscribe(personas => this.personas = personas);

@@ -16,7 +16,7 @@ export class TipoContratoService {
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTipoContrato(): Observable<TipoContrato[]> {
     return this.http.get<TipoContrato[]>(this.urlEndPoint);

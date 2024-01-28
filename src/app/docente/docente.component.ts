@@ -18,94 +18,98 @@ import { ActuaizarDocenteModalComponent } from './actuaizar-docente-modal/actuai
   templateUrl: './docente.component.html',
   styleUrls: ['./docente.component.css']
 })
-export class DocenteComponent implements OnInit{
-  persona: PersonaComponent | undefined; 
-tipo_con:TipoContratoComponent| undefined
-cargo:CargoComponent| undefined;
-titulo:TituloComponent| undefined;
-periodo:ListarPeriodoComponent| undefined;
-grado:GradoOcupacional| undefined;
-[x: string]: any;
-docentes: Docente[] = [];
-urlEndPoint_3: any;
+export class DocenteComponent implements OnInit {
+  persona: PersonaComponent | undefined;
+  tipo_con: TipoContratoComponent | undefined
+  cargo: CargoComponent | undefined;
+  titulo: TituloComponent | undefined;
+  periodo: ListarPeriodoComponent | undefined;
+  grado: GradoOcupacional | undefined;
+  [x: string]: any;
+  docentes: Docente[] = [];
+  urlEndPoint_3: any;
   http: any;
   isLoading: boolean = true; // Nueva propiedad para rastrear si la carga está en progreso
   docentesFiltradas: Docente[] = [];  // Nuevo array para las jornadas filtradas
   todasLadocentes: Docente[] = [];
-  
+
   modalRef: BsModalRef | undefined;
-    docente: Docente | undefined;
-constructor(private docente_service: DocenteService, private modalService: BsModalService) {}
+  docente: Docente | undefined;
+  constructor(private docente_service: DocenteService, private modalService: BsModalService) { }
 
-ngOnInit(): void {
-  this.cargarLista();
-  FormsModule;  }
-cargarLista(): void {
-  this.docente_service.getDocentes().subscribe(
-    docentes => {
-      this.docentes = docentes;
-      this.isLoading = false;
-      console.log('Docentes cargados correctamente:', docentes);
-      // Marcar la carga como completa después de recibir los docentes
-    },
-    error => {
-      console.error('Error al cargar los docentes:', error);
-      this.isLoading = false; // Marcar la carga como completa en caso de error
-    }
-  );
-}
+  ngOnInit(): void {
+    this.cargarLista();
+    FormsModule;
+  }
 
-cargarDocente(docente_id: number): void {
-  this.docente_service.getdocentesId(docente_id).subscribe(
-    data => {
-      this.docente = data;
-      console.log(data); // Muestra la respuesta en la consola
-      this.eliminardoce(this.docente.docente_id);  // Llamada a la función para abrir el modal
-    },
-    error => {
-      console.error(error);
-    }
-  );
-}
-arirModalActualizar(docente: Docente) {
-  const initialState = {
-    docente: docente,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
-  };
-
-  // Asignar la jornada al contexto del componente
-  this.docente= docente;
-  this.cargarLista;
-
-  this.modalRef = this.modalService.show(ActuaizarDocenteModalComponent, { initialState });
-}
-
-eliminardoce(docente_id: number): void {
-  if (confirm('¿Estás seguro de que deseas eliminar esta docente?')) {
-    // Llama al servicio para eliminar el rol
-    this.docente_service.deleteDocente(docente_id).subscribe(
-      data => {
-        console.log('usuario eliminado con éxito:', data);
-        // Aquí puedes realizar acciones adicionales después de la eliminación
+  cargarLista(): void {
+    this.docente_service.getDocentes().subscribe(
+      docentes => {
+        this.docentes = docentes;
+        this.isLoading = false;
+        console.log('Docentes cargados correctamente:', docentes);
+        // Marcar la carga como completa después de recibir los docentes
       },
       error => {
-        console.error('Error al eliminar el persona:', error);
-        // Manejar el error según sea necesario
+        console.error('Error al cargar los docentes:', error);
+        this.isLoading = false; // Marcar la carga como completa en caso de error
       }
-      
     );
   }
-}
-textoBusqueda: string = '';
-usuMatchesSearch(docente: Docente): boolean {
-  return (docente.persona.per_primer_nombre.toLowerCase() + ' ' + docente.persona.per_apellido_paterno.toLowerCase()).includes(this.textoBusqueda.toLowerCase());
-}
 
-buscar(): void {
-  if (this.textoBusqueda.trim() !== '' ) {
-    this.docentes = this.docentes.filter((docente: Docente) => this.usuMatchesSearch(docente));
-  } else {
-    this.cargarLista(); // Vuelve a cargar todas las jornadas
-    }
-  }
+  cargarDocente(docente_id: number): void {
+    this.docente_service.getdocentesId(docente_id).subscribe(
+      data => {
+        this.docente = data;
+        console.log(data); // Muestra la respuesta en la consola
+        /*   this.eliminardoce(this.docente.docente_id);  // Llamada a la función para abrir el modal*/
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  arirModalActualizar(docente: Docente) {
+    const initialState = {
+      docente: docente,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
+    };
+
+    // Asignar la jornada al contexto del componente
+    this.docente = docente;
+    this.cargarLista;
+
+    this.modalRef = this.modalService.show(ActuaizarDocenteModalComponent, { initialState });
+  }
+
+  eliminardoce(docente_id: number): void {
+    if (confirm('¿Estás seguro de que deseas eliminar esta docente?')) {
+      // Llama al servicio para eliminar el rol
+      this.docente_service.deleteDocente(docente_id).subscribe(
+        data => {
+          console.log('usuario eliminado con éxito:', data);
+          // Aquí puedes realizar acciones adicionales después de la eliminación
+        },
+        error => {
+          console.error('Error al eliminar el persona:', error);
+          // Manejar el error según sea necesario
+        }
+
+      );
+    }
+  }
+  
+  textoBusqueda: string = '';
+  usuMatchesSearch(docente: Docente): boolean {
+    return (docente.persona.per_primer_nombre.toLowerCase() + ' ' + docente.persona.per_apellido_paterno.toLowerCase()).includes(this.textoBusqueda.toLowerCase());
+  }
+
+  buscar(): void {
+    if (this.textoBusqueda.trim() !== '') {
+      this.docentes = this.docentes.filter((docente: Docente) => this.usuMatchesSearch(docente));
+    } else {
+      this.cargarLista(); // Vuelve a cargar todas las jornadas
+    }
+  }
 
 }
