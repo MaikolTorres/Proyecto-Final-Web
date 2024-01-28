@@ -242,23 +242,6 @@ cargarListagrado(): void {
     const formData = this.updateForm.value;
     console.log('Datos del formulario:', formData);
 
-    // Asegurar que nuevoDocente y sus propiedades estén definidos antes de acceder a ellas
-    // if (this.nuevoDocente && this.nuevoDocente.persona) {
-    //   console.log('docente_id:', this.nuevoDocente.docente_id);
-    //   console.log('docente_fecha_ingreso:', this.nuevoDocente.docente_fecha_ingreso);
-    //   console.log('docente_estado:', this.nuevoDocente.docente_estado);
-    //   console.log('persona_id:', this.nuevoDocente.persona.per_id);
-    //   console.log('tipo_id:', this.nuevoDocente.tipo_contrato.tipo_id);
-    //   console.log('cargo_id:', this.nuevoDocente.cargo.cargo_id);
-    //   console.log('titulo_id:', this.nuevoDocente.titulo.titulo_id);
-    //   console.log('periodo_id:', this.nuevoDocente.periodo.periodo_id);
-    //   console.log('grado_id:', this.nuevoDocente.grado.grado_id);
-    // } else {
-    //   console.error('Error: nuevoDocente o alguna de sus propiedades es nulo o indefinido.');
-    //   // Puedes decidir cómo manejar esta situación, por ejemplo, mostrar un mensaje al usuario.
-    //   return;
-    // }
-  
     this.docenteservice.create(formData).subscribe(
       (response) => {
         // Éxito
