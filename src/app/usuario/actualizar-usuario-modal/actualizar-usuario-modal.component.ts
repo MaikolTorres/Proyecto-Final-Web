@@ -8,6 +8,7 @@ import { Persona } from 'src/app/persona/persona';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Rol } from 'src/app/roles/roles';
+import { AlertService } from 'src/app/service/Alert.service';
 
 @Component({
   selector: 'app-actualizar-usuario-modal',
@@ -28,7 +29,9 @@ export class ActualizarUsuarioModalComponent implements OnInit {
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private http: HttpClient
+    private http: HttpClient,
+    private alertService: AlertService
+
   ) {}
 
   ngOnInit() {
@@ -124,25 +127,33 @@ export class ActualizarUsuarioModalComponent implements OnInit {
         return;
       }
 
-      this.usuarioService.updateUsuario(updatedUsu).subscribe(
-        data => {
-          console.log('usuario actualizado con éxito:', data);
-          this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
-          window.location.reload();
+      this.alertService.question2(
+        'Confirmar actualización',
+        '¿Actualizar este usuario?',
+        'Sí, actualizar',
+        'Cancelar'
+      ).then((confirmed) => {
+        if (confirmed) {
+          this.usuarioService.updateUsuario(updatedUsu).subscribe(
+            data => {
+              console.log('usuario actualizado con éxito:', data);
+              this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
+              this.alertService.notification('','Usuario actualizado exitosamente');
+              // window.location.reload(); // No es necesario recargar toda la página
+            },
+            error => {
+              console.error('Error al actualizar el usuario:', error);
 
-        },
-        error => {
-          console.error('Error al actualizar el usuario:', error);
-
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-            window.location.reload();
-
-          } else {
-            // Manejar otros tipos de errores
-          }
+              if (error instanceof HttpErrorResponse && error.status === 200) {
+                console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+                // window.location.reload(); // No es necesario recargar toda la página
+              } else {
+                // Manejar otros tipos de errores
+              }
+            }
+          );
         }
-      );
+      });
     }
   }
 }

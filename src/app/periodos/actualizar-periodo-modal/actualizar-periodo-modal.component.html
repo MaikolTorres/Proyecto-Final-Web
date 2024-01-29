@@ -1,45 +1,34 @@
-<div class="modal-header">
-    <h4 class="modal-title">Actualizar Período</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-      <!-- Campos del formulario -->
-      <div class="form-group">
-        <label for="per_cedula">Cédula:</label>
-        <input type="text" class="form-control" id="per_cedula" formControlName="per_cedula" required>
-      </div>
-      <div class="form-group">
-        <label for="per_primer_nombre">Primer Nombre:</label>
-        <input type="text" class="form-control" id="per_primer_nombre" formControlName="per_primer_nombre" required>
-      </div>
-      <div class="form-group">
-        <label for="per_segundo_nombre">Segundo Nombre:</label>
-        <input type="text" class="form-control" id="per_segundo_nombre" formControlName="per_segundo_nombre" required>
-      </div>
-      <div class="form-group">
-        <label for="per_apellido_paterno">Apellido Paterno:</label>
-        <input type="text" class="form-control" id="per_apellido_paterno" formControlName="per_apellido_paterno" required>
-      </div>
-      <div class="form-group">
-        <label for="per_apellido_materno">Apellido Materno:</label>
-        <input type="text" class="form-control" id="per_apellido_materno" formControlName="per_apellido_materno" required>
-      </div>
-      <div class="form-group">
-        <label for="per_telefono">Teléfono:</label>
-        <input type="text" class="form-control" id="per_telefono" formControlName="per_telefono" required>
-      </div>
-      <div class="form-group">
-        <label for="per_email">Email:</label>
-        <input type="text" class="form-control" id="per_email" formControlName="per_email" required>
-      </div>
-      <!-- Otros campos del formulario según tu modelo Persona -->
-  
-      <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-      </div>
-    </form>
-  </div>
-  
+<div>
+
+    <body>
+        <div class="panel">
+            <h2 class="txt-2">Periodo Nuevo</h2>
+
+            <form [formGroup]="updateForm!" (ngSubmit)="onSubmit()">
+
+                <div>
+                    <label for="mesInicio">Mes Inicio:</label>
+                    <input type="text" id="mesInicio" formControlName="periodo_mes_inicio" required />
+                </div>
+
+                <div>
+                    <label for="mesFin">Mes Fin:</label>
+                    <input type="text" id="mesFin" formControlName="periodo_mes_fin" required />
+                </div>
+
+                <div>
+                    <label for="añoInicio">Año Inicio:</label>
+                    <input type="text" id="añoInicio" formControlName="periodo_anio_inicio" required/>
+                </div>
+
+                <div>
+                    <label for="añoFin">Año Fin:</label>
+                    <input type="text" id="añoFin" formControlName="periodo_anio_fin" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+
+            </form>
+        </div>
+    </body>
+</div>

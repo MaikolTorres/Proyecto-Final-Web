@@ -1,137 +1,60 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-/* Estilos formulario */
-* {
-  margin: 0;
-  box-sizing: border-box;
-  padding: 0;
-}
-
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: Arial, sans-serif;
+  margin: 0;
 }
 
-/* Estilos de las tablas */
-.center-container {
-  padding-top: 50px;
-  width: 90%;
-  height: 300px;
-  margin: 0 auto;
+.container {
+  max-width: 400px;
+  margin: 20px auto;
 }
 
-.inputs button {
-  width: 130px;
-  height: 35px;
-  margin-top: 20px;
-  margin-right: 30px;
-  border: 0;
-}
-
-.btn1 {
-  background-color: #46adfa;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  margin-right: 500px; /* Aumenta la separación */
-}
-
-.btn2 {
-  background-color: #e70027;
-  border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
-  margin-right: 500px; /* Aumenta la separación */
-}
-
-.inputs input {
-  width: calc(100% - 20px); /* Ajusta el ancho del input */
-  height: 30px; /* Reducir la altura */
-  padding: 5px;
-}
-
-table {
-  margin-top: 20px;
-  width: 100%;
-  text-align: center;
-  border: 1px solid black;
-}
-
-th,
-tr,
-thead,
-tbody,
-td {
-  border: 1px solid black;
-}
-
-.fila {
-  background-color: #46adfa;
-  height: 35px;
-}
-
-tbody {
-  height: 35px;
-}
-
-/* Estilos formulario */
 .formulario {
-  margin: auto;
-  margin-top: 70px;
-  width: 500px; /* Ajustar el ancho */
-  height: 500px; /* Ajustar el alto */
-  border: 3px solid black;
-  border-radius: 7px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  -o-border-radius: 7px;
-  overflow-y: auto; /* Agregar scroll vertical */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
 }
 
 .titulo_formulario {
-  color: black;
-  font-size: 15px;
-  padding: 20px; /* Reducir el padding */
+  font-weight: bold;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .contenedor_formulario {
-  padding: 20px; /* Reducir el padding */
+  display: grid;
+  grid-gap: 10px;
 }
 
-.form-control {
-  width: calc(100% - 20px); /* Ajustar el ancho del input */
-  padding: 5px;
-  margin-bottom: 20px; /* Reducir el margen inferior */
+label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-.btn1 {
-  width: 120px;
-  padding: 8px;
-  margin-bottom: 10px;
-  margin-right: 200px; /* Reducir el valor del margen */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
-.btn2 {
-  width: 160px;
-  padding: 8px;
-  margin-bottom: 15px;
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #46adfa;
+  color: #fff;
 }
 
-.texto_formulario {
-  text-align: center;
+button:hover {
+  background-color: #0056b3;
 }
 
-.enlace_formulario {
-  text-decoration: none;
+.btn-danger {
+  background-color: #f44336;
+}
+
+.btn-danger:hover {
+  background-color: #f3362c;
 }
