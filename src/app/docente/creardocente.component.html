@@ -21,17 +21,21 @@
                 <option value="inactivo">Inactivo</option>
             </select>
 
-            <label for="per_id">per_id:</label>
-            <select class="form-control" id="per_id" formControlName="per_id" required 
-            [(ngModel)]="cedulaSeleccionada"  (change)="onCedulaSelected($event)">
-                <option *ngFor="let persona of personas" [value]="persona.per_cedula">
-                 
-                </option>
-            </select>
+          
+            <label for="per_id"> per_id :</label>
+            <select class="form-control" id="per_id" 
+               
+              (change)="onCedulaSelected($event)" required>
+              <option *ngFor="let persona of personas" 
+              >{{ persona.per_cedula }}</option>
+                   </select>
+
+
 
             <label for="tipo_id">Tipo de Contrato:</label>
-            <select class="form-control" id="tipo_id" (change)="oncontratoSelected($event)" required
-             (change)="oncontratoSelected($event)" >
+            <select class="form-control" id="tipo_id"
+             (change)="oncontratoSelected($event)" required
+             >
                 <option *ngFor="let tipo_contrato of contratos1">
                     {{ tipo_contrato.tipo_contrato }}
                 </option>
@@ -63,7 +67,7 @@
 
             <label for="grado">Grado Ocupasional:</label>
             <select class="form-control" id="grado"
-             (change)="oncontratoSelected($event)" required>
+             (change)="ongradoSelected($event)" required>
                 <option *ngFor="let grado of grados" >
                     {{ grado.grado_titulo }}
                 </option>
@@ -72,7 +76,7 @@
             <div class="button-container">
 
 
-                <button type="submit" [disabled]="updateForm.invalid || botonDesactivado"class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
                     <i class="fa fa-check"></i> Registrar
                   </button>
                   <button type="button" class="btn btn-danger" (click)="cancelar()">

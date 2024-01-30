@@ -54,6 +54,19 @@ getRolByCedula(cedula: string): Observable<Persona> {
     filter(persona => !!persona) // Filtrar null o undefined
   );
 }
+comboidpersona(nombre: string): Observable<boolean> {
+  return this.getPersona().pipe(
+    map(personas => personas.some(persona => persona.per_cedula === nombre))
+  );
+}
+getprsonaByName(nombre: string): Observable<Persona> {
+  return this.http.get<Persona[]>(this.urlEndPoint).pipe(
+    map(personas => personas.find(persona => persona.per_cedula === nombre) as Persona), 
+    filter(persona => !!persona) // Filtrar null o undefined
+  );
+  //
+}
+
 
 
 }

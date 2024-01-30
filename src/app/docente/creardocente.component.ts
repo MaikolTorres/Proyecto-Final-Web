@@ -42,18 +42,30 @@ export class CreardocenteComponent implements OnInit {
   public  cedulaSeleccionada: string = '';
   docente_fecha_ingreso = new Date();
   docente_estado : string = '';
+  public  personaseleccionada: string = '';
+  public selectedPersonaId: number | undefined;
+  public selectedCargoId: number | undefined;
+  public selectedcontratoId: number | undefined;
+  public selectedtituloId: number | undefined;
 
+  public selectedPeriodoId: number | undefined;
+  public selectedgradoId: number | undefined;
+
+
+  
       public  contraroSeleccionada: string = '';
   public  cargoSeleccionada: string = '';
   public  tituloSeleccionada: string = '';
   public  periodoSeleccionada: string = '';
   public  gradoSeleccionada: string = '';
   createpersona: Persona= new Persona();
+  createcontrato: TipoContrato= new TipoContrato();
   public contrato2 : TipoContrato= new TipoContrato();
   public cargo2 : Cargo= new Cargo();
   public titulo2: Titulo= new Titulo();
   public periodo2: Periodos= new Periodos();
   public grado2: GradoOcupacional= new GradoOcupacional();
+  public persona2 : Persona= new Persona();
 
 
 
@@ -248,29 +260,53 @@ private gradosservice:GradoOcupacionalService,
 
   }
   onCedulaSelected(event: any) {
-    this.cedulaSeleccionada = event.target.value;
-    const cedula = this.cedulaSeleccionada;
-    this.personaservice.getRolByCedula(cedula).subscribe(
-      (persona: Persona | undefined) => {
-        if (persona) {
-          
-        
-          this.createpersona=persona;
-          console.log('Persona encontrado:',  this.createpersona);
+    this.nuevoDocente.persona = this.createpersona;
 
-        } else {
-          // Manejar el caso en que no se encuentra el rol
-          console.log('Persona no encontrado');
-        }
-      },
-      (error) => {
-        // Manejar errores de la solicitud HTTP
-        console.error('Error al obtener la persona:', error);
+    this.personaseleccionada = event.target.value;
+  const name = this.personaseleccionada;
+  const selectedPersona = this.personas.find(persona => persona.per_cedula === event.target.value);
+  
+  if (selectedPersona) {
+    this.selectedPersonaId = selectedPersona.per_id;
+    this.cedulaSeleccionada = selectedPersona.per_cedula;
+  }
+  // Llamada al servicio para verificar el rol
+  this.personaservice.comboidpersona(name).subscribe(
+    (rolExists: boolean) => {
+      if (rolExists) {
+        console.log(`El persona ${name} existe.`);
+        this.personaservice.getprsonaByName(name).subscribe(
+          (persona: Persona | undefined) => {
+            if (persona) {
+              // Hacer algo con el rol encontrado
+            
+              this.persona2=persona;
+              console.log('persona encontrado:', this.persona2);
+
+            } else {
+              // Manejar el caso en que no se encuentra el rol
+              console.log('persona no encontrado');
+            }
+          },
+          (error) => {
+            // Manejar errores de la solicitud HTTP
+            console.error('Error al obtener el persona:', error);
+          }
+        );
+         
+      } else {
+        console.log(`El persona ${name} no existe.`);
+     
       }
-    );
+    },
+    (error) => {
+      console.error('Error al verificar el rol:', error);
+    }
+  );
   }
 /////////////////////////////////////////////////////////////////////////
 oncontratoSelected(event: any) {
+     this.nuevoDocente.tipo_contrato = this.createcontrato;
   this.contraroSeleccionada = event.target.value;
   const name = this.contraroSeleccionada;
 
@@ -349,6 +385,7 @@ ontituloSelected(event: any) {
   ////////////////////////////////////////////////////////////////////
 
   onperiodoSelected(event: any) {
+
     this.periodoSeleccionada = event.target.value;
     const name = this.periodoSeleccionada;
   
@@ -363,7 +400,7 @@ ontituloSelected(event: any) {
                 // Hacer algo con el rol encontrado
               
                 this.periodo2=periodo;
-                console.log('caro encontrado:', this.cargo2);
+                console.log('periodo encontrado:', this.periodo2);
   
               } else {
                 // Manejar el caso en que no se encuentra el rol
@@ -469,17 +506,29 @@ ongradoSelected(event: any) {
 
 
   creardoce() {
-    // Desactivar el botón durante la solicitud
-    this.botonDesactivado = true;
-  
 this.nuevoDocente.docente_fecha_ingreso=this.docente_fecha_ingreso;
 this.nuevoDocente.docente_estado=this.docente_estado;
-this.nuevoDocente.persona=this.createpersona;
-this.nuevoDocente.tipo_contrato=this.contrato2;
-this.nuevoDocente.cargo=this.cargo2;
-this.nuevoDocente.titulo=this.titulo2;
-this.nuevoDocente.periodo=this.periodo2;
-this.nuevoDocente.grado=this.grado2;
+if (this.selectedPersonaId !== undefined) {
+  this.nuevoDocente.persona.per_id = this.selectedPersonaId;
+} else {}
+if (this.selectedCargoId !== undefined) {
+  this.nuevoDocente.cargo.cargo_id = this.selectedCargoId;
+} else {}
+
+if (this.selectedcontratoId !== undefined) {
+  this.nuevoDocente.tipo_contrato.tipo_id = this.selectedcontratoId;
+} else {}
+
+if (this.selectedtituloId !== undefined) {
+  this.nuevoDocente.titulo.titulo_id = this.selectedtituloId;
+} else {}
+if (this.selectedPeriodoId !== undefined) {
+  this.nuevoDocente.periodo.periodo_id = this.selectedPeriodoId;
+} else {}
+
+if (this.selectedgradoId !== undefined) {
+  this.nuevoDocente.grado.grado_id = this.selectedgradoId;
+} else {}
 
     const formData = this.updateForm.value;
     console.log('Datos del formulario:', formData);
