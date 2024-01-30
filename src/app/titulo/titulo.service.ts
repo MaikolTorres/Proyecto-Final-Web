@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, filter, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Titulo } from './titulo';
 
@@ -39,5 +39,17 @@ export class TituloService {
     const url = `http://localhost:8080/api/titulo/actualizar/${titulo.titulo_id}`;
     console.log('URL de actualización:', url);
     return this.http.put<Titulo>(url, titulo); // Aquí cambié `Titulo` por `titulo`
+  }
+  comboidtitulo(nombre: string): Observable<boolean> {
+    return this.getTitulos().pipe(
+      map(titulos => titulos.some(titulo => titulo.titulo_nombre === nombre))
+    );
+  }
+ 
+  gettituloByName(nombre: string): Observable<Titulo> {
+    return this.http.get<Titulo[]>(this.urlEndPoint).pipe(
+      map(titulos => titulos.find(titulo => titulo.titulo_nombre === nombre) as Titulo), 
+      filter(titulo => !!titulo) // Filtrar null o undefined
+    );
   }
 }

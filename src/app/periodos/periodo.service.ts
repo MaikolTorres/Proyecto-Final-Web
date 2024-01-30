@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { Periodos } from './periodo';
+import { Titulo } from '../titulo/titulo';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,21 @@ export class PeriodoService {
   delete(id: number): Observable<Periodos> {
     return this.http.delete<Periodos>(`${this.urlEndPoint_2}/${id}`);
   }
-
+  comboidperiodo(nombre: string): Observable<boolean> {
+    return this.getPeriodo().pipe(
+      map(periodos => periodos.some(periodo => 
+        (periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' +
+         periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin) === nombre
+      ))
+    );
+  }
+  
+ 
+  getperiodoByName(nombre: string): Observable<Periodos> {
+    return this.http.get<Periodos[]>(this.urlEndPoint).pipe(
+      map(Periodos => Periodos.find(periodo =>  (periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' +
+      periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin) === nombre) as Periodos), 
+      filter(periodo => !!periodo) // Filtrar null o undefined
+    );
+  }
 }

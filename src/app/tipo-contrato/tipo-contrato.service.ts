@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TipoContrato } from './tipo-contrato';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, catchError, filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +56,17 @@ export class TipoContratoService {
         console.error('Error al actualizar el Tipo Contrato:', error);
         throw error;
       })
+    );
+  }
+  comboidcontrato(nombre: string): Observable<boolean> {
+    return this.getTipoContrato().pipe(
+      map(contratos => contratos.some(contrato => contrato.tipo_contrato === nombre))
+    );
+  }
+  getcontratoByName(nombre: string): Observable<TipoContrato> {
+    return this.http.get<TipoContrato[]>(this.urlEndPoint).pipe(
+      map(contratos => contratos.find(contrato => contrato.tipo_contrato === nombre) as TipoContrato), 
+      filter(contrato => !!contrato) // Filtrar null o undefined
     );
   }
 }
