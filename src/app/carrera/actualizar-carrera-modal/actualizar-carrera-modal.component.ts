@@ -62,14 +62,14 @@ export class ActualizarCarreraModalComponent implements OnInit {
         console.error('Error: No se ha proporcionado una carrera para actualizar.');
         return;
       }
-      this.carreraService.updateCarrea(updatedCarrera);
+      this.carreraService.updateCarrera(updatedCarrera);
   
       if (!updatedCarrera.carrera_id) {
         console.error('Error: ID de carrera no válido');
         return;
       }
   
-      this.carreraService.updateCarrea(updatedCarrera).subscribe(
+      this.carreraService.updateCarrera(updatedCarrera).subscribe(
         (data) => {
           console.log('Carrera actualizada con éxito:', data);
           this.modalRef.hide(); // Cierra la ventana modal después de la actualización
