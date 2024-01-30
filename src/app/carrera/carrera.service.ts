@@ -44,7 +44,7 @@ export class CarreraService {
     );
   }
   getCcById(id: any): Observable<Carrera> {
-    return this.http.get<Carrera>(`${this.urlEndPoint_1}/${id}`)
+    return this.http.get<Carrera>(`${this.urlGuardarCarrera}/${id}`)
   }
   getCcByName(nombre: string): Observable<Carrera> {
     return this.http.get<Carrera[]>(this.urlEndPoint).pipe(
