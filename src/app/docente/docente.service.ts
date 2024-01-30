@@ -6,7 +6,7 @@ import { Titulo } from '../titulo/titulo';
 import { Periodos } from '../periodos/periodo';
 import { Docente } from './docente';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
 
 @Injectable({
@@ -87,4 +87,24 @@ export class DocenteService {
   cargarGrados() {
     this.getgrado().subscribe(grados => this.grados = grados);
   }
+
+  comboiddocente(nombre: string): Observable<boolean> {
+    return this.getDocentes().pipe(
+      map(docentes => docentes.some(docente => docente.persona.per_primer_nombre === nombre
+        ))
+    );
+  }
+  getDocenteById(id: any): Observable<Docente> {
+    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
+  }
+ 
+
+  
+  getDocenteByName(nombre: string): Observable<Docente> {
+    return this.http.get<Docente[]>(this.urlEndPoint).pipe(
+      map(docents => docents.find(docente => docente.persona.per_primer_nombre === nombre) as Docente), 
+      filter(docente => !!docente) // Filtrar null o undefined
+    );
+  }
+
 }

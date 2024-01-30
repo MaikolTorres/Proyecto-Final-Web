@@ -10,38 +10,59 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { UsuarioService } from '../usuario/usuario.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JornadaService } from '../jornada/jornada.service';
+import { PeriodoService } from '../periodos/periodo.service';
+import { CarreraService } from '../carrera/carrera.service';
 
 @Component({
   selector: 'app-crear-curso',
   templateUrl: './crear-curso.component.html',
   styleUrls: ['./crear-curso.component.css']
 })
-export class CrearCursoComponent  implements OnInit {
+export class CrearCursoComponent implements OnInit {
   @Input() curso: Curso | undefined;
   curso_id: number | undefined;
   updateForm!: FormGroup;
   curso1: Curso[] = [];
 
-  periodo: Periodos[] = [];
   periodo1: Periodos[] = [];
-  
-  carrera: Carrera[] = [];
-  carrera1: Carrera[] = [];
+  public createperiodo: Periodos = new Periodos();
 
-  jornada: Jornada[] = [];
-  jornada1: Jornada[] = [];
+  carrera1: Carrera[] = [];
+  public createcarrera: Carrera = new Carrera();
+
+
+  public jornada1: Jornada[] = [];
+  public createjornada: Jornada = new Jornada();
+
 
   isLoading: boolean = true;
 
   botonDesactivado: boolean = false;
 
+  curso_nombre: string = '';
+  curso_paralelo: string = '';
+  nuevoCurso: Curso = new Curso();
+  public ckeckjornada: string = '';
+  public ckeckperiodo: string = '';
+  public ckeckcarrera: string = '';
+
+  public jornadaSeleccionada: string = '';
+
+
   constructor(private cursoService: CursoService, private router: Router,
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private http: HttpClient 
-    ) { }
+    private http: HttpClient,
+    private jornadaService: JornadaService,
+    private periodoService: PeriodoService,
+    private carreraService: CarreraService
 
+  ) {
+    this.createForm();
+
+  }
 
   ngOnInit() {
     this.createForm();
@@ -53,8 +74,6 @@ export class CrearCursoComponent  implements OnInit {
 
     this.cargarJornada();
     this.cargarListaJor();
-
-    this.loadGradoDetails();
   }
 
   createForm() {
@@ -72,7 +91,7 @@ export class CrearCursoComponent  implements OnInit {
   }
 
   cargarCarreras() {
-    this.getCarreras().subscribe((carreras) => (this.carrera = carreras));
+    this.getCarreras().subscribe((carreras) => (this.carrera1 = carreras));
   }
 
   getPeriodos(): Observable<Periodos[]> {
@@ -80,7 +99,7 @@ export class CrearCursoComponent  implements OnInit {
   }
 
   cargarPeriodos() {
-    this.getPeriodos().subscribe((periodos) => (this.periodo = periodos));
+    this.getPeriodos().subscribe((periodos) => (this.periodo1 = periodos));
   }
 
   getCJornadas(): Observable<Jornada[]> {
@@ -88,7 +107,7 @@ export class CrearCursoComponent  implements OnInit {
   }
 
   cargarJornada() {
-    this.getCJornadas().subscribe((jornadas) => (this.jornada = jornadas));
+    this.getCJornadas().subscribe((jornadas) => (this.jornada1 = jornadas));
   }
 
   loadGradoDetails() {
@@ -141,107 +160,179 @@ export class CrearCursoComponent  implements OnInit {
 
   cargarListaCa(): void {
     this.cursoService.getcarrer().subscribe(
-      (carreras) => {
+      carreras => {
         this.carrera1 = carreras;
         this.isLoading = false;
+        console.log('Carreras cargadas exitosamente:', carreras);
       },
-      (error) => {
+      error => {
         console.error('Error al cargar las carreras:', error);
         this.isLoading = false;
       }
     );
   }
 
+
   cargarListaPer(): void {
     this.cursoService.getperiodd().subscribe(
-      (periodos) => {
+      periodos => {
         this.periodo1 = periodos;
         this.isLoading = false;
+        console.log('Periodos cargados exitosamente:', periodos);
       },
-      (error) => {
+      error => {
         console.error('Error al cargar los periodos:', error);
         this.isLoading = false;
       }
     );
   }
-
   cargarListaJor(): void {
     this.cursoService.getjornss().subscribe(
-      (jornadas) => {
+      jornadas => {
         this.jornada1 = jornadas;
         this.isLoading = false;
+        console.log('Jornadas cargadas exitosamente:', jornadas);
       },
-      (error) => {
+      error => {
         console.error('Error al cargar las jornadas:', error);
         this.isLoading = false;
       }
     );
   }
 
+  onJornadaSelected(event: any) {
+    this.ckeckjornada = event.target.value;
+    const name = this.ckeckjornada;
 
+    this.jornadaService.comboidjornada(name).subscribe(
+      (jornadaExists: boolean) => {
+        if (jornadaExists) {
+          console.log(`La jornada ${name} existe.`);
+          this.jornadaService.getJornadaById(name).subscribe(
+            (jornada: Jornada | undefined) => {
+              if (jornada) {
+                // Hacer algo con el rol encontrado
+              
+                this.createjornada=jornada;
+                console.log('Jornada encontrado:', this.jornada1);
 
-  
-  crearCurso() {
-    this.botonDesactivado = true;
-    
-    
-
-    const jornadaIdSeleccionada = this.updateForm.get('jornada_id')?.value;
-    const carreraIdSeleccionada = this.updateForm.get('carrera_id')?.value;
-    const periodoIdSeleccionado = this.updateForm.get('periodo_id')?.value;
-  
-    if (!jornadaIdSeleccionada || !carreraIdSeleccionada || !periodoIdSeleccionado) {
-      console.error('Error: Datos de jornada, carrera o periodo no válidos');
-      console.error('josr' , this.updateForm.get('jornada_id')?.value)
-      this.botonDesactivado = false;
-      return;
-    }
-  
-    const nuevo: Curso = new Curso(
-      -1,
-      this.updateForm.get('curso_nombre')?.value,
-      this.updateForm.get('curso_paralelo')?.value,
-      jornadaIdSeleccionada,
-      carreraIdSeleccionada,
-      periodoIdSeleccionado
+              } else {
+                console.log('Jornada no encontrada');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener la jornada:', error);
+            }
+          );
+           
+        } else {
+          console.log(`La jornada ${name} no existe.`);
+       
+        }
+      },
+      (error) => {
+        console.error('Error al verificar la jornada:', error);
+      }
     );
-    console.log(nuevo);
-          
-    console.error(nuevo);
+  }
 
-  
-    this.cursoService.create(nuevo).subscribe(
+
+  onPeriodoSelected(event: any) {
+    this.ckeckperiodo = event.target.value;
+    const names = this.ckeckperiodo;
+
+    this.periodoService.comboidperiodo(names).subscribe(
+      (periodoExists: boolean) => {
+        if (periodoExists) {
+          console.log(`El periodo ${name} existe.`);
+          this.periodoService.getjjById(name).subscribe(
+            (periodo: Periodos | undefined) => {
+              if (periodo) {
+              
+                this.createperiodo=periodo;
+                console.log('Periodo encontrado:', this.periodo1);
+
+              } else {
+                console.log('Periodo no encontrado');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el Periodo:', error);
+            }
+          );
+           
+        } else {
+          console.log(`El Periodo ${name} no existe.`);
+       
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el periodo:', error);
+      }
+    );
+  }
+
+
+  onCarreraSelected(event: any) {
+    this.ckeckcarrera = event.target.value;
+    const name = this.ckeckcarrera;
+
+    this.carreraService.comboidcarrera(name).subscribe(
+      (carreraExists: boolean) => {
+        if (carreraExists) {
+          console.log(`La carrea ${name} existe.`);
+          this.carreraService.getCcById(name).subscribe(
+            (carrera: Carrera | undefined) => {
+              if (carrera) {
+              
+                this.createcarrera=carrera;
+                console.log('Carrera encontrado:', this.carrera1);
+
+              } else {
+                // Manejar el caso en que no se encuentra el rol
+                console.log('carrera no encontrado');
+              }
+            },
+            (error) => {
+              // Manejar errores de la solicitud HTTP
+              console.error('Error al obtener la carrera:', error);
+            }
+          );
+           
+        } else {
+          console.log(`La carrera ${name} no existe.`);
+       
+        }
+      },
+      (error) => {
+        console.error('Error al verificar la carrera:', error);
+      }
+    );
+  }
+
+
+
+  crearCurso() {
+
+    this.nuevoCurso.jornada = this.createjornada;
+    this.nuevoCurso.periodo = this.createperiodo;
+    this.nuevoCurso.carrera = this.createcarrera;
+    this.nuevoCurso.curso_nombre = this.curso_nombre;
+    this.nuevoCurso.curso_paralelo = this.curso_paralelo;
+    this.cursoService.create(this.nuevoCurso).subscribe(
       (response) => {
+       
         console.log('Curso creado exitosamente:', response);
-        alert('Curso creado exitosamente');
+
         window.close();
       },
       (error) => {
         // Manejo de errores
-        console.error('Error al crear curso:', error);
-        console.error('josr' , this.updateForm.get('jornada_id')?.value + 1)
-        console.error(nuevo);
-
-
-        if (error.status === 401) {
-          this['router'].navigate(['/login']);
-        } else if (error.error && error.error.error) {
-          console.error('Error específico del servidor:', error.error.error);
-          alert('Error específico del servidor: ' + error.error.error);
-        } else {
-          // Muestra un mensaje de error genérico al usuario
-          console.error('Error genérico al crear. Por favor, inténtelo de nuevo.', error);
-          console.error('josr' , this.updateForm.get('jornada_id')?.value)
-
-          alert('Error genérico al crear. Por favor, inténtelo de nuevo.');
-        }
-  
-        // Reactivar el botón después de un error
-        this.botonDesactivado = false;
+        console.error('Error al crear el curso:', error);
       }
     );
   }
-  
+
 
   cancelar(): void {
     this.router.navigate(['/listarcurso']);

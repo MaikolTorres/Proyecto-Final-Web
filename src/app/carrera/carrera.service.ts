@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { Carrera } from './carrera';
 
 
@@ -38,5 +38,21 @@ export class CarreraService {
   delete(carrera_id: number): Observable<Carrera> {
     const url = `http://localhost:8080/api/carrera/eliminar/${carrera_id}`; // Ajusta la URL según tu estructura
     return this.http.delete<Carrera>(url);
+  }
+
+
+  comboidcarrera(nombre: string): Observable<boolean> {
+    return this.getCarrera().pipe(
+      map(carreras => carreras.some(carrera => carrera.carrera_nombre=== nombre))
+    );
+  }
+  getCcById(id: any): Observable<Carrera> {
+    return this.http.get<Carrera>(`${this.urlEndPoint_1}/${id}`)
+  }
+  getCcByName(nombre: string): Observable<Carrera> {
+    return this.http.get<Carrera[]>(this.urlEndPoint).pipe(
+      map(carreras => carreras.find(carrera => carrera.carrera_nombre === nombre) as Carrera), 
+      filter(carrera => !!carrera) // Filtrar null o undefined
+    );
   }
 }
