@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { Cargo } from './cargo';
 
 @Injectable({
@@ -39,4 +39,18 @@ export class CargoserviceService {
     console.log('URL de actualización:', url);
     return this.http.put<Cargo>(url, cargo);
   }
+
+  comboidcargo(nombre: string): Observable<boolean> {
+    return this.getCargo().pipe(
+      map(cargos => cargos.some(cargo => cargo.cargo_nombre === nombre))
+    );
+  }
+ 
+  getcargoByName(nombre: string): Observable<Cargo> {
+    return this.http.get<Cargo[]>(this.urlEndPoint).pipe(
+      map(cargos => cargos.find(cargo =>cargo.cargo_nombre === nombre) as Cargo), 
+      filter(cargo => !!cargo) // Filtrar null o undefined
+    );
+  }
 }
+

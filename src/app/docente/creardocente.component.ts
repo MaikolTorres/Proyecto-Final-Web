@@ -12,6 +12,12 @@ import { Periodos } from '../periodos/periodo';
 import { Titulo } from '../titulo/titulo';
 import { DocenteService } from './docente.service';
 import { Router } from '@angular/router';
+import { PersonaService } from '../persona/persona.service';
+import { TipoContratoService } from '../tipo-contrato/tipo-contrato.service';
+import { CargoserviceService } from '../cargo/cargoservice.service';
+import { TituloService } from '../titulo/titulo.service';
+import { PeriodoService } from '../periodos/periodo.service';
+import { GradoOcupacionalService } from '../grado-ocupacional/grado-ocupacional.service';
 
 @Component({
   selector: 'app-creardocente',
@@ -32,14 +38,45 @@ export class CreardocenteComponent implements OnInit {
   isLoading: boolean = true;
   nuevoDocente: Docente = new Docente();
   botonDesactivado: boolean = false;
+  public ckeckrol:string = '';
+  public  cedulaSeleccionada: string = '';
+  docente_fecha_ingreso = new Date();
+  docente_estado : string = '';
+
+      public  contraroSeleccionada: string = '';
+  public  cargoSeleccionada: string = '';
+  public  tituloSeleccionada: string = '';
+  public  periodoSeleccionada: string = '';
+  public  gradoSeleccionada: string = '';
+  createpersona: Persona= new Persona();
+  public contrato2 : TipoContrato= new TipoContrato();
+  public cargo2 : Cargo= new Cargo();
+  public titulo2: Titulo= new Titulo();
+  public periodo2: Periodos= new Periodos();
+  public grado2: GradoOcupacional= new GradoOcupacional();
+
+
+
+
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private docenteservice: DocenteService,
     private http: HttpClient,
     private router: Router,
+private personaservice:PersonaService,
+private contratoservice:TipoContratoService,
+private cargoservice:CargoserviceService,
+private tituloservice:TituloService,
+private periodoservice:PeriodoService,
+private gradosservice:GradoOcupacionalService,
 
-  ) { }
+
+
+
+
+
+  ) {  this.createForm();}
   ngOnInit() {
     this.createForm();
     this.loadDocenteDetails();
@@ -53,6 +90,9 @@ export class CreardocenteComponent implements OnInit {
 
 
 
+  }
+  initializeForm() {
+    this.createForm();
   }
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
@@ -207,52 +247,244 @@ export class CreardocenteComponent implements OnInit {
     );
 
   }
-  onSubmit() {
-    if (this.updateForm && this.updateForm.valid) {
-      const updatedDOCE = this.updateForm.value;
-      updatedDOCE.docente_id = this.docente?.docente_id || 0;
+  onCedulaSelected(event: any) {
+    this.cedulaSeleccionada = event.target.value;
+    const cedula = this.cedulaSeleccionada;
+    this.personaservice.getRolByCedula(cedula).subscribe(
+      (persona: Persona | undefined) => {
+        if (persona) {
+          
+        
+          this.createpersona=persona;
+          console.log('Persona encontrado:',  this.createpersona);
 
-      console.log('usuario ID seleccionado:', updatedDOCE.docente_id);
-      if (!updatedDOCE.docente_id) {
-        console.error('Error: ID de usu no válido');
-        return;
-      }
-
-      this.docenteservice.updatedocente(updatedDOCE).subscribe(
-        data => {
-          console.log('usuario actualizado con éxito:', data);
-          console.log(updatedDOCE);
-          this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
-        },
-        error => {
-          console.error('Error al actualizar el usuario:', error);
-
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-          } else {
-            // Manejar otros tipos de errores
-          }
+        } else {
+          // Manejar el caso en que no se encuentra el rol
+          console.log('Persona no encontrado');
         }
-      );
-    }
+      },
+      (error) => {
+        // Manejar errores de la solicitud HTTP
+        console.error('Error al obtener la persona:', error);
+      }
+    );
   }
+/////////////////////////////////////////////////////////////////////////
+oncontratoSelected(event: any) {
+  this.contraroSeleccionada = event.target.value;
+  const name = this.contraroSeleccionada;
+
+  // Llamada al servicio para verificar el rol
+  this.contratoservice.comboidcontrato(name).subscribe(
+    (rolExists: boolean) => {
+      if (rolExists) {
+        console.log(`El contrato ${name} existe.`);
+        this.contratoservice.getcontratoByName(name).subscribe(
+          (contrato: TipoContrato | undefined) => {
+            if (contrato) {
+              // Hacer algo con el rol encontrado
+            
+              this.contrato2=contrato;
+              console.log('dontrato encontrado:', this.contrato2);
+
+            } else {
+              // Manejar el caso en que no se encuentra el rol
+              console.log('contrato no encontrado');
+            }
+          },
+          (error) => {
+            // Manejar errores de la solicitud HTTP
+            console.error('Error al obtener el rol:', error);
+          }
+        );
+         
+      } else {
+        console.log(`El rol ${name} no existe.`);
+     
+      }
+    },
+    (error) => {
+      console.error('Error al verificar el rol:', error);
+    }
+  );
+}
+ontituloSelected(event: any) {
+  this.tituloSeleccionada = event.target.value;
+  const name = this.tituloSeleccionada;
+
+  // Llamada al servicio para verificar el rol
+  this.tituloservice.comboidtitulo(name).subscribe(
+    (rolExists: boolean) => {
+      if (rolExists) {
+        console.log(`El titulo ${name} existe.`);
+        this.tituloservice.gettituloByName(name).subscribe(
+          (titulo: Titulo | undefined) => {
+            if (titulo) {
+              // Hacer algo con el rol encontrado
+            
+              this.titulo2=titulo;
+              console.log('titulo encontrado:', this.titulo2);
+
+            } else {
+              // Manejar el caso en que no se encuentra el rol
+              console.log('titulo no encontrado');
+            }
+          },
+          (error) => {
+            // Manejar errores de la solicitud HTTP
+            console.error('Error al obtener el cartitulogo:', error);
+          }
+        );
+         
+      } else {
+        console.log(`El cargo ${name} no existe.`);
+     
+      }
+    },
+    (error) => {
+      console.error('Error al verificar el cargo:', error);
+    }
+  );
+}
+  ////////////////////////////////////////////////////////////////////
+
+  onperiodoSelected(event: any) {
+    this.periodoSeleccionada = event.target.value;
+    const name = this.periodoSeleccionada;
+  
+    // Llamada al servicio para verificar el rol
+    this.periodoservice.comboidperiodo(name).subscribe(
+      (rolExists: boolean) => {
+        if (rolExists) {
+          console.log(`El per ${name} existe.`);
+          this.periodoservice.getperiodoByName(name).subscribe(
+            (periodo: Periodos | undefined) => {
+              if (periodo) {
+                // Hacer algo con el rol encontrado
+              
+                this.periodo2=periodo;
+                console.log('caro encontrado:', this.cargo2);
+  
+              } else {
+                // Manejar el caso en que no se encuentra el rol
+                console.log('cargo no encontrado');
+              }
+            },
+            (error) => {
+              // Manejar errores de la solicitud HTTP
+              console.error('Error al obtener el cargo:', error);
+            }
+          );
+           
+        } else {
+          console.log(`El cargo ${name} no existe.`);
+       
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el cargo:', error);
+      }
+    );
+  }
+////////////////////////////////////////////////////////////
+oncargoSelected(event: any) {
+  this.cargoSeleccionada = event.target.value;
+  const name = this.cargoSeleccionada;
+
+  // Llamada al servicio para verificar el rol
+  this.cargoservice.comboidcargo(name).subscribe(
+    (rolExists: boolean) => {
+      if (rolExists) {
+        console.log(`El cargo ${name} existe.`);
+        this.cargoservice.getcargoByName(name).subscribe(
+          (cargo: Cargo | undefined) => {
+            if (cargo) {
+              // Hacer algo con el rol encontrado
+            
+              this.cargo2=cargo;
+              console.log('caro encontrado:', this.cargo2);
+
+            } else {
+              // Manejar el caso en que no se encuentra el rol
+              console.log('cargo no encontrado');
+            }
+          },
+          (error) => {
+            // Manejar errores de la solicitud HTTP
+            console.error('Error al obtener el cargo:', error);
+          }
+        );
+         
+      } else {
+        console.log(`El cargo ${name} no existe.`);
+     
+      }
+    },
+    (error) => {
+      console.error('Error al verificar el cargo:', error);
+    }
+  );
+}
+/////////////////////////////////////////////////////////////////////////
+ongradoSelected(event: any) {
+  this.gradoSeleccionada = event.target.value;
+  const name = this.gradoSeleccionada;
+
+  // Llamada al servicio para verificar el rol
+  this.gradosservice.comboidgrado(name).subscribe(
+    (rolExists: boolean) => {
+      if (rolExists) {
+        console.log(`El grado ${name} existe.`);
+        this.gradosservice.getGradoByName(name).subscribe(
+          (grado: GradoOcupacional | undefined) => {
+            if (grado) {
+              // Hacer algo con el rol encontrado
+            
+              this.grado2=grado;
+              console.log('caro encontrado:', this.cargo2);
+
+            } else {
+              // Manejar el caso en que no se encuentra el rol
+              console.log('cargo no encontrado');
+            }
+          },
+          (error) => {
+            // Manejar errores de la solicitud HTTP
+            console.error('Error al obtener el cargo:', error);
+          }
+        );
+         
+      } else {
+        console.log(`El cargo ${name} no existe.`);
+     
+      }
+    },
+    (error) => {
+      console.error('Error al verificar el cargo:', error);
+    }
+  );
+}
+
+
+
+
   creardoce() {
     // Desactivar el botón durante la solicitud
     this.botonDesactivado = true;
-    // console.log('nuevoDocente:', this.nuevoDocente);
-    // console.log('nuevoDocente.persona:', this.nuevoDocente.persona);
+  
+this.nuevoDocente.docente_fecha_ingreso=this.docente_fecha_ingreso;
+this.nuevoDocente.docente_estado=this.docente_estado;
+this.nuevoDocente.persona=this.createpersona;
+this.nuevoDocente.tipo_contrato=this.contrato2;
+this.nuevoDocente.cargo=this.cargo2;
+this.nuevoDocente.titulo=this.titulo2;
+this.nuevoDocente.periodo=this.periodo2;
+this.nuevoDocente.grado=this.grado2;
+
     const formData = this.updateForm.value;
     console.log('Datos del formulario:', formData);
 
-    // Asegurar que nuevoDocente y sus propiedades estén definidos antes de acceder a ellas
-    // if (this.nuevoDocente && this.nuevoDocente.persona) {
-    
-    // } else {
-    //   console.error('Error: nuevoDocente o alguna de sus propiedades es nulo o indefinido.');
-    //   // Puedes decidir cómo manejar esta situación, por ejemplo, mostrar un mensaje al usuario.
-    //   return;
-    // }
-
+  
     this.docenteservice.create(formData).subscribe(
       (response) => {
         // Éxito

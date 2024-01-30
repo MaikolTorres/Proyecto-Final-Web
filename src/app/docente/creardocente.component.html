@@ -22,43 +22,49 @@
             </select>
 
             <label for="per_id">per_id:</label>
-            <select class="form-control" id="per_id" formControlName="per_id" required>
-                <option *ngFor="let persona of personas" [value]="persona.per_id">
-                    {{ persona.per_primer_nombre + ' ' + persona.per_apellido_paterno }}
+            <select class="form-control" id="per_id" formControlName="per_id" required 
+            [(ngModel)]="cedulaSeleccionada"  (change)="onCedulaSelected($event)">
+                <option *ngFor="let persona of personas" [value]="persona.per_cedula">
+                 
                 </option>
             </select>
 
             <label for="tipo_id">Tipo de Contrato:</label>
-            <select class="form-control" id="tipo_id" formControlName="tipo_id" required>
-                <option *ngFor="let tipo_contrato of contratos1" [value]="tipo_contrato.tipo_id">
+            <select class="form-control" id="tipo_id" (change)="oncontratoSelected($event)" required
+             (change)="oncontratoSelected($event)" >
+                <option *ngFor="let tipo_contrato of contratos1">
                     {{ tipo_contrato.tipo_contrato }}
                 </option>
             </select>
 
             <label for="cargo">Cargo:</label>
-            <select class="form-control" id="cargo" formControlName="cargo_id" required>
-                <option *ngFor="let cargo of cargos" [value]="cargo.cargo_id">
+            <select class="form-control" id="cargo" 
+            (change)="oncargoSelected($event)" required>
+                <option *ngFor="let cargo of cargos" >
                     {{ cargo.cargo_nombre }}
                 </option>
             </select>
 
             <label for="titulo">Título:</label>
-            <select class="form-control" id="titulo" formControlName="titulo_id" required>
-                <option *ngFor="let titulo of titulos" [value]="titulo.titulo_id">
+            <select class="form-control" id="titulo" 
+            (change)="ontituloSelected($event)" required>
+                <option *ngFor="let titulo of titulos" >
                     {{ titulo.titulo_nombre }}
                 </option>
             </select>
 
             <label for="periodo">Periodo:</label>
-            <select class="form-control" id="periodo" formControlName="periodo_id" required>
-                <option *ngFor="let periodo of periodos" [value]="periodo.periodo_id">
+            <select class="form-control" id="periodo" 
+            (change)="onperiodoSelected($event)" required>
+                <option *ngFor="let periodo of periodos" >
                     {{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}
                 </option>
             </select>
 
             <label for="grado">Grado Ocupasional:</label>
-            <select class="form-control" id="grado" formControlName="grado_id" required>
-                <option *ngFor="let grado of grados" [value]="grado.grado_id">
+            <select class="form-control" id="grado"
+             (change)="oncontratoSelected($event)" required>
+                <option *ngFor="let grado of grados" >
                     {{ grado.grado_titulo }}
                 </option>
             </select>
