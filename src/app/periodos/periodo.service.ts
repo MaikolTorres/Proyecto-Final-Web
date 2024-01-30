@@ -38,6 +38,18 @@ export class PeriodoService {
   delete(id: number): Observable<Periodos> {
     return this.http.delete<Periodos>(`${this.urlEndPoint_2}/${id}`);
   }
+
+  getjjById(id: any): Observable<Periodos> {
+    return this.http.get<Periodos>(`${this.urlEndPoint_1}/${id}`)
+  }
+  
+  getjjByName(nombre: String): Observable<Periodos> {
+    return this.http.get<Periodos[]>(this.urlEndPoint).pipe(
+      map(periodos => periodos.find(periodo => periodo.periodo_mes_inicio === nombre) as Periodos), 
+      filter(periodo => !!periodo) // Filtrar null o undefined
+    );
+  }
+
   comboidperiodo(nombre: string): Observable<boolean> {
     return this.getPeriodo().pipe(
       map(periodos => periodos.some(periodo => 

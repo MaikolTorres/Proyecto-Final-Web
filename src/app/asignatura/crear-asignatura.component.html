@@ -1,56 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="crear-asignatura.component.css">
-  <title>Tu Título</title>
+  <title>Crear Asignatura</title>
 </head>
 
 <body>
   <app-header></app-header>
   <app-menudesp></app-menudesp>
   <div class="container">
-    <!-- Formulario -->
-    <form class="formulario" (ngSubmit)="crearUsu()">
+
+
+    <form class="formulario" (ngSubmit)="crearAsignatura()">
       <fieldset>
         <legend class="titulo_formulario">Crear Asignatura</legend>
         <div class="contenedor_formulario">
           <div class="mb-3">
-            <label for="curso_nombre" class="form-label">Nombre:</label>
-            <input type="text" formControlName="curso_nombre" required>
-
-            <label for="curso_paralelo" class="form-label">Hora Clase semanal:</label>
-            <input type="text" formControlName="curso_paralelo" required>
-
-            
-
-            <label for="curso_id" class="form-label">Curso:</label>
-            <select class="form-control" formControlName="curso_id" required>
-              <option *ngFor="let curso of curso1" [value]="curso.curso_id">{{ curso.curso_nombre }}
-              </option>
-            </select>
-
-            <label for="docente_id" class="form-label">Docente:</label>
-            <select class="form-control" formControlName="docente_id" required>
-              <option *ngFor="let docente of docente1" [value]="docente.docente_id">{{ docente.docente_id }}
-              </option>
-            </select>
-
-            
+            <label for="asignatura_nombre" class="form-label">Nombre:</label>
+            <input type="text" [(ngModel)]="asignatura_nombre" name="asignatura_nombre" required class="form-control">
           </div>
+
+          <div class="mb-3">
+            <label for="asignatura_horas_clase_semana" class="form-label">Horas clase(semanal):</label>
+            <input type="text" [(ngModel)]="asignatura_horas_clase_semana" name="asignatura_horas_clase_semana" required
+              class="form-control">
+          </div>
+
+
+          <label for="per_id"> curso_id :</label>
+          <select class="form-control" id="curso_id" formControlName="curso_id" required [(ngModel)]="nombreCursoSelecionada"
+            (change)="onCursoSelected($event)">
+            <option *ngFor="let curso of curso1">{{ curso.curso_nombre}} </option>
+          </select>
+
+          <label for="docente_id"> docente_id :</label>
+          <select class="form-control" id="docente_id" formControlName="docente_id" required [(ngModel)]="nombreDocSeleecionada"
+            (change)="onDocSelected($event)">
+            <option *ngFor="let docc of docente1">{{ docc.persona.per_primer_nombre}} </option>
+          </select>
+
+
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i> Registrar
           </button>
-          <button type="button" class="btn2 btn btn-danger" (click)="cancelar()">
+          <button type="button" class="btn btn-danger" (click)="cancelar()">
             <i class="fa fa-times"></i> Cancelar
           </button>
         </div>
       </fieldset>
     </form>
-
   </div>
-
   <app-footer></app-footer>
 </body>
+
+</html>

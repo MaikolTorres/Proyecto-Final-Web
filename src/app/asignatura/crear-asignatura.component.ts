@@ -8,6 +8,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Docente } from '../docente/docente';
+import { CursoService } from '../listar-curso/curso.service';
+import { DocenteService } from '../docente/docente.service';
 @Component({
   selector: 'app-crear-asignatura',
   templateUrl: './crear-asignatura.component.html',
@@ -17,152 +19,178 @@ export class CrearAsignaturaComponent implements OnInit {
   @Input() asignatura: Asignatura | undefined;
   asignatura_id: number | undefined;
   updateForm!: FormGroup;
-  asignatura1: Asignatura[] = [];
 
-  curso: Curso[] = [];
+  asignatura1: Asignatura[] = [];
+  nuevaAsignatura: Asignatura = new Asignatura();
+
   curso1: Curso[] = [];
+  createcurso: Curso= new Curso();
+  public  nombreCursoSelecionada: string = '';
   
-  docente: Docente[] = [];
+
   docente1: Docente[] = [];
-  
+  createdocente: Docente= new Docente();
+  public  nombreDocSeleecionada: string = '';
 
 
   isLoading: boolean = true;
-  nuevoUsu: Asignatura = new Asignatura();
   botonDesactivado: boolean = false;
 
-  constructor(
+  asignatura_nombre: string = '';
+  asignatura_horas_clase_semana: number = 0;
+
+
+
+
+  constructor(private asignaturaService: AsignaturaService, private router: Router,
     public modalRef: BsModalRef,
     private fb: FormBuilder,
-    private asignaturaService: AsignaturaService,
     private http: HttpClient,
-    private router: Router
-  ) {
+    private cursoService: CursoService,
+    private docenteService: DocenteService,
 
+  ) {
+    this.createForm();
 
   }
 
   ngOnInit() {
     this.createForm();
-    
-    this.cargarCursos();
-    this.cargarListaCu();
+    this.cargarCurso();
+    this.cargarListaCur();
 
-    this.cargarDocentes();
-    this.cargarListaDoc();
-
-    this.loadGradoDetails();
+    this.cargarDocente();
+    this.cargarListadoc();
 
   }
-
-
-  createForm() {
-    this.updateForm = this.fb.group({
-      asignatura_nombre: ['', Validators.required],
-      asignatura_horas_clase_semana: ['', Validators.required], // Corregir el nombre del campo
-      curso_id: ['', Validators.required],
-      docente_id: ['', Validators.required]
-    });
+  initializeForm() {
+    this.createForm();
   }
+
 
 
   getCursos(): Observable<Curso[]> {
     return this.http.get<Curso[]>('http://localhost:8080/curso');
   }
 
-  cargarCursos() {
-    this.getCursos().subscribe((cursos) => (this.curso = cursos));
+  cargarCurso() {
+    this.getCursos().subscribe((cursos) => (this.curso1 = cursos));
   }
 
 
-  getDocc(): Observable<Docente[]> {
+  getDocente(): Observable<Docente[]> {
     return this.http.get<Docente[]>('http://localhost:8080/docente');
   }
 
-  cargarDocentes() {
-    this.getDocc().subscribe((docentes) => (this.docente = docentes));
+  cargarDocente() {
+    this.getDocente().subscribe((docentes) => (this.docente1 = docentes));
+  }
+
+  createForm() {
+    this.updateForm = this.fb.group({
+      asignatura_nombre: ['', Validators.required],
+      asignatura_horas_clase_semana: ['', Validators.required],
+      curso_id: ['', Validators.required],
+      docente_id: ['', Validators.required],
+    });
   }
 
 
 
-  loadGradoDetails() {
-    if (this.asignatura && this.asignatura.asignatura_id) {
-      this.asignatura_id = this.asignatura.asignatura_id;
-      this.asignaturaService.getasignaturaId(this.asignatura_id).subscribe(
-        (curso: Asignatura) => {
-          this.updateForm.patchValue({
-            asignatura_nombre: curso.asignatura_nombre,
-            asignatura_horas_clase_semana: curso.asignatura_horas_clase_semana,
-            docente_id: curso.modeloDocente.docente_id,
-            curso_id: curso.curso.curso_id,
-          });
-        },
-        (error) => {
-          console.error('Error al cargar detalles del curso:', error);
-        }
-      );
-    }
-  }
-
-
-  cargarListaCu(): void {
+  cargarListaCur(): void {
     this.asignaturaService.getcursss().subscribe(
-      (curr) => {
-        this.curso1 = curr;
+      cursos => {
+        this.curso1 = cursos;
         this.isLoading = false;
+        console.log('Cursos cargados exitosamente:', cursos);
       },
-      (error) => {
-        console.error('Error al cargar las carreras:', error);
+      error => {
+        console.error('Error al cargar los cursos:', error);
         this.isLoading = false;
       }
     );
   }
 
-  cargarListaDoc(): void {
+
+  cargarListadoc(): void {
     this.asignaturaService.getdoccente().subscribe(
-      (docc) => {
-        this.docente1 = docc;
+      doscc => {
+        this.docente1 = doscc;
         this.isLoading = false;
+        console.log('Docentes cargados exitosamente:', doscc);
       },
-      (error) => {
-        console.error('Error al cargar los periodos:', error);
+      error => {
+        console.error('Error al cargar los docentes:', error);
         this.isLoading = false;
       }
     );
   }
-  
+
+  onCursoSelected(event: any) {
+    this.nombreCursoSelecionada = event.target.value;
+    const nombre = this.nombreCursoSelecionada;
+    this.cursoService.getCursoIdByNombre(nombre).subscribe(
+      (curso: Curso | undefined) => {
+        if (curso) {
+          
+        
+          this.createcurso=curso;
+          console.log('Curso encontrado:',  this.createcurso);
+
+        } else {
+          // Manejar el caso en que no se encuentra el rol
+          console.log('Curso no encontrado');
+        }
+      },
+      (error) => {
+        // Manejar errores de la solicitud HTTP
+        console.error('Error al obtener el curso:', error);
+      }
+    );
+  }
+
   
 
-  crearUsu() {
-    this.botonDesactivado = true;
-  
-    const formData = this.updateForm.value;
-  
-    this.asignaturaService.create(formData).subscribe(
+  onDocSelected(event: any) {
+    this.nombreDocSeleecionada = event.target.value;
+    const nombre = this.nombreDocSeleecionada;
+    this.docenteService.getDocenteByName(nombre).subscribe(
+      (docente: Docente | undefined) => {
+        if (docente) {
+          
+        
+          this.createdocente=docente;
+          console.log('Docente encontrado:',  this.createdocente);
+
+        } else {
+          // Manejar el caso en que no se encuentra el rol
+          console.log('Docente no encontrado');
+        }
+      },
+      (error) => {
+        // Manejar errores de la solicitud HTTP
+        console.error('Error al obtener el docente:', error);
+      }
+    );
+  }
+
+
+
+  crearAsignatura() {
+    this.nuevaAsignatura.curso = this.createcurso;
+    this.nuevaAsignatura.modeloDocente = this.createdocente;
+    this.nuevaAsignatura.asignatura_nombre = this.asignatura_nombre;
+    this.nuevaAsignatura.asignatura_horas_clase_semana = this.asignatura_horas_clase_semana;
+    this.asignaturaService.create(this.nuevaAsignatura).subscribe(
       (response) => {
-        // Éxito
-        console.log('Usuario creado exitosamente:', response);
-        // Resto de la lógica después de la creación exitosa
-  
-        // Cerrar la ventana después de guardar la jornada
+
+        console.log('Asignatura creado exitosamente:', response);
+
         window.close();
       },
       (error) => {
         // Manejo de errores
-        console.error('Error al crear el usuario:', error);
-        if (error.status === 401) {
-          // Redirigir al usuario a la página de inicio de sesión
-          this.router.navigate(['/login']);
-        } else if (error.error && error.error.error) {
-          // Muestra el mensaje de error específico del servidor al usuario
-          alert(error.error.error);
-        } else {
-          // Muestra un mensaje de error genérico al usuario
-          alert('Error al crear el usuario. Por favor, inténtelo de nuevo.');
-        }
-  
-        // Reactivar el botón después de un error
-        this.botonDesactivado = false;
+        console.error('Error al crear la asignatura:', error);
       }
     );
   }
@@ -171,5 +199,8 @@ export class CrearAsignaturaComponent implements OnInit {
   cancelar(): void {
     this.router.navigate(['/asignatura']);
   }
-}
 
+
+
+
+}

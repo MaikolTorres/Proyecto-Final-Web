@@ -40,7 +40,7 @@
         <td>{{ asignatura.asignatura_nombre }}</td>
         <td>{{ asignatura.asignatura_horas_clase_semana }}</td>
         <td>{{ asignatura.curso.curso_nombre}}</td>
-        <td>{{ asignatura.modeloDocente.docente_id }}</td>
+        <td>{{ asignatura.modeloDocente.persona.per_primer_nombre  +' '+asignatura.modeloDocente.persona.per_apellido_paterno}}</td>
         <td>
           <button style="border: none; background: transparent;" (click)="arirModalActualizar(asignatura)">
             <i class="fas fa-pencil-alt"></i>
