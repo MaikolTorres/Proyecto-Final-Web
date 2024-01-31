@@ -6,7 +6,7 @@ import { Titulo } from '../titulo/titulo';
 import { Periodos } from '../periodos/periodo';
 import { Docente } from './docente';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, filter, map } from 'rxjs';
+import { Observable, catchError, filter, map } from 'rxjs';
 import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
 
 @Injectable({
@@ -37,7 +37,15 @@ export class DocenteService {
     return this.http.get<Docente[]>(this.urlEndPoint);
   }
   create(docentes: Docente): Observable<Docente> {
+    console.log('Datos que se enviarán al backend:', docentes);
+  
     return this.http.post<Docente>(this.urlEndPoint_1, docentes, { headers: this.httpHeaders })
+      .pipe(
+        catchError(error => {
+          console.error('Error en la petición HTTP:', error);
+          throw error;  // Puedes personalizar esto según tus necesidades
+        })
+      );
   }
   getdocentesId(id: number): Observable<Docente> {
     return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
@@ -49,7 +57,8 @@ export class DocenteService {
   updatedocente(docente: Docente): Observable<Docente> {
     const url = `http://localhost:8080/api/docente/actualizar/${docente.docente_id}`;
     console.log('URL de actualización:', url);
-    return this.http.put<Docente>(url, Docente);
+    
+    return this.http.put<Docente>(url, docente);
   }
   getpers(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlpersona);

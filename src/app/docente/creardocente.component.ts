@@ -259,319 +259,234 @@ private gradosservice:GradoOcupacionalService,
     );
 
   }
-  onCedulaSelected(event: any) {
-    this.nuevoDocente.persona = this.createpersona;
-
-    this.personaseleccionada = event.target.value;
-  const name = this.personaseleccionada;
-  const selectedPersona = this.personas.find(persona => persona.per_cedula === event.target.value);
+  oncedulaSelected(event: any) {
+    const selectedPersonaId = event.target.value;
   
-  if (selectedPersona) {
-    this.selectedPersonaId = selectedPersona.per_id;
-    this.cedulaSeleccionada = selectedPersona.per_cedula;
-  }
-  // Llamada al servicio para verificar el rol
-  this.personaservice.comboidpersona(name).subscribe(
-    (rolExists: boolean) => {
-      if (rolExists) {
-        console.log(`El persona ${name} existe.`);
-        this.personaservice.getprsonaByName(name).subscribe(
-          (persona: Persona | undefined) => {
+    this.personaservice.getprsonaByName(selectedPersonaId).subscribe(
+        (persona: Persona | undefined) => {
             if (persona) {
-              // Hacer algo con el rol encontrado
-            
-              this.persona2=persona;
-              console.log('persona encontrado:', this.persona2);
-
+                // Asegúrate de que this.updateForm esté definido
+                if (this.updateForm) {
+                  
+                  this.updateForm.get('per_id')?.setValue(persona.per_id);
+                  console.log('persona  encontrado');
+  
+                } else {
+                    console.error('El formulario reactivo no está definido');
+                }
             } else {
-              // Manejar el caso en que no se encuentra el rol
-              console.log('persona no encontrado');
+                console.log('titulo no encontrado');
             }
-          },
-          (error) => {
-            // Manejar errores de la solicitud HTTP
-            console.error('Error al obtener el persona:', error);
-          }
-        );
-         
-      } else {
-        console.log(`El persona ${name} no existe.`);
-     
-      }
-    },
-    (error) => {
-      console.error('Error al verificar el rol:', error);
-    }
-  );
+        },
+        (error) => {
+            console.error('Error al obtener el titulo:', error);
+            // Manejo de errores
+        }
+    );
   }
 /////////////////////////////////////////////////////////////////////////
+
 oncontratoSelected(event: any) {
-     this.nuevoDocente.tipo_contrato = this.createcontrato;
-  this.contraroSeleccionada = event.target.value;
-  const name = this.contraroSeleccionada;
+  const selectedContratoId = event.target.value;
 
-  // Llamada al servicio para verificar el rol
-  this.contratoservice.comboidcontrato(name).subscribe(
-    (rolExists: boolean) => {
-      if (rolExists) {
-        console.log(`El contrato ${name} existe.`);
-        this.contratoservice.getcontratoByName(name).subscribe(
-          (contrato: TipoContrato | undefined) => {
-            if (contrato) {
-              // Hacer algo con el rol encontrado
-            
-              this.contrato2=contrato;
-              console.log('dontrato encontrado:', this.contrato2);
-
-            } else {
-              // Manejar el caso en que no se encuentra el rol
-              console.log('contrato no encontrado');
-            }
-          },
-          (error) => {
-            // Manejar errores de la solicitud HTTP
-            console.error('Error al obtener el rol:', error);
+  this.contratoservice.getcontratoByName(selectedContratoId).subscribe(
+      (contrato: TipoContrato | undefined) => {
+          if (contrato) {
+              // Asegúrate de que this.updateForm esté definido
+              if (this.updateForm) {
+                  this.updateForm.get('tipo_id')?.setValue(contrato.tipo_id);
+              } else {
+                  console.error('El formulario reactivo no está definido');
+              }
+          } else {
+              console.log('Contrato no encontrado');
           }
-        );
-         
-      } else {
-        console.log(`El rol ${name} no existe.`);
-     
+      },
+      (error) => {
+          console.error('Error al obtener el contrato:', error);
+          // Manejo de errores
       }
-    },
-    (error) => {
-      console.error('Error al verificar el rol:', error);
-    }
   );
 }
+
+
+
 ontituloSelected(event: any) {
-  this.tituloSeleccionada = event.target.value;
-  const name = this.tituloSeleccionada;
+  const selectedtituloId = event.target.value;
 
-  // Llamada al servicio para verificar el rol
-  this.tituloservice.comboidtitulo(name).subscribe(
-    (rolExists: boolean) => {
-      if (rolExists) {
-        console.log(`El titulo ${name} existe.`);
-        this.tituloservice.gettituloByName(name).subscribe(
-          (titulo: Titulo | undefined) => {
-            if (titulo) {
-              // Hacer algo con el rol encontrado
-            
-              this.titulo2=titulo;
-              console.log('titulo encontrado:', this.titulo2);
+  this.tituloservice.gettituloByName(selectedtituloId).subscribe(
+      (titulo: Titulo | undefined) => {
+          if (titulo) {
+              // Asegúrate de que this.updateForm esté definido
+              if (this.updateForm) {
+                
+                this.updateForm.get('titulo_id')?.setValue(titulo.titulo_id);
+                console.log('titulo  encontrado');
 
-            } else {
-              // Manejar el caso en que no se encuentra el rol
+              } else {
+                  console.error('El formulario reactivo no está definido');
+              }
+          } else {
               console.log('titulo no encontrado');
-            }
-          },
-          (error) => {
-            // Manejar errores de la solicitud HTTP
-            console.error('Error al obtener el cartitulogo:', error);
           }
-        );
-         
-      } else {
-        console.log(`El cargo ${name} no existe.`);
-     
+      },
+      (error) => {
+          console.error('Error al obtener el titulo:', error);
+          // Manejo de errores
       }
-    },
-    (error) => {
-      console.error('Error al verificar el cargo:', error);
-    }
   );
 }
+
   ////////////////////////////////////////////////////////////////////
 
   onperiodoSelected(event: any) {
+    const selectedPeriodoId = event.target.value;
+  
+    this.periodoservice.getperiodoByName(selectedPeriodoId).subscribe(
+        (periodo: Periodos | undefined) => {
+            if (periodo) {
+                // Asegúrate de que this.updateForm esté definido
+                if (this.updateForm) {
+                    this.updateForm.get('periodo_id')?.setValue(periodo.periodo_id);
+                    console.log('periodo  encontrado');
 
-    this.periodoSeleccionada = event.target.value;
-    const name = this.periodoSeleccionada;
-  
-    // Llamada al servicio para verificar el rol
-    this.periodoservice.comboidperiodo(name).subscribe(
-      (rolExists: boolean) => {
-        if (rolExists) {
-          console.log(`El per ${name} existe.`);
-          this.periodoservice.getperiodoByName(name).subscribe(
-            (periodo: Periodos | undefined) => {
-              if (periodo) {
-                // Hacer algo con el rol encontrado
-              
-                this.periodo2=periodo;
-                console.log('periodo encontrado:', this.periodo2);
-  
-              } else {
-                // Manejar el caso en que no se encuentra el rol
-                console.log('cargo no encontrado');
-              }
-            },
-            (error) => {
-              // Manejar errores de la solicitud HTTP
-              console.error('Error al obtener el cargo:', error);
+                  } else {
+                    console.error('El formulario reactivo no está definido');
+                }
+            } else {
+                console.log('periodo no encontrado');
             }
-          );
-           
-        } else {
-          console.log(`El cargo ${name} no existe.`);
-       
+        },
+        (error) => {
+            console.error('Error al obtener el titulo:', error);
+            // Manejo de errores
         }
-      },
-      (error) => {
-        console.error('Error al verificar el cargo:', error);
-      }
     );
   }
 ////////////////////////////////////////////////////////////
 oncargoSelected(event: any) {
-  this.cargoSeleccionada = event.target.value;
-  const name = this.cargoSeleccionada;
+  const selectedCargoId = event.target.value;
 
-  // Llamada al servicio para verificar el rol
-  this.cargoservice.comboidcargo(name).subscribe(
-    (rolExists: boolean) => {
-      if (rolExists) {
-        console.log(`El cargo ${name} existe.`);
-        this.cargoservice.getcargoByName(name).subscribe(
-          (cargo: Cargo | undefined) => {
-            if (cargo) {
-              // Hacer algo con el rol encontrado
-            
-              this.cargo2=cargo;
-              console.log('caro encontrado:', this.cargo2);
+  this.cargoservice.getcargoByName(selectedCargoId).subscribe(
+      (cargo: Cargo | undefined) => {
+          if (cargo) {
+              // Asegúrate de que this.updateForm esté definido
+              if (this.updateForm) {
+                  this.updateForm.get('cargo_id')?.setValue(cargo.cargo_id);
+                  console.log('cargo  encontrado');
 
-            } else {
-              // Manejar el caso en que no se encuentra el rol
-              console.log('cargo no encontrado');
-            }
-          },
-          (error) => {
-            // Manejar errores de la solicitud HTTP
-            console.error('Error al obtener el cargo:', error);
+                } else {
+                  console.error('El formulario reactivo no está definido');
+              }
+          } else {
+              console.log('periodo no encontrado');
           }
-        );
-         
-      } else {
-        console.log(`El cargo ${name} no existe.`);
-     
+      },
+      (error) => {
+          console.error('Error al obtener el titulo:', error);
+          // Manejo de errores
       }
-    },
-    (error) => {
-      console.error('Error al verificar el cargo:', error);
-    }
   );
 }
 /////////////////////////////////////////////////////////////////////////
 ongradoSelected(event: any) {
-  this.gradoSeleccionada = event.target.value;
-  const name = this.gradoSeleccionada;
+  const selectedgradoId = event.target.value;
 
-  // Llamada al servicio para verificar el rol
-  this.gradosservice.comboidgrado(name).subscribe(
-    (rolExists: boolean) => {
-      if (rolExists) {
-        console.log(`El grado ${name} existe.`);
-        this.gradosservice.getGradoByName(name).subscribe(
-          (grado: GradoOcupacional | undefined) => {
-            if (grado) {
-              // Hacer algo con el rol encontrado
-            
-              this.grado2=grado;
-              console.log('caro encontrado:', this.cargo2);
+  this.gradosservice.getGradoByName(selectedgradoId).subscribe(
+      (grados: GradoOcupacional | undefined) => {
+          if (grados) {
+              // Asegúrate de que this.updateForm esté definido
+              if (this.updateForm) {
+                  this.updateForm.get('grado_id')?.setValue(grados.grado_id);
+                  console.log('grado  encontrado');
 
-            } else {
-              // Manejar el caso en que no se encuentra el rol
-              console.log('cargo no encontrado');
-            }
-          },
-          (error) => {
-            // Manejar errores de la solicitud HTTP
-            console.error('Error al obtener el cargo:', error);
+                } else {
+                  console.error('El formulario reactivo no está definido');
+              }
+          } else {
+              console.log('periodo no encontrado');
           }
-        );
-         
-      } else {
-        console.log(`El cargo ${name} no existe.`);
-     
+      },
+      (error) => {
+          console.error('Error al obtener el titulo:', error);
+          // Manejo de errores
       }
-    },
-    (error) => {
-      console.error('Error al verificar el cargo:', error);
-    }
   );
 }
 
 
 
 
-  creardoce() {
-this.nuevoDocente.docente_fecha_ingreso=this.docente_fecha_ingreso;
-this.nuevoDocente.docente_estado=this.docente_estado;
-if (this.selectedPersonaId !== undefined) {
-  this.nuevoDocente.persona.per_id = this.selectedPersonaId;
-} else {}
-if (this.selectedCargoId !== undefined) {
-  this.nuevoDocente.cargo.cargo_id = this.selectedCargoId;
-} else {}
+creardoce() {
+  const formData = this.updateForm.value;
+  console.log('Datos del formulario antes de asignar al nuevoDocente:', formData);
 
-if (this.selectedcontratoId !== undefined) {
-  this.nuevoDocente.tipo_contrato.tipo_id = this.selectedcontratoId;
-} else {}
+  // Asignación explícita de propiedades al nuevoDocente
+  this.nuevoDocente.docente_fecha_ingreso = formData.fechaIngreso;
+  this.nuevoDocente.docente_estado = formData.estado;
 
-if (this.selectedtituloId !== undefined) {
-  this.nuevoDocente.titulo.titulo_id = this.selectedtituloId;
-} else {}
-if (this.selectedPeriodoId !== undefined) {
-  this.nuevoDocente.periodo.periodo_id = this.selectedPeriodoId;
-} else {}
+  // Asegúrate de que haya una instancia válida de modelo_persona
+  this.nuevoDocente.persona = new Persona();
+  this.nuevoDocente.persona.per_id = formData.per_id;
 
-if (this.selectedgradoId !== undefined) {
-  this.nuevoDocente.grado.grado_id = this.selectedgradoId;
-} else {}
+  // Asegúrate de que haya una instancia válida de modelo_cargo
+  this.nuevoDocente.cargo = new Cargo();
+  this.nuevoDocente.cargo.cargo_id = formData.cargo_id;
 
-    const formData = this.updateForm.value;
-    console.log('Datos del formulario:', formData);
+  // Asegúrate de que haya una instancia válida de modelo_tipo_contrato
+  this.nuevoDocente.tipo_contrato = new TipoContrato();
+  this.nuevoDocente.tipo_contrato.tipo_id = formData.tipo_id;
 
-  
-    this.docenteservice.create(formData).subscribe(
-      (response) => {
-        // Éxito
-        console.log('Docente creado exitosamente:', response);
-        // Resto de la lógica después de la creación exitosa
+  // Asegúrate de que haya una instancia válida de modelo_titulo
+  this.nuevoDocente.titulo = new Titulo();
+  this.nuevoDocente.titulo.titulo_id = formData.titulo_id;
 
-        // Cerrar la ventana después de guardar el docente
-        window.close();
-      },
-      (error) => {
-        // Manejo de errores
-        console.error('Error al crear el docente:', error);
-        if (error.status === 401) {
-          // Redirigir al usuario a la página de inicio de sesión
-          this.router.navigate(['/login']);
-        } else if (error.error && error.error.error) {
-          // Muestra el mensaje de error específico del servidor al usuario
-          alert(error.error.error);
-          
-        } else {
-          // Muestra un mensaje de error genérico al usuario
-          alert('Error al crear el docente. Por favor, inténtelo de nuevo.');
-          console.log('docente_id:', this.nuevoDocente.docente_id);
-          console.log('docente_fecha_ingreso:', this.nuevoDocente.docente_fecha_ingreso);
-          console.log('docente_estado:', this.nuevoDocente.docente_estado);
-          console.log('persona_id:', this.nuevoDocente.persona.per_id);
-          console.log('tipo_id:', this.nuevoDocente.tipo_contrato.tipo_id);
-          console.log('cargo_id:', this.nuevoDocente.cargo.cargo_id);
-          console.log('titulo_id:', this.nuevoDocente.titulo.titulo_id);
-          console.log('periodo_id:', this.nuevoDocente.periodo.periodo_id);
-         console.log('grado_id:', this.nuevoDocente.grado.grado_id);
-        }
+  // Asegúrate de que haya una instancia válida de modelo_periodos
+  this.nuevoDocente.periodo = new Periodos();
+  this.nuevoDocente.periodo.periodo_id = formData.periodo_id;
+  // Asegúrate de que haya una instancia válida de modelo_grado_ocupacional
+  this.nuevoDocente.grado = new GradoOcupacional();
+  this.nuevoDocente.grado.grado_id = formData.grado_id;
 
-        // Reactivar el botón después de un error
-        this.botonDesactivado = false;
+  console.log('Valores después de asignar al nuevoDocente:', this.nuevoDocente);
+
+  // Resto del código...
+
+  console.log('Datos del formulario antes de asignar al nuevoDocente:', formData);
+
+  // Agrega esta línea para imprimir los datos del Docente antes de enviarlos al backend
+  console.log('Docente que se enviará al backend:', this.nuevoDocente);
+
+  this.docenteservice.create(formData).subscribe(
+    (response: any) => {
+      console.log('Docente creado exitosamente:', response);
+      console.log('Docente ID asignado:', this.nuevoDocente.docente_id);
+      console.log('Valores después de asignar al nuevoDocente:', this.nuevoDocente);
+
+      // Verifica si la respuesta contiene un docente_id
+      if (response && response.docente_id) {
+        // Asigna el ID generado por el servidor al nuevoDocente
+        this.nuevoDocente.docente_id = response.docente_id;
+        console.log('Docente ID asignado:', this.nuevoDocente.docente_id);
       }
-    );
-  }
+
+      // Resto de la lógica después de la creación exitosa
+      window.close();
+    },
+    (error) => {
+      console.error('Error al crear el docente:', error);
+      // Manejo de errores
+      if (error.status === 401) {
+        this.router.navigate(['/login']);
+      } else if (error.error && error.error.error) {
+        alert(error.error.error);
+      } else {
+        alert('Error al crear el docente. Por favor, inténtelo de nuevo.');
+      }
+      this.botonDesactivado = false;
+    }
+  );
+}
 
 
 
