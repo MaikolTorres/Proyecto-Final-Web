@@ -12,7 +12,6 @@ import { RecuperacionContrasenaComponent } from './recuperacion-contrasena/recup
 import { CrearRolComponent } from './roles/crear-rol.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { CrearUsuarioComponent } from './usuario/crear-usuario.component';
-import { MenudespComponent } from './menudesp/menudesp.component';
 import { PersonaComponent } from './persona/persona.component';
 import { CrearPersonaComponent } from './persona/crear-persona.component';
 import { TituloComponent } from './titulo/titulo.component';
@@ -83,7 +82,6 @@ const routes: Routes = [
   { path: 'Header', component: HeaderComponent },
   { path: 'crear-rol', component: CrearRolComponent },
   { path: 'usuario', component: UsuarioComponent },
-  { path: 'menud', component: MenudespComponent },
   { path: 'crearUsuario', component: CrearUsuarioComponent },
   { path: 'persona', component: PersonaComponent },
   { path: 'crearpersona', component: CrearPersonaComponent },
@@ -163,7 +161,6 @@ const routes: Routes = [
     FooterComponent,
     UsuarioComponent,
     CrearUsuarioComponent,
-    MenudespComponent,
     CrearUsuarioComponent,
     CrearPersonaComponent,
     TituloComponent,

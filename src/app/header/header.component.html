@@ -1,58 +1,62 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Carrera</title>
-  <link rel="stylesheet" href="header.component.css">
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          style="fill: rgb(255, 255, 255); transform: 0"
-        >
-          <path
-            d="M12.71 2.29a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42A1 1 0 0 0 3 13h1v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1 1 1 0 0 0-.29-.71zM6 20v-9.59l6-6 6 6V20z"
-          ></path>
-        </svg>
-      </a>
-    
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Docentes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Periodos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Roles</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/seleccion-actividades">Actividades</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Materias</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li> -->
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <!-- <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          /> -->
-          <button class="btn my-2 my-sm-0" type="submit">Perfil</button>
-        </form>
-      </div>
-  </nav>
-</body>
-</html>
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid" style="background-color: rgb(140, 214, 246); font-size: large; height: 70px;">
+        <a class="navbar-brand" href="#">
+            <img src="/src/assets/Capa 2.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
 
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid" style="background-color: rgb(140, 214, 246); font-size: large; height: 70px;">
+        <a class="navbar-brand" href="#">
+            <img src="/src/assets/Capa 2.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/persona">Persona</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/docente">Docente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/listarcurso">Curso</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/seleccion-actividad">Actividades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" routerLink="/distributivo">Distributivo</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Más
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" aria-current="page" routerLink="/usuario">Usuarios</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/roles">Roles</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/titulo">Título</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/tipocontrato">Tipo de Contrato</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/listarGrado">Grado Ocupacional</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/cargo">Cargo</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/listar-periodo">Periodos</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/listarjornada">Jornada</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/asignatura">Asignaturas</a>
+                        <li><a class="nav-link" aria-current="page" routerLink="/listar-carrera">Carrera</a>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
