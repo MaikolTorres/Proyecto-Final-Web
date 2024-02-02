@@ -41,7 +41,7 @@ export class AsignaturaComponent implements OnInit{
             this.asignaturas = asignaturas;
             this.isLoading = false;
             console.error('Error al cargar las asignaturas:', asignaturas);
-            // Marcar la carga como completa después de recibir los roles
+
           },
           error => {
             console.error('Error al cargar las asignaturas:', error);

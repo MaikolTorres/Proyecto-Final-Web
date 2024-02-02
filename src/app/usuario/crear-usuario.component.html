@@ -10,7 +10,6 @@
 
 <body>
   <app-header></app-header>
-  <app-menudesp></app-menudesp>
   <div class="container">
     <form class="formulario" (ngSubmit)="crearUsu()">
       <fieldset>
@@ -25,6 +24,8 @@
             <label for="usu_contrasena" class="form-label">Contraseña:</label>
             <input type="text" [(ngModel)]="usu_contrasena" name="usu_contrasena" required class="form-control">
           </div>
+
+
           <label for="per_id"> per_id :</label>
           <select class="form-control" id="per_id" formControlName="per_id" required [(ngModel)]="cedulaSeleccionada"
             (change)="onCedulaSelected($event)">
@@ -32,7 +33,9 @@
           </select>
           <label for="rol_id"> rol_id :</label>
           <select class="form-control" id="rol_id" (change)="onRolSelected($event)" required>
-            <option *ngFor="let role of roles">{{ role.rol_nombre }}</option>
+            <option *ngFor="let role of roles">
+              {{ role.rol_nombre }}
+            </option>
           </select>
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i> Registrar

@@ -45,13 +45,14 @@ export class RolesService {
       map(roles => roles.some(rol => rol.rol_nombre === nombre))
     );
   }
-  getRolById(id: any): Observable<Rol> {
-    return this.http.get<Rol>(`${this.urlEndPoint_1}/${id}`)
-  }
+ 
   getRolByName(nombre: string): Observable<Rol> {
     return this.http.get<Rol[]>(this.urlEndPoint).pipe(
       map(roles => roles.find(rol => rol.rol_nombre === nombre) as Rol), 
       filter(rol => !!rol) // Filtrar null o undefined
     );
+  }
+  getRolById(id: any): Observable<Rol> {
+    return this.http.get<Rol>(`${this.urlEndPoint_1}/${id}`)
   }
 }

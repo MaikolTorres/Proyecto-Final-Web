@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TipoContratoService } from './tipo-contrato.service';
 import { FormsModule } from '@angular/forms';
 import { ActualizarTipocontratoModalComponent } from './actualizar-tipocontrato-modal/actualizar-tipocontrato-modal.component';
+import { AlertService } from '../service/Alert.service';
 
 @Component({
   selector: 'app-tipo-contrato',
@@ -18,7 +19,8 @@ export class TipoContratoComponent {
 
   constructor(
     private tipocontratoService: TipoContratoService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -49,24 +51,27 @@ export class TipoContratoComponent {
   }
   //
   eliminarCargo(tipocontratoId: number): void {
-    if (confirm('¿Estás seguro de que deseas eliminar el Tipo Contrato?')) {
-      // Llama al servicio para eliminar la tipo
-      this.tipocontratoService.deleteTipoContrato(tipocontratoId).subscribe(
-        (data) => {
-          console.log('Tipo Contrato eliminado con éxito:', data);
-          window.location.reload();
-
-          // Aquí puedes realizar acciones adicionales después de la eliminación
-        },
-        (error) => {
-          console.error('Error al eliminar el Tipo Contrato:', error);
-          window.location.reload();
-
-          // Manejar el error según sea necesario
-        }
-      );
-    }
+    this.alertService.question2(
+      'Confirmar eliminación',
+      '¿Eliminar el Tipo Contrato?',
+      'Sí, eliminar',
+      'Cancelar'
+    ).then((confirmed) => {
+      if (confirmed) {
+        this.tipocontratoService.deleteTipoContrato(tipocontratoId).subscribe(
+          (data) => {
+            console.log('Tipo Contrato eliminado con éxito:', data);
+            window.location.reload();
+          },
+          (error) => {
+            console.error('Error al eliminar el Tipo Contrato:', error);
+            window.location.reload();
+          }
+        );
+      }
+    });
   }
+
   textoBusqueda: string = '';
 
   // buscar

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { TipoContratoService } from '../tipo-contrato.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from 'src/app/service/Alert.service';
 
 @Component({
   selector: 'app-actualizar-tipocontrato-modal',
@@ -17,7 +18,8 @@ export class ActualizarTipocontratoModalComponent implements OnInit {
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
-    private tipocontratoService: TipoContratoService
+    private tipocontratoService: TipoContratoService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -54,25 +56,29 @@ export class ActualizarTipocontratoModalComponent implements OnInit {
         return;
       }
 
-      this.tipocontratoService.updateTipoContrato(updatedTipoContrato).subscribe(
-        (data) => {
-          console.log('Tipo Contrato actualizado con éxito:', data);
-          this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
-          window.location.reload();
-
-        },
-        (error) => {
-          console.error('Error al actualizar el Tipo Contrato:', error);
-
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-            window.location.reload();
-
-          } else {
-            // Manejar otros tipos de errores
-          }
+      this.alertService.question2(
+        'Confirmar actualización',
+        '¿Actualizar este Tipo de Contrato?',
+        'Sí, actualizar',
+        'Cancelar'
+      ).then((confirmed) => {
+        if (confirmed) {
+          this.tipocontratoService.updateTipoContrato(updatedTipoContrato).subscribe(
+            (data) => {
+              console.log('Tipo Contrato actualizado con éxito:', data);
+              this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
+              window.location.reload();
+            },
+            (error) => {
+              console.error('Error al actualizar el Tipo Contrato:', error);
+              if (error instanceof HttpErrorResponse && error.status === 200) {
+                console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
+                window.location.reload();
+              } 
+            }
+          );
         }
-      );
+      });
     }
   }
 }

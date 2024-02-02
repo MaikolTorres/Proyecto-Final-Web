@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, filter, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GradoOcupacional } from './grado-ocupacional';
 
@@ -40,5 +40,16 @@ updateGrado(grado: GradoOcupacional): Observable<GradoOcupacional> {
   console.log('URL de actualización:', url);
   return this.http.put<GradoOcupacional>(url, grado);
 }
+comboidgrado(nombre: string): Observable<boolean> {
+  return this.getGrados().pipe(
+    map(grados => grados.some(grado => grado.grado_titulo === nombre))
+  );
+}
 
+getGradoByName(nombre: string): Observable<GradoOcupacional> {
+  return this.http.get<GradoOcupacional[]>(this.urlEndPoint).pipe(
+    map(grados => grados.find(grado => grado.grado_titulo === nombre) as GradoOcupacional), 
+    filter(grado => !!grado) // Filtrar null o undefined
+  );
+}
 }

@@ -9,6 +9,8 @@ import { RolesService } from 'src/app/roles/roles.service';
 import { PersonaService } from 'src/app/persona/persona.service';
 import { Router } from '@angular/router';
 
+import { AlertService } from 'src/app/service/Alert.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-actualizar-usuario-modal',
@@ -38,7 +40,11 @@ export class ActualizarUsuarioModalComponent implements OnInit {
     private router: Router,
     private rolservice: RolesService,
     private personaservice: PersonaService,
-  ) { }
+
+    private http: HttpClient,
+    private alertService: AlertService
+
+  ) {}
 
   ngOnInit() {
     
@@ -189,7 +195,7 @@ export class ActualizarUsuarioModalComponent implements OnInit {
         },
         error => {
           console.error('Error al actualizar el usuario:', error);
-          window.location.reload();
+              window.location.reload();
 
           window.close;
         }

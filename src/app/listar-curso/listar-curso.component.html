@@ -1,75 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Asignaturas</title>
+  <link rel="stylesheet" href="listar-curso.component.css">
 </head>
 
-<app-header></app-header>
-<app-menudesp></app-menudesp>
-
+  <app-header></app-header>
+  
 <body>
-
-    <h2>Lista de cursos </h2>
-
-    <div class="button-container"> <!-- Contenedor de los botones -->
-      <button class="button1" routerLink="/crearcurso">
-        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
-      </button>
-    </div>
-    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por curso" (input)="buscar()" />
-      <button style="border: none; background: transparent;">
-        <i class="fas fa-search"></i> <!-- Ícono de buscar -->
-      </button>
-    </div>
-
-   <div class="table-container"> <!-- Contenedor de la tabla -->
-    <table class="curso-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-
-          <th>Paralelo</th>
-          <th>Jornada</th>
-          <th>Carrera</th>
-          <th>Periodo</th>
-
-          <th>Editar</th>
-          <th>Eliminar</th>
-          <!-- Agrega más columnas según los atributos de Jornada -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let curso of cursos">
-          <td>{{ curso.curso_id }}</td>
-          <td>{{ curso.curso_nombre }}</td>
-          <td>{{ curso.curso_paralelo }}</td>
-          <td>{{ curso.carrera.carrera_nombre }}</td>
-
-          <td>{{ curso.jornada.jornada_nombre }}</td>
-          <td>{{ curso.periodo.periodo_anio_inicio }}</td>
-          <!-- Agrega más celdas según los atributos de Jornada -->
-          <td>
-            <button style="border: none; background: transparent;" (click)="abrirModalActualizar(curso)">
-              <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
-            </button>
-          </td>
-          <td>
-            <button style="border: none; background: transparent;" (click)="eliminarCurso(curso.curso_id)">
-              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-            </button>
-          </td>
-       
-        </tr>
-      </tbody>
-    </table>
+  <h2>Lista de Cursos</h2>
+  <div class="button-container"> <!-- Botones -->
+    <button class="button1" routerLink="/crearasignatura">Crear</button>
   </div>
+  
+
+  
 
 </body>
 <app-footer></app-footer>

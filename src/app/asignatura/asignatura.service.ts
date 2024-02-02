@@ -5,6 +5,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Asignatura } from './asignatura';
 
+//const express = require('express');
+//const Joi = require('joi');
+//const app = express();
+//const cors=require('cors');
+
+//app.use(express.json());
+///app.use(cors());
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +29,7 @@ export class AsignaturaService {
   constructor(private http: HttpClient) { }
 
     private urlEndPoint:string = 'http://localhost:8080/api/asignatura/listarAsignatura'
+
     private urlEndPoint_1:string = 'http://localhost:8080/api/asignatura/guardarAsignatura'
     private urlEndPoint_3:string = 'http://localhost:8080/api/asignatura/actualizarAsignatura/{{id}}'
     private urlEndPoint_4:string = 'http://localhost:8080/api/asignatura/buscarUsuario/{{id}}'
