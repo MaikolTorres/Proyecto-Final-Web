@@ -63,9 +63,8 @@
                         </button>
                     </td>
                     <td>
-                        <button (click)="eliminardoce(docente.docente_id)">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
+                        <button (click)="docente.docente_id !== undefined ? eliminardoce(docente.docente_id) : null">Eliminar</button>
+
                     </td>
                 </tr>
             </tbody>

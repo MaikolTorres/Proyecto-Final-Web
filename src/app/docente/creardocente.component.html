@@ -10,7 +10,7 @@
 <body>
     <div class="form-container">
         <h2>Crear Nuevo Docente</h2>
-        <form id="create-docente-form" [formGroup]="updateForm" (ngSubmit)="creardoce()">
+        <form class="formulario" (ngSubmit)="creardoce()">
             <label for=" fechaIngreso">Fecha de Ingreso:</label>
             <input type="date" id="fechaIngreso" name="fechaIngreso" formControlName="fechaIngreso" required>
 
