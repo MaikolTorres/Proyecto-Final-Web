@@ -101,8 +101,12 @@ export class DocenteComponent implements OnInit {
   
   textoBusqueda: string = '';
   usuMatchesSearch(docente: Docente): boolean {
-    return (docente.persona.per_primer_nombre.toLowerCase() + ' ' + docente.persona.per_apellido_paterno.toLowerCase()).includes(this.textoBusqueda.toLowerCase());
-  }
+    return (
+      (docente?.persona?.per_primer_nombre?.toLowerCase() + ' ' +
+       docente?.persona?.per_apellido_paterno?.toLowerCase())
+         .includes(this.textoBusqueda.toLowerCase())
+    );
+      }
 
   buscar(): void {
     if (this.textoBusqueda.trim() !== '') {

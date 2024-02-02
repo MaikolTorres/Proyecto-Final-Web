@@ -7,4 +7,5 @@ export class Persona{
 'per_apellido_materno':string;
 'per_telefono':string;
 'per_email':string;
+
 }
