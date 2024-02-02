@@ -8,6 +8,9 @@ import { Titulo } from '../titulo/titulo';
   providedIn: 'root'
 })
 export class PeriodoService {
+  getPeriodos() {
+    throw new Error('Method not implemented.');
+  }
 
   private urlEndPoint:string = 'http://localhost:8080/api/periodos/listar';
   private urlEndPoint_1:string = 'http://localhost:8080/api/periodos/guardar';

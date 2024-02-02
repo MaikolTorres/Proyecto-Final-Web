@@ -9,6 +9,9 @@ import { filter, map } from 'rxjs/operators';
 })
 
 export class PersonaService {
+  getPersonas() {
+    throw new Error('Method not implemented.');
+  }
 
   private urlEndPoint: string = 'http://localhost:8080/api/personas/listar'
   private urlEndPoint_1: string = 'http://localhost:8080/api/personas/guardar'
@@ -59,9 +62,8 @@ export class PersonaService {
     );
   }
   getprsonaByName(nombre: string): Observable<Persona> {
-    return this.http.get<Persona[]>(this.urlEndPoint).pipe(
+    return this.getPersona().pipe(
       map(personas => personas.find(persona => persona.per_cedula === nombre) as Persona),
-      filter(persona => !!persona) // Filtrar null o undefined
     );
     //
   }

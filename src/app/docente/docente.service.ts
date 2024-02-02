@@ -13,6 +13,9 @@ import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
   providedIn: 'root'
 })
 export class DocenteService {
+  createDocente(nuevoDocente: Docente) {
+    throw new Error('Method not implemented.');
+  }
   private urlEndPoint: string = 'http://localhost:8080/api/docente/listar';
   private urlEndPoint_1: string = 'http://localhost:8080/api/docente/guardar';
   private urlpersona: string = 'http://localhost:8080/api/personas/listar';
