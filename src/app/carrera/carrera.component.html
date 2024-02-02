@@ -1,0 +1,36 @@
+<app-header></app-header>
+<app-menudesp></app-menudesp>
+<body>
+
+  <div class="center-container">
+    <p class="txt-2">Listado de Carrera</p>
+
+    <div class="inputs">
+      <button routerLink="/crear-carrera">Crear</button>
+      <button>Editar</button>
+      <button class="button1">Eliminar</button>
+      <input type="text" class="box" placeholder="Buscar" />
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Modalidad</th>
+          <th>Cursos/Paralelos</th>
+          <th>Jornada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Tus filas de datos van aquí -->
+        <tr>
+          <td>Desarrollo de Software</td>
+          <td>Dual</td>
+          <td>M5A</td>
+          <td>Matutina</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+<app-footer></app-footer>
