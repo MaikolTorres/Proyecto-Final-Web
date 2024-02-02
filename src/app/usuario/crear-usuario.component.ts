@@ -7,8 +7,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Usuario } from './Usuario';
 import { Rol } from '../roles/roles';
-import {RolesService} from '../roles/roles.service';
-import {PersonaService} from '../persona/persona.service'
+import { RolesService } from '../roles/roles.service';
+import { PersonaService } from '../persona/persona.service'
 
 import { Router } from '@angular/router';
 
@@ -23,23 +23,23 @@ export class CrearUsuarioComponent implements OnInit {
   updateForm!: FormGroup;
   usuario1: Usuario[] = [];
   persona1: Persona[] = [];
-  createpersona: Persona= new Persona();
+  createpersona: Persona = new Persona();
   roles: Rol[] = [];
   isLoading: boolean = true;
   usu_usuario: string = '';
   usu_contrasena: string = '';
   nuevoUsu: Usuario = new Usuario();
   botonDesactivado: boolean = false;
-  public ckeckrol:string = '';
-  public rol2 : Rol= new Rol();
-  public  cedulaSeleccionada: string = '';
+  public ckeckrol: string = '';
+  public rol2: Rol = new Rol();
+  public cedulaSeleccionada: string = '';
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private http: HttpClient,
     private router: Router,
-    private rolservice:RolesService,
+    private rolservice: RolesService,
     private personaservice: PersonaService,
   ) {
     this.createForm();
@@ -53,7 +53,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.cargarLista();
     this.cargarListarol();
 
-   
+
   }
   initializeForm() {
     this.createForm();
@@ -62,7 +62,7 @@ export class CrearUsuarioComponent implements OnInit {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }
 
-// Cargar personas al inicializar el componente
+  // Cargar personas al inicializar el componente
   cargarPersonas() {
     this.getPersonas().subscribe(personas => (this.persona1 = personas));
   }
@@ -96,8 +96,8 @@ export class CrearUsuarioComponent implements OnInit {
             (rol: Rol | undefined) => {
               if (rol) {
                 // Hacer algo con el rol encontrado
-              
-                this.rol2=rol;
+
+                this.rol2 = rol;
                 console.log('Rol encontrado:', this.rol2);
 
               } else {
@@ -110,10 +110,10 @@ export class CrearUsuarioComponent implements OnInit {
               console.error('Error al obtener el rol:', error);
             }
           );
-           
+
         } else {
           console.log(`El rol ${name} no existe.`);
-       
+
         }
       },
       (error) => {
@@ -154,10 +154,10 @@ export class CrearUsuarioComponent implements OnInit {
     this.personaservice.getRolByCedula(cedula).subscribe(
       (persona: Persona | undefined) => {
         if (persona) {
-          
-        
-          this.createpersona=persona;
-          console.log('Persona encontrado:',  this.createpersona);
+
+
+          this.createpersona = persona;
+          console.log('Persona encontrado:', this.createpersona);
 
         } else {
           // Manejar el caso en que no se encuentra el rol
@@ -178,7 +178,7 @@ export class CrearUsuarioComponent implements OnInit {
     this.nuevoUsu.usu_contrasena = this.usu_contrasena;
     this.usuarioService.create(this.nuevoUsu).subscribe(
       (response) => {
-       
+
         console.log('Usuario creado exitosamente:', response);
 
         window.close();
@@ -189,7 +189,7 @@ export class CrearUsuarioComponent implements OnInit {
       }
     );
   }
-  
+
 
   cancelar(): void {
     this.router.navigate(['/usuario']);

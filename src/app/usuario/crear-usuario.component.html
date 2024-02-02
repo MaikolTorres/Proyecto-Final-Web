@@ -30,7 +30,6 @@
             (change)="onCedulaSelected($event)">
             <option *ngFor="let persona of persona1">{{ persona.per_cedula}} </option>
           </select>
-
           <label for="rol_id"> rol_id :</label>
           <select class="form-control" id="rol_id" (change)="onRolSelected($event)" required>
             <option *ngFor="let role of roles">{{ role.rol_nombre }}</option>

@@ -73,6 +73,9 @@ export class UsuarioComponent implements OnInit{
         // Asignar la jornada al contexto del componente
         this.usuario= usuario;
         this.cargarLista;
+        this.ngOnInit; // Carga los datos del usuario en el formulario
+
+      
     
         this.modalRef = this.modalService.show(ActualizarUsuarioModalComponent, { initialState });
       }

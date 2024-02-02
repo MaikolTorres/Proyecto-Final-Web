@@ -1,34 +1,26 @@
 <div class="modal-header">
-    <h4 class="modal-title">Actualizar usuario</h4>
-    <h4 class="modal-title">Actualizar usuario</h4>
-
-    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-      <!-- Campos del formulario -->
-      <div class="form-group">
-        <label for="usu_usuario">usuario:</label>
-        <input type="text" class="form-control" id="usu_usuario" formControlName="usu_usuario"required>
-        <label for="usu_contrasena"> contrasena  :</label>
-        <input type="text" class="form-control" id="usu_contrasena" formControlName="usu_contrasena" required>
-      <label for="per_id"> per_id :</label>
-  <select class="form-control" id="per_id" formControlName="per_id" required>
-    <option *ngFor="let persona of  persona1" [value]="persona.per_id"> {{ persona.per_primer_nombre}}</option>
-  </select>
-
-  <label for="rol_id"> rol_id :</label>
-  <select class="form-control" id="rol_id" formControlName="rol_id" required>
-    <option *ngFor="let  roles of  roles" [value]="roles.rol_id">{{roles.rol_id }}</option>
-  </select>
-       
-
+  <h4 class="modal-title">Actualizar usuario</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <!-- Campos del formulario -->
+    <div class="form-group">
+      <label for="usu_usuario">Usuario:</label>
+      <input type="text" class="form-control" id="usu_usuario" formControlName="usu_usuario" required>
+      <label for="usu_contrasena">Contraseña:</label>
+      <input type="text" class="form-control" id="usu_contrasena" formControlName="usu_contrasena" required>
+      <label for="per_id">Cédula:</label>
+      <select class="form-control" id="per_id" formControlName="per_id" required (change)="onPersonaSelected($event)">
+        <option *ngFor="let persona of personas" [value]="persona.per_id">{{ persona.per_cedula }}</option>
+      </select>
+      <label for="rol_id">Rol:</label>
+      <select class="form-control" id="rol_id" formControlName="rol_id" required (change)="onRolSelected($event)">
+        <option *ngFor="let role of roles" [value]="role.rol_id">{{ role.rol_nombre }}</option>
+      </select>
     </div>
-      <!-- Otros campos del formulario según tu modelo Jornada -->
-
-      <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
-  </div>
-  
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+  </form>
+</div>
