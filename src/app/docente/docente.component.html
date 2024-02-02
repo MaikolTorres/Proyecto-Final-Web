@@ -35,46 +35,41 @@
                     <th>Docente ID</th>
                     <th>Fecha de Ingreso</th>
                     <th>Estado</th>
-                    <th>nombre</th>
-                    <th>Período </th>
-                    <th>Tipo contrato </th>
-                    <th>Cargo </th>
-                    <th>Título </th>
-                    <th>Grado ID</th>
+                    <th>Nombre</th>
+                    <th>Período</th>
+                    <th>Tipo Contrato</th>
+                    <th>Cargo</th>
+                    <th>Título</th>
+                    <th>Grado</th>
                     <th>Actualizar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí se cargarán los datos de la tabla -->
                 <tr *ngFor="let docente of docentes">
                     <td>{{ docente.docente_id }}</td>
                     <td>{{ docente.docente_fecha_ingreso }}</td>
                     <td>{{ docente.docente_estado }}</td>
                     <td>{{ docente.persona.per_primer_nombre + ' ' + docente.persona.per_apellido_paterno }}</td>
-                    <td>{{ docente.periodo.periodo_mes_inicio+' '+
-                        docente.periodo.periodo_anio_inicio+'-'+docente.periodo.periodo_mes_fin+'
-                        '+docente.periodo.periodo_anio_fin}}</td>
-                    <td>{{ docente?.tipo_contrato?.tipo_contrato}}</td>
-                    <td>{{ docente.cargo.cargo_nombre}}</td>
-                    <td>{{ docente.titulo.titulo_nombre}}</td>
-                    <td>{{ docente.grado.grado_titulo}}</td>
+                    <td>{{ docente.periodo.periodo_mes_inicio }} {{ docente.periodo.periodo_anio_inicio }} -
+                        {{ docente.periodo.periodo_mes_fin }} {{ docente.periodo.periodo_anio_fin }}</td>
+                    <td>{{ docente.tipo_contrato? docente.tipo_contrato.tipo_contrato : 'Sin contrato' }}</td>
+                    <td>{{ docente.cargo.cargo_nombre }}</td>
+                    <td>{{ docente.titulo.titulo_nombre }}</td>
+                    <td>{{ docente.grado? docente.grado.grado_titulo : 'Sin titulo' }}</td>
                     <td>
-                        <button style="border: none; background: transparent;" (click)="arirModalActualizar(docente)">
-                            <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
+                        <button (click)="arirModalActualizar(docente)">
+                            <i class="fas fa-edit"></i>
                         </button>
                     </td>
                     <td>
-                        <button style="border: none; background: transparent;"
-                            (click)="eliminardoce(docente.docente_id)">
-                            <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-                        </button>
+                        <button (click)="docente.docente_id !== undefined ? eliminardoce(docente.docente_id) : null">Eliminar</button>
+
                     </td>
                 </tr>
-
-
             </tbody>
         </table>
+
     </div>
 
 </body>

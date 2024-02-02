@@ -10,7 +10,7 @@
 <body>
     <div class="form-container">
         <h2>Crear Nuevo Docente</h2>
-        <form id="create-docente-form" [formGroup]="updateForm" (ngSubmit)="creardoce()">
+        <form class="formulario" (ngSubmit)="crearDocente()">
             <label for=" fechaIngreso">Fecha de Ingreso:</label>
             <input type="date" id="fechaIngreso" name="fechaIngreso" formControlName="fechaIngreso" required>
 
@@ -24,7 +24,7 @@
             <label for="per_id"> per_id :</label>
             <select class="form-control" id="per_id" 
                
-              (change)="oncedulaSelected($event)" required>
+              (change)="onCedulaSelected($event)" required>
               <option *ngFor="let persona of personas" 
               >{{ persona.per_cedula }}</option>
                    </select>

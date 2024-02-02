@@ -20,98 +20,66 @@ export class DocenteService {
   private urlcargo: string = 'http://localhost:8080/api/cargo/listar';
   private urltitulo: string = 'http://localhost:8080/api/titulo/listar';
   private urlGrado: string = 'http://localhost:8080/api/grado/listar';
-
   private urlperiodo: string = 'http://localhost:8080/api/periodos/listar';
-  docentes: Docente[] = [];
-  personas: Persona[] = [];
-  contratos: TipoContrato[] = [];
-  cargos: Cargo[] = [];
-  titulos: Titulo[] = [];
-  periodos: Periodos[] = [];
-  grados: GradoOcupacional[] = [];
+
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-
   constructor(private http: HttpClient) { }
+
+  create(docente: Docente): Observable<Docente> {
+    console.log('Datos que se enviarán al backend:', docente);
+    return this.http.post<Docente>(this.urlEndPoint_1, docente, { headers: this.httpHeaders }).pipe(
+      catchError(error => {
+        console.error('Error en la petición HTTP:', error);
+        throw error;  // Puedes personalizar esto según tus necesidades
+      })
+    );
+  }
+  deleteDocente(docente_id: number): Observable<Docente> {
+    const url = `http://localhost:8080/api/docente/eliminar/${docente_id}`;
+    return this.http.delete<Docente>(url);
+  }
+
+  updateDocente(docente: Docente): Observable<Docente> {
+    const url = `http://localhost:8080/api/docente/actualizar/${docente.docente_id}`;
+    console.log('URL de actualización:', url);
+    return this.http.put<Docente>(url, docente);
+  }
+
+  getDocenteById(id: number): Observable<Docente> {
+    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`);
+  }
   getDocentes(): Observable<Docente[]> {
     return this.http.get<Docente[]>(this.urlEndPoint);
   }
-  create(docentes: Docente): Observable<Docente> {
-    console.log('Datos que se enviarán al backend:', docentes);
-  
-    return this.http.post<Docente>(this.urlEndPoint_1, docentes, { headers: this.httpHeaders })
-      .pipe(
-        catchError(error => {
-          console.error('Error en la petición HTTP:', error);
-          throw error;  // Puedes personalizar esto según tus necesidades
-        })
-      );
-  }
-  getdocentesId(id: number): Observable<Docente> {
-    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
-  }
-  deleteDocente(docente_id: number): Observable<Docente> {
-    const url = `http://localhost:8080/api/docente/eliminar/${docente_id}`; // Ajusta la URL según tu estructura
-    return this.http.delete<Docente>(url);
-  }
-  updatedocente(docente: Docente): Observable<Docente> {
-    const url = `http://localhost:8080/api/docente/actualizar/${docente.docente_id}`;
-    console.log('URL de actualización:', url);
-    
-    return this.http.put<Docente>(url, docente);
-  }
-  getpers(): Observable<Persona[]> {
+
+  getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlpersona);
   }
-  getTipoContrato(): Observable<TipoContrato[]> {
+
+  getTipoContratos(): Observable<TipoContrato[]> {
     return this.http.get<TipoContrato[]>(this.urlcontrato);
   }
-  getcargo(): Observable<Cargo[]> {
+
+  getCargos(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>(this.urlcargo);
   }
-  gettitulo(): Observable<Titulo[]> {
+
+  getTitulos(): Observable<Titulo[]> {
     return this.http.get<Titulo[]>(this.urltitulo);
   }
-  getPeriodo(): Observable<Periodos[]> {
+
+  getPeriodos(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>(this.urlperiodo);
   }
-  getgrado(): Observable<GradoOcupacional[]> {
+
+  getGrados(): Observable<GradoOcupacional[]> {
     return this.http.get<GradoOcupacional[]>(this.urlGrado);
   }
-  cargarPersonas() {
-    this.getpers().subscribe(personas => this.personas = personas);
-  }
-  cargarcontrato() {
-    this.getTipoContrato().subscribe(contratos1 => this.contratos = contratos1);
-  }
-  cargarCargo() {
-    this.getcargo().subscribe(cargos => this.cargos = cargos);
-  }
-  cargarTitulos() {
-    this.gettitulo().subscribe(titulos => this.titulos = titulos);
-  }
-  cargarPeriodos() {
-    this.getPeriodo().subscribe(periodos => this.periodos = periodos);
-  }
-  cargarGrados() {
-    this.getgrado().subscribe(grados => this.grados = grados);
-  }
 
-  comboiddocente(nombre: string): Observable<boolean> {
-    return this.getDocentes().pipe(
-      map(docentes => docentes.some(docente => docente.persona.per_primer_nombre === nombre
-        ))
-    );
-  }
-  getDocenteById(id: any): Observable<Docente> {
-    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
-  }
- 
-
-  
   getDocenteByName(nombre: string): Observable<Docente> {
     return this.http.get<Docente[]>(this.urlEndPoint).pipe(
-      map(docents => docents.find(docente => docente.persona.per_primer_nombre === nombre) as Docente), 
+      map(docentes => docentes.find(docente => docente.persona.per_primer_nombre === nombre) as Docente),
       filter(docente => !!docente) // Filtrar null o undefined
     );
   }

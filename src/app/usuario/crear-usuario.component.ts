@@ -151,7 +151,7 @@ export class CrearUsuarioComponent implements OnInit {
   onCedulaSelected(event: any) {
     this.cedulaSeleccionada = event.target.value;
     const cedula = this.cedulaSeleccionada;
-    this.personaservice.getRolByCedula(cedula).subscribe(
+    this.personaservice.getbypersona(cedula).subscribe(
       (persona: Persona | undefined) => {
         if (persona) {
 
