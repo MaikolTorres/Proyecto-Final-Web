@@ -158,17 +158,17 @@ private gradosservice:GradoOcupacionalService,
   }
   loadDocenteDetails() {
     if (this.docente_id) {
-      this.docenteservice.getdocentesId(this.docente_id).subscribe(
+      this.docenteservice.getDocenteById(this.docente_id).subscribe(
         (docente: Docente) => {
           this.updateForm.patchValue({
             docente_fecha_ingreso: docente.docente_fecha_ingreso,
             docente_estado: docente.docente_estado,
             persona_id: docente.persona.per_id,
-            tipo_contrato_id: docente.tipo_contrato.tipo_id,
+            tipo_contrato_id: docente.tipo_contrato?.tipo_contrato,
             cargo_id: docente.cargo.cargo_id,
             titulo_id: docente.titulo.titulo_id,
             periodo_id: docente.periodo.periodo_id,
-            grado_id: docente.grado.grado_id,
+            grado_id: docente.grado?.grado_id,
             // Otros campos según tu modelo Jornada
           });
         },
@@ -179,7 +179,7 @@ private gradosservice:GradoOcupacionalService,
     }
   }
   cargarListaper(): void {
-    this.docenteservice.getpers().subscribe(
+    this.docenteservice.getPersonas().subscribe(
       personas => {
         this.personas = personas;
         this.isLoading = false;
@@ -193,7 +193,7 @@ private gradosservice:GradoOcupacionalService,
   }
 
   cargarListacontrato(): void {
-    this.docenteservice.getTipoContrato().subscribe(
+    this.docenteservice.getTipoContratos().subscribe(
       contratos => {
         this.contratos1 = contratos;  // Corregido aquí, utiliza el nombre correcto
         this.isLoading = false;
@@ -206,7 +206,7 @@ private gradosservice:GradoOcupacionalService,
     );
   }
   cargarListacaro(): void {
-    this.docenteservice.getcargo().subscribe(
+    this.docenteservice.getCargos().subscribe(
       cargos => {
         this.cargos = cargos;
         this.isLoading = false;
@@ -219,7 +219,7 @@ private gradosservice:GradoOcupacionalService,
     );
   }
   cargarListatitulo(): void {
-    this.docenteservice.gettitulo().subscribe(
+    this.docenteservice.getTitulos().subscribe(
       titulos => {
         this.titulos = titulos;
         this.isLoading = false;
@@ -232,7 +232,7 @@ private gradosservice:GradoOcupacionalService,
     );
   }
   cargarListaperiodo(): void {
-    this.docenteservice.getPeriodo().subscribe(
+    this.docenteservice.getPeriodos().subscribe(
       periodos => {
         this.periodos = periodos;
         this.isLoading = false;
@@ -246,7 +246,7 @@ private gradosservice:GradoOcupacionalService,
 
   }
   cargarListagrado(): void {
-    this.docenteservice.getgrado().subscribe(
+    this.docenteservice.getGrados().subscribe(
       grados => {
         this.grados = grados;
         this.isLoading = false;

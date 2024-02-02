@@ -9,8 +9,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { Docente } from './docente';
 import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
-import { ActualizarExtraModalComponent } from '../extra-actividades/actualizar-extra-modal/actualizar-extra-modal.component';
-import { ActualizarDocenteModalComponent } from '../actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
 import { ActuaizarDocenteModalComponent } from './actuaizar-docente-modal/actuaizar-docente-modal.component';
 
 @Component({
@@ -39,6 +37,7 @@ export class DocenteComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarLista();
+    this.cargarDocente;
     FormsModule;
   }
 
@@ -58,11 +57,10 @@ export class DocenteComponent implements OnInit {
   }
 
   cargarDocente(docente_id: number): void {
-    this.docente_service.getdocentesId(docente_id).subscribe(
+    this.docente_service.getDocenteById(docente_id).subscribe(
       data => {
         this.docente = data;
-        console.log(data); // Muestra la respuesta en la consola
-        /*   this.eliminardoce(this.docente.docente_id);  // Llamada a la función para abrir el modal*/
+        console.log(data); 
       },
       error => {
         console.error(error);
@@ -98,7 +96,7 @@ export class DocenteComponent implements OnInit {
       );
     }
   }
-  
+
   textoBusqueda: string = '';
   usuMatchesSearch(docente: Docente): boolean {
     return (docente.persona.per_primer_nombre.toLowerCase() + ' ' + docente.persona.per_apellido_paterno.toLowerCase()).includes(this.textoBusqueda.toLowerCase());
