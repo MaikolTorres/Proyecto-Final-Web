@@ -200,7 +200,6 @@ export class CreardocenteComponent implements OnInit {
       }
     );
   }
-
   cargarListagrado() {
     this.docenteservice.getGrados().subscribe(
       grados => {
