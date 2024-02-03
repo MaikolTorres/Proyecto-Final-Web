@@ -4,16 +4,25 @@ import { Periodos } from "../periodos/periodo";
 import { Persona } from "../persona/persona";
 import { TipoContrato } from "../tipo-contrato/tipo-contrato";
 import { Titulo } from "../titulo/titulo";
+
 export class Docente {
+    'docente_id': number;
+    'docente_fecha_ingreso': Date;
+    'docente_estado': string ;
+    'persona': Partial<Persona>;
+    'tipo_contrato': Partial<TipoContrato>;
+    'cargo': Partial<Cargo>;
+    'titulo': Partial<Titulo>;
+    'periodo': Partial<Periodos>;
+    'grado': Partial<GradoOcupacional>;
+    constructor() {
+        this.persona = {}; // Inicializa persona como un objeto vacío
+        this.tipo_contrato = {};
+        this.cargo = {};
+        this.titulo = {};
+        this.periodo = {};
+        this.grado = {};
 
-    docente_id: number = 0;
-    docente_fecha_ingreso: Date = new Date();
-    docente_estado: string = '';
-    persona: Persona = new Persona();
-    tipo_contrato: TipoContrato = new TipoContrato();
-    cargo: Cargo = new Cargo();
-    titulo: Titulo = new Titulo();
-    periodo: Periodos = new Periodos();
-    grado: GradoOcupacional = new GradoOcupacional();
 
+    }
 }

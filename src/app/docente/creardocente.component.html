@@ -8,77 +8,58 @@
 </head>
 <app-header></app-header>
 <body>
-    <div class="form-container">
+    <div class="container">
         <h2>Crear Nuevo Docente</h2>
-        <form class="formulario" (ngSubmit)="crearDocente()">
-            <label for=" fechaIngreso">Fecha de Ingreso:</label>
-            <input type="date" id="fechaIngreso" name="fechaIngreso" formControlName="fechaIngreso" required>
+        <form class="formulario" (ngSubmit)="crearDocente()" >
+            <div class="contenedor_formulario">
+                <div class="mb-3">
+                    <label for="fechaIngreso">Fecha de Ingreso</label>
+                    <input type="date" class="form-control" id="fechaIngreso" formControlName="fechaIngreso" required>
+                </div>
+                <div class="mb-3">
+                    <label for="estado">Estado:</label>
+                    <select class="form-control" id="estado" formControlName="estado" required>
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
+                </div>
 
-            <label for="estado">Estado:</label>
-            <select id="estado" name="estado" formControlName="estado" required >
-                <option value="activo">Activo</option>
-                <option value="inactivo">Inactivo</option>
-            </select>
+                <label for="per_id"> per_id :</label>
+                <select class="form-control" id="per_id" formControlName="per_id" required [(ngModel)]="cedulaSeleccionada" (change)="onCedulaSelected($event)">
+                    <option *ngFor="let persona of persona1" [value]="persona.per_cedula">{{ persona.per_cedula }}</option>
+                </select>
+                <label for="tipo_id">Tipo de Contrato:</label>
+                <select class="form-control" id="tipo_id" (change)="oncontratosSelected($event)" required>
+                    <option *ngFor="let tipo_contrato of tipocontrato1" [value]="tipo_contrato.tipo_contrato">{{ tipo_contrato.tipo_contrato }}</option>
+                </select>
 
-          
-            <label for="per_id"> per_id :</label>
-            <select class="form-control" id="per_id" 
-               
-              (change)="onCedulaSelected($event)" required>
-              <option *ngFor="let persona of personas" 
-              >{{ persona.per_cedula }}</option>
-                   </select>
+                <label for="cargo_id">Cargo:</label>
+                <select class="form-control" id="cargo_id" (change)="oncargoSelected($event)" required>
+                    <option *ngFor="let cargo of cargo1" [value]="cargo.cargo_nombre">{{ cargo.cargo_nombre }}</option>
+                </select>
 
+                <label for="titulo_id">Título:</label>
+                <select class="form-control" id="titulo_id" (change)="ontituloSelected($event)" required>
+                    <option *ngFor="let titulo of titulo1" [value]="titulo.titulo_nombre">{{ titulo.titulo_nombre }}</option>
+                </select>
 
+                <label for="periodo_id">Periodo:</label>
+                <select class="form-control" id="periodo_id" (change)="onperiodoSelected($event)" required>
+                    <option *ngFor="let periodo of periodo1" [value]="periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin">{{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}</option>
+                </select>
 
-            <label for="tipo_id">Tipo de Contrato:</label>
-            <select class="form-control" id="tipo_id"
-             (change)="oncontratoSelected($event)" required
-             >
-                <option *ngFor="let tipo_contrato of contratos1">
-                    {{ tipo_contrato.tipo_contrato }}
-                </option>
-            </select>
-
-            <label for="cargo">Cargo:</label>
-            <select class="form-control" id="cargo" 
-            (change)="oncargoSelected($event)" required>
-                <option *ngFor="let cargo of cargos" >
-                    {{ cargo.cargo_nombre }}
-                </option>
-            </select>
-
-            <label for="titulo">Título:</label>
-            <select class="form-control" id="titulo" 
-            (change)="ontituloSelected($event)" required>
-                <option *ngFor="let titulo of titulos" >
-                    {{ titulo.titulo_nombre }}
-                </option>
-            </select>
-
-            <label for="periodo">Periodo:</label>
-            <select class="form-control" id="periodo" 
-            (change)="onperiodoSelected($event)" required>
-                <option *ngFor="let periodo of periodos" >
-                    {{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}
-                </option>
-            </select>
-
-            <label for="grado">Grado Ocupasional:</label>
-            <select class="form-control" id="grado"
-             (change)="ongradoSelected($event)" required>
-                <option *ngFor="let grado of grados" >
-                    {{ grado.grado_titulo }}
-                </option>
-            </select>
+                <label for="grado_id">Grado Ocupasional:</label>
+                <select class="form-control" id="grado_id" (change)="ongradoSelected($event)" required>
+                    <option *ngFor="let grado of grado1" [value]="grado.grado_titulo">{{ grado.grado_titulo }}</option>
+                </select>
+            </div>
 
             <div class="button-container">
-
-
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-check"></i> Registrar
-                  </button>
-                  <button type="button" class="btn btn-danger" (click)="cancelar()">
+                </button>
+                <button type="button" class="btn btn-danger" (click)="cancelar()">
                     <i class="fa fa-times"></i> Cancelar
                 </button>
             </div>
