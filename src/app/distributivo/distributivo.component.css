@@ -19,7 +19,7 @@ h2 {
   top: 210px; /* Posición vertical */
 }
 
-.button1,
+
 .button2 {
   background-color: #46adfa; /* Verde */
   color: #fff;
@@ -36,10 +36,7 @@ h2 {
   background-color: #e70027; /* Rojo */
 }
 
-.button-container button:hover {
-  background-color: #4CAF50; /* Cambia el color de fondo al pasar el mouse */
-  color: white;
-}
+
 
 .buscar-container {
   position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
@@ -94,4 +91,65 @@ h2 {
 
 .table-container table {
   width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
+}
+
+.button-container {
+  display: flex;
+  position: absolute; 
+  left: 5.5cm;
+  top: 210px; 
+}
+
+.button1 {
+  background-color: transparent;
+  color: black;
+  border: 2px solid transparent;
+  border-color: #5abcf8;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+ 
+  overflow: hidden;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  
+}
+
+.button1:hover {
+  color: rgb(0, 0, 0);
+
+}
+
+.button1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #5abcf8;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.button1:hover::before {
+  width: 100%;
+ 
+  
+}
+
+.button1::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #72d6c7;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.button1:hover::after {
+  width: 100%;
+  transition-delay: 0.1s; 
 }

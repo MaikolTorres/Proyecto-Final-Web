@@ -9,14 +9,15 @@ import { Docente } from '../docente/docente';
 import { RegistroContrato } from '../registro-horas-contrato/registro-horas-contrato';
 
 export class Distributivo {
-  'distributivo_id': number;
-  'carrera_id': Carrera;
-  'jornada_id': Jornada;
-  'curso_id': Curso;
-  'periodo_id': Periodos;
-  'asignatura_id': Asignatura;
-  'actividoc_id': ActividadesDocente;
-  'activinodoc_id': ActividadesNoDocente;
-  'docente_id': Docente;
-  'registrocontrato_id': RegistroContrato;
+  distributivo_id: number =0;
+  calculoHorasTotal: number =0;
+'modeloCarrera': Carrera;
+'modeloCurso': Curso;
+'modeloPeriodos': Periodos;
+  'modeloJordana': Jornada;
+  'modeloAsignaturas': Asignatura;
+  'modeloActividadesDocentes': ActividadesDocente;
+  'modeloActividadesNoDocentes': ActividadesNoDocente;
+  'modeloDocente': Docente;
 }
+

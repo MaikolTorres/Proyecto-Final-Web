@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Curso } from '../listar-curso/curso';
 import { Docente } from '../docente/docente';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { Asignatura } from './asignatura';
 
 //const express = require('express');
@@ -72,10 +72,10 @@ export class AsignaturaService {
     }
   
 
- updateAsignatura(asig: Asignatura): Observable<Curso> {
+ updateAsignatura(asig: Asignatura): Observable<Asignatura> {
   const url = `http://localhost:8080/api/asignatura/actualizarAsignatura/${asig.asignatura_id}`;
   console.log('URL de actualización:', url);
-  return this.http.put<Curso>(url, asig);
+  return this.http.put<Asignatura>(url, asig);
 }
 
 
@@ -104,5 +104,12 @@ cargarDocentes() {
   this.getdoccente().subscribe(doc => this.docente = doc);
 }
 
+
+getAsignaturaByName(nombre: string): Observable<Asignatura> {
+  return this.http.get<Asignatura[]>(this.urlEndPoint).pipe(
+    map(asignaturas => asignaturas.find(asignatura => asignatura.asignatura_nombre === nombre) as Asignatura),
+    filter(asignatura => !!asignatura) // Filtrar null o undefined
+  );
+}
 
 }
