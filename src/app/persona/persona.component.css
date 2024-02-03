@@ -9,6 +9,7 @@ body {
 h2 {
   text-align: center;
   color: #333;
+  margin-top: 50px;
 }
 
 .button-container {
@@ -16,6 +17,7 @@ h2 {
   position: absolute; /* Posiciona los botones de forma absoluta */
   left: 450px; /* Posición horizontal */
   top: 210px; /* Posición vertical */
+  margin-top: 60px;
 }
 
 .button1,
@@ -44,6 +46,7 @@ h2 {
   position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
   right: 450px; /* Posición horizontal */
   top: 210px; /* Posición vertical */
+  margin-top: 60px;
 }
 
 .buscar {
@@ -63,6 +66,7 @@ h2 {
   overflow-y: auto; /* Agrega scroll vertical si es necesario */
   max-height: 500px; /* Altura máxima del contenedor */
   overflow-x: hidden; /* Oculta el scroll horizontal */
+  margin-top: 70px;
 }
 
 .persona-table {
