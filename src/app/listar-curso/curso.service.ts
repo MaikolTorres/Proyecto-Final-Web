@@ -136,10 +136,10 @@ export class CursoService {
  
   
 
-  getCursoIdByNombre(nombre: string): Observable<Curso> {
+  getCursoByNombre(nombre: string): Observable<Curso> {
     return this.http.get<Curso[]>(this.urlEndPoint).pipe(
       map(cursos => cursos.find(curso => curso.curso_nombre === nombre) as Curso), 
-      filter(curso => !!curso) // Filtrar null o undefined
+      filter(curso => !!curso) 
     );
   }
 

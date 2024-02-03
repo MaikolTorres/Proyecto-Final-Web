@@ -11,51 +11,63 @@
 <app-header></app-header>
 
 <body>
-    <h2>Distributivo</h2>
-    <div class="button-container"> <!-- Contenedor de los botones -->
-      <button class="button1" routerLink="/creardistributivo">
-        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
-      </button>
-    </div>
-    
-     <!--<div class="buscar-container">  
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
-      <button style="border: none; background: transparent;">
-        <i class="fas fa-search"></i> 
-      </button>
-    </div>-->
+  <h2>Distributivo</h2>
+  <div class="button-container"> <!-- Contenedor de los botones -->
+    <button class="button1" routerLink="/creardistributivo">
+      <i class="fas fa-user"  style="margin-right: 10px;"></i> <!-- Icono -->
+      Asignar nuevas actividades <!-- Texto -->
+    </button>
+  </div>
 
-    <div class="table-container"> <!-- Contenedor de la tabla -->
-      <table class="distributivo-table">
-        <thead>
+  <div class="buscar-container">
+    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+    <button style="border: none; background: transparent;">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+
+  <div class="table-container"> <!-- Contenedor de la tabla -->
+    <table class="distributivo-table">
+      <thead>
         <tr class="fila">
           <th>Distributivo ID</th>
-          <th>Carrera ID</th>
-          <th>Jornada ID</th>
-          <th>Curso ID</th>
-          <th>Periodo ID</th>
-          <th>Asignatura ID</th>
-          <th>Actividad Docente ID</th>
-          <th>Actividad No Docente ID</th>
-          <th>Docente ID</th>
-          <th>Registro Contrato ID</th>
+
+          <th>Docente </th>
+
+          <th>Carrera</th>
+          <th>Jornada </th>
+          <th>Curso </th>
+          <th>Periodo </th>
+          <th>Asignatura</th>
+          <th>Actividad Docente</th>
+          <th>Actividad No Docente </th>
+          <th>Calculo Horas total</th>
           <th>Actualizar</th>
           <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Aquí irán las filas de la tabla con datos del distributivo -->
-        <tr>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
+
+
+        <tr *ngFor="let distri of distributivos">
+          <td>{{ distri.distributivo_id }}</td>
+
+
+          <td>{{ distri.modeloDocente.persona.per_primer_nombre + ' ' + distri.modeloDocente.persona.per_apellido_paterno }}</td>
+          <td>{{ distri.modeloCarrera.carrera_nombre }}</td>
+          <td>{{ distri.modeloJordana.jornada_nombre }}</td>
+          <td>{{ distri.modeloCurso.curso_nombre }}</td>
+          <td>{{ distri.modeloPeriodos.periodo_mes_inicio }} {{ distri.modeloPeriodos.periodo_anio_inicio }} -
+            {{ distri.modeloPeriodos.periodo_mes_fin }} {{ distri.modeloPeriodos.periodo_anio_fin }}</td>
+
+          <td>{{ distri.modeloAsignaturas.asignatura_nombre }}</td>
+          <td>{{ distri.modeloActividadesDocentes.actividoc_nombre_actividad }}</td>
+          <td>{{ distri.modeloActividadesNoDocentes.activiNoDoc_num_horas }}</td>
+          <td>{{ distri.calculoHorasTotal }}</td>
+
+
+
+
           <td>
             <button style="border: none; background: transparent;" (click)="null">
               <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
@@ -66,7 +78,7 @@
               <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
             </button>
           </td>
-       
+
         </tr>
       </tbody>
     </table>

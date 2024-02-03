@@ -129,7 +129,7 @@ export class CrearAsignaturaComponent implements OnInit {
   onCursoSelected(event: any) {
     this.nombreCursoSelecionada = event.target.value;
     const nombre = this.nombreCursoSelecionada;
-    this.cursoService.getCursoIdByNombre(nombre).subscribe(
+    this.cursoService.getCursoByNombre(nombre).subscribe(
       (curso: Curso | undefined) => {
         if (curso) {
           
@@ -154,7 +154,7 @@ export class CrearAsignaturaComponent implements OnInit {
   onDocSelected(event: any) {
     this.nombreDocSeleecionada = event.target.value;
     const nombre = this.nombreDocSeleecionada;
-    this.docenteService.getDocenteByName(nombre).subscribe(
+    this.docenteService.getDocentesByName(nombre).subscribe(
       (docente: Docente | undefined) => {
         if (docente) {
           

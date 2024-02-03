@@ -77,9 +77,10 @@ export class DocenteService {
     return this.http.get<GradoOcupacional[]>(this.urlGrado);
   }
 
-  getDocenteByName(nombre: string): Observable<Docente> {
+  getDocentesByName(nombre: string): Observable<Docente> {
     return this.http.get<Docente[]>(this.urlEndPoint).pipe(
-      map(docentes => docentes.find(docente => docente.persona.per_primer_nombre === nombre) as Docente),
+      map(docentes => docentes.find(docente =>( docente.persona.per_primer_nombre+ ' ' +
+      docente.persona.per_apellido_paterno) === nombre) as Docente),
       filter(docente => !!docente) // Filtrar null o undefined
     );
   }

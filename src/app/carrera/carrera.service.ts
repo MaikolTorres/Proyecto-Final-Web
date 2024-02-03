@@ -52,4 +52,13 @@ export class CarreraService {
       filter(carrera => !!carrera) // Filtrar null o undefined
     );
   }
+
+
+
+  getCarreraByName(nombre: string): Observable<Carrera> {
+    return this.http.get<Carrera[]>(this.urlEndPoint).pipe(
+      map(carreras => carreras.find(carrera => carrera.carrera_nombre === nombre) as Carrera),
+      filter(carrera => !!carrera) 
+    );
+  }
 }
