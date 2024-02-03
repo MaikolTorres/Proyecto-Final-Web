@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 <head>
   <meta charset="UTF-8">
@@ -12,19 +12,22 @@
 <app-header> </app-header>
 
 <body>
+  
   <h2>Lista de Periodos</h2>
 
-  <div class="button-buscar-container">
-    <div class="buscar-input">
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por año" (input)="buscar()" />
-      <button style="border: none; background: transparent;">
-        <i class="fas fa-search"></i> 
-      </button>
-    </div>
+  <div class="button-container"> <!-- Contenedor de los botones -->
     <button class="button1" routerLink="/crear-periodo">
-      <i class="fas fa-save"></i> Agregar
+      <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
     </button>
   </div>
+
+  <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por año" (input)="buscar()" />
+    <button style="border: none; background: transparent;">
+      <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+    </button>
+  </div>
+
 
   <div class="table-container">
     <table class="periodo-table">
@@ -51,7 +54,7 @@
           </td>
           <td>
             <button style="border: none; background: transparent;" (click)="eliminarPeriodo(periodo.periodo_id)">
-              <i class="fas fa-trash-alt"></i> 
+              <i class="fas fa-trash-alt"></i>
             </button>
           </td>
         </tr>

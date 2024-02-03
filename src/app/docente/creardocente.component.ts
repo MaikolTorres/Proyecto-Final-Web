@@ -363,32 +363,37 @@ export class CreardocenteComponent implements OnInit {
     );
   }
 
-  creardoce() {
-    // Asignar los IDs seleccionados al nuevo docente
-    this.nuevodocente.persona = { per_id: this.selectedPersonaId?.toString() };
-    this.nuevodocente.tipo_contrato = { tipo_id: this.selectedContratoId?.toString() };
-    this.nuevodocente.cargo = { cargo_id: this.selectedCargoId?.toString() };
-    this.nuevodocente.titulo = { titulo_id: this.selectedTituloId?.toString() };
-    this.nuevodocente.periodo = { periodo_id: this.selectedPeriodoId?.toString() };
-    this.nuevodocente.grado = { grado_id: this.selectedGradoId?.toString() };
-    this.nuevodocente.docente_fecha_ingreso = this.docente_fecha_ingreso;
-    this.nuevodocente.docente_estado = this.docente_estado;
-  
-    console.log('Datos del formulario:', this.nuevodocente);
-  
-    this.docenteservice.create(this.nuevodocente).subscribe(
-      (response) => {
-        console.log('Usuario creado exitosamente:', response);
-        window.close();
-      },
-      (error) => {
-        // Manejo de errores
-        console.error('Error al crear el usuario:', error);
-      }
-    );
+  crearDocente() {
+    // // Asigna los objetos persona, cargo, grado y título seleccionados al nuevo docente
+    // // Corregir la asignación de Cargo
+    // this.nuevoDocente.cargo = this.cargos.find(cargo => cargo.cargo_id === this.selectedCargoId);
+
+    // // Corregir la asignación de GradoOcupacional
+    // this.nuevoDocente.grado = this.grados.find(grado => grado.grado_id === this.selectedgradoId);
+
+    // // Corregir la asignación de Titulo
+    // this.nuevoDocente.titulo = this.titulos.find(titulo => titulo.titulo_id === this.selectedtituloId);
+
+
+    // // Muestra en la consola el docente que se enviará al backend
+    // console.log('Docente que se enviará al backend:', this.nuevoDocente);
+
+    // // Llama al método create del servicio para crear un nuevo docente en el backend
+    // this.docenteservice.create(this.nuevoDocente).subscribe(
+    //   (response) => {
+    //     // Maneja la respuesta del servidor si es necesario
+    //     console.log('Docente creado correctamente:', response);
+    //     // Redirige a la página de docentes u otra página después de crear el docente
+    //     this.router.navigate(['/docentes']);
+    //   },
+    //   (error) => {
+    //     // Maneja cualquier error que pueda ocurrir durante la creación del docente
+    //     console.error('Error al crear el docente:', error);
+    //     // Puedes mostrar un mensaje de error al usuario si lo deseas
+    //   }
+    // );
   }
-  
-  
+
   cancelar(): void {
     this.router.navigate(['/docente']);
   }
