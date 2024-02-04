@@ -102,16 +102,16 @@ export class DistributivoComponent implements OnInit{
           );
         }
       }
-      textoBusqueda: string = '';
-      usuMatchesSearch(docente: Docente): boolean {
-        return docente.persona.per_cedula.toLowerCase().includes(this.textoBusqueda.toLowerCase());
-      }
+   //   textoBusqueda: string = '';
+     // usuMatchesSearch(docente: Docente): boolean {
+     //   return docente.persona.per_cedula.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+    //  }
     
-      buscar(): void {
-        if (this.textoBusqueda.trim() !== '' ) {
-          this.docentes = this.docentes.filter((docente: Docente) => this.usuMatchesSearch(docente));
-        } else {
-          this.cargarLista(); 
-        }
-      }
+      //buscar(): void {
+      //  if (this.textoBusqueda.trim() !== '' ) {
+       //   this.docentes = this.docentes.filter((docente: Docente) => this.usuMatchesSearch(docente));
+       // } else {
+       //   this.cargarLista(); 
+       // }
+    //  }
   }

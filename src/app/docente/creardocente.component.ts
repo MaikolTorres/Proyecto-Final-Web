@@ -22,10 +22,11 @@ import { GradoOcupacionalService } from '../grado-ocupacional/grado-ocupacional.
 @Component({
   selector: 'app-creardocente',
   templateUrl: './creardocente.component.html',
-  styleUrls: ['./creardocente.component.css']
+  styleUrls: ['./creardocente.component.css'],
+  
 })
 export class CreardocenteComponent implements OnInit {
-  updateForm!: FormGroup;
+  formulario!: FormGroup;
 
   @Input() docente: Docente | undefined;
   docente_id: number | undefined;
@@ -330,7 +331,7 @@ export class CreardocenteComponent implements OnInit {
   }
 
   createForm() {
-    this.updateForm = this.fb.group({
+    this.formulario = this.fb.group({
       fechaIngreso: ['', Validators.required],
       estado: ['', Validators.required],
     });
