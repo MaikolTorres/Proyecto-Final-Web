@@ -15,7 +15,7 @@ export class PeriodoService {
   private urlEndPoint:string = 'http://localhost:8080/api/periodos/listar';
   private urlEndPoint_1:string = 'http://localhost:8080/api/periodos/guardar';
   private urlEndPoint_2:string = 'http://localhost:8080/api/periodos/eliminar';
-  private urlEndPoint_3:string = 'http://localhost:8080/api/periodos/actualizar';
+  private urlActualizarPeriodo:string = 'http://localhost:8080/api/periodos/actualizar';
   private urlEndPoint_4:string = 'http://localhost:8080/api/periodos/buscar';
 
   constructor(private http: HttpClient) { }
@@ -33,10 +33,11 @@ export class PeriodoService {
   }
 
   updatePeriodo(periodo: Periodos): Observable<Periodos> {
-    const url = `http://localhost:8080/api/periodos/actualizar/${periodo.periodo_id}`;
+    const url = `${this.urlActualizarPeriodo}/${periodo.periodo_id}`;
     console.log('URL de actualización:', url);
-    return this.http.put<Periodos>(this.urlEndPoint_3, periodo);
+    return this.http.put<Periodos>(url, periodo);
   }
+
   
   delete(id: number): Observable<Periodos> {
     return this.http.delete<Periodos>(`${this.urlEndPoint_2}/${id}`);
