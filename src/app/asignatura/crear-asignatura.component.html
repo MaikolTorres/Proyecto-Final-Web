@@ -31,7 +31,7 @@
           <label for="per_id"> curso_id :</label>
           <select class="form-control" id="curso_id" formControlName="curso_id" required [(ngModel)]="nombreCursoSelecionada"
             (change)="onCursoSelected($event)">
-            <option *ngFor="let curso of curso1">{{ curso.curso_nombre}} </option>
+            <option *ngFor="let curso of curso1">{{ curso.curso_nombre +' '+curso.curso_paralelo}} </option>
           </select>
 
           <label for="docente_id"> docente_id :</label>

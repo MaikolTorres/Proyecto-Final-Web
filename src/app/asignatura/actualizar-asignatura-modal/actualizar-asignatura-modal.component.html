@@ -21,7 +21,7 @@
 
         <label for="curso_id">Curso:</label>
         <select class="form-control" id="curso_id" formControlName="curso_id" required (change)="oncursoSelected($event)">
-          <option *ngFor="let curso of cursos" [value]="curso.curso_id">{{ curso.curso_nombre }}</option>
+          <option *ngFor="let curso of cursos" [value]="curso.curso_id">{{ curso.curso_nombre+' '+curso.curso_paralelo }}</option>
         </select>
 
         <label for="docente_id">Docente:</label>
