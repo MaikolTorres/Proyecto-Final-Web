@@ -94,8 +94,8 @@ export class ActualizarCursoModalComponent implements OnInit {
           this.updateForm.patchValue({
             curso_nombre: curso.curso_nombre,
             curso_paralelo: curso.curso_paralelo,
-            carrera_id: curso.carrera.carrera_id,
-            jornada_id: curso.jornada.jornada_id,
+            carrera_id: curso.modeloCarrera.carrera_id,
+            jornada_id: curso.modeloJornada.jornada_id,
             periodo_id: curso.periodo.periodo_id,
           });
         },

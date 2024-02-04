@@ -6,8 +6,8 @@ export class Curso {
     'curso_id': number;
     'curso_nombre': string;
     'curso_paralelo': string;
-    'carrera': Carrera;
-    'jornada': Jornada;
+    'modeloCarrera': Carrera;
+    'modeloJornada': Jornada;
     'periodo': Periodos;
   
    

@@ -37,7 +37,7 @@
           <label for="docente_id"> docente_id :</label>
           <select class="form-control" id="docente_id" formControlName="docente_id" required [(ngModel)]="nombreDocSeleecionada"
             (change)="onDocSelected($event)">
-            <option *ngFor="let docc of docente1">{{ docc.persona.per_primer_nombre}} </option>
+            <option *ngFor="let docc of docente1">{{ docc.persona.per_primer_nombre +' '+docc.persona.per_apellido_paterno}} </option>
           </select>
 
 

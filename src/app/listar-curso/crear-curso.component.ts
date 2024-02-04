@@ -118,8 +118,8 @@ export class CrearCursoComponent implements OnInit {
           this.updateForm.patchValue({
             curso_nombre: curso.curso_nombre,
             curso_paralelo: curso.curso_paralelo,
-            carrera_id: curso.carrera.carrera_id,
-            jornada_id: curso.jornada.jornada_id,
+            carrera_id: curso.modeloCarrera.carrera_id,
+            jornada_id: curso.modeloJornada.jornada_id,
             periodo_id: curso.periodo.periodo_id,
           });
         },
@@ -314,9 +314,9 @@ export class CrearCursoComponent implements OnInit {
 
   crearCurso() {
 
-    this.nuevoCurso.jornada = this.createjornada;
+    this.nuevoCurso.modeloJornada = this.createjornada;
     this.nuevoCurso.periodo = this.createperiodo;
-    this.nuevoCurso.carrera = this.createcarrera;
+    this.nuevoCurso.modeloCarrera = this.createcarrera;
     this.nuevoCurso.curso_nombre = this.curso_nombre;
     this.nuevoCurso.curso_paralelo = this.curso_paralelo;
     this.cursoService.create(this.nuevoCurso).subscribe(
