@@ -82,15 +82,20 @@ export class ListarCursoComponent implements OnInit{
         if (confirm('¿Estás seguro de que deseas eliminar este curso?')) {
           this.CursoService.deleteCurso(id).subscribe(
             data => {
+              // Mostrar una alerta indicando que el curso ha sido eliminado con éxito
+              window.alert('Curso eliminado con éxito');
               console.log('Curso eliminado con éxito:', data);
+              // Después de eliminar, podrías recargar la lista de cursos si es necesario
             },
             error => {
-              console.error('Error al eliminar :', error);
+              // Mostrar una alerta indicando que hubo un error al eliminar el curso
+              window.alert('Error el curso esta tiene asignado una o varias asignaturas');
+              console.error('Error al eliminar el curso:', error);
             }
-            
           );
         }
       }
+      
       textoBusqueda: string = '';
       usuMatchesSearch(curso: Curso): boolean {
         return curso.curso_nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
