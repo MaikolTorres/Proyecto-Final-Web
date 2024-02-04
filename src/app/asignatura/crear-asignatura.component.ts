@@ -138,12 +138,10 @@ export class CrearAsignaturaComponent implements OnInit {
           console.log('Curso encontrado:',  this.createcurso);
 
         } else {
-          // Manejar el caso en que no se encuentra el rol
           console.log('Curso no encontrado');
         }
       },
       (error) => {
-        // Manejar errores de la solicitud HTTP
         console.error('Error al obtener el curso:', error);
       }
     );
@@ -163,12 +161,10 @@ export class CrearAsignaturaComponent implements OnInit {
           console.log('Docente encontrado:',  this.createdocente);
 
         } else {
-          // Manejar el caso en que no se encuentra el rol
           console.log('Docente no encontrado');
         }
       },
       (error) => {
-        // Manejar errores de la solicitud HTTP
         console.error('Error al obtener el docente:', error);
       }
     );
@@ -185,17 +181,16 @@ export class CrearAsignaturaComponent implements OnInit {
       (response) => {
 
         console.log('Asignatura creado exitosamente:', response);
-
-        window.close();
+        this.router.navigate(['/asignatura']);
+        
       },
       (error) => {
-        // Manejo de errores
         console.error('Error al crear la asignatura:', error);
       }
     );
   }
 
-
+  
   cancelar(): void {
     this.router.navigate(['/asignatura']);
   }

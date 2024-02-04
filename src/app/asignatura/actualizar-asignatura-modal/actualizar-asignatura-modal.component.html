@@ -1,38 +1,38 @@
 <div class="modal-header">
-    <h4 class="modal-title">Actualizar asignaturas</h4>
+  <h4 class="modal-title">Actualizar asignaturas</h4>
 
 
-    <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-      <!-- Campos del formulario -->
-      <div class="form-group">
-        <label for="asignatura_nombre">Nombre:</label>
-        <input type="text" class="form-control" id="asignatura_nombre" formControlName="asignatura_nombre"required>
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="asignatura_nombre">Nombre:</label>
+      <input type="text" class="form-control" id="asignatura_nombre" formControlName="asignatura_nombre" required>
 
 
-        <label for="asignatura_horas_clase_semana"> Horas Clases semanal  :</label>
-        <input type="text" class="form-control" id="asignatura_horas_clase_semana" formControlName="asignatura_horas_clase_semana" required>
+      <label for="asignatura_horas_clase_semana"> Horas Clases semanal :</label>
+      <input type="text" class="form-control" id="asignatura_horas_clase_semana"
+        formControlName="asignatura_horas_clase_semana" required>
 
 
-      <label for="curso_id"> Curso :</label>
-  <select class="form-control" id="curso_id" formControlName="curso_id" required>
-    <option *ngFor="let curso of  curso1" [value]="curso.curso_id"> {{ curso.curso_nombre}}</option>
-  </select>
+        <label for="curso_id">Curso:</label>
+        <select class="form-control" id="curso_id" formControlName="curso_id" required (change)="oncursoSelected($event)">
+          <option *ngFor="let curso of cursos" [value]="curso.curso_id">{{ curso.curso_nombre }}</option>
+        </select>
 
-  <label for="docente_id"> Docente :</label>
-  <select class="form-control" id="docente_id" formControlName="docente_id" required>
-    <option *ngFor="let  docentess of  docente1" [value]="docentess.docente_id">{{docentess.docente_id }}</option>
-  </select>
-       
+        <label for="docente_id">Docente:</label>
+        <select class="form-control" id="docente_id" formControlName="docente_id" required (change)="ondocenteSelected($event)">
+          <option *ngFor="let docente of docentes" [value]="docente.docente_id">{{ docente.persona.per_primer_nombre+' '+docente.persona.per_apellido_paterno}}</option>
+        </select>
+
 
     </div>
-      <!-- Otros campos del formulario según tu modelo Jornada -->
+    <!-- Otros campos del formulario según tu modelo Jornada -->
 
-      <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
-  </div>
-  
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+  </form>
+</div>
