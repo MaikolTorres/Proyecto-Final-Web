@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Personas</title>
-  <link rel="stylesheet" href="persona.component.css">
-</head>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 <app-header></app-header>
 
 <body>
-
   <h2>Lista de Personas</h2>
 
   <div class="button-container"> <!-- Contenedor de los botones -->
@@ -21,7 +12,8 @@
       <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
     </button>
   </div>
-  
+
+
   <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
     <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
     <button style="border: none; background: transparent;">
@@ -68,10 +60,23 @@
               <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
             </button>
           </td>
-       
+
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
   </div>
 
 </body>

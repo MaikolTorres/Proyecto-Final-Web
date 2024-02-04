@@ -19,7 +19,6 @@ h2 {
   top: 210px; /* Posición vertical */
 }
 
-
 .button2 {
   background-color: #46adfa; /* Verde */
   color: #fff;
@@ -36,8 +35,6 @@ h2 {
   background-color: #e70027; /* Rojo */
 }
 
-
-
 .buscar-container {
   position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
   right: 450px; /* Posición horizontal */
@@ -51,12 +48,13 @@ h2 {
   font-size: 16px;
 }
 
-.table-container {
+.tablee-container {
   width: 80%; /* Ajusta el ancho de la tabla */
   margin: 0 auto; /* Centra la tabla horizontalmente */
   position: absolute; /* Posiciona la tabla de forma absoluta */
   left: 50%; /* Posición horizontal */
-  top: 290px; /* Posición vertical */
+  /* top: 500px; Posición vertical */
+  margin-bottom: 30px;
   transform: translateX(-50%); /* Centra horizontalmente la tabla */
   overflow-y: auto; /* Agrega scroll vertical si es necesario */
   max-height: 500px; /* Altura máxima del contenedor */
@@ -92,12 +90,15 @@ h2 {
 .table-container table {
   width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
 }
-
+.btn11 {
+  margin-left: 280px;
+}
 .button-container {
-  display: flex;
-  position: absolute; 
-  left: 5.5cm;
-  top: 210px; 
+  /* display: flex; */
+  /* position: relative; */
+  left: 120px;
+  top: 215px;
+  margin-bottom: 30px;
 }
 
 .button1 {
@@ -108,19 +109,17 @@ h2 {
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 16px;
- 
+
   overflow: hidden;
   transition: color 0.3s ease, border-color 0.3s ease;
-  
 }
 
 .button1:hover {
   color: rgb(0, 0, 0);
-
 }
 
 .button1::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -133,12 +132,10 @@ h2 {
 
 .button1:hover::before {
   width: 100%;
- 
-  
 }
 
 .button1::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -151,5 +148,20 @@ h2 {
 
 .button1:hover::after {
   width: 100%;
-  transition-delay: 0.1s; 
+  transition-delay: 0.1s;
+}
+
+.form-control {
+  width: 320px;
+  padding: 8px;
+  margin-bottom: 30px;
+}
+main {
+  margin-top: 120px;
+}
+footer {
+  margin-top: 100px;
+}
+h3 {
+  text-align: center;
 }
