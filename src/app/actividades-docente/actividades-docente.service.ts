@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { ActividadesDocente } from './actividades-docente';
 import { Asignatura } from '../asignatura/asignatura';
 import { ExtraActividades } from '../extra-actividades/extra-actividades';
@@ -95,6 +95,13 @@ cargarExtras() {
   this.getextrasss().subscribe(doc => this.extraAc = doc);
 }
 
+
+getActDicentesByName(nombre: string): Observable<ActividadesDocente> {
+  return this.http.get<ActividadesDocente[]>(this.urlEndPoint).pipe(
+    map(actdocentes => actdocentes.find(actividad => actividad.actividoc_nombre_actividad=== nombre) as ActividadesDocente),
+    filter(actDoc => !!actDoc) // Filtrar null o undefined
+  );
+}
 
 
 }

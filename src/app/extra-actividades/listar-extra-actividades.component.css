@@ -66,7 +66,7 @@ h2 {
   overflow-x: hidden; /* Oculta el scroll horizontal */
 }
 
-.persona-table {
+.actividad-table {
   width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
   border-collapse: collapse;
   border-radius: 18px; /* Agrega bordes redondeados */
@@ -83,7 +83,7 @@ h2 {
 
 .persona-table th,
 .persona-table td {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   padding: 8px;
   text-align: left;
 }

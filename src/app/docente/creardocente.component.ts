@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Docente } from './docente';
 import { Persona } from '../persona/persona';
 import { TipoContrato } from '../tipo-contrato/tipo-contrato';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Cargo } from '../cargo/cargo';
 import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
@@ -25,43 +25,44 @@ import { GradoOcupacionalService } from '../grado-ocupacional/grado-ocupacional.
   styleUrls: ['./creardocente.component.css']
 })
 export class CreardocenteComponent implements OnInit {
+  updateForm!: FormGroup;
+
   @Input() docente: Docente | undefined;
   docente_id: number | undefined;
-  updateForm!: FormGroup;
-  docentes: Docente[] = [];
-  personas: Persona[] = [];
-  contratos1: TipoContrato[] = [];
-  cargos: Cargo[] = [];
-  titulos: Titulo[] = [];
-  periodos: Periodos[] = [];
-  grados: GradoOcupacional[] = [];
+  docente1: Docente[] = [];
+  persona1: Persona[] = [];
+  tipocontrato1: TipoContrato[] = [];
+  cargo1: Cargo[] = [];
+  titulo1: Titulo[] = [];
+  periodo1: Periodos[] = [];
+  grado1: GradoOcupacional[] = [];
+  createdocente: Docente = new Docente();
   isLoading: boolean = true;
-  nuevoDocente: Docente = new Docente();
+
+  createpersona: Persona = new Persona();
+  docente_fecha_ingreso!: Date;
+  docente_estado: string = '';
+  nuevodoce: Docente = new Docente();
   botonDesactivado: boolean = false;
   public ckeckrol: string = '';
-  public cedulaSeleccionada: string = '';
-  docente_fecha_ingreso: string = '';
-  docente_estado: string = '';
-  public personaseleccionada: string = '';
-  public selectedPersonaId: string = '';
-  public selectedCargoId: string = '';
-  public selectedcontratoId: string = '';
-  public selectedtituloId: string = '';
-  public selectedPeriodoId: string = '';
-  public selectedgradoId: string = '';
-  public contraroSeleccionada: string = '';
-  public cargoSeleccionada: string = '';
-  public tituloSeleccionada: string = '';
-  public periodoSeleccionada: string = '';
-  public gradoSeleccionada: string = '';
-  createpersona: Persona = new Persona();
-  createcontrato: TipoContrato = new TipoContrato();
-  public contrato2: TipoContrato = new TipoContrato();
+  public persona2: Persona = new Persona();
+  public tipocontrato2: TipoContrato = new TipoContrato();
   public cargo2: Cargo = new Cargo();
   public titulo2: Titulo = new Titulo();
   public periodo2: Periodos = new Periodos();
   public grado2: GradoOcupacional = new GradoOcupacional();
-  public persona2: Persona = new Persona();
+  public cedulaSeleccionada: string = '';
+  public contratoseleccionado: string = '';
+  public cargoSeleccionada: string = '';
+  public tituloSeleccionada: string = '';
+  public periodoSeleccionada: string = '';
+  public gradoseleccionado: string = '';
+  selectedPersonaId: number | undefined;
+  selectedContratoId: number | undefined;
+  selectedCargoId: number | undefined;
+  selectedTituloId: number | undefined;
+  selectedPeriodoId: number | undefined;
+  selectedGradoId: number | undefined;
 
   constructor(
     public modalRef: BsModalRef,
@@ -70,73 +71,277 @@ export class CreardocenteComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private personaservice: PersonaService,
-    private contratoservice: TipoContratoService,
+    private tipocontratoservice: TipoContratoService,
     private cargoservice: CargoserviceService,
     private tituloservice: TituloService,
-    private periodoservice: PeriodoService,
-    private gradosservice: GradoOcupacionalService,
+    private periodosservice: PeriodoService,
+    private gradoservice: GradoOcupacionalService,
   ) {
     this.createForm();
   }
+
   ngOnInit() {
     this.createForm();
-    this.cargarListaper();
-    this.cargarListacontrato();
-    this.cargarListacargo();
-    this.cargarListatitulo();
-    this.cargarListaperiodo();
-    this.cargarListagrado();
+    this.cargarPersonas();
+    this.cargarCargos();
+    this.cargarcontratos();
+    this.cargargrados();
+    this.cargarperiodos();
+    this.cargartitulos();
 
+    this.cargarListaGrado();
+    this.cargarListaPeriodo();
+    this.cargarListacargo();
+    this.cargarListacontrato();
+    this.cargarListaper();
+    this.cargarListatitulos();
   }
+
   initializeForm() {
     this.createForm();
   }
+
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }
-  getcontra(): Observable<TipoContrato[]> {
+
+  getcontratos(): Observable<TipoContrato[]> {
     return this.http.get<TipoContrato[]>('http://localhost:8080/tipocontratos');
   }
-  getcargo(): Observable<Cargo[]> {
+
+  getcargos(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>('http://localhost:8080/cargo');
   }
-  gettitulo(): Observable<Titulo[]> {
+
+  gettitulos(): Observable<Titulo[]> {
     return this.http.get<Titulo[]>('http://localhost:8080/titulo');
   }
+
   getperiodo(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>('http://localhost:8080/periodos');
   }
+
   getgrado(): Observable<GradoOcupacional[]> {
     return this.http.get<GradoOcupacional[]>('http://localhost:8080/grado');
   }
+
+  cargarPersonas() {
+    this.getPersonas().subscribe(personas => (this.persona1 = personas));
+  }
+
+  cargarcontratos() {
+    this.getcontratos().subscribe(contratos => (this.tipocontrato1 = contratos));
+  }
+
+  cargarCargos() {
+    this.getcargos().subscribe(cargos => (this.cargo1 = cargos));
+  }
+
+  cargartitulos() {
+    this.gettitulos().subscribe(titulos => (this.titulo1 = titulos));
+  }
+
+  cargarperiodos() {
+    this.getperiodo().subscribe(periodos => (this.periodo1 = periodos));
+  }
+
+  cargargrados() {
+    this.getgrado().subscribe(grados => (this.grado1 = grados));
+  }
+
+  onCedulaSelected(event: any) {
+    this.cedulaSeleccionada = event.target.value;
+    const cedula = this.cedulaSeleccionada;
+
+    this.personaservice.getbypersona(cedula).subscribe(
+      (persona: Persona | undefined) => {
+        if (persona) {
+          this.createpersona = persona;
+          console.log('Persona encontrado:', this.createpersona);
+          this.selectedPersonaId = this.createpersona.per_id;
+        } else {
+          console.log('Persona no encontrado');
+        }
+      },
+      (error) => {
+        console.error('Error al obtener la persona:', error);
+      }
+    );
+  }
+
+  oncontratosSelected(event: any) {
+    this.ckeckrol = event.target.value;
+    const name = this.ckeckrol;
+
+    this.tipocontratoservice.comboidcontrato(name).subscribe(
+      (contratoExists: boolean) => {
+        if (contratoExists) {
+          console.log(`El contrato ${name} existe.`);
+          this.tipocontratoservice.getcontratoByName(name).subscribe(
+            (tipo_contrato: TipoContrato | undefined) => {
+              if (tipo_contrato) {
+                this.tipocontrato2 = tipo_contrato;
+                console.log('contrato encontrado:', this.tipocontrato2);
+                this.selectedContratoId = this.tipocontrato2.tipo_id;
+              } else {
+                console.log('contrato no encontrado');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el rol:', error);
+            }
+          );
+        } else {
+          console.log(`El rol ${name} no existe.`);
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el rol:', error);
+      }
+    );
+  }
+
+  oncargoSelected(event: any) {
+    this.ckeckrol = event.target.value;
+    const name = this.ckeckrol;
+
+    this.cargoservice.comboidcargo(name).subscribe(
+      (cargoexis: boolean) => {
+        if (cargoexis) {
+          console.log(`El caro ${name} existe.`);
+          this.cargoservice.getcargoByName(name).subscribe(
+            (cargo: Cargo | undefined) => {
+              if (cargo) {
+                this.cargo2 = cargo;
+                console.log('contrato encontrado:', this.cargo2);
+                this.selectedCargoId = this.cargo2.cargo_id;
+              } else {
+                console.log('cargo no encontrado');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el rol:', error);
+            }
+          );
+        } else {
+          console.log(`El rol ${name} no existe.`);
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el rol:', error);
+      }
+    );
+  }
+
+  ontituloSelected(event: any) {
+    this.ckeckrol = event.target.value;
+    const name = this.ckeckrol;
+
+    this.tituloservice.comboidtitulo(name).subscribe(
+      (tituloexis: boolean) => {
+        if (tituloexis) {
+          console.log(`El titulo ${name} existe.`);
+          this.tituloservice.gettituloByName(name).subscribe(
+            (titulo: Titulo | undefined) => {
+              if (titulo) {
+                this.titulo2 = titulo;
+                console.log('titulo encontrado:', this.titulo2);
+                this.selectedTituloId = this.titulo2.titulo_id;
+              } else {
+                console.log('titulo no encontrado');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el rol:', error);
+            }
+          );
+        } else {
+          console.log(`El rol ${name} no existe.`);
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el rol:', error);
+      }
+    );
+  }
+
+  onperiodoSelected(event: any) {
+    this.ckeckrol = event.target.value;
+    const name = this.ckeckrol;
+
+    this.periodosservice.comboidperiodo(name).subscribe(
+      (periodoexis: boolean) => {
+        if (periodoexis) {
+          console.log(`El periodo ${name} existe.`);
+          this.periodosservice.getperiodoByName(name).subscribe(
+            (periodo: Periodos | undefined) => {
+              if (periodo) {
+                this.periodo2 = periodo;
+                console.log('periodo encontrado:', this.periodo2);
+                this.selectedPeriodoId = this.periodo2.periodo_id;
+              } else {
+                console.log('periodo no encontrado');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el rol:', error);
+            }
+          );
+        } else {
+          console.log(`El periodo ${name} no existe.`);
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el rol:', error);
+      }
+    );
+  }
+
+  ongradoSelected(event: any) {
+    this.ckeckrol = event.target.value;
+    const name = this.ckeckrol;
+
+    this.gradoservice.comboidgrado(name).subscribe(
+      (gradoexis: boolean) => {
+        if (gradoexis) {
+          console.log(`El graado ${name} existe.`);
+          this.gradoservice.getGradoByName(name).subscribe(
+            (grado: GradoOcupacional | undefined) => {
+              if (grado) {
+                this.grado2 = grado;
+                console.log('grado encontrado:', this.grado2);
+                this.selectedGradoId = this.grado2.grado_id;
+              } else {
+                console.log('contrato no encontrado');
+              }
+            },
+            (error) => {
+              console.error('Error al obtener el rol:', error);
+            }
+          );
+        } else {
+          console.log(`El rol ${name} no existe.`);
+        }
+      },
+      (error) => {
+        console.error('Error al verificar el rol:', error);
+      }
+    );
+  }
+
   createForm() {
     this.updateForm = this.fb.group({
       fechaIngreso: ['', Validators.required],
       estado: ['', Validators.required],
-      per_id: ['', Validators.required],
-      tipo_id: ['', Validators.required],
-      cargo_id: ['', Validators.required],
-      titulo_id: ['', Validators.required],
-      periodo_id: ['', Validators.required],
-      grado_id: ['', Validators.required]
     });
   }
 
-  cargarListas() {
-    this.cargarListaper();
-    this.cargarListacontrato();
-    this.cargarListacargo();
-    this.cargarListatitulo();
-    this.cargarListaperiodo();
-    this.cargarListagrado();
-  }
-
-  cargarListaper() {
+  cargarListaper(): void {
     this.docenteservice.getPersonas().subscribe(
       personas => {
-        this.personas = personas;
+        this.persona1 = personas;
         this.isLoading = false;
-        console.log('Personas cargadas correctamente:', personas);
+        console.log('Personas cargadas exitosamente:', personas);
       },
       error => {
         console.error('Error al cargar las personas:', error);
@@ -145,159 +350,105 @@ export class CreardocenteComponent implements OnInit {
     );
   }
 
-  cargarListacontrato() {
+  cargarListacontrato(): void {
     this.docenteservice.getTipoContratos().subscribe(
       contratos => {
-        this.contratos1 = contratos;
+        this.tipocontrato1 = contratos;
         this.isLoading = false;
-        console.log('Contratos cargados correctamente:', contratos);
+        console.log('contratos cargadas exitosamente:', contratos);
       },
       error => {
-        console.error('Error al cargar los contratos:', error);
+        console.error('Error al cargar las personas:', error);
         this.isLoading = false;
       }
     );
   }
 
-  cargarListacargo() {
+  cargarListacargo(): void {
     this.docenteservice.getCargos().subscribe(
       cargos => {
-        this.cargos = cargos;
+        this.cargo1 = cargos;
         this.isLoading = false;
-        console.log('Cargos cargados correctamente:', cargos);
+        console.log('cargos cargadas exitosamente:', cargos);
       },
       error => {
-        console.error('Error al cargar los cargos:', error);
+        console.error('Error al cargar las personas:', error);
         this.isLoading = false;
       }
     );
   }
 
-  cargarListatitulo() {
+  cargarListatitulos(): void {
     this.docenteservice.getTitulos().subscribe(
       titulos => {
-        this.titulos = titulos;
+        this.titulo1 = titulos;
         this.isLoading = false;
-        console.log('Títulos cargados correctamente:', titulos);
+        console.log('titulos cargadas exitosamente:', titulos);
       },
       error => {
-        console.error('Error al cargar los títulos:', error);
+        console.error('Error al cargar las personas:', error);
         this.isLoading = false;
       }
     );
   }
 
-  cargarListaperiodo() {
+  cargarListaPeriodo(): void {
     this.docenteservice.getPeriodos().subscribe(
       periodos => {
-        this.periodos = periodos;
+        this.periodo1 = periodos;
         this.isLoading = false;
-        console.log('Periodos cargados correctamente:', periodos);
+        console.log('periodos cargadas exitosamente:', periodos);
       },
       error => {
-        console.error('Error al cargar los periodos:', error);
+        console.error('Error al cargar las personas:', error);
         this.isLoading = false;
       }
     );
   }
-  cargarListagrado() {
+
+  cargarListaGrado(): void {
     this.docenteservice.getGrados().subscribe(
       grados => {
-        this.grados = grados;
+        this.grado1 = grados;
         this.isLoading = false;
-        console.log('Grados cargados correctamente:', grados);
+        console.log('grados cargadas exitosamente:', grados);
       },
       error => {
-        console.error('Error al cargar los grados:', error);
+        console.error('Error al cargar las personas:', error);
         this.isLoading = false;
       }
     );
-  }
-  onCedulaSelected(event: any) {
-    this.cedulaSeleccionada = event.target.value;
-    const cedula = this.cedulaSeleccionada;
-    this.personaservice.getbypersona(cedula).subscribe(
-      (persona: Persona | undefined) => {
-        if (persona) {
-
-
-          this.createpersona = persona;
-          console.log('Persona encontrado:', this.createpersona);
-
-        } else {
-          // Manejar el caso en que no se encuentra el rol
-          console.log('Persona no encontrado');
-        }
-      },
-      (error) => {
-        // Manejar errores de la solicitud HTTP
-        console.error('Error al obtener la persona:', error);
-      }
-    );
-  }
-
-  oncontratoSelected(event: any) {
-    const selectedContratoId = event.target.value;
-    console.log('Contrato seleccionado:', selectedContratoId);
-    // Aquí deberías implementar la lógica para cargar los datos según el contrato seleccionado
-  }
-
-  ontituloSelected(event: any) {
-    const selectedTituloId = event.target.value;
-    console.log('Título seleccionado:', selectedTituloId);
-    // Aquí deberías implementar la lógica para cargar los datos según el título seleccionado
-  }
-
-  onperiodoSelected(event: any) {
-    const selectedPeriodoId = event.target.value;
-    console.log('Periodo seleccionado:', selectedPeriodoId);
-    // Aquí deberías implementar la lógica para cargar los datos según el periodo seleccionado
-  }
-
-  oncargoSelected(event: any) {
-    const selectedCargoId = event.target.value;
-    console.log('Cargo seleccionado:', selectedCargoId);
-    // Aquí deberías implementar la lógica para cargar los datos según el cargo seleccionado
-  }
-
-  ongradoSelected(event: any) {
-    const selectedGradoId = event.target.value;
-    console.log('Grado seleccionado:', selectedGradoId);
-    // Aquí deberías implementar la lógica para cargar los datos según el grado seleccionado
   }
 
   crearDocente() {
-    // // Asigna los objetos persona, cargo, grado y título seleccionados al nuevo docente
-    // // Corregir la asignación de Cargo
-    // this.nuevoDocente.cargo = this.cargos.find(cargo => cargo.cargo_id === this.selectedCargoId);
+    if (this.docente) {
+      const nuevoDocente: any = {
+        fechaIngreso: this.docente_fecha_ingreso,
+        estado: this.docente_estado,
+        tipoContratoId: this.selectedContratoId,
+        cargoId: this.selectedCargoId,
+        tituloId: this.selectedTituloId,
+        periodoId: this.selectedPeriodoId,
+        gradoId: this.selectedGradoId,
+        personaId: this.selectedPersonaId,
+      };
 
-    // // Corregir la asignación de GradoOcupacional
-    // this.nuevoDocente.grado = this.grados.find(grado => grado.grado_id === this.selectedgradoId);
+      console.log('Nuevo Docente:', nuevoDocente);
 
-    // // Corregir la asignación de Titulo
-    // this.nuevoDocente.titulo = this.titulos.find(titulo => titulo.titulo_id === this.selectedtituloId);
-
-
-    // // Muestra en la consola el docente que se enviará al backend
-    // console.log('Docente que se enviará al backend:', this.nuevoDocente);
-
-    // // Llama al método create del servicio para crear un nuevo docente en el backend
-    // this.docenteservice.create(this.nuevoDocente).subscribe(
-    //   (response) => {
-    //     // Maneja la respuesta del servidor si es necesario
-    //     console.log('Docente creado correctamente:', response);
-    //     // Redirige a la página de docentes u otra página después de crear el docente
-    //     this.router.navigate(['/docentes']);
-    //   },
-    //   (error) => {
-    //     // Maneja cualquier error que pueda ocurrir durante la creación del docente
-    //     console.error('Error al crear el docente:', error);
-    //     // Puedes mostrar un mensaje de error al usuario si lo deseas
-    //   }
-    // );
+      this.docenteservice.create(nuevoDocente).subscribe(
+        (response) => {
+          console.log('Docente creado exitosamente:', response);
+        },
+        (error) => {
+          console.error('Error al crear el docente:', error);
+        }
+      );
+    } else {
+      console.error('Error: docente es undefined. No se puede crear el docente.');
+    }
   }
 
   cancelar(): void {
-    this.router.navigate(['/docente']);
+    this.router.navigate(['/docentes']);
   }
 }

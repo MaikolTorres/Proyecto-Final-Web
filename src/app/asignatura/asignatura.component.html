@@ -12,10 +12,10 @@
   
 <body>
   <h2>Lista de Asignaturas</h2>
-  <div class="button-container"> <!-- Botones -->
+  <div class="button-container">
     <button class="button1" routerLink="/crearasignatura">Crear</button>
   </div>
-    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+    <div class="buscar-container"> 
       <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por usuario" (input)="buscar()" />
     </div>
     <div class="table-container">
@@ -29,16 +29,14 @@
         <th>Docente</th>
         <th>Actualizar</th>
         <th>Eliminar</th>
-        <!-- Puedes agregar más columnas según tus necesidades -->
       </tr>
     </thead>
     <tbody>
-      <!-- Aquí irán las filas de la tabla con datos de usuarios -->
       <tr *ngFor="let asignatura of asignaturas">
         <td>{{ asignatura.asignatura_id }}</td>
         <td>{{ asignatura.asignatura_nombre }}</td>
         <td>{{ asignatura.asignatura_horas_clase_semana }}</td>
-        <td>{{ asignatura.curso.curso_nombre}}</td>
+        <td>{{ asignatura.curso.curso_nombre+' '+asignatura.curso.curso_paralelo}}</td>
         <td>{{ asignatura.modeloDocente.persona.per_primer_nombre  +' '+asignatura.modeloDocente.persona.per_apellido_paterno}}</td>
         <td>
           <button style="border: none; background: transparent;" (click)="arirModalActualizar(asignatura)">
@@ -47,7 +45,7 @@
         </td>
         <td>
           <button style="border: none; background: transparent;" (click)="eliminarasignatura(asignatura.asignatura_id)">
-            <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            <i class="fas fa-trash-alt"></i> 
           </button>
         </td>
       </tr>
