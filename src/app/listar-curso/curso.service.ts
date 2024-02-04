@@ -47,7 +47,6 @@ export class CursoService {
   }
 
   create(curso: Curso): Observable<Curso> {
-    console.log('Intentando crear curso:', curso);
     return this.http.post<Curso>(this.urlEndPoint_1, curso, { headers: this.httpHeaders })
   }
 
