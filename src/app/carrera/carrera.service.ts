@@ -11,6 +11,7 @@ export class CarreraService {
   private urlEndPoint = 'http://localhost:8080/api/carrera/listarCarreras';
   private urlGuardarCarrera = 'http://localhost:8080/api/carrera/guardarCarrera';
   private urlBuscarCarrera = 'http://localhost:8080/api/carrera/buscarCarrera';
+  private urlActualizarCarrea = 'http://localhost:8080/api/carrera/actualizarCarrera';
   private urlEliminarCarrera = 'http://localhost:8080/api/carrera/eliminarCarrera';
 
   constructor(private http: HttpClient) { }
@@ -28,7 +29,7 @@ export class CarreraService {
   }
 
   updateCarrera(carrera: Carrera): Observable<Carrera> {
-    const url = `${this.urlGuardarCarrera}/${carrera.carrera_id}`;
+    const url = `${this.urlActualizarCarrea}/${carrera.carrera_id}`;
     console.log('URL de actualización:', url);
     return this.http.put<Carrera>(url, carrera);
   }
