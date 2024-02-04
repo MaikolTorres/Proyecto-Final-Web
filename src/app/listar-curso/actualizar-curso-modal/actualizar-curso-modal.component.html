@@ -16,17 +16,18 @@
 
       <label for="carrera_id">Carrera:</label>
       <select class="form-control" id="carrera_id" formControlName="carrera_id" required>
-        <option *ngFor="let carrera of carrera1" [value]="carrera.carrera_id">{{ carrera.carrera_nombre }}</option>
+        <option *ngFor="let carrera of carreras" [value]="carrera.carrera_id">{{ carrera.carrera_nombre }}</option>
       </select>
 
       <label for="periodo_id">Periodo:</label>
       <select class="form-control" id="periodo_id" formControlName="periodo_id" required>
-        <option *ngFor="let period of periodo1" [value]="period.periodo_id">{{ period.periodo_anio_inicio }}</option>
+        <option *ngFor="let per of periodos" [value]="per.periodo_id">{{per.periodo_mes_inicio + ' ' + per.periodo_anio_inicio + '-' +
+          per.periodo_mes_fin + ' ' + per.periodo_anio_fin}}</option>
       </select>
 
       <label for="jornada_id">Jornada:</label>
       <select class="form-control" id="jornada_id" formControlName="jornada_id" required>
-        <option *ngFor="let jornada of jornada1" [value]="jornada.jornada_id">{{ jornada.jornada_nombre }}</option>
+        <option *ngFor="let jornada of jornadas" [value]="jornada.jornada_id">{{ jornada.jornada_nombre }}</option>
       </select>
     </div>
     <!-- Otros campos del formulario según tu modelo GradoOcupacional -->
