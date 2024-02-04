@@ -1,90 +1,193 @@
 <!DOCTYPE html>
 <html lang="es">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="distributivo.component.css" />
-  <title>Distributivo</title>
-</head>
-<app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="distributivo.component.css" />
+    <title>Distributivo</title>
+  </head>
+  <app-header></app-header>
 
-<body>
-  <h2>Distributivo</h2>
-  <div class="button-container"> <!-- Contenedor de los botones -->
-    <button class="button1" routerLink="/creardistributivo">
-      <i class="fas fa-user"  style="margin-right: 10px;"></i> <!-- Icono -->
-      Asignar nuevas actividades <!-- Texto -->
-    </button>
-  </div>
+  <body>
+    <h2>Distributivo</h2>
+    <div class="button-container">
+      <!-- Contenedor de los botones -->
+      <button class="button1" routerLink="/creardistributivo">
+        <i class="fas fa-user" style="margin-right: 10px"></i>
+        <!-- Icono -->
+        Asignar nuevas actividades
+        <!-- Texto -->
+      </button>
+    </div>
+    <div
+      class="btn11 button-container"
+      [class.ocultar-boton-generar]="!mostrarBotonGenerarActa"
+    >
+      <button
+        class="btn btn-dark btn-lg"
+        id="btnImprimirActa"
+        (click)="imprimirReporte()"
+        style="background-color: #2060b3; border: none"
+        [hidden]="!mostrarBotonGenerarActa"
+      >
+        Generar Distributivo
+      </button>
+    </div>
+    <div class="buscar-container">
+      <!-- Contenedor del campo de búsqueda -->
+      <input
+        class="buscar"
+        type="text"
+        [(ngModel)]="textoBusqueda"
+        placeholder="Buscar por cedula"
+        (input)="buscar()"
+      />
+      <button style="border: none; background: transparent">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <!-- Inicio Codigo pegado -->
+    <div class="container" id="reporte" #reporte>
+      <main>
+        <h3>Acta de Distributivo</h3>
+        <p>
+          En la ciudad de Cuenca a la fecha
+          <input
+            #inputFechaRefParra
+            type="date"
+            class="form-head"
+            id="inputFecha"
+          /><br />
+          <label for=""> Docente :</label>
+          <select class="form-control" id="" formControlName="" required>
+            <option *ngFor="let distri of distributivos">
+              {{
+                distri.modeloDocente.persona.per_primer_nombre +
+                  " " +
+                  distri.modeloDocente.persona.per_apellido_paterno
+              }}
+            </option>
+          </select>
+          Docente del Instituto Superior Tecnológico del Azuay<br />
+          Con un atento saludo, de acuerdo a la reunion del
+          <input type="date" class="form-head" id="inputFecha" /> de la sesion
+          extraordinaria decima sexta, el Organo Colegiado Superior, <br />
+          conocio el distributivo academico institucional. A continuación, se
+          detalla su asignacion de horas docentes y de gestion para el periodo
+          academico:
+          <select class="form-control" id="" formControlName="" required>
+            <option *ngFor="let distri of distributivos">
+              {{ distri.modeloPeriodos.periodo_mes_inicio }}
+              {{ distri.modeloPeriodos.periodo_anio_inicio }} -
+              {{ distri.modeloPeriodos.periodo_mes_fin }}
+              {{ distri.modeloPeriodos.periodo_anio_fin }}
+            </option>
+          </select>
+        </p>
+        <br />
+        <section>
+          <!-- Comienzo Tabla Distrubitivo -->
+          <div class="table-container">
+            <!-- Contenedor de la tabla -->
+            <table class="distributivo-table">
+              <thead>
+                <tr class="fila">
+                  <th>Distributivo ID</th>
 
-  <div class="buscar-container">
-    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
-    <button style="border: none; background: transparent;">
-      <i class="fas fa-search"></i>
-    </button>
-  </div>
+                  <th>Docente</th>
 
-  <div class="table-container"> <!-- Contenedor de la tabla -->
-    <table class="distributivo-table">
-      <thead>
-        <tr class="fila">
-          <th>Distributivo ID</th>
+                  <th>Carrera</th>
+                  <th>Jornada</th>
+                  <th>Curso</th>
+                  <th>Periodo</th>
+                  <th>Asignatura</th>
+                  <th>Actividad Docente</th>
+                  <th>Actividad No Docente</th>
+                  <th>Calculo Horas total</th>
+                  <th>Actualizar</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let distri of distributivos">
+                  <td>{{ distri.distributivo_id }}</td>
 
-          <th>Docente </th>
+                  <td>
+                    {{
+                      distri.modeloDocente.persona.per_primer_nombre +
+                        " " +
+                        distri.modeloDocente.persona.per_apellido_paterno
+                    }}
+                  </td>
+                  <td>{{ distri.modeloCarrera.carrera_nombre }}</td>
+                  <td>{{ distri.modeloJordana.jornada_nombre }}</td>
+                  <td>{{ distri.modeloCurso.curso_nombre }}</td>
+                  <td>
+                    {{ distri.modeloPeriodos.periodo_mes_inicio }}
+                    {{ distri.modeloPeriodos.periodo_anio_inicio }} -
+                    {{ distri.modeloPeriodos.periodo_mes_fin }}
+                    {{ distri.modeloPeriodos.periodo_anio_fin }}
+                  </td>
 
-          <th>Carrera</th>
-          <th>Jornada </th>
-          <th>Curso </th>
-          <th>Periodo </th>
-          <th>Asignatura</th>
-          <th>Actividad Docente</th>
-          <th>Actividad No Docente </th>
-          <th>Calculo Horas total</th>
-          <th>Actualizar</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
+                  <td>{{ distri.modeloAsignaturas.asignatura_nombre }}</td>
+                  <td>
+                    {{
+                      distri.modeloActividadesDocentes
+                        .actividoc_nombre_actividad
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      distri.modeloActividadesNoDocentes.activiNoDoc_num_horas
+                    }}
+                  </td>
+                  <td>{{ distri.calculoHorasTotal }}</td>
 
+                  <td>
+                    <button
+                      style="border: none; background: transparent"
+                      (click)="(null)"
+                    >
+                      <i class="fas fa-edit"></i>
+                      <!-- Ícono de actualizar -->
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      style="border: none; background: transparent"
+                      (click)="(null)"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                      <!-- Ícono de eliminar -->
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
 
-        <tr *ngFor="let distri of distributivos">
-          <td>{{ distri.distributivo_id }}</td>
+      <footer>
+        <div class="col text-center">
+          <p>
+            Agradecidos con su aporte a la Institucion, suscribimos de usted.
+          </p>
+          <p>Atentamente</p>
 
-
-          <td>{{ distri.modeloDocente.persona.per_primer_nombre + ' ' + distri.modeloDocente.persona.per_apellido_paterno }}</td>
-          <td>{{ distri.modeloCarrera.carrera_nombre }}</td>
-          <td>{{ distri.modeloJordana.jornada_nombre }}</td>
-          <td>{{ distri.modeloCurso.curso_nombre }}</td>
-          <td>{{ distri.modeloPeriodos.periodo_mes_inicio }} {{ distri.modeloPeriodos.periodo_anio_inicio }} -
-            {{ distri.modeloPeriodos.periodo_mes_fin }} {{ distri.modeloPeriodos.periodo_anio_fin }}</td>
-
-          <td>{{ distri.modeloAsignaturas.asignatura_nombre }}</td>
-          <td>{{ distri.modeloActividadesDocentes.actividoc_nombre_actividad }}</td>
-          <td>{{ distri.modeloActividadesNoDocentes.activiNoDoc_num_horas }}</td>
-          <td>{{ distri.calculoHorasTotal }}</td>
-
-
-
-
-          <td>
-            <button style="border: none; background: transparent;" (click)="null">
-              <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
-            </button>
-          </td>
-          <td>
-            <button style="border: none; background: transparent;" (click)="null">
-              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-            </button>
-          </td>
-
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</body>
-<app-footer></app-footer>
-
+          <p>&nbsp;</p>
+          <!-- Párrafo vacío que crea el espacio -->
+          <p>_________________________________</p>
+          <p class="cargos">Mgtr. Miguel Enrique Yuctor A.</p>
+          <p class="cargos">Rector del TecAzuay</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <app-footer></app-footer>
 </html>
