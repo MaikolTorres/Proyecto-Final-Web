@@ -98,25 +98,10 @@ export class DistributivoComponent implements OnInit {
         (error) => {
           console.error('Error al eliminar :', error);
         }
-<<<<<<< HEAD
-      }
-   //   textoBusqueda: string = '';
-     // usuMatchesSearch(docente: Docente): boolean {
-     //   return docente.persona.per_cedula.toLowerCase().includes(this.textoBusqueda.toLowerCase());
-    //  }
-    
-      //buscar(): void {
-      //  if (this.textoBusqueda.trim() !== '' ) {
-       //   this.docentes = this.docentes.filter((docente: Docente) => this.usuMatchesSearch(docente));
-       // } else {
-       //   this.cargarLista(); 
-       // }
-    //  }
-  }
-=======
       );
     }
   }
+
   textoBusqueda: string = '';
   usuMatchesSearch(distri: Distributivo): boolean {
     return (
@@ -200,4 +185,3 @@ export class DistributivoComponent implements OnInit {
     this.inputNroActaRef.nativeElement.value = formattedNumber;
   }
 }
->>>>>>> 097126192b1a1e9fdc8a114dc66b5b3bc186b5eb
