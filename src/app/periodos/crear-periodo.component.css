@@ -1,6 +1,13 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
+  font-family: Century Gothic,Arial,Helvetica,sans-serif;
+  background-color: rgb(255, 255, 255);
+  margin: 0; /* Elimina el margen predeterminado del cuerpo */
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+  overflow: hidden;
+  position: relative;
 }
 
 .container {
@@ -12,6 +19,8 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
+  position: relative; /* Ajusta la posición a relativa */
+  z-index: 1;
 }
 
 .titulo_formulario {
@@ -57,4 +66,116 @@ button:hover {
 
 .btn-danger:hover {
   background-color: #f3362c;
+}
+
+/* burbujas */
+
+.burbuja{
+  border-radius: 50%;
+  background: #c8d7ff;
+  opacity: .3;
+  position: absolute;
+  bottom: -150;
+  animation: burbujas 5s alternate infinite ;
+  
+}
+
+.burbuja:nth-child(1){
+  width: 80px;
+  height: 80px;
+  left: 5%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(2){
+  width: 100px;
+  height: 100px;
+  left: 35%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(3){
+  width: 60px;
+  height: 60px;
+  left: 15%;
+  animation-duration: 2.5s;
+}
+
+.burbuja:nth-child(4){
+  width: 50px;
+  height: 50px;
+  left: 90%;
+  animation-duration: 6s;
+}
+
+.burbuja:nth-child(5){
+  width: 70px;
+  height: 70px;
+  left: 65%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(6){
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  animation-duration: 3.5s;
+}
+
+.burbuja:nth-child(7){
+  width: 35px;
+  height: 35px;
+  left: 80%;
+  animation-duration: 4s;
+}
+
+.burbuja:nth-child(8){
+  width: 100;
+  height: 100px;
+  left: 52%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(9){
+  width: 65px;
+  height: 65px;
+  left: 51%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(10){
+  width: 80px;
+  height: 80px;
+  left: 89%;
+  animation-duration: 3s;
+}
+
+
+@keyframes burbujas{
+  0%{
+      bottom: 0;
+      opacity: 0;
+  }
+  30%{
+      transform: translateX(30px);
+  }
+  50%{
+      opacity: .4;
+  }
+  100%{
+      bottom: 100vh;
+      opacity: 0;
+  }
+}
+
+@keyframes movimiento{
+  0%{
+      transform: translateY(0);
+  }
+  50%{
+      transform: translateY(30px);
+  }
+  100%{
+      transform: translateY(0);
+  }
 }

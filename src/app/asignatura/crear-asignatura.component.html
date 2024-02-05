@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="crear-asignatura.component.css">
-  <title>Crear Asignatura</title>
-</head>
-
+<app-header></app-header>
 <body>
-  <app-header></app-header>
+ 
   <div class="container">
     
     <form class="formulario" (ngSubmit)="crearAsignatura()">
@@ -28,16 +22,16 @@
           </div>
 
 
-          <label for="per_id"> curso_id :</label>
+          <label for="per_id"> Curso :</label>
           <select class="form-control" id="curso_id" formControlName="curso_id" required [(ngModel)]="nombreCursoSelecionada"
             (change)="onCursoSelected($event)">
-            <option *ngFor="let curso of curso1">{{ curso.curso_nombre}} </option>
+            <option *ngFor="let curso of curso1">{{ curso.curso_nombre+' '+curso.curso_paralelo+' / '+curso.modeloCarrera.carrera_nombre}} </option>
           </select>
 
-          <label for="docente_id"> docente_id :</label>
+          <label for="docente_id"> Docente :</label>
           <select class="form-control" id="docente_id" formControlName="docente_id" required [(ngModel)]="nombreDocSeleecionada"
             (change)="onDocSelected($event)">
-            <option *ngFor="let docc of docente1">{{ docc.persona.per_primer_nombre}} </option>
+            <option *ngFor="let docc of docente1">{{ docc.persona.per_primer_nombre +' '+docc.persona.per_apellido_paterno}} </option>
           </select>
 
 
@@ -51,7 +45,20 @@
       </fieldset>
     </form>
   </div>
-  <app-footer></app-footer>
-</body>
 
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
+
+</body>
+<app-footer></app-footer>
 </html>

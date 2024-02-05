@@ -1,47 +1,58 @@
-<div>
+<!DOCTYPE html>
+<html lang="es">
 
-  <body>
-    <div class="panel">
-      <h2 class="txt-2">Actividades Docentes</h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="actividades-docente.component.css">
+  <title>Crear Asignatura</title>
+</head>
 
-      <form (submit)="crearAct()">
-        <fieldset>
-          <legend class="titulo_formulario">Crear Actividad docente</legend>
-          <div class="contenedor_formulario">
-            <div class="mb-3">
-              <label for="actividoc_nombre" class="form-label">Nombre:</label>
-              <input type="text" formControlName="actividoc_nombre" required>
-  
-              <label for="actividoc_nombre_horas" class="form-label">Hora Docente semanal:</label>
-              <input type="text" formControlName="actividoc_nombre_horas" required>
-  
-              
-  
-              <label for="asignatura_id" class="form-label">Asignatura:</label>
-              <select class="form-control" formControlName="asignatura_id" required>
-                <option *ngFor="let curso of asignatura1" [value]="curso.asignatura_id">{{ curso.asignatura_nombre }}
-                </option>
-              </select>
-  
-              <label for="extra_id" class="form-label">Actividades extra:</label>
-              <select class="form-control" formControlName="extra_id" required>
-                <option *ngFor="let docente of extra1" [value]="docente.extra_id">{{ docente.extra_nombre_proyecto_investigacion }}
-                </option>
-              </select>
-  
-              
-            </div>
-            <button type="submit" class="btn btn-primary">
-              <i class="fa fa-check"></i> Registrar
-            </button>
-            <button type="button" class="btn2 btn btn-danger" (click)="cancelar()">
-              <i class="fa fa-times"></i> Cancelar
-            </button>
+<body>
+  <app-header></app-header>
+  <div class="container">
+    
+    <form class="formulario" (ngSubmit)="crearActividad()">
+      <fieldset>
+        <legend class="titulo_formulario">Crear Actividad Docente</legend>
+        <div class="contenedor_formulario">
+
+          <div class="mb-3">
+            <label for="actividoc_nombre_actividad" class="form-label">Nombre:</label>
+            <input type="text" [(ngModel)]="actividoc_nombre_actividad" name="actividoc_nombre_actividad" required class="form-control">
           </div>
-        </fieldset>
-      </form>
-  
-    </div>
-  
-    <app-footer></app-footer>
-  </body>
+
+          <div class="mb-3">
+            <label for="actividoc_horas_docencia" class="form-label">Horas docencia de actividad:</label>
+            <input type="text" [(ngModel)]="actividoc_horas_docencia" name="actividoc_horas_docencia" required
+              class="form-control">
+          </div>
+
+
+          <label for="asignatura_id"> Asignatura :</label>
+          <select class="form-control" id="asignatura_id" formControlName="asignatura_id" required [(ngModel)]="nombreAsignaturaSelecionada"
+            (change)="onAsigSelected($event)">
+            <option *ngFor="let asigg of asignatura1">{{ asigg.asignatura_nombre}} </option>
+          </select>
+
+          <label for="extra_id"> Actividades extra asignada :</label>
+          <select class="form-control" id="extra_id" formControlName="extra_id" required [(ngModel)]="nombreExtraActSeleecionada"
+            (change)="onExtraSelected($event)">
+            <option *ngFor="let extrass of extraActvidad1">{{extrass.extra_nombre_proyecto_investigacion+' / '+extrass.extra_detalle_hora_gestion_academico}} </option>
+          </select>
+
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Registrar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="cancelar()">
+            <i class="fa fa-times"></i> Cancelar
+          </button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <app-footer></app-footer>
+</body>
+
+</html>

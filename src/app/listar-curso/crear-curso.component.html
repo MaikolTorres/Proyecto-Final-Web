@@ -1,20 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="crear-curso.component.css">
-  <title>Tu Título</title>
-</head>
-
-<body>
   <app-header></app-header>
-  <div class="contenedor-principal">
-    <!-- Formulario -->
+<body>
+  
+  <div class="container">
     
+    <form class="formulario" (ngSubmit)="crearCursos()">
+      <fieldset>
+        <legend class="titulo_formulario">Crear Curso</legend>
+        <div class="contenedor_formulario">
+          <div class="mb-3">
 
+            <label for="curso_nombre" class="form-label">Nivel de ciclo:</label>
+            <input type="text" [(ngModel)]="curso_nombre" name="curso_nombre" required class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <label for="curso_paralelo" class="form-label">Paralelo:</label>
+            <input type="text" [(ngModel)]="curso_paralelo" name="curso_paralelo" required
+              class="form-control">
+          </div>
+
+
+          <label for="jornada_id"> Jornada :</label>
+          <select class="form-control" id="jornada_id" formControlName="jornada_id" required [(ngModel)]="nombreJornadaSeleecionada"
+            (change)="onJornadaSelected($event)">
+            <option *ngFor="let jornada of jornada1">{{ jornada.jornada_nombre }} </option>
+          </select>
+
+          <label for="carrera_id"> Carrera :</label>
+          <select class="form-control" id="carrera_id" formControlName="carrera_id" required [(ngModel)]="nombreCarreraSeleecionada"
+            (change)="onCarreraSelected($event)">
+            <option *ngFor="let carr of carrera1">{{ carr.carrera_nombre}} </option>
+          </select>
+
+
+          <label for="periodo_id"> Periodo :</label>
+          <select class="form-control" id="periodo_id" formControlName="periodo_id" required [(ngModel)]="nombrePeriodoSelecionada"
+            (change)="onPeriodoSelected($event)">
+            <option *ngFor="let per of periodo1">{{per.periodo_mes_inicio + ' ' + per.periodo_anio_inicio + '-' +
+              per.periodo_mes_fin + ' ' + per.periodo_anio_fin}} </option>
+          </select>
+
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check"></i> Registrar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="cancelar()">
+            <i class="fa fa-times"></i> Cancelar
+          </button>
+        </div>
+      </fieldset>
+    </form>
   </div>
-
-  <app-footer></app-footer>
+  
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
+  
 </body>
+
+<app-footer></app-footer>
+
+</html>

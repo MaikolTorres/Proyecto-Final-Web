@@ -8,6 +8,8 @@ import { Asignatura } from 'src/app/asignatura/asignatura';
 import { ExtraActividades } from 'src/app/extra-actividades/extra-actividades';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AsignaturaService } from 'src/app/asignatura/asignatura.service';
+import { ExtraActividadesService } from 'src/app/extra-actividades/extra-actividades.service';
 
 @Component({
   selector: 'app-actualizar-docente-modal',
@@ -15,142 +17,177 @@ import { Observable } from 'rxjs';
   styleUrls: ['./actualizar-docente-modal.component.css']
 })
 export class ActualizarDocenteModalComponent implements OnInit {
-
-  @Input() actividad: ActividadesDocente | undefined;
+  @Input() actDocente: ActividadesDocente | undefined;
   actividoc_id: number | undefined;
   updateForm!: FormGroup;
-  actividad1: ActividadesDocente[] = [];
+  actDocente2: ActividadesDocente = new ActividadesDocente();
 
-
-  asignatura: Asignatura[] = [];
-  asignatura1: Asignatura[] = [];
+  asignaturas: Asignatura[] = [];
+  asignatura2: Asignatura[] = [];
   
   extras: ExtraActividades[] = [];
-  extras1: ExtraActividades[] = [];
+  extra2: ExtraActividades[] = [];
   
   isLoading: boolean = true;
 
 
+
+  public actDoc_idreceptor : number= 0;
+  public asignaturas_idreceptor : number= 0;
+  public extra_idreceptor : number= 0;
+  public actividoc_nombre_actividad_receptor : string= '';
+  public actividoc_horas_docencia_receptor  : number= 0;
+
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
-    private Activvidadservice: ActividadesDocenteService,
+    private actDocService: ActividadesDocenteService,
+
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private asignaturasService: AsignaturaService,
+    private extraService: ExtraActividadesService
 
-  ) {}
+  ) {
+    ///primero se debe inicializar antes de asignarles los valores
+    this.actDocente2.modeloAsignaturas = new Asignatura();
+    this.actDocente2.modeloExtrasActividades = new ExtraActividades();
+  }
+
   ngOnInit() {
+    this.loadAsignaturas();
+    this.loadExtras();
     this.createForm();
+    this.populateFormWithJornadaData();
+
+  }
+
   
-    this.cargarAsignaturas();
-    this.cargarExtras();
-    this.loadDetails(); // Llama a loadDetails después de cargar las asignaturas y extras
-    this.cargarListaAsignatura();
-    this.cargarListaExtr();
-  }
-
-  getAsignatura(): Observable<Asignatura[]> {
-    return this.http.get<Asignatura[]>('http://localhost:8080/asignatura');
-  }
-
-  cargarAsignaturas() {
-    this.getAsignatura().subscribe((asignaturas) => (this.asignatura = asignaturas));
-  }
 
 
-  getExtrass(): Observable<ExtraActividades[]> {
-    return this.http.get<ExtraActividades[]>('http://localhost:8080/docente');
-  }
-
-  cargarExtras() {
-    this.getExtrass().subscribe((extras) => (this.extras = extras));
-  }
-
-
-  loadDetails() {
-    if (this.actividoc_id) {
-      this.Activvidadservice.getactividadId(this.actividoc_id).subscribe(
-        (asigg: ActividadesDocente) => {
-          this.updateForm.patchValue({
-            actividoc_nombre: asigg.actividoc_nombre_actividad,
-            actividoc_num_horas: asigg.actividoc_horas_docencia,
-            asignatura_id: asigg.modeloAsignaturas.asignatura_id,
-            extra_id: asigg.modeloExtrasActividades.extra_id,
-
-          });
-        },
-        error => {
-          console.error('Error al cargar detalles de la actividad:', error);
-        }
-      );
+  loadAsignaturas() {
+  this.asignaturasService.get().subscribe(
+    (asignaturas: Asignatura[]) => {
+      this.asignaturas = asignaturas;
+      this.isLoading = false;
+      this.populateFormWithJornadaData();
+    },
+    error => {
+      console.error('Error al cargar las asignaturas:', error);
+      this.isLoading = false;
     }
-  }
+  );
+}
 
 
+
+loadExtras() {
+  this.extraService.getExtras().subscribe(
+    (extras: ExtraActividades[]) => {
+      this.extras = extras;
+      this.isLoading = false;
+      this.populateFormWithJornadaData();
+    },
+    error => {
+      console.error('Error al cargar las actividades extras:', error);
+      this.isLoading = false;
+    }
+  );
+}
+
+createForm() {
+  this.updateForm = this.fb.group({
+    actividoc_nombre_actividad: ['', Validators.required],
+    actividoc_horas_docencia: ['', Validators.required],
+    asignatura_id: ['', Validators.required],
+    extra_id: ['', Validators.required],
+  });
+}
   
-  cargarListaAsignatura(): void {
-    this.Activvidadservice.getasiggg().subscribe(
-      (asid) => {
-        this.asignatura1 = asid;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error al cargar las asignaturas:', error);
-        this.isLoading = false;
-      }
-    );
-  }
 
-  cargarListaExtr(): void {
-    this.Activvidadservice.getextrasss().subscribe(
-      (docc) => {
-        this.extras1 = docc;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error al cargar los actividades extras:', error);
-        this.isLoading = false;
-      }
-    );
-  }
-  
-  createForm() {
-    this.updateForm = this.fb.group({
-      actividoc_nombre: ['', Validators.required],
-      actividoc_num_horas: ['', Validators.required],
-      asignatura_id: ['', Validators.required],
-      extra_id: ['', Validators.required],
+populateFormWithJornadaData() {
+  if (this.actDocente && this.asignaturas.length > 0 && this.extras.length > 0) {
+    const selectedAsignatura = this.asignaturas.find(asig => asig.asignatura_id === this.actDocente?.modeloAsignaturas.asignatura_id);
+    const selectedExtras = this.extras.find(extra => extra.extra_id === this.actDocente?.modeloExtrasActividades.extra_id);
+
+    this.updateForm.patchValue({
+      actividoc_nombre_actividad: this.actDocente.actividoc_nombre_actividad,
+      actividoc_horas_docencia: this.actDocente.actividoc_horas_docencia,
+      asignatura_id: selectedAsignatura ? selectedAsignatura.asignatura_id : null,
+      extra_id: selectedExtras ? selectedExtras.extra_id : null, 
+    });
+
+    console.log('Datos que se van a actualizar:', {
+      actividoc_nombre_actividad: this.actDocente.actividoc_nombre_actividad,
+      actividoc_horas_docencia: this.actDocente.actividoc_horas_docencia,
+      asignatura_id: selectedAsignatura ? selectedAsignatura.asignatura_id : null,
+      extra_id: selectedExtras ? selectedExtras.extra_id : null, 
     });
   }
+}
 
 
-  onSubmit() {
-    if (this.updateForm.valid && this.updateForm.valid) {
-      const updated = this.updateForm.value;
-      updated.actividoc_id = this.actividad?.actividoc_id || 0;
 
-      console.log('Actividad ID seleccionado:', updated.usu_id);
-      if (!updated.usu_id) {
-        console.error('Error: ID de asignatura no es válido');
-        return;
-      }
+onasignaSelected(event: any) {
+  const selectedAsignaturaID = event.target.value;
+  console.log('ID de asignatura seleccionada:', selectedAsignaturaID);
+  this.asignaturas_idreceptor = selectedAsignaturaID;
+}
+onextrasSelected(event: any) {
+  const selectedExtrasId = event.target.value;
+  console.log('ID de extras seleccionada:', selectedExtrasId);
+  this.extra_idreceptor = selectedExtrasId;
+}
 
-      this.Activvidadservice.updateActividad(updated).subscribe(
-        data => {
-          console.log('Actividad actualizado con éxito:', data);
-          this.modalRef.hide(); // Cierra la ventana desplegable después de la actualización
-        },
-        error => {
-          console.error('Error al actualizar la Actividad:', error);
 
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn('El servidor respondió con un estado 200 pero el contenido no es JSON válido.');
-          } else {
-            // Manejar otros tipos de errores
-          }
-        }
-      );
+
+  
+onSubmit() {
+  if (this.updateForm && this.updateForm.valid) {
+    const updatedAct = this.updateForm.value;
+    updatedAct.actividoc_id = this.actDocente?.actividoc_id || 0;
+     this.actDoc_idreceptor= updatedAct.actividoc_id;
+     this.asignaturas_idreceptor = updatedAct.asignatura_id;
+     this.extra_idreceptor = updatedAct.extra_id;
+
+
+    if (!updatedAct.actividoc_id) {
+      console.error('Error: ID de actividad no válido');
+      return;
     }
-  }
 
+
+    this.actividoc_nombre_actividad_receptor = updatedAct.actividoc_nombre_actividad;
+    this.actividoc_horas_docencia_receptor = updatedAct.actividoc_horas_docencia;
+ 
+    console.log('Se enviará asignaturas_idreceptor:', this.asignaturas_idreceptor);
+    console.log('Se enviará extra_idreceptor:', this.extra_idreceptor);
+    console.log('Se enviará actividoc_nombre_idreceptor:', this.actividoc_nombre_actividad_receptor);
+    console.log('Se enviará actividoc_horas_idreceptor:', this.actividoc_horas_docencia_receptor);
+    this.actDocente2.actividoc_id=this.actDoc_idreceptor;;
+    this.actDocente2.actividoc_nombre_actividad= this.actividoc_nombre_actividad_receptor;
+    this.actDocente2.actividoc_horas_docencia=this.actividoc_horas_docencia_receptor;
+    this.actDocente2.modeloAsignaturas.asignatura_id  =  this.asignaturas_idreceptor;
+    this.actDocente2.modeloExtrasActividades.extra_id=this.extra_idreceptor;
+
+
+    console.log( this.actDocente2);
+    this.actDocService.updateActividad(this.actDocente2).subscribe(
+      (updatedAct: ActividadesDocente) => {
+        console.log('Actividad actualizado con éxito:', updatedAct);
+        window.location.reload();
+
+        window.close;
+
+        console.log()
+      },
+      error => {
+        console.error('Error al actualizar la Actividad:', error);
+            window.location.reload();
+
+        window.close;
+      }
+    );
+  }
+}
 }

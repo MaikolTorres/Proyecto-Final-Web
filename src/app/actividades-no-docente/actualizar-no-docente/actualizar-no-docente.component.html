@@ -1,0 +1,69 @@
+<div class="modal-header">
+  <h4 class="modal-title">Actualizar actividades</h4>
+
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="actividad_nombre" class="form-label"
+        >Nombre Actividad Docente:</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="actividad_nombre"
+        formControlName="actividad_nombre"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="activinodoc_num_horas">Numero Horas:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="activinodoc_num_horas"
+        formControlName="activinodoc_num_horas"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="docente_id">Docente:</label>
+      <select
+        class="form-control"
+        id="docente_id"
+        formControlName="docente_id"
+        required
+        (change)="ondocenteSelected($event)"
+      >
+        <option *ngFor="let docente of docentes" [value]="docente.docente_id">
+          {{
+            docente.persona.per_primer_nombre +
+              " " +
+              docente.persona.per_apellido_paterno
+          }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit">Enviar</button>
+      <button
+        type="button"
+        class="cancel"
+        routerLink="/listar-actividades-no-docentes"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

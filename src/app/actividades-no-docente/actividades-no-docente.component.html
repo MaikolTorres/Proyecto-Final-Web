@@ -1,40 +1,69 @@
 <div>
-    <app-header></app-header>
-  
-    <body>
-      <div class="panel">
-        <h2 class="txt-2">Actividades No Docentes</h2>
-  
-        <form>
-                   
-          <div>
-            <label for="nombreActividadDocente">Nombre Actividad Docente:</label>
-            <input type="text" id="nombreActividadDocente" name="nombreActividadDocente">
-          </div>
-  
-          <div>
-            <label for="numeroHoras">Numero Horas:</label>
-            <input type="number" id="numeroHoras" name="numeroHoras" placeholder="Ingrese el número de horas">
-          </div>
-  
-          <div>
-            <label for="docente">Docente:</label>
-            <select id="docente" name="docente">
-              <option value="" disabled selected>Seleccione un Docente</option>
-              <option value="docente1">Williams Trelles</option>
-              <option value="docente2">Jessica Herrera</option>
-              <option value="docente3">Diego Calé</option>
-            </select>
-          </div>
-  
-          <div>
-            <button type="submit">Enviar</button>
-            <button type="button" class="cancel" routerLink="/listar-actividades-no-docentes">Cancelar</button>
-          </div>
-        </form>
-      </div>
-    </body>
-  
-    <app-footer></app-footer>
-  </div>
-  
+  <app-header></app-header>
+
+  <body>
+    <div class="panel">
+      <h2 class="txt-2">Actividades No Docentes</h2>
+
+      <form class="formulario" (ngSubmit)="crearActividades()">
+        <div>
+          <label for="nombreActividadDocente" class="form-label"
+            >Nombre Actividad Docente:</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="actividad_nombre"
+            name="actividad_nombre"
+            required
+            class="form-control"
+          />
+        </div>
+
+        <div>
+          <label for="numeroHoras">Numero Horas:</label>
+          <input
+            type="number"
+            [(ngModel)]="actividad_horas"
+            name="actividad_horas"
+            placeholder="Ingrese el número de horas"
+            required
+            class="form-control"
+          />
+        </div>
+
+        <div>
+          <label for="docente">Docente:</label>
+          <select
+            class="form-control"
+            id="docente_id"
+            formControlName="docente_id"
+            required
+            [(ngModel)]="nombreDocSeleecionada"
+            (change)="onDocSelected($event)"
+          >
+            <option *ngFor="let docc of docente1">
+              {{
+                docc.persona.per_primer_nombre +
+                  " " +
+                  docc.persona.per_apellido_paterno
+              }}
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <button type="submit">Enviar</button>
+          <button
+            type="button"
+            class="cancel"
+            routerLink="/listar-actividades-no-docentes"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+  <app-footer></app-footer>
+</div>

@@ -8,6 +8,10 @@ import { Periodos } from 'src/app/periodos/periodo';
 import { Carrera } from 'src/app/carrera/carrera';
 import { Jornada } from 'src/app/jornada/jornada';
 import { Observable } from 'rxjs';
+import { CarreraService } from 'src/app/carrera/carrera.service';
+import { Router } from '@angular/router';
+import { JornadaService } from 'src/app/jornada/jornada.service';
+import { PeriodoService } from 'src/app/periodos/periodo.service';
 
 @Component({
   selector: 'app-actualizar-curso-modal',
@@ -18,158 +22,216 @@ export class ActualizarCursoModalComponent implements OnInit {
   @Input() curso: Curso | undefined;
   curso_id: number | undefined;
   updateForm!: FormGroup;
-  curso1: Curso[] = [];
+  curso2: Curso = new Curso();
 
-  periodo: Periodos[] = [];
-  periodo1: Periodos[] = [];
+  jornadas: Jornada[] = [];
+  jornada2: Jornada[] = [];
   
-  carrera: Carrera[] = [];
-  carrera1: Carrera[] = [];
-
-  jornada: Jornada[] = [];
-  jornada1: Jornada[] = [];
+  
+  carreras: Carrera[] = [];
+  carrera2: Carrera[] = [];
+  
+  periodos: Periodos[] = [];
+  periodo2: Periodos[] = [];
 
   isLoading: boolean = true;
+
+
+  public curso_idreceptor : number= 0;
+  public carrera_idreceptor : number= 0;
+  public jornada_idreceptor : number= 0;
+  public periodo_idreceptor : number= 0;
+
+  public curso_nombre_receptor : string= '';
+  public curso_paralelo_receptor  : string= '';
 
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private cursoService: CursoService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private router: Router,
+    private carreraService: CarreraService,
+    private jornadaService: JornadaService,
+    private periodoService: PeriodoService
+
+
+  ) {
+    ///primero se debe inicializar antes de asignarles los valores
+    this.curso2.modeloCarrera = new Carrera();
+    this.curso2.modeloJornada = new Jornada();
+    this.curso2.periodo = new Periodos();
+
+  }
 
   ngOnInit() {
+    this.loadCarreras();
+    this.loadJornadas();
+    this.loadPeriodos();
+
     this.createForm();
-    this.cargarCarreras();
-    this.cargarListaCa();
+    this.populateFormWithJornadaData();
 
-    this.cargarPeriodos();
-    this.cargarListaPer();
-
-    this.cargarJornada();
-    this.cargarListaJor();
-
-    this.loadGradoDetails();
   }
 
-  createForm() {
-    this.updateForm = this.fb.group({
-      curso_nombre: ['', Validators.required],
-      curso_paralelo: ['', Validators.required],
-      carrera_id: ['', Validators.required],
-      jornada_id: ['', Validators.required],
-      periodo_id: ['', Validators.required],
+ 
+
+ loadCarreras() {
+  this.carreraService.getCarrera().subscribe(
+    (carreras: Carrera[]) => {
+      this.carreras = carreras;
+      this.isLoading = false;
+      this.populateFormWithJornadaData();
+    },
+    error => {
+      console.error('Error al cargar las carreras:', error);
+      this.isLoading = false;
+    }
+  );
+}
+
+  
+loadJornadas() {
+  this.jornadaService.getJornadas().subscribe(
+    (jornadas: Jornada[]) => {
+      this.jornadas = jornadas;
+      this.isLoading = false;
+      this.populateFormWithJornadaData();
+    },
+    error => {
+      console.error('Error al cargar las jornadas:', error);
+      this.isLoading = false;
+    }
+  );
+}
+
+
+loadPeriodos() {
+  this.periodoService.getPeriodo().subscribe(
+    (periodos: Periodos[]) => {
+      this.periodos = periodos;
+      this.isLoading = false;
+      this.populateFormWithJornadaData();
+    },
+    error => {
+      console.error('Error al cargar los periodos:', error);
+      this.isLoading = false;
+    }
+  );
+}
+
+createForm() {
+  this.updateForm = this.fb.group({
+    curso_nombre: ['', Validators.required],
+    curso_paralelo: ['', Validators.required],
+    carrera_id: ['', Validators.required],
+    jornada_id: ['', Validators.required],
+    periodo_id: ['', Validators.required],
+
+  });
+}
+  
+
+populateFormWithJornadaData() {
+  if (this.curso && this.carreras.length > 0 && this.jornadas.length > 0 && this.periodos.length > 0) {
+    const selectedCarrera = this.carreras.find(carrera => carrera.carrera_id === this.curso?.modeloCarrera.carrera_id);
+    const selectedJornada = this.jornadas.find(jornada => jornada.jornada_id === this.curso?.modeloJornada.jornada_id);
+    const selectedPeriodo = this.periodos.find(periodo => periodo.periodo_id === this.curso?.periodo.periodo_id);
+
+
+    this.updateForm.patchValue({
+      curso_nombre: this.curso.curso_nombre,
+      curso_paralelo: this.curso.curso_paralelo,
+      carrera_id: selectedCarrera ? selectedCarrera.carrera_id : null,
+      jornada_id: selectedJornada ? selectedJornada.jornada_id : null, 
+      periodo_id: selectedPeriodo ? selectedPeriodo.periodo_id : null,
+    });
+
+    console.log('Datos que se van a actualizar:', {
+      curso_nombre: this.curso.curso_nombre,
+      curso_paralelo: this.curso.curso_paralelo,
+      carrera_id: selectedCarrera ? selectedCarrera.carrera_id : null,
+      jornada_id: selectedJornada ? selectedJornada.jornada_id : null,
+      periodo_id: selectedPeriodo ? selectedPeriodo.periodo_id : null,
+
     });
   }
+}
 
-  getCarreras(): Observable<Carrera[]> {
-    return this.http.get<Carrera[]>('http://localhost:8080/carrera');
-  }
 
-  cargarCarreras() {
-    this.getCarreras().subscribe((carreras) => (this.carrera = carreras));
-  }
 
-  getPeriodos(): Observable<Periodos[]> {
-    return this.http.get<Periodos[]>('http://localhost:8080/periodos');
-  }
+oncarreraSelected(event: any) {
+  const selectedCarreraId = event.target.value;
+  console.log('ID de carrera seleccionada:', selectedCarreraId);
+  this.carrera_idreceptor = selectedCarreraId;
+}
 
-  cargarPeriodos() {
-    this.getPeriodos().subscribe((periodos) => (this.periodo = periodos));
-  }
+onjornadaSelected(event: any) {
+  const selectedJornadaID = event.target.value;
+  console.log('ID de jornada seleccionada:', selectedJornadaID);
+  this.jornada_idreceptor = selectedJornadaID;
+}
 
-  getCJornadas(): Observable<Jornada[]> {
-    return this.http.get<Jornada[]>('http://localhost:8080/jornadas');
-  }
+onperiodoSelected(event: any) {
+  const selectedPeriodoId = event.target.value;
+  console.log('ID de periodo seleccionada:', selectedPeriodoId);
+  this.periodo_idreceptor = selectedPeriodoId;
+}
 
-  cargarJornada() {
-    this.getCJornadas().subscribe((jornadas) => (this.jornada = jornadas));
-  }
 
-  loadGradoDetails() {
-    if (this.curso && this.curso.curso_id) {
-      this.curso_id = this.curso.curso_id;
-      this.cursoService.getcursoId(this.curso_id).subscribe(
-        (curso: Curso) => {
-          this.updateForm.patchValue({
-            curso_nombre: curso.curso_nombre,
-            curso_paralelo: curso.curso_paralelo,
-            carrera_id: curso.carrera.carrera_id,
-            jornada_id: curso.jornada.jornada_id,
-            periodo_id: curso.periodo.periodo_id,
-          });
-        },
-        (error) => {
-          console.error('Error al cargar detalles del curso:', error);
-        }
-      );
+  
+onSubmit() {
+  if (this.updateForm && this.updateForm.valid) {
+    const updatedCurs = this.updateForm.value;
+    updatedCurs.curso_id = this.curso?.curso_id || 0;
+     this.curso_idreceptor= updatedCurs.curso_id;
+
+     this.carrera_idreceptor = updatedCurs.carrera_id;
+     this.jornada_idreceptor = updatedCurs.jornada_id;
+     this.periodo_idreceptor = updatedCurs.periodo_id;
+
+
+    if (!updatedCurs.curso_id) {
+      console.error('Error: ID de curso no válido');
+      return;
     }
-  }
 
-  onSubmit() {
-    if (this.updateForm && this.updateForm.valid) {
-      const updatedCurso = this.updateForm.value;
-      updatedCurso.curso_id = this.curso?.curso_id || 0;
 
-      if (!updatedCurso.curso_id) {
-        console.error('Error: ID de curso no válido');
-        return;
-      }
+    this.curso_nombre_receptor = updatedCurs.curso_nombre;
+    this.curso_paralelo_receptor = updatedCurs.curso_paralelo;
+ 
+    console.log('Se enviará carrera_idreceptor:', this.carrera_idreceptor);
+    console.log('Se enviará jornada_idreceptor:', this.jornada_idreceptor);
+    console.log('Se enviará periodo_idreceptor:', this.periodo_idreceptor);
 
-      this.cursoService.updateCurso(updatedCurso).subscribe(
-        (data) => {
-          console.log('Curso actualizada con éxito:', data);
-          this.modalRef.hide();
-        },
-        (error) => {
-          console.error('Error al actualizar el curso:', error);
+    console.log('Se enviará curso_nombre_receptor:', this.curso_nombre_receptor);
+    console.log('Se enviará curso_paralelo_receptor:', this.curso_paralelo_receptor);
+    this.curso2.curso_id=this.curso_idreceptor;
+    this.curso2.curso_paralelo= this.curso_paralelo_receptor;
+    this.curso2.curso_nombre=this.curso_nombre_receptor;
+    this.curso2.modeloCarrera.carrera_id  =  this.carrera_idreceptor;
+    this.curso2.modeloJornada.jornada_id=this.jornada_idreceptor;
+    this.curso2.periodo.periodo_id=this.periodo_idreceptor;
 
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn(
-              'El servidor respondió con un estado 200 pero el contenido no es JSON válido.'
-            );
-          }
-        }
-      );
-    }
-  }
 
-  cargarListaCa(): void {
-    this.cursoService.getcarrer().subscribe(
-      (carreras) => {
-        this.carrera1 = carreras;
-        this.isLoading = false;
+
+    console.log( this.curso2);
+    this.cursoService.updateCurso(this.curso2).subscribe(
+      (updatedCurs: Curso) => {
+        console.log('Curso actualizado con éxito:', updatedCurs);
+        window.location.reload();
+
+        window.close;
+
+        console.log()
       },
-      (error) => {
-        console.error('Error al cargar las carreras:', error);
-        this.isLoading = false;
+      error => {
+        console.error('Error al actualizar el curso:', error);
+            window.location.reload();
+
+        window.close;
       }
     );
   }
-
-  cargarListaPer(): void {
-    this.cursoService.getperiodd().subscribe(
-      (periodos) => {
-        this.periodo1 = periodos;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error al cargar los periodos:', error);
-        this.isLoading = false;
-      }
-    );
-  }
-
-  cargarListaJor(): void {
-    this.cursoService.getjornss().subscribe(
-      (jornadas) => {
-        this.jornada1 = jornadas;
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error al cargar las jornadas:', error);
-        this.isLoading = false;
-      }
-    );
-  }
+}
 }

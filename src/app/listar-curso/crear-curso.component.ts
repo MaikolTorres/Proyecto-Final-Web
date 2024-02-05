@@ -23,41 +23,43 @@ export class CrearCursoComponent implements OnInit {
   @Input() curso: Curso | undefined;
   curso_id: number | undefined;
   updateForm!: FormGroup;
+  
   curso1: Curso[] = [];
+  nuevaCurso: Curso = new Curso();
 
+
+//PARA LAS CLASES QUE SON LLAMADAS
   periodo1: Periodos[] = [];
-  public createperiodo: Periodos = new Periodos();
+  createperiodo: Periodos= new Periodos();
+  public  nombrePeriodoSelecionada: string = '';
+  
 
   carrera1: Carrera[] = [];
-  public createcarrera: Carrera = new Carrera();
+  createcarrera: Carrera= new Carrera();
+  public  nombreCarreraSeleecionada: string = '';
 
-
-  public jornada1: Jornada[] = [];
-  public createjornada: Jornada = new Jornada();
+  jornada1: Jornada[] = [];
+  createjornada: Jornada= new Jornada();
+  public  nombreJornadaSeleecionada: string = '';
 
 
   isLoading: boolean = true;
-
   botonDesactivado: boolean = false;
 
   curso_nombre: string = '';
   curso_paralelo: string = '';
-  nuevoCurso: Curso = new Curso();
-  public ckeckjornada: string = '';
-  public ckeckperiodo: string = '';
-  public ckeckcarrera: string = '';
 
-  public jornadaSeleccionada: string = '';
+
 
 
   constructor(private cursoService: CursoService, private router: Router,
     public modalRef: BsModalRef,
     private fb: FormBuilder,
-    private usuarioService: UsuarioService,
     private http: HttpClient,
-    private jornadaService: JornadaService,
+
     private periodoService: PeriodoService,
-    private carreraService: CarreraService
+    private carreraService: CarreraService,
+    private jornadaService: JornadaService
 
   ) {
     this.createForm();
@@ -66,107 +68,72 @@ export class CrearCursoComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.cargarCarreras();
-    this.cargarListaCa();
 
-    this.cargarPeriodos();
+    this.cargarCarrera();
+    this.cargarListaCarr();
+
+    this.cargarPeriodo();
     this.cargarListaPer();
 
     this.cargarJornada();
     this.cargarListaJor();
+
+  }
+  initializeForm() {
+    this.createForm();
   }
 
-  createForm() {
-    this.updateForm = this.fb.group({
-      curso_nombre: ['', Validators.required],
-      curso_paralelo: ['', Validators.required],
-      carrera_id: ['', Validators.required],
-      jornada_id: ['', Validators.required],
-      periodo_id: ['', Validators.required],
-    });
-  }
+
 
   getCarreras(): Observable<Carrera[]> {
     return this.http.get<Carrera[]>('http://localhost:8080/carrera');
   }
 
-  cargarCarreras() {
+  cargarCarrera() {
     this.getCarreras().subscribe((carreras) => (this.carrera1 = carreras));
   }
 
+//PERIODOS
   getPeriodos(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>('http://localhost:8080/periodos');
   }
 
-  cargarPeriodos() {
+  cargarPeriodo() {
     this.getPeriodos().subscribe((periodos) => (this.periodo1 = periodos));
   }
 
-  getCJornadas(): Observable<Jornada[]> {
+//JORNADAS
+  getJornadas(): Observable<Jornada[]> {
     return this.http.get<Jornada[]>('http://localhost:8080/jornadas');
   }
 
   cargarJornada() {
-    this.getCJornadas().subscribe((jornadas) => (this.jornada1 = jornadas));
+    this.getJornadas().subscribe((jornadas) => (this.jornada1 = jornadas));
   }
 
-  loadGradoDetails() {
-    if (this.curso && this.curso.curso_id) {
-      this.curso_id = this.curso.curso_id;
-      this.cursoService.getcursoId(this.curso_id).subscribe(
-        (curso: Curso) => {
-          this.updateForm.patchValue({
-            curso_nombre: curso.curso_nombre,
-            curso_paralelo: curso.curso_paralelo,
-            carrera_id: curso.carrera.carrera_id,
-            jornada_id: curso.jornada.jornada_id,
-            periodo_id: curso.periodo.periodo_id,
-          });
-        },
-        (error) => {
-          console.error('Error al cargar detalles del curso:', error);
-        }
-      );
-    }
+
+  createForm() {
+    this.updateForm = this.fb.group({
+      curso_nombre: ['', Validators.required],
+      curso_paralelo: ['', Validators.required],
+
+      carrera_id: ['', Validators.required],
+      periodo_id: ['', Validators.required],
+      jornada_id: ['', Validators.required],
+    });
   }
 
-  onSubmit() {
-    if (this.updateForm && this.updateForm.valid) {
-      const updatedCurso = this.updateForm.value;
-      updatedCurso.curso_id = this.curso?.curso_id || 0;
 
-      if (!updatedCurso.curso_id) {
-        console.error('Error: ID de curso no válido');
-        return;
-      }
 
-      this.cursoService.updateCurso(updatedCurso).subscribe(
-        (data) => {
-          console.log('Curso actualizada con éxito:', data);
-          this.modalRef.hide();
-        },
-        (error) => {
-          console.error('Error al actualizar el curso:', error);
-
-          if (error instanceof HttpErrorResponse && error.status === 200) {
-            console.warn(
-              'El servidor respondió con un estado 200 pero el contenido no es JSON válido.'
-            );
-          }
-        }
-      );
-    }
-  }
-
-  cargarListaCa(): void {
+  cargarListaCarr(): void {
     this.cursoService.getcarrer().subscribe(
       carreras => {
         this.carrera1 = carreras;
         this.isLoading = false;
-        console.log('Carreras cargadas exitosamente:', carreras);
+        console.log('Carrera cargados exitosamente:', carreras);
       },
       error => {
-        console.error('Error al cargar las carreras:', error);
+        console.error('Error al cargar carrera:', error);
         this.isLoading = false;
       }
     );
@@ -186,154 +153,114 @@ export class CrearCursoComponent implements OnInit {
       }
     );
   }
+
+
+
   cargarListaJor(): void {
     this.cursoService.getjornss().subscribe(
       jornadas => {
         this.jornada1 = jornadas;
         this.isLoading = false;
-        console.log('Jornadas cargadas exitosamente:', jornadas);
+        console.log('Jornada cargados exitosamente:', jornadas);
       },
       error => {
-        console.error('Error al cargar las jornadas:', error);
+        console.error('Error al cargar la jornada:', error);
         this.isLoading = false;
       }
     );
   }
 
-  onJornadaSelected(event: any) {
-    this.ckeckjornada = event.target.value;
-    const name = this.ckeckjornada;
+  onCarreraSelected(event: any) {
+    this.nombreCarreraSeleecionada = event.target.value;
+    const nombre = this.nombreCarreraSeleecionada;
+    this.carreraService.getCarreraByName(nombre).subscribe(
+      (carrera: Carrera | undefined) => {
+        if (carrera) {
+          
+        
+          this.createcarrera=carrera;
+          console.log('Carrera encontrados:',  this.createcarrera);
 
-    this.jornadaService.comboidjornada(name).subscribe(
-      (jornadaExists: boolean) => {
-        if (jornadaExists) {
-          console.log(`La jornada ${name} existe.`);
-          this.jornadaService.getJornadaById(name).subscribe(
-            (jornada: Jornada | undefined) => {
-              if (jornada) {
-                // Hacer algo con el rol encontrado
-              
-                this.createjornada=jornada;
-                console.log('Jornada encontrado:', this.jornada1);
-
-              } else {
-                console.log('Jornada no encontrada');
-              }
-            },
-            (error) => {
-              console.error('Error al obtener la jornada:', error);
-            }
-          );
-           
         } else {
-          console.log(`La jornada ${name} no existe.`);
-       
+          console.log('Carrera no encontrado');
         }
       },
       (error) => {
-        console.error('Error al verificar la jornada:', error);
+        console.error('Error al obtener la carrera:', error);
       }
     );
   }
 
+  
 
   onPeriodoSelected(event: any) {
-    this.ckeckperiodo = event.target.value;
-    const names = this.ckeckperiodo;
+    this.nombrePeriodoSelecionada = event.target.value;
+    const nombre = this.nombrePeriodoSelecionada;
+    this.periodoService.getperiodoByName(nombre).subscribe(
+      (periodo: Periodos | undefined) => {
+        if (periodo) {
+          
+        
+          this.createperiodo=periodo;
+          console.log('Periodo encontrado:',  this.createperiodo);
 
-    this.periodoService.comboidperiodo(names).subscribe(
-      (periodoExists: boolean) => {
-        if (periodoExists) {
-          console.log(`El periodo ${name} existe.`);
-          this.periodoService.getjjById(name).subscribe(
-            (periodo: Periodos | undefined) => {
-              if (periodo) {
-              
-                this.createperiodo=periodo;
-                console.log('Periodo encontrado:', this.periodo1);
-
-              } else {
-                console.log('Periodo no encontrado');
-              }
-            },
-            (error) => {
-              console.error('Error al obtener el Periodo:', error);
-            }
-          );
-           
         } else {
-          console.log(`El Periodo ${name} no existe.`);
-       
+          console.log('Periodo no encontrado');
         }
       },
       (error) => {
-        console.error('Error al verificar el periodo:', error);
+        console.error('Error al obtener los periodos:', error);
       }
     );
   }
+  
 
 
-  onCarreraSelected(event: any) {
-    this.ckeckcarrera = event.target.value;
-    const name = this.ckeckcarrera;
+  onJornadaSelected(event: any) {
+    this.nombreJornadaSeleecionada = event.target.value;
+    const nombre = this.nombreJornadaSeleecionada;
+    this.jornadaService.getJornadaByName(nombre).subscribe(
+      (jornada: Jornada | undefined) => {
+        if (jornada) {
+          
+        
+          this.createjornada=jornada;
+          console.log('Jornada encontrado:',  this.createjornada);
 
-    this.carreraService.comboidcarrera(name).subscribe(
-      (carreraExists: boolean) => {
-        if (carreraExists) {
-          console.log(`La carrea ${name} existe.`);
-          this.carreraService.getCcById(name).subscribe(
-            (carrera: Carrera | undefined) => {
-              if (carrera) {
-              
-                this.createcarrera=carrera;
-                console.log('Carrera encontrado:', this.carrera1);
-
-              } else {
-                // Manejar el caso en que no se encuentra el rol
-                console.log('carrera no encontrado');
-              }
-            },
-            (error) => {
-              // Manejar errores de la solicitud HTTP
-              console.error('Error al obtener la carrera:', error);
-            }
-          );
-           
         } else {
-          console.log(`La carrera ${name} no existe.`);
-       
+          console.log('Jornada no encontrado');
         }
       },
       (error) => {
-        console.error('Error al verificar la carrera:', error);
+        console.error('Error al obtener la jornada:', error);
       }
     );
   }
 
 
 
-  crearCurso() {
+  crearCursos() {
+    this.nuevaCurso.modeloCarrera = this.createcarrera;
+    this.nuevaCurso.periodo = this.createperiodo;
+    this.nuevaCurso.modeloJornada = this.createjornada;
 
-    this.nuevoCurso.jornada = this.createjornada;
-    this.nuevoCurso.periodo = this.createperiodo;
-    this.nuevoCurso.carrera = this.createcarrera;
-    this.nuevoCurso.curso_nombre = this.curso_nombre;
-    this.nuevoCurso.curso_paralelo = this.curso_paralelo;
-    this.cursoService.create(this.nuevoCurso).subscribe(
+
+    this.nuevaCurso.curso_nombre = this.curso_nombre;
+    this.nuevaCurso.curso_paralelo = this.curso_paralelo;
+    this.cursoService.create(this.nuevaCurso).subscribe(
       (response) => {
-       
-        console.log('Curso creado exitosamente:', response);
 
-        window.close();
+        console.log('Curso creado exitosamente:', response);
+        this.router.navigate(['/listarcurso']);
+        
       },
       (error) => {
-        // Manejo de errores
         console.error('Error al crear el curso:', error);
       }
     );
   }
 
-
+  
   cancelar(): void {
     this.router.navigate(['/listarcurso']);
   }

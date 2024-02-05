@@ -59,6 +59,7 @@ import { ActividadesDocenteComponent } from './actividades-docente/actividades-d
 
 import { ListarCarreraComponent } from './carrera/listar-carrera.component';
 import { CrearCarreraComponent } from './carrera/crear-carrera.component';
+import { DatePipe } from '@angular/common';
 
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
@@ -69,7 +70,8 @@ import { ActualizarPeriodoModalComponent } from './periodos/actualizar-periodo-m
 import { ActualizarDocenteModalComponent } from './actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
 import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
 import { ActuaizarDocenteModalComponent } from './docente/actuaizar-docente-modal/actuaizar-docente-modal.component';
-import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component'; 
+import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component';
+import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component'; 
 
 
 const routes: Routes = [
@@ -218,7 +220,8 @@ const routes: Routes = [
     ActualizarPeriodoModalComponent,
     ActuaizarDocenteModalComponent,
     
-    ActualizarTituloComponent
+    ActualizarTituloComponent,
+          ActualizarNoDocenteComponent
   ],
 
   imports: [
@@ -233,8 +236,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     
   ],
-  providers: [],
+  providers: [DatePipe], // Agrega DatePipe a la lista de proveedores
+
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}
 

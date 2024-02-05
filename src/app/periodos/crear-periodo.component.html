@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="crear-periodo.component.css">
-  <title>Crear Periodo</title>
-</head>
+<app-header></app-header>
 
 <body>
-  <app-header></app-header>
-
+  
   <div class="container">
     <form class="formulario" (ngSubmit)="crearPeriodo()">
       <fieldset>
@@ -49,7 +43,20 @@
     </form>
   </div>
 
-  <app-footer></app-footer>
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
+  
 </body>
 
+<app-footer></app-footer>
 </html>

@@ -14,20 +14,20 @@
 <body>
   <h2>Lista de Carreras</h2>
 
-  <div class="button-container"> <!-- Contenedor de los botones -->
+  <div class="button-container"> 
       <button class="button1" routerLink="/crear-carrera">
-        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+        <i class="fas fa-save"></i> Agregar 
       </button>
     </div>
 
-    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+    <div class="buscar-container"> 
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por carera" (input)="buscar()" />
    <button style="border: none; background: transparent;">
-      <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+      <i class="fas fa-search"></i> 
     </button>
   </div>
   
-    <div class="table-container"> <!-- Contenedor de la tabla -->
+    <div class="table-container"> 
       <table class="carrera-table">
         <thead>
         <tr class="fila">
@@ -44,19 +44,30 @@
           
           <td>
             <button style="border: none; background: transparent;" (click)="abrirModalActualizar(carrera)">
-              <i class="fas fa-edit"></i> <!-- Ícono de actualizar -->
+              <i class="fas fa-edit"></i> 
             </button>
           </td>
           <td>
             <button style="border: none; background: transparent;" (click)="eliminarCarrera(carrera.carrera_id)">
-              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+              <i class="fas fa-trash-alt"></i> 
             </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
 </body>
 <app-footer></app-footer>
 

@@ -20,8 +20,8 @@ export class AsignaturaComponent implements OnInit{
   asignaturas:Asignatura[] = [];
   urlEndPoint_3: any;
   http: any;
-  isLoading: boolean = true; // Nueva propiedad para rastrear si la carga está en progreso
-  usuFiltradas: Asignatura[] = [];  // Nuevo array para las jornadas filtradas
+  isLoading: boolean = true; 
+  usuFiltradas: Asignatura[] = [];  
   todasLasusu: Asignatura[] = [];
   
   modalRef: BsModalRef | undefined;
@@ -45,7 +45,7 @@ export class AsignaturaComponent implements OnInit{
           },
           error => {
             console.error('Error al cargar las asignaturas:', error);
-            this.isLoading = false; // Marcar la carga como completa en caso de error
+            this.isLoading = false; 
           }
         );
       }
@@ -53,8 +53,8 @@ export class AsignaturaComponent implements OnInit{
         this.AsignaturaService.getasignaturaId(asigg_id).subscribe(
           data => {
             this.asignatura = data;
-            console.log(data); // Muestra la respuesta en la consola
-            this.eliminarasignatura(this.asignatura.asignatura_id);  // Llamada a la función para abrir el modal
+            console.log(data); 
+            this.eliminarasignatura(this.asignatura.asignatura_id);  
           },
           error => {
             console.error(error);
@@ -63,7 +63,7 @@ export class AsignaturaComponent implements OnInit{
       }
       arirModalActualizar(asignatura: Asignatura) {
         const initialState = {
-          asignatura: asignatura,  // Cambié 'jornada_Id' a 'jornada' para pasar el objeto completo
+          asignatura: asignatura,  
         };
             this.asignatura= asignatura;
         this.cargarLista;
@@ -72,15 +72,14 @@ export class AsignaturaComponent implements OnInit{
       }
       eliminarasignatura(asiganatura_id: number): void {
         if (confirm('¿Estás seguro de que deseas eliminar esta asignatura?')) {
-          // Llama al servicio para eliminar el rol
           this.AsignaturaService.deleteA(asiganatura_id).subscribe(
             data => {
               console.log('Asignatura eliminado con éxito:', data);
-              // Aquí puedes realizar acciones adicionales después de la eliminación
+              location.reload();
+
             },
             error => {
               console.error('Error al eliminar :', error);
-              // Manejar el error según sea necesario
             }
             
           );
@@ -95,7 +94,7 @@ export class AsignaturaComponent implements OnInit{
         if (this.textoBusqueda.trim() !== '' ) {
           this.asignaturas = this.asignaturas.filter((asignatura: Asignatura) => this.usuMatchesSearch(asignatura));
         } else {
-          this.cargarLista(); // Vuelve a cargar todas las jornadas
+          this.cargarLista(); 
         }
       }
   }

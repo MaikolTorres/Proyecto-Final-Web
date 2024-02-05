@@ -1,30 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
+  font-family: Century Gothic,Arial,Helvetica,sans-serif;
+  background-color: rgb(255, 255, 255);
+  margin: 0; /* Elimina el margen predeterminado del cuerpo */
   padding: 0;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+  overflow: hidden;
+  position: relative;
 }
 
 h2 {
   text-align: center;
   color: #333;
-  margin-top: 50px;
-
 }
 
 .button-container {
   display: flex;
-  position: absolute; /* Posiciona los botones de forma absoluta */
+  position: absolute;/* Posiciona los botones de forma absoluta */
   left: 450px; /* Posición horizontal */
-  top: 210px; /* Posición vertical */
-  margin-top: 60px;
+  top: 150px; /* Posición vertical */
+  z-index: 1;
 }
 
 .button1,
 .button2 {
-  background-color: #46adfa; /* Verde */
-  color: #fff;
+  background-color: #013f7e; /* Verde */
+  color: #ffffff;
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -44,10 +48,10 @@ h2 {
 }
 
 .buscar-container {
-  position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
+   position: absolute;/* Posiciona el campo de búsqueda de forma absoluta */
   right: 450px; /* Posición horizontal */
-  top: 210px; /* Posición vertical */
-  margin-top: 60px;
+  top: 150px; /* Posición vertical */
+  z-index: 1;
 }
 
 .buscar {
@@ -60,14 +64,17 @@ h2 {
 .table-container {
   width: 80%; /* Ajusta el ancho de la tabla */
   margin: 0 auto; /* Centra la tabla horizontalmente */
-  position: absolute; /* Posiciona la tabla de forma absoluta */
+   position: absolute;/* Posiciona la tabla de forma absoluta */
   left: 50%; /* Posición horizontal */
-  top: 290px; /* Posición vertical */
+  top: 200px; /* Posición vertical */
   transform: translateX(-50%); /* Centra horizontalmente la tabla */
   overflow-y: auto; /* Agrega scroll vertical si es necesario */
   max-height: 500px; /* Altura máxima del contenedor */
   overflow-x: hidden; /* Oculta el scroll horizontal */
-  margin-top: 60px;
+  margin-top: 80px;
+  z-index: 1;
+  background-color: #ffffff;
+  max-height: 350px; /* Tamaño fijo para la tabla */
 }
 
 .titulo-table {
@@ -81,7 +88,7 @@ h2 {
 .titulo-table th {
   position: sticky;
   top: 0;
-  background-color: #fff; /* Fondo blanco para que el encabezado sea visible */
+  background-color: rgba(0,0,0,.125);; /* Fondo blanco para que el encabezado sea visible */
   z-index: 2; /* Asegura que el encabezado esté por encima del contenido de la tabla */
 }
 
@@ -98,4 +105,117 @@ h2 {
 
 .table-container table {
   width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
+}
+
+
+/* burbujas */
+
+.burbuja{
+  border-radius: 50%;
+  background: #c8d7ff;
+  opacity: .3;
+  position: absolute;
+  bottom: -150;
+  animation: burbujas 5s alternate infinite ;
+  
+}
+
+.burbuja:nth-child(1){
+  width: 80px;
+  height: 80px;
+  left: 5%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(2){
+  width: 100px;
+  height: 100px;
+  left: 35%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(3){
+  width: 60px;
+  height: 60px;
+  left: 15%;
+  animation-duration: 2.5s;
+}
+
+.burbuja:nth-child(4){
+  width: 50px;
+  height: 50px;
+  left: 90%;
+  animation-duration: 6s;
+}
+
+.burbuja:nth-child(5){
+  width: 70px;
+  height: 70px;
+  left: 65%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(6){
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  animation-duration: 3.5s;
+}
+
+.burbuja:nth-child(7){
+  width: 35px;
+  height: 35px;
+  left: 80%;
+  animation-duration: 4s;
+}
+
+.burbuja:nth-child(8){
+  width: 100;
+  height: 100px;
+  left: 52%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(9){
+  width: 65px;
+  height: 65px;
+  left: 51%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(10){
+  width: 80px;
+  height: 80px;
+  left: 89%;
+  animation-duration: 3s;
+}
+
+
+@keyframes burbujas{
+  0%{
+      bottom: 0;
+      opacity: 0;
+  }
+  30%{
+      transform: translateX(30px);
+  }
+  50%{
+      opacity: .4;
+  }
+  100%{
+      bottom: 100vh;
+      opacity: 0;
+  }
+}
+
+@keyframes movimiento{
+  0%{
+      transform: translateY(0);
+  }
+  50%{
+      transform: translateY(30px);
+  }
+  100%{
+      transform: translateY(0);
+  }
 }
