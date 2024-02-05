@@ -86,7 +86,7 @@ h2 {
 }
 
 /* Encabezado fijo */
-.persona-table th {
+.jornada-table th {
   position: sticky;
   top: 0;
   background-color: rgba(0,0,0,.125);; /* Fondo blanco para que el encabezado sea visible */

@@ -73,7 +73,7 @@ h2 {
   overflow-x: hidden; /* Oculta el scroll horizontal */
   margin-top: 80px;
   z-index: 1;
-  background-color: #ffffff;
+  background-color: #ffffff; 
   max-height: 350px; /* Tamaño fijo para la tabla */
 }
 
