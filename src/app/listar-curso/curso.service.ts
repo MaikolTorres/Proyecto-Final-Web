@@ -47,7 +47,6 @@ export class CursoService {
   }
 
   create(curso: Curso): Observable<Curso> {
-    console.log('Intentando crear curso:', curso);
     return this.http.post<Curso>(this.urlEndPoint_1, curso, { headers: this.httpHeaders })
   }
 
@@ -138,7 +137,7 @@ export class CursoService {
 
   getCursoByNombre(nombre: string): Observable<Curso> {
     return this.http.get<Curso[]>(this.urlEndPoint).pipe(
-      map(cursos => cursos.find(curso =>( curso.curso_nombre+' '+curso.curso_paralelo) === nombre) as Curso), 
+      map(cursos => cursos.find(curso =>( curso.curso_nombre+' '+curso.curso_paralelo+' / '+curso.modeloCarrera.carrera_nombre) === nombre) as Curso), 
       filter(curso => !!curso) 
     );
   }

@@ -13,7 +13,7 @@
 <body>
   <h2>Lista de Cursos</h2>
   <div class="button-container"> 
-    <button class="button1" routerLink="/crearasignatura">Crear</button>
+    <button class="button1" routerLink="/crearcurso">Crear</button>
   </div>
   
   <div class="buscar-container">
@@ -26,9 +26,9 @@
       <th>ID</th>
       <th>Nombre</th>
       <th>Paralelo</th>
-      <th>Periodo</th>
-      <th>Carrera</th>
       <th>Jornada</th>
+      <th>Carrera</th>
+      <th>Periodo</th>
       <th>Actualizar</th>
       <th>Eliminar</th>
 
@@ -42,8 +42,8 @@
       <td>{{ curso.curso_paralelo }}</td>
       <td>{{ curso.modeloJornada.jornada_nombre}}</td>
       <td>{{ curso.modeloCarrera.carrera_nombre}}</td>
-      <td>{{ curso.periodo.periodo_mes_inicio }} {{ curso.periodo.periodo_anio_inicio }} -
-        {{ curso.periodo.periodo_mes_fin }} {{ curso.periodo.periodo_anio_fin }}</td>
+      <td>{{curso.periodo.periodo_mes_inicio + ' ' + curso.periodo.periodo_anio_inicio + '-' +
+        curso.periodo.periodo_mes_fin + ' ' + curso.periodo.periodo_anio_fin}}</td>
    
       <td>
         <button style="border: none; background: transparent;" (click)="arirModalActualizar(curso)">

@@ -64,18 +64,7 @@ export class ActualizarAsignaturaModalComponent implements OnInit {
 
   }
 
-  probar(){
-    if (this.updateForm && this.updateForm.valid) {
-   const updatedAsig = this.updateForm.value;
-   updatedAsig.asignatura_id = this.asignatura?.asignatura_id || 0;
-   console.log('Datos que se van a enviar para actualizar:', updatedAsig); 
-
-   if (!updatedAsig.usu_id) {
-     console.error('Error: ID de asignatura no válido');
-     return;
-   }
- }
- }
+  
 
 
  loadCursos() {
