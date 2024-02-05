@@ -1,26 +1,47 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Usuario } from "../usuario/Usuario";
-import { Observable } from "rxjs/internal/Observable";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, throwError, catchError, BehaviorSubject, tap, map } from 'rxjs';
+import { LoginRequest } from './loginRequest';
+import { environment } from './environment';
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class LoginService {
+  providedIn: 'root'
+})
+export class LoginService {
 
-    private urlEndPoint: string = 'http://localhost:8080/api/usuario/listartabla'; // Ajusta la URL según tu backend
+  currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>("");
 
-    constructor(private http: HttpClient) { }
-  
-    login(usuario: string, password: string): Observable<boolean> {
-      // Aquí deberías enviar los datos de inicio de sesión al servidor
-      // y manejar la respuesta del servidor adecuadamente
-
-      const body = {
-        usuario: usuario,
-        password: password
-      };
-  
-      return this.http.post<boolean>(this.urlEndPoint, body);
-    }
+  constructor(private http: HttpClient) {
+    this.currentUserLoginOn = new BehaviorSubject<boolean>(sessionStorage.getItem("token") != null);
+    this.currentUserData = new BehaviorSubject<String>(sessionStorage.getItem("token") || '');
   }
+
+  login(credentials:LoginRequest): Observable<any> {
+    
+    return this.http.post<any>(environment.urlHost +"auth/login", credentials).pipe(
+      tap((userData) => {
+        sessionStorage.setItem("token", userData.token);
+        this.currentUserData.next(userData.token);
+        this.currentUserLoginOn.next(true);
+      }),
+      map((userData) => userData.token ), 
+      catchError(this.handleError)
+    );
+  }
+
+  logout(): void {
+    sessionStorage.removeItem("token");
+    this.currentUserData.next(''); 
+    this.currentUserLoginOn.next(false);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('Se ha producido un error', error);
+    } else {
+      console.error('Backend retornó el código de estado', error);
+    }
+    return throwError(() => new Error('Algo falló. Por favor, inténtelo nuevamente.'));
+  }
+}

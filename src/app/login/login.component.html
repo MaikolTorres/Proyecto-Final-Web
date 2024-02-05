@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <title>Iniciar Sesión</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Asegúrate de que la ruta al archivo CSS sea correcta -->
   <link rel="stylesheet" href="login.component.css">
   <meta name="robots" content="noindex, follow">
 </head>
@@ -16,25 +15,38 @@
       <div class="image-holder">
         <img src="assets/tec_azuay.png" alt="Logo de la aplicación">
       </div>
-      <!-- Agrega un evento (ngSubmit) al formulario para llamar al método redirectToSistemaAdministrativo() -->
-      <form class="form" (ngSubmit)="redirectToSistemaAdministrativo()">
+      <!-- Formulario Angular con funcionalidad de inicio de sesión -->
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
         <h2>Bienvenido</h2>
         <p class="txt-2">Sistema Gestion Administrativa</p>
         <div class="inputs">
-          <input type="text" class="box" placeholder="Ingresa tu usuario" />
-          <input type="password" class="box" placeholder="Ingresa tu contraseña" />
-
-
-          <button type="submit" routerLink="/persona">Iniciar Sesión  </button>
-          <a id="forgot-password" href="/recuperacion-contrasena">¿Olvidaste tu Contraseña?</a>
-          <!-- Agrega la directiva ngModel para enlazar los campos de entrada a las propiedades del componente Angular -->
-         
-         
+          <!-- Campo de usuario -->
+          <div class="mb-3">
+            <label for="exampleInputUsername" class="form-label">Nombre de usuario</label>
+            <input formControlName="username" type="text" class="form-control" id="exampleInputUsername">
+            <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" class="text-danger">
+              <div *ngIf="loginForm.get('username')?.errors?.['required']">
+                El nombre de usuario es requerido.
+              </div>
+            </div>
+          </div>
+          <!-- Campo de contraseña -->
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+            <input formControlName="usu_contrasena" type="password" class="form-control" id="exampleInputPassword1">
+            <div *ngIf="loginForm.get('usu_contrasena')?.invalid && (loginForm.get('usu_contrasena')?.dirty || loginForm.get('usu_contrasena')?.touched)" class="text-danger">
+              <div *ngIf="loginForm.get('usu_contrasena')?.errors?.['required']">
+                La contraseña es requerida.
+              </div>
+            </div>
+          </div>
+          <!-- Botón de inicio de sesión -->
+          <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
         </div>
       </form>
     </div>
   </div>
-
 </body>
 
 </html>
+
