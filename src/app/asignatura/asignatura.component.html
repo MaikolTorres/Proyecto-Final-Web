@@ -25,7 +25,7 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Hora Clase semanal</th>
-        <th>Curso</th>
+        <th>Curso    -    Carrera</th>
         <th>Docente</th>
         <th>Actualizar</th>
         <th>Eliminar</th>
@@ -36,7 +36,7 @@
         <td>{{ asignatura.asignatura_id }}</td>
         <td>{{ asignatura.asignatura_nombre }}</td>
         <td>{{ asignatura.asignatura_horas_clase_semana }}</td>
-        <td>{{ asignatura.curso.curso_nombre+' '+asignatura.curso.curso_paralelo}}</td>
+        <td>{{ asignatura.curso.curso_nombre+' '+asignatura.curso.curso_paralelo+' / '+asignatura.curso.modeloCarrera.carrera_nombre}}</td>
         <td>{{ asignatura.modeloDocente.persona.per_primer_nombre  +' '+asignatura.modeloDocente.persona.per_apellido_paterno}}</td>
         <td>
           <button style="border: none; background: transparent;" (click)="arirModalActualizar(asignatura)">
