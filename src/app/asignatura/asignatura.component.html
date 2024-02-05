@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Asignaturas</title>
-  <link rel="stylesheet" href="asignatura.component.css">
-</head>
-
   <app-header></app-header>
   
 <body>
   <h2>Lista de Asignaturas</h2>
   <div class="button-container">
-    <button class="button1" routerLink="/crearasignatura">Crear</button>
-  </div>
-    <div class="buscar-container"> 
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por usuario" (input)="buscar()" />
+    <div>
+      <button class="button1" routerLink="/crearasignatura">
+        <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+      </button>
     </div>
+  </div>
+  
+  <div class="buscar-container">
+    <div>
+      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por cedula" (input)="buscar()" />
+      <button style="border: none; background: transparent;">
+        <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+      </button>
+    </div>
+  </div>
+  
     <div class="table-container">
-  <table class="asigg-table">
+  <table class="asignatura-table">
     <thead>
       <tr>
         <th>ID</th>
@@ -51,6 +55,19 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="burbujas">
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
+  <div class="burbuja"></div>
 </div>
 
 </body>
