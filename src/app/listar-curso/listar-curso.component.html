@@ -1,64 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Asignaturas</title>
-  <link rel="stylesheet" href="listar-curso.component.css">
-</head>
+<app-header></app-header>
 
-  <app-header></app-header>
-  
 <body>
   <h2>Lista de Cursos</h2>
-  <div class="button-container"> 
-    <button class="button1" routerLink="/crearcurso">Crear</button>
+  <div class="button-container">
+    <button class="button1" routerLink="/crearcurso">
+      <i class="fas fa-save"></i> Agregar <!-- Ícono de guardar -->
+    </button>
   </div>
-  
+
   <div class="buscar-container">
-    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por usuario" (input)="buscar()" />
+    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por curso" (input)="buscar()" />
+    <button style="border: none; background: transparent;">
+      <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+    </button>
   </div>
+
   <div class="table-container">
-<table class="asigg-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Paralelo</th>
-      <th>Jornada</th>
-      <th>Carrera</th>
-      <th>Periodo</th>
-      <th>Actualizar</th>
-      <th>Eliminar</th>
+    <table class="curso-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Paralelo</th>
+          <th>Jornada</th>
+          <th>Carrera</th>
+          <th>Periodo</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
 
-    </tr>
-  </thead>
-  <tbody>
+        </tr>
+      </thead>
+      <tbody>
 
-    <tr *ngFor="let curso of cursos">
-      <td>{{ curso.curso_id }}</td>
-      <td>{{ curso.curso_nombre }}</td>
-      <td>{{ curso.curso_paralelo }}</td>
-      <td>{{ curso.modeloJornada.jornada_nombre}}</td>
-      <td>{{ curso.modeloCarrera.carrera_nombre}}</td>
-      <td>{{curso.periodo.periodo_mes_inicio + ' ' + curso.periodo.periodo_anio_inicio + '-' +
-        curso.periodo.periodo_mes_fin + ' ' + curso.periodo.periodo_anio_fin}}</td>
-   
-      <td>
-        <button style="border: none; background: transparent;" (click)="arirModalActualizar(curso)">
-          <i class="fas fa-pencil-alt"></i>
-        </button>
-      </td>
-      <td>
-        <button style="border: none; background: transparent;" (click)="eliminarcurso(curso.curso_id)">
-          <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
+        <tr *ngFor="let curso of cursos">
+          <td>{{ curso.curso_id }}</td>
+          <td>{{ curso.curso_nombre }}</td>
+          <td>{{ curso.curso_paralelo }}</td>
+          <td>{{ curso.modeloJornada.jornada_nombre}}</td>
+          <td>{{ curso.modeloCarrera.carrera_nombre}}</td>
+          <td>{{curso.periodo.periodo_mes_inicio + ' ' + curso.periodo.periodo_anio_inicio + '-' +
+            curso.periodo.periodo_mes_fin + ' ' + curso.periodo.periodo_anio_fin}}</td>
+
+          <td>
+            <button style="border: none; background: transparent;" (click)="arirModalActualizar(curso)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="eliminarcurso(curso.curso_id)">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
 
 </body>
 <app-footer></app-footer>

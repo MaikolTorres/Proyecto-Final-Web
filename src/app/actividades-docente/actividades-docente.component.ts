@@ -8,6 +8,8 @@ import { ExtraActividades } from '../extra-actividades/extra-actividades';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AsignaturaService } from '../asignatura/asignatura.service';
+import { ExtraActividadesService } from '../extra-actividades/extra-actividades.service';
 
 @Component({
   selector: 'app-actividades-docente',
@@ -15,162 +17,189 @@ import { Observable } from 'rxjs';
   styleUrls: ['./actividades-docente.component.css']
 })
 export class ActividadesDocenteComponent implements OnInit {
-  @Input() actividad: ActividadesDocente | undefined;
+  @Input() actDocente: ActividadesDocente | undefined;
   actividoc_id: number | undefined;
   updateForm!: FormGroup;
-  actividad1: ActividadesDocente[] = [];
 
-  asignatura: Asignatura[] = [];
+  actDocente1: ActividadesDocente[] = [];
+  nuevaActDoc: ActividadesDocente = new ActividadesDocente();
+
+
+
   asignatura1: Asignatura[] = [];
+  createasignatura: Asignatura= new Asignatura();
+  public  nombreAsignaturaSelecionada: string = '';
   
-  extra: ExtraActividades[] = [];
-  extra1: ExtraActividades[] = [];
-  
+
+  extraActvidad1: ExtraActividades[] = [];
+  createextraActividad: ExtraActividades= new ExtraActividades();
+  public  nombreExtraActSeleecionada: string = '';
 
 
   isLoading: boolean = true;
-  nuevoActi: ActividadesDocente = new ActividadesDocente();
   botonDesactivado: boolean = false;
 
-  constructor(
+  actividoc_nombre_actividad: string = '';
+  actividoc_horas_docencia: number = 0;
+
+
+
+
+  constructor(private actDocService: ActividadesDocenteService, private router: Router,
     public modalRef: BsModalRef,
     private fb: FormBuilder,
-    private actividadService: ActividadesDocenteService,
     private http: HttpClient,
-    private router: Router
-  ) {
+    private asigService: AsignaturaService,
+    private extraService: ExtraActividadesService,
 
+  ) {
+    this.createForm();
 
   }
 
   ngOnInit() {
     this.createForm();
-    
-    this.cargarAsignaturas();
-    this.cargarListaAs();
+    this.cargarAsignatura();
+    this.cargarListaAsi();
 
     this.cargarExtras();
-    this.cargarListaExtr();
-
-    this.loadGradoDetails();
+    this.cargarListaExtra();
 
   }
+  initializeForm() {
+    this.createForm();
+  }
 
+
+
+  getAsignaturas(): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>('http://localhost:8080/asignatura');
+  }
+
+  cargarAsignatura() {
+    this.getAsignaturas().subscribe((asignaturas) => (this.asignatura1 = asignaturas));
+  }
+
+
+  getExtra(): Observable<ExtraActividades[]> {
+    return this.http.get<ExtraActividades[]>('http://localhost:8080/extrasactividades');
+  }
+
+  cargarExtras() {
+    this.getExtra().subscribe((extras) => (this.extraActvidad1 = extras));
+  }
 
   createForm() {
     this.updateForm = this.fb.group({
       actividoc_nombre_actividad: ['', Validators.required],
-      actividoc_horas_docencia: ['', Validators.required], // Corregir el nombre del campo
+      actividoc_horas_docencia: ['', Validators.required],
       asignatura_id: ['', Validators.required],
-      extraactividad_id: ['', Validators.required]
+      extra_id: ['', Validators.required],
     });
   }
 
 
-  getAsignatura(): Observable<Asignatura[]> {
-    return this.http.get<Asignatura[]>('http://localhost:8080/asignatura');
-  }
 
-  cargarAsignaturas() {
-    this.getAsignatura().subscribe((asignaturas) => (this.asignatura = asignaturas));
-  }
-
-
-  getExtrass(): Observable<ExtraActividades[]> {
-    return this.http.get<ExtraActividades[]>('http://localhost:8080/docente');
-  }
-
-  cargarExtras() {
-    this.getExtrass().subscribe((extras) => (this.extra = extras));
-  }
-
-
-
-  loadGradoDetails() {
-    if (this.actividad && this.actividad.actividoc_id) {
-      this.actividoc_id = this.actividad.actividoc_id;
-      this.actividadService.getactividadId(this.actividoc_id).subscribe(
-        (curso: ActividadesDocente) => {
-          this.updateForm.patchValue({
-            actividoc_nombre: curso.actividoc_nombre_actividad,
-            actividoc_nombre_horas: curso.actividoc_horas_docencia,
-            asignatura_id: curso.modeloAsignaturas.asignatura_id,
-            extra_id: curso.modeloExtrasActividades.extra_id,
-          });
-        },
-        (error) => {
-          console.error('Error al cargar detalles del curso:', error);
-        }
-      );
-    }
-  }
-
-
-  cargarListaAs(): void {
-    this.actividadService.getasiggg().subscribe(
-      (asid) => {
-        this.asignatura1 = asid;
+  cargarListaAsi(): void {
+    this.actDocService.getasiggg().subscribe(
+      asignaturas => {
+        this.asignatura1 = asignaturas;
         this.isLoading = false;
+        console.log('Asignaturas cargados exitosamente:', asignaturas);
       },
-      (error) => {
+      error => {
         console.error('Error al cargar las asignaturas:', error);
         this.isLoading = false;
       }
     );
   }
 
-  cargarListaExtr(): void {
-    this.actividadService.getextrasss().subscribe(
-      (docc) => {
-        this.extra1 = docc;
+
+  cargarListaExtra(): void {
+    this.actDocService.getextrasss().subscribe(
+      extra => {
+        this.extraActvidad1 = extra;
         this.isLoading = false;
+        console.log('Actividad extra cargados exitosamente:', extra);
       },
-      (error) => {
-        console.error('Error al cargar los actividades extras:', error);
+      error => {
+        console.error('Error al cargar las actividades extras:', error);
         this.isLoading = false;
       }
     );
   }
-  
-  
 
-  crearAct() {
-    this.botonDesactivado = true;
-  
-    const formData = this.updateForm.value;
-  
-    this.actividadService.createActividades(formData).subscribe(
-      (response) => {
-        // Éxito
-        console.log('Usuario creado exitosamente:', response);
-        // Resto de la lógica después de la creación exitosa
-  
-        // Cerrar la ventana después de guardar la jornada
-        window.close();
-      },
-      (error) => {
-        // Manejo de errores
-        console.error('Error al crear el actividad:', error);
-        if (error.status === 401) {
-          // Redirigir al usuario a la página de inicio de sesión
-          this.router.navigate(['/login']);
-        } else if (error.error && error.error.error) {
-          // Muestra el mensaje de error específico del servidor al usuario
-          alert(error.error.error);
+  onAsigSelected(event: any) {
+    this.nombreAsignaturaSelecionada = event.target.value;
+    const nombre = this.nombreAsignaturaSelecionada;
+    this.asigService.getAsignaturaByName(nombre).subscribe(
+      (asignatura: Asignatura | undefined) => {
+        if (asignatura) {
+          
+        
+          this.createasignatura=asignatura;
+          console.log('Asignatura encontrado:',  this.createasignatura);
+
         } else {
-          // Muestra un mensaje de error genérico al usuario
-          alert('Error al crear la actividad. Por favor, inténtelo de nuevo.');
+          console.log('Asignatura no encontrado');
         }
+      },
+      (error) => {
+        console.error('Error al obtener la asignatura:', error);
+      }
+    );
+  }
+
   
-        // Reactivar el botón después de un error
-        this.botonDesactivado = false;
+
+  onExtraSelected(event: any) {
+    this.nombreExtraActSeleecionada = event.target.value;
+    const nombre = this.nombreExtraActSeleecionada;
+    this.extraService.getExtraByName(nombre).subscribe(
+      (extra: ExtraActividades | undefined) => {
+        if (extra) {
+          
+        
+          this.createextraActividad=extra;
+          console.log('Actividad extra encontrado:',  this.createextraActividad);
+
+        } else {
+          console.log('Actividad no encontrado');
+        }
+      },
+      (error) => {
+        console.error('Error al obtener la actividad:', error);
       }
     );
   }
 
 
+
+  crearActividad() {
+    this.nuevaActDoc.modeloAsignaturas = this.createasignatura;
+    this.nuevaActDoc.modeloExtrasActividades = this.createextraActividad;
+
+    this.nuevaActDoc.actividoc_nombre_actividad = this.actividoc_nombre_actividad;
+    this.nuevaActDoc.actividoc_horas_docencia = this.actividoc_horas_docencia;
+    this.actDocService.createActividades(this.nuevaActDoc).subscribe(
+      (response) => {
+
+        console.log('Actividad creado exitosamente:', response);
+        this.router.navigate(['/listar-actividades-docente']);
+        
+      },
+      (error) => {
+        console.error('Error al crear la actividad:', error);
+      }
+    );
+  }
+
+  
   cancelar(): void {
     this.router.navigate(['/listar-actividades-docente']);
   }
-}
 
+
+
+
+}

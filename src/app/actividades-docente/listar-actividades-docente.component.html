@@ -26,22 +26,20 @@
         <th>Nombre</th>
         <th>Horas Docencia</th>
         <th>Asignatura</th>
-        <th>Actividades Extra</th>
+        <th>Actividades: Proyectos de investigacion - Gestión académica</th>
         <th>Actualizar</th>
         <th>Eliminar</th>
-        <!-- Puedes agregar más columnas según tus necesidades -->
       </tr>
     </thead>
     <tbody>
-      <!-- Aquí irán las filas de la tabla con datos de usuarios -->
       <tr *ngFor="let actividad of actividades">
         <td>{{ actividad.actividoc_id }}</td>
         <td>{{ actividad.actividoc_nombre_actividad }}</td>
         <td>{{ actividad.actividoc_horas_docencia }}</td>
         <td>{{ actividad.modeloAsignaturas.asignatura_nombre}}</td>
-        <td>{{ actividad.modeloExtrasActividades.extra_nombre_proyecto_investigacion}}</td>
+        <td>{{ actividad.modeloExtrasActividades.extra_nombre_proyecto_investigacion+' / '+actividad.modeloExtrasActividades.extra_detalle_hora_gestion_academico}}</td>
         <td>
-          <button style="border: none; background: transparent;" (click)="arirModalActualizar(actividad)">
+          <button style="border: none; background: transparent;" (click)="abrirModalActualizar(actividad)">
             <i class="fas fa-pencil-alt"></i>
           </button>
         </td>

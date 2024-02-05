@@ -59,6 +59,7 @@ import { ActividadesDocenteComponent } from './actividades-docente/actividades-d
 
 import { ListarCarreraComponent } from './carrera/listar-carrera.component';
 import { CrearCarreraComponent } from './carrera/crear-carrera.component';
+import { DatePipe } from '@angular/common';
 
 import { CrearPeriodoComponent } from './periodos/crear-periodo.component';
 import { ListarPeriodoComponent } from './periodos/listar-periodo.component';
@@ -235,8 +236,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     
   ],
-  providers: [],
+  providers: [DatePipe], // Agrega DatePipe a la lista de proveedores
+
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}
 

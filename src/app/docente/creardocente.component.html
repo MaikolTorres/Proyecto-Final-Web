@@ -6,19 +6,19 @@
     <link rel="stylesheet" href="creardocente.component.css">
     <title>Crear Docentes</title>
 </head>
-<app-header></app-header>
 <body>
+    <app-header></app-header>
+
     <div class="container">
-        <h2>Crear Nuevo Docente</h2>
-        <form class="formulario" (ngSubmit)="crearDocente()" >
+        <form [formGroup]="updateForm" class="formulario" (ngSubmit)="crearDocente()">
             <div class="contenedor_formulario">
-                <div class="mb-3">
-                    <label for="fechaIngreso">Fecha de Ingreso</label>
-                    <input type="date" class="form-control" id="fechaIngreso" formControlName="fechaIngreso" required>
+                <div class="mb-3" >
+                    <label for="docente_fecha_ingreso">Fecha de Ingreso</label>
+<input formControlName="docente_fecha_ingreso" type="date" class="form-control">
                 </div>
-                <div class="mb-3">
-                    <label for="estado">Estado:</label>
-                    <select class="form-control" id="estado" formControlName="estado" required>
+                <div class="mb-3" >
+                    <label for="docente_estado">Estado:</label>
+                    <select class="form-control" id="docente_estado" formControlName="docente_estado"required [(ngModel)]="docente_estado" (change)="onDocenteEstadoChange($event)" >
                         <option value="activo">Activo</option>
                         <option value="inactivo">Inactivo</option>
                         <!-- Agrega más opciones según sea necesario -->
@@ -26,36 +26,35 @@
                 </div>
 
                 <label for="per_id"> per_id :</label>
-                <select class="form-control" id="per_id" formControlName="per_id" required [(ngModel)]="cedulaSeleccionada" (change)="onCedulaSelected($event)">
-                    <option *ngFor="let persona of persona1" [value]="persona.per_cedula">{{ persona.per_cedula }}</option>
+                <select class="form-control" id="per_id" formControlName="per_id"   (change)="onCedulaSelected($event)" required >
+                    <option *ngFor="let persona of persona1">{{ persona.per_cedula }}</option>
                 </select>
                 <label for="tipo_id">Tipo de Contrato:</label>
-                <select class="form-control" id="tipo_id" (change)="oncontratosSelected($event)" required>
-                    <option *ngFor="let tipo_contrato of tipocontrato1" [value]="tipo_contrato.tipo_contrato">{{ tipo_contrato.tipo_contrato }}</option>
+                <select class="form-control" id="tipo_id" formControlName="tipo_id" (change)="oncontratoSelected($event)" required>
+                  <option *ngFor="let tipo_contrato of tipocontrato1" [ngValue]="tipo_contrato.tipo_id">{{ tipo_contrato.tipo_contrato }}</option>
                 </select>
+                
+
 
                 <label for="cargo_id">Cargo:</label>
-                <select class="form-control" id="cargo_id" (change)="oncargoSelected($event)" required>
-                    <option *ngFor="let cargo of cargo1" [value]="cargo.cargo_nombre">{{ cargo.cargo_nombre }}</option>
+                <select class="form-control" id="cargo_id" formControlName="cargo_id"  (change)="oncargoSelected($event)" required>
+                    <option *ngFor="let cargo of cargo1" >{{ cargo.cargo_nombre }}</option>
                 </select>
 
                 <label for="titulo_id">Título:</label>
-                <select class="form-control" id="titulo_id" (change)="ontituloSelected($event)" required>
-                    <option *ngFor="let titulo of titulo1" [value]="titulo.titulo_nombre">{{ titulo.titulo_nombre }}</option>
+                <select class="form-control" id="titulo_id" formControlName="titulo_id"  (change)="ontituloSelected($event)" required>
+                    <option *ngFor="let titulo of titulo1" >{{ titulo.titulo_nombre }}</option>
                 </select>
 
                 <label for="periodo_id">Periodo:</label>
-                <select class="form-control" id="periodo_id" (change)="onperiodoSelected($event)" required>
-                    <option *ngFor="let periodo of periodo1" [value]="periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin">{{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}</option>
+                <select class="form-control" id="periodo_id" formControlName="periodo_id"  (change)="onperiodoSelected($event)" required>
+                    <option *ngFor="let periodo of periodo1" >{{ periodo.periodo_mes_inicio + ' ' + periodo.periodo_anio_inicio + '-' + periodo.periodo_mes_fin + ' ' + periodo.periodo_anio_fin }}</option>
                 </select>
 
                 <label for="grado_id">Grado Ocupasional:</label>
-                <select class="form-control" id="grado_id" (change)="ongradoSelected($event)" required>
-                    <option *ngFor="let grado of grado1" [value]="grado.grado_titulo">{{ grado.grado_titulo }}</option>
+                <select class="form-control" id="grado_id" formControlName="grado_id"  (change)="ongradoSelected($event)" required>
+                    <option *ngFor="let grado of grado1" >{{ grado.grado_titulo }}</option>
                 </select>
-            </div>
-
-            <div class="button-container">
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-check"></i> Registrar
                 </button>
@@ -63,6 +62,8 @@
                     <i class="fa fa-times"></i> Cancelar
                 </button>
             </div>
+
+                
         </form>
     </div>
 </body>

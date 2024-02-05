@@ -54,7 +54,7 @@ private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
   updateActividad(actividad: ActividadesDocente): Observable<ActividadesDocente> {
     const url = `http://localhost:8080/api/actividadesdocentes/actualizarActividadDocente/${actividad.actividoc_id}`;
     console.log('URL de actualización:', url);
-    return this.http.put<ActividadesDocente>(this.urlEndPoint_3, actividad);
+    return this.http.put<ActividadesDocente>(url, actividad);
   }
   
   
