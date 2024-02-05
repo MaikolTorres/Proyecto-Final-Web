@@ -1,46 +1,55 @@
 <div>
-    <app-header></app-header>
+  <app-header></app-header>
 
-    <body>
+  <body>
+    <div class="center-container">
+      <p class="txt-2">Listado de Actividades No Docentes</p>
 
-        <div class="center-container">
-            <p class="txt-2">Listado de Actividades No Docentes</p>
+      <div class="inputs">
+        <button routerLink="/actividades-no-docente">Crear</button>
+        <input type="text" class="box" placeholder="Buscar" />
+      </div>
 
-            <div class="inputs">
-                <button routerLink="/actividades-no-docente">Crear</button>
-                <button>Editar</button>
-                <input type="text" class="box" placeholder="Buscar" />
-            </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Id Actividad</th>
+            <th>Nombre Actividad</th>
+            <th>Número de Horas</th>
+            <th>Docente</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let actividad of nodocente">
+            <td>{{ actividad.activinodoc_id }}</td>
+            <td>{{ actividad.activinodoc_nombre }}</td>
+            <td>{{ actividad.activinodoc_num_horas }}</td>
+            <td>
+              {{
+                actividad.modeloDocente.persona.per_primer_nombre +
+                  " " +
+                  actividad.modeloDocente.persona.per_apellido_paterno
+              }}
+            </td>
+            <td>
+              <button
+                style="border: none; background: transparent"
+                (click)="abrirModalActualizar(actividad)"
+              >
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+            </td>
+            <!-- <td>
+          <button style="border: none; background: transparent;" (click)="eliminarasignatura(asignatura.asignatura_id)">
+            <i class="fas fa-trash-alt"></i> 
+          </button>
+        </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre Actividad</th>
-                        <th>Número de Horas</th>
-                        <th>Docente</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Actividad 1</td>
-                        <td>10</td>
-                        <td>Williams Trelles</td>
-                    </tr>
-                    <tr>
-                        <td>Actividad 2</td>
-                        <td>15</td>
-                        <td>Jessica Herrera</td>
-                    </tr>
-                    <tr>
-                        <td>Actividad 3</td>
-                        <td>8</td>
-                        <td>Diego Calé</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </body>
-
-    <app-footer></app-footer>
+  <app-footer></app-footer>
 </div>
