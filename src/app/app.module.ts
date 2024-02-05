@@ -70,7 +70,8 @@ import { ActualizarPeriodoModalComponent } from './periodos/actualizar-periodo-m
 import { ActualizarDocenteModalComponent } from './actividades-docente/actualizar-docente-modal/actualizar-docente-modal.component';
 import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
 import { ActuaizarDocenteModalComponent } from './docente/actuaizar-docente-modal/actuaizar-docente-modal.component';
-import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component'; 
+import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component';
+import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component'; 
 
 
 const routes: Routes = [
@@ -219,7 +220,8 @@ const routes: Routes = [
     ActualizarPeriodoModalComponent,
     ActuaizarDocenteModalComponent,
     
-    ActualizarTituloComponent
+    ActualizarTituloComponent,
+          ActualizarNoDocenteComponent
   ],
 
   imports: [
