@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PersonaComponent } from '../persona/persona.component';
 import { TipoContratoComponent } from '../tipo-contrato/tipo-contrato.component';
 import { CargoComponent } from '../cargo/cargo.component';
@@ -6,10 +6,11 @@ import { TituloComponent } from '../titulo/titulo.component';
 import { ListarPeriodoComponent } from '../periodos/listar-periodo.component';
 import { DocenteService } from './docente.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { Docente } from './docente';
 import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
 import { ActuaizarDocenteModalComponent } from './actuaizar-docente-modal/actuaizar-docente-modal.component';
+import { PeriodosComponent } from '../periodos/periodos.component';
 
 @Component({
   selector: 'app-docente',
@@ -17,11 +18,16 @@ import { ActuaizarDocenteModalComponent } from './actuaizar-docente-modal/actuai
   styleUrls: ['./docente.component.css']
 })
 export class DocenteComponent implements OnInit {
+  
+  @Input() docente: Docente | undefined;
+  Docente: number | undefined;
+  updateForm!: FormGroup;
+
   persona: PersonaComponent | undefined;
   tipo_con: TipoContratoComponent | undefined
   cargo: CargoComponent | undefined;
   titulo: TituloComponent | undefined;
-  periodo: ListarPeriodoComponent | undefined;
+  periodo: PeriodosComponent | undefined;
   grado: GradoOcupacional | undefined;
   [x: string]: any;
   docentes: Docente[] = [];
@@ -32,7 +38,6 @@ export class DocenteComponent implements OnInit {
   todasLadocentes: Docente[] = [];
 
   modalRef: BsModalRef | undefined;
-  docente: Docente | undefined;
   constructor(private docente_service: DocenteService, private modalService: BsModalService) { }
 
   ngOnInit(): void {

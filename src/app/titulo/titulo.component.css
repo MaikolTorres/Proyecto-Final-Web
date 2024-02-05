@@ -74,6 +74,7 @@ h2 {
   margin-top: 80px;
   z-index: 1;
   background-color: #ffffff;
+  max-height: 350px; /* Tamaño fijo para la tabla */
 }
 
 .titulo-table {
