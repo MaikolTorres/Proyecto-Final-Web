@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { ExtraActividades } from './extra-actividades';
 
 @Injectable({
@@ -41,4 +41,12 @@ export class ExtraActividadesService {
       console.log('URL de actualización:', url);
       return this.http.put<ExtraActividades>(url, extra);
 }
+
+getExtraByName(nombre: string): Observable<ExtraActividades> {
+  return this.http.get<ExtraActividades[]>(this.urlEndPoint).pipe(
+    map(extras => extras.find(extra => (extra.extra_nombre_proyecto_investigacion+' / '+extra.extra_detalle_hora_gestion_academico) === nombre) as ExtraActividades),
+    filter(extra => !!extra) 
+  );
+}
+
 }
