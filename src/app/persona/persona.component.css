@@ -48,7 +48,7 @@ h2 {
 }
 
 .buscar-container {
-   position: absolute;/* Posiciona el campo de búsqueda de forma absoluta */
+  position: absolute;/* Posiciona el campo de búsqueda de forma absoluta */
   right: 450px; /* Posición horizontal */
   top: 150px; /* Posición vertical */
   z-index: 1;
@@ -74,6 +74,7 @@ h2 {
   margin-top: 80px;
   z-index: 1;
   background-color: #ffffff;
+  max-height: 350px; /* Tamaño fijo para la tabla */
 }
 
 .persona-table {
