@@ -12,7 +12,7 @@ import { throwError } from 'rxjs';
 })
 export class UsuarioService {
   private urlEndPoint: string = 'http://localhost:8080/api/usuario/listar';
-  private urlEndPoint_1: string = 'http://localhost:8080/api/usuario/guardar';
+  private urlEndPoint_1: string = 'http://localhost:8080/auth/register';
   private urlPersonas: string = 'http://localhost:8080/personas/listar';
   private urlEndPoint_2: string = 'http://localhost:8080/api/personas/listar';
   private urlEndPoint_3: string = 'http://localhost:8080/api/roles/listar';
