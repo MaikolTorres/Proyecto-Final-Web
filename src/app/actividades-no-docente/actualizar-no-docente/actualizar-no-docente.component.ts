@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActividadesDocente } from 'src/app/actividades-docente/actividades-docente';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Docente } from 'src/app/docente/docente';
 import { ActividadesNoDocente } from '../actividades-no-docente';
 import { ActividadNoDocenteService } from '../actividad-no-docente.service';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { DocenteService } from 'src/app/docente/docente.service';
 
@@ -26,7 +23,7 @@ export class ActualizarNoDocenteComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  public actividad_idreceptor: number = 0;
+  public actividadND_idreceptor: number = 0;
   public docente_idreceptor: number = 0;
   public actividad_nombre_receptor: string = '';
   public actividad_horas_receptor: number = 0;
@@ -35,9 +32,8 @@ export class ActualizarNoDocenteComponent implements OnInit {
     public modalRef: BsModalRef,
     private fb: FormBuilder,
     private actividadService: ActividadNoDocenteService,
-    private http: HttpClient,
-    private router: Router,
     private docenteService: DocenteService
+
   ) {
     ///primero se debe inicializar antes de asignarles los valores
     this.actividad2.modeloDocente = new Docente();
@@ -45,14 +41,27 @@ export class ActualizarNoDocenteComponent implements OnInit {
 
   ngOnInit() {
     this.loadDocentes();
+    this.createForm();
     this.populateFormWithJornadaData();
   }
+
+
+  createForm() {
+    this.updateForm = this.fb.group({
+      activinodoc_nombre: ['', Validators.required],
+      activinodoc_num_horas: ['', Validators.required],
+      docente_id: ['', Validators.required],
+    });
+  }
+
 
   ondocenteSelected(event: any) {
     const selectedDocenteId = event.target.value;
     console.log('ID de docente seleccionada:', selectedDocenteId);
     this.docente_idreceptor = selectedDocenteId;
   }
+
+
   loadDocentes() {
     this.docenteService.getDocentes().subscribe(
       (docentes: Docente[]) => {
@@ -90,11 +99,11 @@ export class ActualizarNoDocenteComponent implements OnInit {
     if (this.updateForm && this.updateForm.valid) {
       const updatedAct = this.updateForm.value;
       updatedAct.activinodoc_id = this.actividad?.activinodoc_id || 0;
-      this.actividad_idreceptor = updatedAct.activinodoc_id;
+      this.actividadND_idreceptor = updatedAct.activinodoc_id;
       this.docente_idreceptor = updatedAct.docente_id;
 
       if (!updatedAct.activinodoc_id) {
-        console.error('Error: ID de usuario no válido');
+        console.error('Error: ID no válido');
         return;
       }
 
@@ -110,7 +119,7 @@ export class ActualizarNoDocenteComponent implements OnInit {
         'Se enviará horas_idreceptor:',
         this.actividad_horas_receptor
       );
-      this.actividad2.activinodoc_id = this.actividad_idreceptor;
+      this.actividad2.activinodoc_id = this.actividadND_idreceptor;
       this.actividad2.activinodoc_nombre = this.actividad_nombre_receptor;
       this.actividad2.activinodoc_num_horas = this.actividad_horas_receptor;
       this.actividad2.modeloDocente.docente_id = this.docente_idreceptor;
