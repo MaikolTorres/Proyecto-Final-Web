@@ -1,66 +1,334 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
-/*Estilos formulario */
-
-* {
-  margin: 0;
-  box-sizing: border-box;
+body {
+  font-family: Century Gothic,Arial,Helvetica,sans-serif;
+  background-color: rgb(255, 255, 255);
+  margin: 0; /* Elimina el margen predeterminado del cuerpo */
   padding: 0;
-  font-family: "Poppins", sans-serif;
-}
-/* estilos de las tablas */
-.center-container {
-  padding-top: 50px;
-  width: 90%;
-  height: 300px;
-  margin: 0 auto;
-}
-.inputs button {
-  width: 130px;
-  height: 35px;
-  margin-top: 20px;
-  margin-right: 30px;
-  border: 0;
-}
-.button1 {
-  background-color: #46adfa;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-}
-.button2 {
-  background-color: #e70027;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-}
-.inputs input {
-  width: 300px;
-  height: 35px;
-  padding: 5px;
-}
-table {
-  margin-top: 20px;
   width: 100%;
-  /* height: 100vh; */
+  height: 100vh;
+  padding-top: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+h2 {
   text-align: center;
-  border: 1px solid black;
+  color: #333;
 }
-th,
-tr,
-thead,
-tbody,
-td {
-  border: 1px solid black;
+
+.button-container {
+  display: flex;
+  position: absolute;/* Posiciona los botones de forma absoluta */
+  left: 450px; /* Posición horizontal */
+  top: 150px; /* Posición vertical */
+  z-index: 1;
 }
-.fila {
-  background-color: #46adfa;
+
+.button1,
+.button2 {
+  background-color: #013f7e; /* Verde */
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  margin-right: 30px; /* Ajusta el espacio entre los botones */
+  font-size: 20px;
+  transition: background-color 0.3s ease; /* Agrega transición suave al color de fondo */
+}
+
+.button-container .button2 {
+  background-color: #e70027; /* Rojo */
+}
+
+.button-container button:hover {
+  background-color: #4CAF50; /* Cambia el color de fondo al pasar el mouse */
+  color: white;
+}
+
+.buscar-container {
+  position: absolute;/* Posiciona el campo de búsqueda de forma absoluta */
+  right: 450px; /* Posición horizontal */
+  top: 150px; /* Posición vertical */
+  z-index: 1;
+}
+
+.buscar {
+  padding: 10px 20px; /* Ajusta el relleno */
+  border-radius: 20px; /* Agrega bordes redondeados */
+  border: 2px solid #ccc;
+  font-size: 16px;
+}
+
+.table-container {
+  width: 80%; /* Ajusta el ancho de la tabla */
+  margin: 0 auto; /* Centra la tabla horizontalmente */
+   position: absolute;/* Posiciona la tabla de forma absoluta */
+  left: 50%; /* Posición horizontal */
+  top: 200px; /* Posición vertical */
+  transform: translateX(-50%); /* Centra horizontalmente la tabla */
+  overflow-y: auto; /* Agrega scroll vertical si es necesario */
+  max-height: 500px; /* Altura máxima del contenedor */
+  overflow-x: hidden; /* Oculta el scroll horizontal */
+  margin-top: 80px;
+  z-index: 1;
+  background-color: #ffffff;
+  max-height: 350px; /* Tamaño fijo para la tabla */
+}
+
+.acti-table {
+  width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+  border-collapse: collapse;
+  border-radius: 18px; /* Agrega bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+}
+
+/* Encabezado fijo */
+.acti-table th {
+  position: sticky;
+  top: 0;
+  background-color: rgba(0,0,0,.125);; /* Fondo blanco para que el encabezado sea visible */
+  z-index: 2; /* Asegura que el encabezado esté por encima del contenido de la tabla */
+}
+
+.acti-table th,
+.acti-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.acti-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-container table {
+  width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
+}
+
+
+/* burbujas */
+
+.burbuja{
+  border-radius: 50%;
+  background: #c8d7ff;
+  opacity: .3;
+  position: absolute;
+  bottom: -150;
+  animation: burbujas 5s alternate infinite ;
+  
+}
+
+.burbuja:nth-child(1){
+  width: 80px;
+  height: 80px;
+  left: 5%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(2){
+  width: 100px;
+  height: 100px;
+  left: 35%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(3){
+  width: 60px;
+  height: 60px;
+  left: 15%;
+  animation-duration: 2.5s;
+}
+
+.burbuja:nth-child(4){
+  width: 50px;
+  height: 50px;
+  left: 90%;
+  animation-duration: 6s;
+}
+
+.burbuja:nth-child(5){
+  width: 70px;
+  height: 70px;
+  left: 65%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(6){
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  animation-duration: 3.5s;
+}
+
+.burbuja:nth-child(7){
+  width: 35px;
   height: 35px;
+  left: 80%;
+  animation-duration: 4s;
 }
-tbody {
+
+.burbuja:nth-child(8){
+  width: 100;
+  height: 100px;
+  left: 52%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(9){
+  width: 65px;
+  height: 65px;
+  left: 51%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(10){
+  width: 80px;
+  height: 80px;
+  left: 89%;
+  animation-duration: 3s;
+}
+
+
+@keyframes burbujas{
+  0%{
+      bottom: 0;
+      opacity: 0;
+  }
+  30%{
+      transform: translateX(30px);
+  }
+  50%{
+      opacity: .4;
+  }
+  100%{
+      bottom: 100vh;
+      opacity: 0;
+  }
+}
+
+@keyframes movimiento{
+  0%{
+      transform: translateY(0);
+  }
+  50%{
+      transform: translateY(30px);
+  }
+  100%{
+      transform: translateY(0);
+  }
+}
+
+
+/* burbujas */
+
+.burbuja{
+  border-radius: 50%;
+  background: #c8d7ff;
+  opacity: .3;
+  position: absolute;
+  bottom: -150;
+  animation: burbujas 5s alternate infinite ;
+  
+}
+
+.burbuja:nth-child(1){
+  width: 80px;
+  height: 80px;
+  left: 5%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(2){
+  width: 100px;
+  height: 100px;
+  left: 35%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(3){
+  width: 60px;
+  height: 60px;
+  left: 15%;
+  animation-duration: 2.5s;
+}
+
+.burbuja:nth-child(4){
+  width: 50px;
+  height: 50px;
+  left: 90%;
+  animation-duration: 6s;
+}
+
+.burbuja:nth-child(5){
+  width: 70px;
+  height: 70px;
+  left: 65%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(6){
+  width: 40px;
+  height: 40px;
+  left: 50%;
+  animation-duration: 3.5s;
+}
+
+.burbuja:nth-child(7){
+  width: 35px;
   height: 35px;
+  left: 80%;
+  animation-duration: 4s;
+}
+
+.burbuja:nth-child(8){
+  width: 100;
+  height: 100px;
+  left: 52%;
+  animation-duration: 5s;
+}
+
+.burbuja:nth-child(9){
+  width: 65px;
+  height: 65px;
+  left: 51%;
+  animation-duration: 3s;
+}
+
+.burbuja:nth-child(10){
+  width: 80px;
+  height: 80px;
+  left: 89%;
+  animation-duration: 3s;
+}
+
+
+@keyframes burbujas{
+  0%{
+      bottom: 0;
+      opacity: 0;
+  }
+  30%{
+      transform: translateX(30px);
+  }
+  50%{
+      opacity: .4;
+  }
+  100%{
+      bottom: 100vh;
+      opacity: 0;
+  }
+}
+
+@keyframes movimiento{
+  0%{
+      transform: translateY(0);
+  }
+  50%{
+      transform: translateY(30px);
+  }
+  100%{
+      transform: translateY(0);
+  }
 }
