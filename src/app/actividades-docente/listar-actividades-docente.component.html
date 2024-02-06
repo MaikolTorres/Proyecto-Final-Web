@@ -8,51 +8,69 @@
   <link rel="stylesheet" href="listar-actividades-docente.component.css">
 </head>
 
-  <app-header></app-header>
-  
+<app-header></app-header>
+
 <body>
   <h2>Lista de Actividades Docentes</h2>
   <div class="button-container"> <!-- Botones -->
-    <button class="button1" routerLink="/actividades-docente">Crear</button>
+    <button class="button1" routerLink="/actividades-docente">Agregar</button>
   </div>
-    <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
-      <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por actividad" (input)="buscar()" />
-    </div>
-    <div class="table-container">
-  <table class="acti-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Horas Docencia</th>
-        <th>Asignatura</th>
-        <th>Actividades: Proyectos de investigacion - Gestión académica</th>
-        <th>Actualizar</th>
-        <th>Eliminar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let actividad of actividades">
-        <td>{{ actividad.actividoc_id }}</td>
-        <td>{{ actividad.actividoc_nombre_actividad }}</td>
-        <td>{{ actividad.actividoc_horas_docencia }}</td>
-        <td>{{ actividad.modeloAsignaturas.asignatura_nombre}}</td>
-        <td>{{ actividad.modeloExtrasActividades.extra_nombre_proyecto_investigacion+' / '+actividad.modeloExtrasActividades.extra_detalle_hora_gestion_academico}}</td>
-        <td>
-          <button style="border: none; background: transparent;" (click)="abrirModalActualizar(actividad)">
-            <i class="fas fa-pencil-alt"></i>
-          </button>
-        </td>
-        <td>
-          <button style="border: none; background: transparent;" (click)="eliminarActividades(actividad.actividoc_id)">
-            <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="buscar-container"> <!-- Contenedor del campo de búsqueda -->
+    <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por actividad"
+      (input)="buscar()" />
+    <button style="border: none; background: transparent;">
+      <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+    </button>
+  </div>
+  <div class="table-container">
+    <table class="acti-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Horas Docencia</th>
+          <th>Asignatura</th>
+          <th>Actividades: Proyectos de investigacion - Gestión académica</th>
+          <th>Actualizar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let actividad of actividades">
+          <td>{{ actividad.actividoc_id }}</td>
+          <td>{{ actividad.actividoc_nombre_actividad }}</td>
+          <td>{{ actividad.actividoc_horas_docencia }}</td>
+          <td>{{ actividad.modeloAsignaturas.asignatura_nombre}}</td>
+          <td>{{ actividad.modeloExtrasActividades.extra_nombre_proyecto_investigacion+' /
+            '+actividad.modeloExtrasActividades.extra_detalle_hora_gestion_academico}}</td>
+          <td>
+            <button style="border: none; background: transparent;" (click)="abrirModalActualizar(actividad)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td>
+            <button style="border: none; background: transparent;"
+              (click)="eliminarActividades(actividad.actividoc_id)">
+              <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminar -->
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+  </div>
 </body>
 <app-footer></app-footer>
 
