@@ -75,6 +75,7 @@ import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualiza
 import { HomeComponent } from './home/home.component'; 
 
 import { GenerarpdfComponent } from './distributivo/generarpdf/generarpdf.component';
+import { ActualizarDistributivoComponent } from './distributivo/actualizar-distributivo/actualizar-distributivo.component';
 
 const routes: Routes = [
   { path: 'actualizarrDocente', component: ActuaizarDocenteModalComponent },
@@ -163,6 +164,9 @@ const routes: Routes = [
   {path:'actualizarcarrera',component:ActualizarCarreraModalComponent},
   {path:'home',component:HomeComponent},
 
+  {path:'actualizarDistributivo',component:ActualizarDistributivoComponent},
+
+
   { path: 'actualizarcarrera', component: ActualizarCarreraModalComponent },
   { path: 'generarpdf', component: GenerarpdfComponent },
 ];
@@ -240,6 +244,7 @@ const routes: Routes = [
           HomeComponent,
     ActualizarNoDocenteComponent,
     GenerarpdfComponent,
+    ActualizarDistributivoComponent,
   ],
 
   imports: [

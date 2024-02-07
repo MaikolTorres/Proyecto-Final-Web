@@ -10,24 +10,23 @@
         <legend class="titulo_formulario">Crear Curso</legend>
         <div class="contenedor_formulario">
           <div class="mb-3">
-            <label for="distributivo_id" class="form-label">N°</label>
-            <input type="text" [(ngModel)]="distributivo_id" name="distributivo_id" required class="form-control">
+            <label for="distributivo_id" class="form-label"> </label>
           </div>
 
-            <label for="carrera_id"> Carrera :</label>
+            <label for="carrera_id"> Selecione la Carrera :</label>
             <select class="form-control" id="carrera_id" formControlName="carrera_id" required
                 [(ngModel)]="nombreCarreraSelecionada" (change)="onCarreraSelected($event)">
                 <option *ngFor="let carr of carrera1">{{ carr.carrera_nombre}} </option>
             </select>
 
 
-            <label for="jornada_id"> Jornada :</label>
+            <label for="jornada_id">  Selecione la Jornada :</label>
             <select class="form-control" id="jornada_id" formControlName="jornada_id" required
                 [(ngModel)]="nombreJornadaSeleecionada" (change)="onJornadaSelected($event)">
                 <option *ngFor="let jornada of jornada1">{{ jornada.jornada_nombre }} </option>
             </select>
 
-            <label for="curso_id"> Curso :</label>
+            <label for="curso_id"> Selecione la Curso :</label>
             <select class="form-control" id="curso_id" formControlName="curso_id" required [(ngModel)]="nombreCursoSelecionada"
             (change)="onCursoSelected($event)">
             <option *ngFor="let curso of curso1">{{ curso.curso_nombre+' '+curso.curso_paralelo+' / '+curso.modeloCarrera.carrera_nombre}} </option>
@@ -35,7 +34,7 @@
 
 
 
-            <label for="periodo_id"> Periodo :</label>
+            <label for="periodo_id"> Selecione la Periodo :</label>
             <select class="form-control" id="periodo_id" formControlName="periodo_id" required
                 [(ngModel)]="nombrePeriodoSelecionada" (change)="onPeriodoSelected($event)">
                 <option *ngFor="let per of periodo1">{{per.periodo_mes_inicio + ' ' +
@@ -44,26 +43,26 @@
             </select>
 
 
-            <label for="asignatura_id"> Asignatura :</label>
+            <label for="asignatura_id">  Selecione la Asignatura :</label>
             <select class="form-control" id="asignatura_id" formControlName="asignatura_id" required
                 [(ngModel)]="nombreAsigSelecionada" (change)="onAsignaturaSelected($event)">
                 <option *ngFor="let carr of asignatura1">{{ carr.asignatura_nombre}} </option>
             </select>
 
-            <label for="actividoc_id"> Actividades Docencia :</label>
+            <label for="actividoc_id"> Selecione la Actividades Docencia :</label>
             <select class="form-control" id="actividoc_id" formControlName="actividoc_id" required
                 [(ngModel)]="nombreActDocSelecionada" (change)="onActvDocSelected($event)">
                 <option *ngFor="let carr of actividaddocente1">{{ carr.actividoc_nombre_actividad}} </option>
             </select>
 
-            <label for="activinodoc_id"> Actividades Docencia(extras) :</label>
+            <label for="activinodoc_id"> Selecione la Actividades Docencia(extras) :</label>
             <select class="form-control" id="activinodoc_id" formControlName="activinodoc_id" required
                 [(ngModel)]="nombreActNODocSelecionada" (change)="onActvNODocSelected($event)">
                 <option *ngFor="let carr of actividadnodocente1">{{ carr.activinodoc_nombre}} </option>
             </select>
 
 
-            <label for="docente_id"> Docente :</label>
+            <label for="docente_id"> Selecione la Docente :</label>
             <select class="form-control" id="docente_id" formControlName="docente_id" required [(ngModel)]="nombreDocSeleecionada"
             (change)="onDocSelected($event)">
             <option *ngFor="let docc of docente1">{{ docc.persona.per_primer_nombre +' '+docc.persona.per_apellido_paterno}} </option>
