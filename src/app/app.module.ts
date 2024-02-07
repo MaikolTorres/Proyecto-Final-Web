@@ -71,7 +71,8 @@ import { ActualizarDocenteModalComponent } from './actividades-docente/actualiza
 import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
 import { ActuaizarDocenteModalComponent } from './docente/actuaizar-docente-modal/actuaizar-docente-modal.component';
 import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component';
-import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component'; 
+import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component';
+import { HomeComponent } from './home/home.component'; 
 
 
 const routes: Routes = [
@@ -149,7 +150,9 @@ const routes: Routes = [
   {path: 'listar-periodo', component: ListarPeriodoComponent},
   //
   {path: 'listar-extraactividades', component: ListarExtraActividadesComponent},
-  {path:'actualizarcarrera',component:ActualizarCarreraModalComponent}
+  {path:'actualizarcarrera',component:ActualizarCarreraModalComponent},
+  {path:'home',component:HomeComponent}
+
 ];
 
 @NgModule({
@@ -221,7 +224,8 @@ const routes: Routes = [
     ActuaizarDocenteModalComponent,
     
     ActualizarTituloComponent,
-          ActualizarNoDocenteComponent
+          ActualizarNoDocenteComponent,
+          HomeComponent
   ],
 
   imports: [
