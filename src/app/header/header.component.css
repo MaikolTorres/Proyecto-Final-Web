@@ -1,14 +1,24 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Asegurémonos de que el header esté por encima de otros elementos */
+    background-color: #46adfa; /* Color de fondo del header */
+}
+
 .navbar-brand img {
     max-height: 50px;
 }
+
 .navbar-nav {
     height: 100px;
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
+
 .navbar-nav .nav-link {
-    color: #ffffff; 
-    font-size: larger;
+    color: #ffffff;
     font-size: 25px;
 }
 
@@ -20,7 +30,6 @@
     color: #ffffff;
     background: linear-gradient(45deg, #3399ff, #005cbf);
     border-radius: 8px;
-
 }
 
 .dropdown-menu .nav-link:hover {
@@ -31,3 +40,7 @@
     color: #000000;
 }
 
+/* Estilos para el botón "Cerrar Sesión" */
+.navbar-nav.ms-auto .nav-item {
+    margin-left: 20px; /* Ajusta el espacio entre elementos */
+}
