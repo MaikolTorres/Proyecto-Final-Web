@@ -385,6 +385,8 @@ cargarListaGrado(): void {
     // Formatea la fecha
     const fechaIngreso = this.updateForm.get('docente_fecha_ingreso')?.value ?? new Date();
     this.nuevodoce.docente_fecha_ingreso = fechaIngreso; 
+    this.nuevodoce.docente_estado = this.updateForm.get('docente_estado')?.value;
+
     // Asigna los valores a los objetos correspondientes
      if (this.nuevapersona) {
       this.nuevodoce.persona = this.nuevapersona;
