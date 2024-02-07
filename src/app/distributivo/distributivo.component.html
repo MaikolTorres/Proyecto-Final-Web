@@ -1,80 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="distributivo.component.css" />
+    <title>Distributivo</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="distributivo.component.css" />
-  <title>Distributivo</title>
-</head>
+  <body>
+    <app-header></app-header>
 
-<body>
-  <app-header></app-header>
-
-  <h2>Distributivo</h2>
-  <div class="button-container">
-    <!-- Contenedor de los botones -->
-    <button class="button1" routerLink="/creardistributivo">
-      <i class="fas fa-user" style="margin-right: 10px"></i>
-      <!-- Icono -->
-      Asignar nuevas actividades
-      <!-- Texto -->
-    </button>
-  </div>
-
-  <br />
-  <section>
-    <!-- Comienzo Tabla Distributivo -->
-    <div class="table-container">
-      <!-- Contenedor de la tabla -->
-      <table class="distributivo-table">
-        <thead>
-          <tr class="fila">
-            <th>Distributivo ID</th>
-            <th>Docente</th>
-            <th>Carrera</th>
-            <th>Jornada</th>
-            <th>Curso</th>
-            <th>Periodo</th>
-            <th>Asignatura</th>
-            <th>Actividad Docente</th>
-            <th>Actividad No Docente</th>
-            <th>Calculo Horas total</th>
-            <th>Actualizar</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let distri of distributivos">
-            <td>{{ distri.distributivo_id }}</td>
-            <td>{{ distri.modeloDocente.persona.per_primer_nombre + " " + distri.modeloDocente.persona.per_apellido_paterno }}</td>
-            <td>{{ distri.modeloCarrera.carrera_nombre }}</td>
-            <td>{{ distri.modeloJordana.jornada_nombre }}</td>
-            <td>{{ distri.modeloCurso.curso_nombre }}</td>
-            <td>{{ distri.modeloPeriodos.periodo_mes_inicio }} {{ distri.modeloPeriodos.periodo_anio_inicio }} - {{ distri.modeloPeriodos.periodo_mes_fin }} {{ distri.modeloPeriodos.periodo_anio_fin }}</td>
-            <td>{{ distri.modeloAsignaturas.asignatura_nombre }}</td>
-            <td>{{ distri.modeloActividadesDocentes.actividoc_nombre_actividad }}</td>
-            <td>{{ distri.modeloActividadesNoDocentes.activinodoc_nombre }}</td>
-            <td>{{ sumarHorasTotales(distri?.distributivo_id) }}</td>
-            <td>
-              <button style="border: none; background: transparent" (click)="(null)">
-                <i class="fas fa-edit"></i>
-                <!-- Ícono de actualizar -->
-              </button>
-            </td>
-            <td>
-              <button style="border: none; background: transparent" (click)="(null)">
-                <i class="fas fa-trash-alt"></i>
-                <!-- Ícono de eliminar -->
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <h2>Distributivo</h2>
+    <div class="button-container">
+      <!-- Contenedor de los botones -->
+      <button class="button1" routerLink="/creardistributivo">
+        <i class="fas fa-user" style="margin-right: 10px"></i>
+        <!-- Icono -->
+        Asignar nuevas actividades
+        <!-- Texto -->
+      </button>
+      <button class="button1" routerLink="/generarpdf">
+        <i class="fas fa-user" style="margin-right: 10px"></i>
+        <!-- Icono -->
+        Generar PDF
+        <!-- Texto -->
+      </button>
     </div>
-  </section>
 
-  <app-footer></app-footer>
-</body>
+    <br />
+    <section>
+      <!-- Comienzo Tabla Distributivo -->
+      <div class="table-container">
+        <!-- Contenedor de la tabla -->
+        <table class="distributivo-table">
+          <thead>
+            <tr class="fila">
+              <th>Distributivo ID</th>
+              <th>Docente</th>
+              <th>Carrera</th>
+              <th>Jornada</th>
+              <th>Curso</th>
+              <th>Periodo</th>
+              <th>Asignatura</th>
+              <th>Actividad Docente</th>
+              <th>Actividad No Docente</th>
+              <th>Calculo Horas total</th>
+              <th>Actualizar</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let distri of distributivos">
+              <td>{{ distri.distributivo_id }}</td>
+              <td>
+                {{
+                  distri.modeloDocente.persona.per_primer_nombre +
+                    " " +
+                    distri.modeloDocente.persona.per_apellido_paterno
+                }}
+              </td>
+              <td>{{ distri.modeloCarrera.carrera_nombre }}</td>
+              <td>{{ distri.modeloJordana.jornada_nombre }}</td>
+              <td>{{ distri.modeloCurso.curso_nombre }}</td>
+              <td>
+                {{ distri.modeloPeriodos.periodo_mes_inicio }}
+                {{ distri.modeloPeriodos.periodo_anio_inicio }} -
+                {{ distri.modeloPeriodos.periodo_mes_fin }}
+                {{ distri.modeloPeriodos.periodo_anio_fin }}
+              </td>
+              <td>{{ distri.modeloAsignaturas.asignatura_nombre }}</td>
+              <td>
+                {{
+                  distri.modeloActividadesDocentes.actividoc_nombre_actividad
+                }}
+              </td>
+              <td>
+                {{ distri.modeloActividadesNoDocentes.activinodoc_nombre }}
+              </td>
+              <td>{{ sumarHorasTotales(distri?.distributivo_id) }}</td>
+              <td>
+                <button
+                  style="border: none; background: transparent"
+                  (click)="(null)"
+                >
+                  <i class="fas fa-edit"></i>
+                  <!-- Ícono de actualizar -->
+                </button>
+              </td>
+              <td>
+                <button
+                  style="border: none; background: transparent"
+                  (click)="(null)"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                  <!-- Ícono de eliminar -->
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
+    <app-footer></app-footer>
+  </body>
 </html>

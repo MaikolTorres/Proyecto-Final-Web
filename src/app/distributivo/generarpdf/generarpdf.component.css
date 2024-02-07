@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.button-container {
+  display: flex;
+  position: absolute; /* Posiciona los botones de forma absoluta */
+  left: 450px; /* Posición horizontal */
+  top: 210px; /* Posición vertical */
+}
+
+.button2 {
+  background-color: #46adfa; /* Verde */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  margin-right: 30px; /* Ajusta el espacio entre los botones */
+  font-size: 20px;
+  transition: background-color 0.3s ease; /* Agrega transición suave al color de fondo */
+}
+
+.button-container .button2 {
+  background-color: #e70027; /* Rojo */
+}
+
+.buscar-container {
+  position: absolute; /* Posiciona el campo de búsqueda de forma absoluta */
+  right: 450px; /* Posición horizontal */
+  top: 210px; /* Posición vertical */
+}
+
+.buscar {
+  padding: 10px 20px; /* Ajusta el relleno */
+  border-radius: 20px; /* Agrega bordes redondeados */
+  border: 2px solid #ccc;
+  font-size: 16px;
+}
+
+.tablee-container {
+  width: 80%; /* Ajusta el ancho de la tabla */
+  margin: 0 auto; /* Centra la tabla horizontalmente */
+  position: absolute; /* Posiciona la tabla de forma absoluta */
+  left: 50%; /* Posición horizontal */
+  /* top: 500px; Posición vertical */
+  margin-bottom: 30px;
+  transform: translateX(-50%); /* Centra horizontalmente la tabla */
+  overflow-y: auto; /* Agrega scroll vertical si es necesario */
+  max-height: 500px; /* Altura máxima del contenedor */
+  overflow-x: hidden; /* Oculta el scroll horizontal */
+}
+
+.distributivo-table {
+  width: 100%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+  border-collapse: collapse;
+  border-radius: 18px; /* Agrega bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+}
+
+/* Encabezado fijo */
+.distributivo-table th {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* Fondo blanco para que el encabezado sea visible */
+  z-index: 2; /* Asegura que el encabezado esté por encima del contenido de la tabla */
+}
+
+.distributivo-table th,
+.distributivo-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.distributivo-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-container table {
+  width: 100%; /* Hace que la tabla ocupe todo el ancho del contenedor */
+}
+.btn11 {
+  margin-left: 280px;
+}
+.button-container {
+  /* display: flex; */
+  /* position: relative; */
+  left: 100px;
+  top: 215px;
+  margin-bottom: 30px;
+}
+
+.button1 {
+  background-color: transparent;
+  color: black;
+  border: 2px solid transparent;
+  border-color: #5abcf8;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+
+  overflow: hidden;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.button1,
+.button2 {
+  background-color: #46adfa; /* Verde */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  margin-right: 30px; /* Ajusta el espacio entre los botones */
+  font-size: 20px;
+  transition: background-color 0.3s ease; /* Agrega transición suave al color de fondo */
+}
+
+.button1:hover {
+  color: rgb(0, 0, 0);
+}
+
+.button1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #5abcf8;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.button1:hover::before {
+  width: 100%;
+}
+
+.button1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #72d6c7;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.button1:hover::after {
+  width: 100%;
+  transition-delay: 0.1s;
+}
+
+.form-control {
+  width: 320px;
+  padding: 8px;
+  margin-bottom: 30px;
+}
+main {
+  margin-top: 120px;
+}
+footer {
+  margin-top: 100px;
+}
+h3 {
+  text-align: center;
+}

@@ -71,8 +71,8 @@ import { ActualizarDocenteModalComponent } from './actividades-docente/actualiza
 import { ActualizarAsignaturaModalComponent } from './asignatura/actualizar-asignatura-modal/actualizar-asignatura-modal.component';
 import { ActuaizarDocenteModalComponent } from './docente/actuaizar-docente-modal/actuaizar-docente-modal.component';
 import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar-titulo.component';
-import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component'; 
-
+import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component';
+import { GenerarpdfComponent } from './distributivo/generarpdf/generarpdf.component';
 
 const routes: Routes = [
   { path: 'actualizarrDocente', component: ActuaizarDocenteModalComponent },
@@ -111,10 +111,13 @@ const routes: Routes = [
   { path: 'seleccion-actividad', component: SeleccionActividadComponent },
   { path: 'asignatura', component: AsignaturaComponent },
   { path: 'crearasignatura', component: CrearAsignaturaComponent },
-{path:'actualizarcurso',component:ActuaizarCursoComponent},
+  { path: 'actualizarcurso', component: ActuaizarCursoComponent },
   { path: 'actividades-no-docente', component: ActividadesNoDocenteComponent },
   { path: 'seleccion-actividades', component: SeleccionActividadComponent },
-  {path: 'listar-actividades-no-docentes',component: ListarActividadesNoDocentesComponent,},
+  {
+    path: 'listar-actividades-no-docentes',
+    component: ListarActividadesNoDocentesComponent,
+  },
   { path: 'creardocente', component: CreardocenteComponent },
   { path: 'distributivo', component: DistributivoComponent },
   { path: 'creardistributivo', component: CreardistributivoComponent },
@@ -135,21 +138,31 @@ const routes: Routes = [
   { path: 'actualizarDocente', component: ActualizarDocenteModalComponent },
 
   //
-  {path: 'extra-actividades', component: ExtraActividadesComponent},
-  {path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent},
-  {path: 'listar-extra-actividades', component: ListarExtraActividadesComponent},
+  { path: 'extra-actividades', component: ExtraActividadesComponent },
+  { path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent },
+  {
+    path: 'listar-extra-actividades',
+    component: ListarExtraActividadesComponent,
+  },
 
-  {path: 'actividades-docente', component: ActividadesDocenteComponent},
-  {path: 'listar-actividades-docente', component: ListarActividadesDocenteComponent},
+  { path: 'actividades-docente', component: ActividadesDocenteComponent },
+  {
+    path: 'listar-actividades-docente',
+    component: ListarActividadesDocenteComponent,
+  },
 
-  {path: 'crear-carrera', component: CrearCarreraComponent},
-  {path: 'listar-carrera', component: ListarCarreraComponent},
+  { path: 'crear-carrera', component: CrearCarreraComponent },
+  { path: 'listar-carrera', component: ListarCarreraComponent },
 
-  {path: 'crear-periodo', component: CrearPeriodoComponent},
-  {path: 'listar-periodo', component: ListarPeriodoComponent},
+  { path: 'crear-periodo', component: CrearPeriodoComponent },
+  { path: 'listar-periodo', component: ListarPeriodoComponent },
   //
-  {path: 'listar-extraactividades', component: ListarExtraActividadesComponent},
-  {path:'actualizarcarrera',component:ActualizarCarreraModalComponent}
+  {
+    path: 'listar-extraactividades',
+    component: ListarExtraActividadesComponent,
+  },
+  { path: 'actualizarcarrera', component: ActualizarCarreraModalComponent },
+  { path: 'generarpdf', component: GenerarpdfComponent },
 ];
 
 @NgModule({
@@ -219,9 +232,10 @@ const routes: Routes = [
     ///
     ActualizarPeriodoModalComponent,
     ActuaizarDocenteModalComponent,
-    
+
     ActualizarTituloComponent,
-          ActualizarNoDocenteComponent
+    ActualizarNoDocenteComponent,
+    GenerarpdfComponent,
   ],
 
   imports: [
@@ -234,12 +248,9 @@ const routes: Routes = [
     ModalModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
-    
   ],
   providers: [DatePipe], // Agrega DatePipe a la lista de proveedores
 
   bootstrap: [AppComponent],
 })
-
 export class AppModule {}
-
