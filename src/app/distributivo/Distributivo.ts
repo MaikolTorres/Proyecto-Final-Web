@@ -6,14 +6,13 @@ import { Asignatura } from '../asignatura/asignatura';
 import { ActividadesDocente } from '../actividades-docente/actividades-docente';
 import { ActividadesNoDocente } from '../actividades-no-docente/actividades-no-docente';
 import { Docente } from '../docente/docente';
-import { RegistroContrato } from '../registro-horas-contrato/registro-horas-contrato';
 
 export class Distributivo {
-  distributivo_id: number =0;
-  calculoHorasTotal: number =0;
-'modeloCarrera': Carrera;
-'modeloCurso': Curso;
-'modeloPeriodos': Periodos;
+  distributivo_id: number = 0;
+  calculoHorasTotal: number = 0;
+  'modeloCarrera': Carrera;
+  'modeloCurso': Curso;
+  'modeloPeriodos': Periodos;
   'modeloJordana': Jornada;
   'modeloAsignaturas': Asignatura;
   'modeloActividadesDocentes': ActividadesDocente;

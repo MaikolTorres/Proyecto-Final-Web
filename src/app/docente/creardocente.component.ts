@@ -26,37 +26,49 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./creardocente.component.css']
 })
 export class CreardocenteComponent implements OnInit {
-  updateForm!: FormGroup;
-  @Input() docente: Docente | undefined;
-  docente_id: number | undefined;
-
-  docente1: Docente[] = [];
+  docente_id:number| undefined;
   nuevodoce: Docente = new Docente();
 
+  persona:any[] = []; 
+  nuevapersona: Persona = new Persona();
+
+  tipocontrato:any[] = [];
+  nuevotipocontrato: TipoContrato = new TipoContrato();
+
+  cargo:any[] = [];
+  nuevocargo: Cargo = new Cargo();
+
+titulo:any[] = [];
+nuevotitulo:Titulo =new Titulo();
+
+periodo:any[] = [];
+nuevoperiodo:Periodos =new Periodos();
+  
+grado:any[] = [];
+nuevogrado:GradoOcupacional =new GradoOcupacional();
+
+  updateForm!: FormGroup;
+  @Input() docente: Docente | undefined;
+
+  docente1: Docente[] = [];
+
   persona1: Persona[] = [];
-  createpersona:  Persona = new Persona();
   public cedulaSeleccionada: string = '';
   public estadoSeleccionada: string = '';
 
   tipocontrato1: TipoContrato[] = [];
-  createcontrato:  TipoContrato = new TipoContrato();
   public contratoseleccionado: string = '';
 
   cargo1: Cargo[] = [];
-  createcargo:  Cargo = new Cargo();
   public cargoSeleccionada: string = '';
 
   titulo1: Titulo[] = [];
-  createtitulo:  Titulo = new Titulo();
   public tituloSeleccionada: string = '';
-  createdocente:  Docente = new Docente();
 
   periodo1: Periodos[] = [];
-  createperiodo:  Periodos = new Periodos();
   public periodoSeleccionada: string = '';
 
   grado1: GradoOcupacional[] = [];
-  creategrado:  GradoOcupacional = new GradoOcupacional();
   public gradoseleccionado: string = '';
 
   isLoading: boolean = true;
@@ -70,7 +82,6 @@ export class CreardocenteComponent implements OnInit {
     private datePipe: DatePipe,
     public modalRef: BsModalRef,
     private fb: FormBuilder,
-    private docenteservice: DocenteService,
     private http: HttpClient,
     private router: Router,
     private personaservice: PersonaService,
@@ -79,6 +90,8 @@ export class CreardocenteComponent implements OnInit {
     private tituloservice: TituloService,
     private periodosservice: PeriodoService,
     private gradoservice: GradoOcupacionalService,
+    private docenteservice: DocenteService,
+
   ) {
     this.createForm();
   }
@@ -103,14 +116,14 @@ export class CreardocenteComponent implements OnInit {
   initializeForm() {
     this.createForm();
   }
-
+/////
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }
   cargarPersonas() {
     this.getPersonas().subscribe(personas => (this.persona1 = personas));
   }
-
+////
 
   getcontratos(): Observable<TipoContrato[]> {
     return this.http.get<TipoContrato[]>('http://localhost:8080/tipocontratos');
@@ -118,13 +131,14 @@ export class CreardocenteComponent implements OnInit {
   cargarcontratos() {
     this.getcontratos().subscribe(contratos => (this.tipocontrato1 = contratos));
   }
-
+/////
   getcargos(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>('http://localhost:8080/cargo');
   }
   cargarCargos() {
     this.getcargos().subscribe(cargos => (this.cargo1 = cargos));
   }
+  //////
   gettitulos(): Observable<Titulo[]> {
     return this.http.get<Titulo[]>('http://localhost:8080/titulo');
   }
@@ -132,7 +146,7 @@ export class CreardocenteComponent implements OnInit {
   cargartitulos() {
     this.gettitulos().subscribe(titulos => (this.titulo1 = titulos));
   }
-
+//////
   getperiodo(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>('http://localhost:8080/periodos');
   }
@@ -140,6 +154,7 @@ export class CreardocenteComponent implements OnInit {
   cargarperiodos() {
     this.getperiodo().subscribe(periodos => (this.periodo1 = periodos));
   }
+  ////////
   getgrado(): Observable<GradoOcupacional[]> {
     return this.http.get<GradoOcupacional[]>('http://localhost:8080/grado');
   }
@@ -254,8 +269,8 @@ cargarListaGrado(): void {
     this.personaservice.getprsonaByName(cedula).subscribe(
       (persona: Persona | undefined) => {
         if (persona) {
-          this.createpersona = persona;
-          console.log('Persona encontrado:', this.createpersona);
+          this.nuevapersona = persona;
+          console.log('Persona encontrado:', this.nuevapersona);
         } else {
           console.log('Persona no encontrado');
         }
@@ -276,8 +291,8 @@ cargarListaGrado(): void {
     this.tipocontratoservice.getcontratoByName(contrato).subscribe(
       (contrato: TipoContrato | undefined) => {
         if (contrato) {
-          this.createcontrato = contrato;
-          console.log('contrato encontrado:', this.createcontrato);
+          this.nuevotipocontrato = contrato;
+          console.log('contrato encontrado:', this.nuevotipocontrato);
         } else {
           console.log('contrato no encontrado');
         }
@@ -294,8 +309,8 @@ cargarListaGrado(): void {
     this.cargoservice.getcargoByName(cargo).subscribe(
       (cargo: Cargo | undefined) => {
         if (cargo) {
-          this.createcargo = cargo;
-          console.log('cargo encontrado:', this.createcargo);
+          this.nuevocargo = cargo;
+          console.log('cargo encontrado:', this.nuevocargo);
         } else {
           console.log('cargo no encontrado');
         }
@@ -312,8 +327,8 @@ cargarListaGrado(): void {
     this.tituloservice.gettituloByName(titulo).subscribe(
       (titulo: Titulo | undefined) => {
         if (titulo) {
-          this.createtitulo = titulo;
-          console.log('titulo encontrado:', this.createtitulo);
+          this.nuevotitulo = titulo;
+          console.log('titulo encontrado:', this.nuevotitulo);
         } else {
           console.log('titulo no encontrado');
         }
@@ -330,8 +345,8 @@ cargarListaGrado(): void {
     this.periodosservice.getperiodoByName(periodo).subscribe(
       (periodo: Periodos | undefined) => {
         if (periodo) {
-          this.createperiodo = periodo;
-          console.log('periodo encontrado:', this.createperiodo);
+          this.nuevoperiodo = periodo;
+          console.log('periodo encontrado:', this.nuevoperiodo);
         } else {
           console.log('periodo no encontrado');
         }
@@ -348,8 +363,8 @@ cargarListaGrado(): void {
     this.gradoservice.getGradoByName(grado).subscribe(
       (grado: GradoOcupacional | undefined) => {
         if (grado) {
-          this.creategrado = grado;
-          console.log('grado encontrado:', this.creategrado);
+          this.nuevogrado = grado;
+          console.log('grado encontrado:', this.nuevogrado);
         } else {
           console.log('grado no encontrado');
         }
@@ -366,52 +381,56 @@ cargarListaGrado(): void {
   
 
   crearDocente() {
-    // ... (código existente)
   
     // Formatea la fecha
     const fechaIngreso = this.updateForm.get('docente_fecha_ingreso')?.value ?? new Date();
     this.nuevodoce.docente_fecha_ingreso = fechaIngreso; 
-    // Asigna los valores a los objetos correspondientes
-    if (this.createpersona) {
-      this.nuevodoce.persona = this.createpersona;
-    }
-  
-    if (this.createcontrato) {
-      this.nuevodoce.tipo_contrato = this.createcontrato;
-    }
-  
-    if (this.createcargo) {
-      this.nuevodoce.cargo = this.createcargo;
-    }
-  
-    if (this.createtitulo) {
-      this.nuevodoce.titulo = this.createtitulo;
-    }
-  
-    if (this.createperiodo) {
-      this.nuevodoce.periodo = this.createperiodo;
-    }
-  
-    if (this.creategrado) {
-      this.nuevodoce.grado = this.creategrado;
-    }
-    this.nuevodoce.docente_estado = this.docente_estado;
+    this.nuevodoce.docente_estado = this.updateForm.get('docente_estado')?.value;
 
-   
-    
-// Realiza la solicitud para crear el docente
-this.docenteservice.create(this.nuevodoce).subscribe(
-  (response) => {
-    console.log('Docente creado exitosamente:', response);
-    this.router.navigate(['/docente']);
-  },
-  (error) => {
-    console.error('Error al crear el docente:', error);
-    // Agrega un console.log para imprimir detalles sobre el error
-    console.log('Detalles del error:', error.error);
+    // Asigna los valores a los objetos correspondientes
+     if (this.nuevapersona) {
+      this.nuevodoce.persona = this.nuevapersona;
+    }
+
+    if (this.nuevotipocontrato) {
+      this.nuevodoce.tipo_contrato = this.nuevotipocontrato;
+    }
+
+    if (this.nuevocargo) {
+      this.nuevodoce.cargo = this.nuevocargo;
+      console.log(
+        'cargo', this.nuevocargo)
+    }
+
+    if (this.nuevotitulo) {
+      this.nuevodoce.titulo = this.nuevotitulo;
+    }
+
+    if (this.nuevoperiodo) {
+      this.nuevodoce.periodo = this.nuevoperiodo;
+    }
+
+    if (this.nuevogrado) {
+      this.nuevodoce.grado = this.nuevogrado;
+    }
+    this.docenteservice.create(this.nuevodoce).subscribe(
+      (response: any) => {
+        console.log('Respuesta del servidor:', this.nuevodoce);
+        if (response && response.text) {
+          console.log('Mensaje del servidor:', response.text);
+          console.log('dat:', this.nuevodoce);
+        }
+        this.router.navigate(['/docente']);
+      },
+      (error) => {
+        console.error('Error al crear el docente:', error);
+        // Agrega un console.log para imprimir detalles sobre el error
+        console.log('Detalles del error:', error.error);
+        this.docenteservice.create(this.nuevodoce);
+      }
+    );
   }
-);
-}
+
   
   cancelar(): void {
     this.router.navigate(['/docente']);

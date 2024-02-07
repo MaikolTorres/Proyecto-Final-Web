@@ -14,55 +14,54 @@ import { GradoOcupacional } from '../grado-ocupacional/grado-ocupacional';
 })
 export class DocenteService {
   persona: Persona[] = [];
-tipocontrato:TipoContrato[] = [];
-cargo:Cargo[] = [];
-titulo:Titulo[] = [];
-periodo:Periodos[] = [];
-grado:GradoOcupacional[] = [];
- 
+  tipocontrato: TipoContrato[] = [];
+  cargo: Cargo[] = [];
+  titulo: Titulo[] = [];
+  periodo: Periodos[] = [];
+  grado: GradoOcupacional[] = [];
+
 
   constructor(private http: HttpClient) { }
 
   private urlEndPoint: string = 'http://localhost:8080/api/docente/listar';
-  private urlEndPoint_1: string = 'http://localhost:8080/api/docente/guardar';
-  private urlEndPoint_3:string = 'http://localhost:8080/api/docente/actualizar/{{id}}'
-  private urlEndPoint_4:string = 'http://localhost:8080/api/docente/buscar/{{id}}'
-//persona
+  private urlEndPoint_c: string = 'http://localhost:8080/api/docente/guardar';
+  private urlEndPoint_3: string = 'http://localhost:8080/api/docente/actualizar/{{id}}'
+  private urlEndPoint_4: string = 'http://localhost:8080/api/docente/buscar/{{id}}'
+  //persona
   private urlpersona: string = 'http://localhost:8080/api/personas/listar';
   private urlpersona1: string = 'http://localhost:8080/personas/listar';
-//contrato  
-private urlcontrato: string = 'http://localhost:8080/api/tipocontratos/listar';
-private urlcontrato1: string = 'http://localhost:8080/tipocontratos/listar';
-//cargo
-private urlcargo: string = 'http://localhost:8080/api/cargo/listar';
-private urlcargo1: string = 'http://localhost:8080/cargo/listar';
-//titulo
-private urltitulo: string = 'http://localhost:8080/api/titulo/listar';
-private urltitulo1: string = 'http://localhost:8080/titulo/listar';
-//grado
+  //contrato  
+  private urlcontrato: string = 'http://localhost:8080/api/tipocontratos/listar';
+  private urlcontrato1: string = 'http://localhost:8080/tipocontratos/listar';
+  //cargo
+  private urlcargo: string = 'http://localhost:8080/api/cargo/listar';
+  private urlcargo1: string = 'http://localhost:8080/cargo/listar';
+  //titulo
+  private urltitulo: string = 'http://localhost:8080/api/titulo/listar';
+  private urltitulo1: string = 'http://localhost:8080/titulo/listar';
+  //grado
   private urlGrado: string = 'http://localhost:8080/api/grado/listar';
   private urlGrado1: string = 'http://localhost:8080/grado/listar';
-//periodo
+  //periodo
   private urlperiodo: string = 'http://localhost:8080/api/periodos/listar';
   private urlperiodo1: string = 'http://localhost:8080/periodos/listar';
 
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
   get(): Observable<Docente[]> {
-   
     return this.http.get<Docente[]>(this.urlEndPoint);
   }
 
-  
+
   create(docente: Docente): Observable<Docente> {
     console.log('Datos que se enviarán al backend:', docente);
-    return this.http.post<Docente>(this.urlEndPoint_1, docente, { headers: this.httpHeaders })
-     
-    ;
+    return this.http.post<Docente>(this.urlEndPoint_c, docente, {
+       headers: this.httpHeaders });
   }
-  getdocenteId(id:number):Observable<Docente> {
-    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`)
+
+  getdocenteId(id: number): Observable<Docente> {
+    return this.http.get<Docente>(`${this.urlEndPoint_4}/${id}`)
   }
   deleteDocente(docente_id: number): Observable<Docente> {
     const url = `http://localhost:8080/api/docente/eliminar/${docente_id}`;
@@ -76,12 +75,12 @@ private urltitulo1: string = 'http://localhost:8080/titulo/listar';
   }
 
   getDocenteById(id: number): Observable<Docente> {
-    return this.http.get<Docente>(`${this.urlEndPoint_1}/${id}`);
+    return this.http.get<Docente>(`${this.urlEndPoint_4}/${id}`);
   }
   getDocentes(): Observable<Docente[]> {
     return this.http.get<Docente[]>(this.urlEndPoint);
   }
-//personas
+  //personas
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>(this.urlpersona);
   }
@@ -101,7 +100,7 @@ private urltitulo1: string = 'http://localhost:8080/titulo/listar';
   cargarcontratos() {
     this.getTipoContratosa().subscribe(contrato => this.tipocontrato = contrato);
   }
-///////////cargos
+  ///////////cargos
   getCargoss(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>(this.urlcargo1);
   }
@@ -111,7 +110,7 @@ private urltitulo1: string = 'http://localhost:8080/titulo/listar';
   cargarcargos() {
     this.getCargoss().subscribe(cargos => this.cargo = cargos);
   }
-///titulos
+  ///titulos
   getTituloss(): Observable<Titulo[]> {
     return this.http.get<Titulo[]>(this.urltitulo1);
   }
@@ -121,7 +120,7 @@ private urltitulo1: string = 'http://localhost:8080/titulo/listar';
   cargartitulos() {
     this.getTituloss().subscribe(titulo => this.titulo = titulo);
   }
-//periodos
+  //periodos
   getPeriodoss(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>(this.urlperiodo1);
   }
@@ -131,7 +130,7 @@ private urltitulo1: string = 'http://localhost:8080/titulo/listar';
   cargarperiodos() {
     this.getPeriodoss().subscribe(periodo => this.periodo = periodo);
   }
-//grados
+  //grados
   getGradoss(): Observable<GradoOcupacional[]> {
     return this.http.get<GradoOcupacional[]>(this.urlGrado1);
   }
@@ -143,8 +142,8 @@ private urltitulo1: string = 'http://localhost:8080/titulo/listar';
   }
   getDocentesByName(nombre: string): Observable<Docente> {
     return this.http.get<Docente[]>(this.urlEndPoint).pipe(
-      map(docentes => docentes.find(docente =>( docente.persona.per_primer_nombre+ ' ' +
-      docente.persona.per_apellido_paterno) === nombre) as Docente),
+      map(docentes => docentes.find(docente => (docente.persona.per_primer_nombre + ' ' +
+        docente.persona.per_apellido_paterno) === nombre) as Docente),
       filter(docente => !!docente) // Filtrar null o undefined
     );
   }

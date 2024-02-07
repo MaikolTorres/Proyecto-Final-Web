@@ -7,8 +7,13 @@
 
       <div class="inputs">
         <button routerLink="/actividades-no-docente">Crear</button>
-        <input type="text" class="box" placeholder="Buscar" />
+        <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por Actividad" (input)="buscar()" />
+        <button style="border: none; background: transparent;">
+          <i class="fas fa-search"></i> 
+        </button>
       </div>
+
+   
 
       <table>
         <thead>
@@ -17,7 +22,8 @@
             <th>Nombre Actividad</th>
             <th>Número de Horas</th>
             <th>Docente</th>
-            <th>Editar</th>
+            <th>Actualizar</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -33,18 +39,16 @@
               }}
             </td>
             <td>
-              <button
-                style="border: none; background: transparent"
-                (click)="abrirModalActualizar(actividad)"
-              >
+              <button style="border: none; background: transparent;" (click)="abrirModalActualizar(actividad)">
                 <i class="fas fa-pencil-alt"></i>
               </button>
             </td>
-            <!-- <td>
-          <button style="border: none; background: transparent;" (click)="eliminarasignatura(asignatura.asignatura_id)">
-            <i class="fas fa-trash-alt"></i> 
-          </button>
-        </td> -->
+            <td>
+              <button style="border: none; background: transparent;" (click)="eliminarActNodoc(actividad.activinodoc_id)">
+                <i class="fas fa-trash-alt"></i> 
+              </button>
+            </td>
+            
           </tr>
         </tbody>
       </table>
