@@ -14,7 +14,7 @@
             <label for="nombre" class="form-label">Tipo de salario:</label>
             <input type="text" [(ngModel)]="nuevoGrado.grado_tipo_salario" name="grado_tipo_salario" required>
           </div>
-          <!-- Agrega el icono al botón Registrar -->
+          <div class="botones-container">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i> Registrar
           </button>
@@ -22,6 +22,7 @@
           <button type="button" class="btn2 btn btn-danger" (click)="cancelar()">
             <i class="fa fa-times"></i> Cancelar
           </button>
+        </div>
         </div>
       </fieldset>
     </form>

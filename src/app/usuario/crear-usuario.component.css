@@ -1,18 +1,32 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
+    font-family: Century Gothic,Arial,Helvetica,sans-serif;
+    background-color: rgb(255, 253, 253);
+    margin: 0; /* Elimina el margen predeterminado del cuerpo */
     padding: 0;
-    background-color: #f4f4f4;
-}
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
 
-.form-container {
-    max-width: 400px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  .formulario {
+    margin: auto;
+    font-family: Georgia (serif);
+    font-size: large;
+    margin-top: 50px;
+    width: 700px; /* Ajustar el ancho */
+    height: 550px; /* Ajustar el alto */
+    border: 2px solid rgb(194, 194, 194);
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    overflow-y: auto; /* Agregar scroll vertical */
+    position: relative; /* Ajusta la posición a relativa */
+    z-index: 1;
+    background: linear-gradient(135deg,#dee9ff,#f0f0f0); /* Degradado de color */
+  }
 
 h2 {
     text-align: center;
@@ -25,8 +39,12 @@ form {
 }
 
 label {
-    margin-bottom: 8px;
-}
+    margin-bottom: 5px;
+    color: #555;
+    display: inline-block;
+    text-align: right;
+    margin-left: 120px;
+  }
 
 input,
 select {
@@ -61,3 +79,160 @@ select {
     background-color: #e70027;
     margin-left: 5px; /* Ajuste de margen entre botones */
 }
+
+.titulo_formulario {
+    color: black;
+    font-family: Georgia (serif);
+    font-size: 25px;
+    padding: 20px; /* Reducir el padding */
+    text-align: center;
+    font-weight: bold; /* Agregar negrita */
+  }
+
+  .mb-3 input[type="text"] {
+    width: 400px; 
+    margin: 0 auto; /* Centra horizontalmente los cuadros de texto */
+  }
+  
+  .mb-3 label {
+    display: inline-block;
+    text-align: right; /* Alinea el texto de la etiqueta a la derecha */
+    margin-left: 120px; /* Espacio entre el texto de la etiqueta y el cuadro de texto */
+  }
+
+  .form-control {
+    width: calc(100% - 20px); /* Ajustar el ancho del input */
+    padding: 5px;
+    margin-bottom: 20px; /* Reducir el margen inferior */
+  }
+
+  select.form-control {
+    width: calc(100% - 250px); /* Ajusta el ancho */
+    margin-left: 120px; /* Ajusta el margen izquierdo para alinearse con los labels */
+  }
+
+  button {
+    display: flex; /* Establece el contenedor como flexbox */
+    width: 150px; /* Ancho del botón */
+    height: 50px; /* Alto del botón */
+    font-size: 16px; /* Tamaño de la fuente */
+    margin-right: 2px; /* Ajusta el espacio entre los botones */
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .botones-container {
+    display: flex; 
+    margin-top: 30px; 
+  }
+
+  .burbuja{
+    border-radius: 50%;
+    background: #c8d7ff;
+    opacity: .3;
+    position: absolute;
+    bottom: -150;
+    animation: burbujas 5s alternate infinite ;  
+  }
+  
+  .burbuja:nth-child(1){
+    width: 80px;
+    height: 80px;
+    left: 5%;
+    animation-duration: 5s;
+  }
+  
+  .burbuja:nth-child(2){
+    width: 100px;
+    height: 100px;
+    left: 35%;
+    animation-duration: 5s;
+  }
+  
+  .burbuja:nth-child(3){
+    width: 60px;
+    height: 60px;
+    left: 15%;
+    animation-duration: 2.5s;
+  }
+  
+  .burbuja:nth-child(4){
+    width: 50px;
+    height: 50px;
+    left: 90%;
+    animation-duration: 6s;
+  }
+  
+  .burbuja:nth-child(5){
+    width: 70px;
+    height: 70px;
+    left: 65%;
+    animation-duration: 3s;
+  }
+  
+  .burbuja:nth-child(6){
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    animation-duration: 3.5s;
+  }
+  
+  .burbuja:nth-child(7){
+    width: 35px;
+    height: 35px;
+    left: 80%;
+    animation-duration: 4s;
+  }
+  
+  .burbuja:nth-child(8){
+    width: 100;
+    height: 100px;
+    left: 52%;
+    animation-duration: 5s;
+  }
+  
+  .burbuja:nth-child(9){
+    width: 65px;
+    height: 65px;
+    left: 51%;
+    animation-duration: 3s;
+  }
+  
+  .burbuja:nth-child(10){
+    width: 80px;
+    height: 80px;
+    left: 89%;
+    animation-duration: 3s;
+  }
+  
+  
+  @keyframes burbujas{
+    0%{
+        bottom: 0;
+        opacity: 0;
+    }
+    30%{
+        transform: translateX(30px);
+    }
+    50%{
+        opacity: .4;
+    }
+    100%{
+        bottom: 100vh;
+        opacity: 0;
+    }
+  }
+  
+  @keyframes movimiento{
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(30px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+  }
+  

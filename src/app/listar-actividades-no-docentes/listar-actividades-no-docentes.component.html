@@ -3,19 +3,20 @@
 
   <body>
     <div class="center-container">
-      <p class="txt-2">Listado de Actividades No Docentes</p>
-
+      <h2>Listado de Actividades No Docentes</h2>
+      <div class="button-container">
       <div class="inputs">
-        <button routerLink="/actividades-no-docente">Crear</button>
+        <button routerLink="/actividades-no-docente"><i class="fas fa-save"></i> Agregar </button>
+
         <input class="buscar" type="text" [(ngModel)]="textoBusqueda" placeholder="Buscar por Actividad" (input)="buscar()" />
         <button style="border: none; background: transparent;">
-          <i class="fas fa-search"></i> 
-        </button>
+          <i class="fas fa-search"></i> <!-- Ícono de buscar -->
+      </button>
       </div>
-
+      </div>
    
 
-      <table>
+      <table class="ActiviNoDoc-table">
         <thead>
           <tr>
             <th>Id Actividad</th>
@@ -39,6 +40,7 @@
               }}
             </td>
             <td>
+              
               <button style="border: none; background: transparent;" (click)="abrirModalActualizar(actividad)">
                 <i class="fas fa-pencil-alt"></i>
               </button>
@@ -52,6 +54,18 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="burbujas">
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
+      <div class="burbuja"></div>
     </div>
   </body>
 

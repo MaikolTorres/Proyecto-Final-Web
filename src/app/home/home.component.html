@@ -9,120 +9,181 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-color: #fff;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(to bottom, #ffffff, #a0bedc);
+      animation: olas 10s ease-in-out infinite alternate;
     }
+
+    .comet {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 255, 255, 0.8); /* Color del cometa */
+      border-radius: 50%;
+      filter: blur(8px); /* Desenfoque */
+      animation: moveComet 12s linear infinite;
+    }
+
+    @keyframes moveComet {
+      0% {
+        left: -30px; /* Empieza fuera del cuerpo */
+        top: 50%; /* Empieza en el centro vertical */
+      }
+      25% {
+        left: calc(100% + 30px); /* Mueve hacia la derecha */
+        top: 20%; /* Se desplaza hacia arriba */
+      }
+      50% {
+        left: calc(50% - 30px); /* Mueve hacia el centro */
+        top: calc(100% + 30px); /* Mueve hacia abajo */
+      }
+      75% {
+        left: calc(0% - 30px); /* Mueve hacia la izquierda */
+        top: 80%; /* Se desplaza hacia arriba */
+      }
+      100% {
+        left: calc(100% + 30px); /* Mueve hacia la derecha */
+        top: 30%; /* Termina en el centro vertical */
+      }
+    }
+
+    /* Estilos adicionales para los cometas */
+    .comet2 {
+      animation: moveComet 15s linear infinite; /* Hacer que el segundo cometa sea más lento */
+      filter: blur(10px); /* Aumentar el desenfoque */
+    }
+
+    .comet3 {
+      animation: moveComet 10s linear infinite; /* Hacer que el tercer cometa sea más rápido */
+      filter: blur(6px); /* Reducir el desenfoque */
+    }
+
+    /* Resto de los estilos... */
     .container {
       display: flex;
-      justify-content: center; 
-      flex-wrap: wrap; 
-      gap: 20px; 
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .header {
-      text-align: right;
-      padding: 20px;
-    }
-    .logo {
-      max-width: 150px;
-    }
-    .title {
-      text-align: center;
-      margin-top: 20px;
-      color: #333; 
-      font-size: 24px;
-    }
+
     .user-box {
-      width: 300px;
-      text-align: center;
+      width: 1000px;
+      height: 300px;
+      background-color: #fff;
+      border-radius: 11px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      overflow: hidden;
+      position: relative;
     }
-    .user-header {
-      background-color: #007bff; /* Encabezado azul */
-      color: #fff; /* Texto blanco */
+
+    .header {
+      background-color: #4591e1;
+      color: #fff;
       padding: 10px;
-      border-radius: 5px 5px 0 0;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
     }
+
+    .title {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
     .user-body {
       padding: 20px;
-      border: 1px solid #ddd; 
-      border-top: none;
+      text-align: center;
     }
-    .user-icon {
-      font-size: 48px;
-      color: #007bff; 
+
+    .user-icon img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 20px;
     }
+
     .btn {
-      display: block;
-      width: 200px;
-      margin: 20px auto;
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff; 
+      background-color: #0d2776;
+      color: #fff;
+      padding: 10px 20px;
       text-align: center;
       text-decoration: none;
       border: none;
       border-radius: 5px;
+      display: block;
+      margin: 0 auto;
+      transition: background-color 0.3s, color 0.3s;
     }
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: #666; 
-      font-size: 14px;
+
+    .btn:hover {
+      background-color: #6bb3ff;
+      color: #000000;
+    }
+    .titles {
+        color: rgb(12, 83, 158); /* Texto azul */
+        font-size: 60px; /* Tamaño de fuente más grande */
+        text-shadow: 2px 2px 4px #e3fafa; /* Contorno brilloso celeste */
+        margin-left: 10cm; /* Mover el texto 5 cm del margen izquierdo */
+        margin-top: 0.2cm; /* Mover el texto 0.2 cm del margen superior */
+    }
+
+    @keyframes olas {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 0 100%;
+      }
     }
   </style>
 </head>
 <body>
+
+  <div class="titles">Home 🏠</div>
+
+  <div class="comet"></div> <!-- Primer cometa -->
+  <div class="comet comet2"></div> <!-- Segundo cometa -->
+  <div class="comet comet3"></div> <!-- Tercer cometa -->
   <div class="container">
     <div class="user-box">
       <div class="header">
-        <img src="ruta/al/logo.png" alt="Logo de la empresa" class="logo">
+        <img src="ruta/al/logo.png" alt="" class="logo">
+        <div class="title">Actividades Generales</div>
       </div>
-      <div class="title">
-        Proyecto Principal, Panel Principal
-      </div>
-      <div class="user-header">Usuario</div>
       <div class="user-body">
         <div class="user-icon">
-          <img src="ruta/al/icono-usuario.png" alt="Icono de usuario" width="64">
+          <img src="https://cdn-icons-png.flaticon.com/512/5351/5351008.png" alt="Icono de usuario">
         </div>
-        <a href="seleccion-actividad" class="btn">Actividades Generales</a>
+        <a href="seleccion-actividad" class="btn">Ir al panel</a>
       </div>
     </div>
 
     <div class="user-box">
       <div class="header">
-        <img src="ruta/al/logo.png" alt="Logo de la empresa" class="logo">
+        <img src="ruta/al/logo.png" alt="" class="logo">
+        <div class="title">Docente</div>
       </div>
-      <div class="title">
-        Proyecto Principal, Panel Principal
-      </div>
-      <div class="user-header">Usuario</div>
       <div class="user-body">
         <div class="user-icon">
-          <img src="ruta/al/icono-usuario.png" alt="Icono de usuario" width="64">
+          <img src="https://www.eafit.edu.co/institucional/centro-filantropia/PublishingImages/icono-docentes.png" alt="Icono de usuario">
         </div>
-        <a href="docente" class="btn">Docente</a>
+        <a href="docente" class="btn">Ir al panel</a>
       </div>
     </div>
 
     <div class="user-box">
       <div class="header">
-        <img src="ruta/al/logo.png" alt="Logo de la empresa" class="logo">
+        <img src="ruta/al/logo.png" alt="" class="logo">
+        <div class="title">Distributivo</div>
       </div>
-      <div class="title">
-        Proyecto Principal, Panel Principal
-      </div>
-      <div class="user-header">Usuario</div>
       <div class="user-body">
         <div class="user-icon">
-          <img src="ruta/al/icono-usuario.png" alt="Icono de usuario" width="64">
+          <img src="https://cdn-icons-png.flaticon.com/512/5931/5931742.png" alt="Icono de usuario">
         </div>
-        <a href="distributivo" class="btn">Distributivo</a>
+        <a href="distributivo" class="btn">Ir al panel</a>
       </div>
     </div>
-  </div>
-
-  <!-- Pie de página -->
-  <div class="footer">
-    Sistema administrativo desarrollado por Tecazuay
   </div>
 </body>
 </html>

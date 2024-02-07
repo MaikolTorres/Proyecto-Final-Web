@@ -94,6 +94,8 @@ tbody {
   justify-content: center;
   position: relative; /* Ajusta la posición a relativa */
   z-index: 1;
+  background: linear-gradient(135deg, #dee9ff, #f0f0f0);
+  padding: 20px;
 }
 
 .titulo_formulario {
