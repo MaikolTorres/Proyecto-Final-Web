@@ -79,21 +79,13 @@
               </td>
               <td>{{ sumarHorasTotales(distri?.distributivo_id) }}</td>
               <td>
-                <button
-                  style="border: none; background: transparent"
-                  (click)="(null)"
-                >
-                  <i class="fas fa-edit"></i>
-                  <!-- Ícono de actualizar -->
+                <button style="border: none; background: transparent;" (click)="arirModalActualizar(distri)">
+                  <i class="fas fa-pencil-alt"></i>
                 </button>
               </td>
               <td>
-                <button
-                  style="border: none; background: transparent"
-                  (click)="(null)"
-                >
-                  <i class="fas fa-trash-alt"></i>
-                  <!-- Ícono de eliminar -->
+                <button style="border: none; background: transparent;" (click)="eliminardistributiv(distri.distributivo_id)">
+                  <i class="fas fa-trash-alt"></i> 
                 </button>
               </td>
             </tr>

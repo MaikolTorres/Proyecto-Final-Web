@@ -23,10 +23,11 @@
 
 
           <label for="per_id"> Curso :</label>
-<select class="form-control" id="curso_id" formControlName="curso_id" required [(ngModel)]="nombreCursoSelecionada" (change)="onCursoSelected($event)">
-  <option value="" disabled selected>Seleccionar</option>
-  <option *ngFor="let curso of curso1">{{ curso.curso_nombre+' '+curso.curso_paralelo+' / '+curso.modeloCarrera.carrera_nombre}} </option>
-</select>
+          <select class="form-control" id="curso_id" formControlName="curso_id" required [(ngModel)]="nombreCursoSelecionada"
+            (change)="onCursoSelected($event)">
+            <option *ngFor="let curso of curso1">{{ curso.curso_nombre+' '+curso.curso_paralelo+' / '+curso.modeloCarrera.carrera_nombre}} </option>
+          </select>
+
           <label for="docente_id"> Docente :</label>
           <select class="form-control" id="docente_id" formControlName="docente_id" required [(ngModel)]="nombreDocSeleecionada"
             (change)="onDocSelected($event)">

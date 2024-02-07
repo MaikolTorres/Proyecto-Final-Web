@@ -15,6 +15,7 @@ import { Docente } from '../docente/docente';
 import { jsPDF } from 'jspdf';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocenteService } from '../docente/docente.service';
+import { ActualizarDistributivoComponent } from './actualizar-distributivo/actualizar-distributivo.component';
 
 @Component({
   selector: 'app-distributivo',
@@ -90,7 +91,7 @@ export class DistributivoComponent implements OnInit {
     };
     this.distributivo = distributivo;
     this.cargarLista;
-    //this.modalRef = this.modalService.show(ActualizarAsignaturaModalComponent, { initialState });
+    this.modalRef = this.modalService.show(ActualizarDistributivoComponent, { initialState });
   }
 
   eliminardistributiv(distributivo_id: number): void {
