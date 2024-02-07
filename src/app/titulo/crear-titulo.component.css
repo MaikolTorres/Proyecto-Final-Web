@@ -95,14 +95,16 @@ tbody {
   -o-border-radius: 7px;
   position: relative; /* Ajusta la posición a relativa */
   z-index: 1;
-  background-color: rgb(170, 208, 208);
+  background: linear-gradient(135deg, #dee9ff, #f0f0f0);
+  padding: 20px;
 }
 .titulo_formulario {
-  /* background-color: rgb(156, 214, 156); */
   color: black;
-  font-size: 15px;
-  padding: 30px;
+  font-family: Georgia (serif);
+  font-size: 25px;
+  padding: 20px; /* Reducir el padding */
   text-align: center;
+  font-weight: bold; /* Agregar negrita */
 }
 .contenedor_formulario {
   padding: 40px;

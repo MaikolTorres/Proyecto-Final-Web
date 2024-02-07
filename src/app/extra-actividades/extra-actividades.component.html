@@ -12,28 +12,33 @@
         <div class="contenedor_formulario">
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre Proyecto:</label>
-            <input type="text" [(ngModel)]="nuevoextras.extra_nombre_proyecto_investigacion" name="extra_nombre_proyecto_investigacion" required class="form-control">
+            <input type="text" [(ngModel)]="nuevoextras.extra_nombre_proyecto_investigacion"
+              name="extra_nombre_proyecto_investigacion" required class="form-control">
           </div>
           <div class="mb-3">
             <label for="descripcion" class="form-label">Numero de horas investigación:</label>
-            <input type="text" [(ngModel)]="nuevoextras.extra_horas_investigacion" name="extra_horas_investigacion" required class="form-control">
+            <input type="text" [(ngModel)]="nuevoextras.extra_horas_investigacion" name="extra_horas_investigacion"
+              required class="form-control">
           </div>
           <div class="mb-3">
             <label for="descripcion" class="form-label">Gestión Académica:</label>
-            <input type="text" [(ngModel)]="nuevoextras.extra_detalle_hora_gestion_academico" name="extra_detalle_hora_gestion_academico" required class="form-control">
+            <input type="text" [(ngModel)]="nuevoextras.extra_detalle_hora_gestion_academico"
+              name="extra_detalle_hora_gestion_academico" required class="form-control">
           </div>
 
           <div class="mb-3">
             <label for="descripcion" class="form-label">Horas de gestión académica(semanal):</label>
-            <input type="text" [(ngModel)]="nuevoextras.extra_horas_direccion_gestion_academica_semanal" name="extra_horas_direccion_gestion_academica_semanal" required class="form-control">
+            <input type="text" [(ngModel)]="nuevoextras.extra_horas_direccion_gestion_academica_semanal"
+              name="extra_horas_direccion_gestion_academica_semanal" required class="form-control">
           </div>
-
-          <button type="submit" class="btn btn-primary">
-            <i class="fa fa-check"></i> Registrar
-          </button>
-          <button type="button" class="btn btn-danger" (click)="cancelar()">
-            <i class="fa fa-times"></i> Cancelar
-          </button>
+          <div class="botones-container">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-check"></i> Registrar
+            </button>
+            <button type="button" class="btn btn-danger" (click)="cancelar()">
+              <i class="fa fa-times"></i> Cancelar
+            </button>
+          </div>
         </div>
       </fieldset>
     </form>
@@ -50,8 +55,9 @@
     <div class="burbuja"></div>
     <div class="burbuja"></div>
   </div>
-  
+
 </body>
 
 <app-footer></app-footer>
+
 </html>

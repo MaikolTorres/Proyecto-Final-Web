@@ -1,68 +1,88 @@
 body {
-  font-family: Century Gothic,Arial,Helvetica,sans-serif;
-  background-color: rgb(255, 255, 255);
-  margin: 0; /* Elimina el margen predeterminado del cuerpo */
+  font-family: Century Gothic, Arial, Helvetica, sans-serif;
+  background-color: rgb(255, 253, 253);
+  margin: 0;
   padding: 0;
   width: 100%;
   height: 100vh;
-  padding-top: 50px;
   overflow: hidden;
   position: relative;
 }
 
+/* Estilos para el panel */
 .panel {
-  max-width: 50%;
+  max-width: 400px;
   margin: 20px auto;
   padding: 20px;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- 
 }
 
+/* Estilos para el encabezado */
 h2 {
   font-size: 1.5em;
   margin-bottom: 20px;
 }
 
-form {
+/* Estilos para las etiquetas */
+label {
+  margin-bottom: 5px;
+  color: #555;
+  display: inline-block;
+  text-align: right;
+  margin-left: 120px;
+}
+
+/* Estilos para los botones */
+button {
   display: flex;
-  flex-direction: column;
-  position: relative; /* Ajusta la posición a relativa */
+  width: 150px;
+  height: 50px;
+  font-size: 16px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para el formulario */
+.formulario {
+  margin: auto;
+  font-family: Georgia, serif;
+  font-size: large;
+  margin-top: 50px;
+  width: 700px;
+  height: 550px;
+  border: 2px solid rgb(194, 194, 194);
+  border-radius: 7px;
+  overflow-y: auto;
+  position: relative;
   z-index: 1;
-  background-color: rgb(170, 208, 208);
+  background: linear-gradient(135deg, #dee9ff, #f0f0f0);
+  padding: 20px;
 }
 
-label, input {
-  margin-bottom: 15px;
-}
-
-input {
+/* Estilos para los inputs */
+.barra {
   padding: 8px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  width: calc(100% - 130px); /* Ajuste del ancho */
 }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  margin-right: 10px;
+/* Estilos para los botones */
+.buttons {
+  flex: 1;
+  margin: 0 5px;
 }
 
-button:hover {
-  background-color: #45a049;
-}
-
-button.cancel {
-  background-color: #ccc;
-}
-
-button.cancel:hover {
-  background-color: #999;
+/* Estilos para el contenedor de los botones */
+.botones {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
 }
 
 /* burbujas */
