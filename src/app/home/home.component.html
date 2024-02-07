@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Ejemplo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+    }
+    .container {
+      display: flex;
+      justify-content: center; 
+      flex-wrap: wrap; 
+      gap: 20px; 
+    }
+    .header {
+      text-align: right;
+      padding: 20px;
+    }
+    .logo {
+      max-width: 150px;
+    }
+    .title {
+      text-align: center;
+      margin-top: 20px;
+      color: #333; 
+      font-size: 24px;
+    }
+    .user-box {
+      width: 300px;
+      text-align: center;
+    }
+    .user-header {
+      background-color: #007bff; /* Encabezado azul */
+      color: #fff; /* Texto blanco */
+      padding: 10px;
+      border-radius: 5px 5px 0 0;
+    }
+    .user-body {
+      padding: 20px;
+      border: 1px solid #ddd; 
+      border-top: none;
+    }
+    .user-icon {
+      font-size: 48px;
+      color: #007bff; 
+    }
+    .btn {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff; 
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: #666; 
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="user-box">
+      <div class="header">
+        <img src="ruta/al/logo.png" alt="Logo de la empresa" class="logo">
+      </div>
+      <div class="title">
+        Proyecto Principal, Panel Principal
+      </div>
+      <div class="user-header">Usuario</div>
+      <div class="user-body">
+        <div class="user-icon">
+          <img src="ruta/al/icono-usuario.png" alt="Icono de usuario" width="64">
+        </div>
+        <a href="seleccion-actividad" class="btn">Actividades Generales</a>
+      </div>
+    </div>
+
+    <div class="user-box">
+      <div class="header">
+        <img src="ruta/al/logo.png" alt="Logo de la empresa" class="logo">
+      </div>
+      <div class="title">
+        Proyecto Principal, Panel Principal
+      </div>
+      <div class="user-header">Usuario</div>
+      <div class="user-body">
+        <div class="user-icon">
+          <img src="ruta/al/icono-usuario.png" alt="Icono de usuario" width="64">
+        </div>
+        <a href="docente" class="btn">Docente</a>
+      </div>
+    </div>
+
+    <div class="user-box">
+      <div class="header">
+        <img src="ruta/al/logo.png" alt="Logo de la empresa" class="logo">
+      </div>
+      <div class="title">
+        Proyecto Principal, Panel Principal
+      </div>
+      <div class="user-header">Usuario</div>
+      <div class="user-body">
+        <div class="user-icon">
+          <img src="ruta/al/icono-usuario.png" alt="Icono de usuario" width="64">
+        </div>
+        <a href="distributivo" class="btn">Distributivo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <div class="footer">
+    Sistema administrativo desarrollado por Tecazuay
+  </div>
+</body>
+</html>
