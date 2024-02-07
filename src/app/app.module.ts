@@ -74,6 +74,7 @@ import { ActualizarTituloComponent } from './titulo/actualizar-titulo/actualizar
 import { ActualizarNoDocenteComponent } from './actividades-no-docente/actualizar-no-docente/actualizar-no-docente.component';
 import { HomeComponent } from './home/home.component'; 
 
+import { GenerarpdfComponent } from './distributivo/generarpdf/generarpdf.component';
 
 const routes: Routes = [
   { path: 'actualizarrDocente', component: ActuaizarDocenteModalComponent },
@@ -112,10 +113,13 @@ const routes: Routes = [
   { path: 'seleccion-actividad', component: SeleccionActividadComponent },
   { path: 'asignatura', component: AsignaturaComponent },
   { path: 'crearasignatura', component: CrearAsignaturaComponent },
-{path:'actualizarcurso',component:ActuaizarCursoComponent},
+  { path: 'actualizarcurso', component: ActuaizarCursoComponent },
   { path: 'actividades-no-docente', component: ActividadesNoDocenteComponent },
   { path: 'seleccion-actividades', component: SeleccionActividadComponent },
-  {path: 'listar-actividades-no-docentes',component: ListarActividadesNoDocentesComponent,},
+  {
+    path: 'listar-actividades-no-docentes',
+    component: ListarActividadesNoDocentesComponent,
+  },
   { path: 'creardocente', component: CreardocenteComponent },
   { path: 'distributivo', component: DistributivoComponent },
   { path: 'creardistributivo', component: CreardistributivoComponent },
@@ -136,23 +140,31 @@ const routes: Routes = [
   { path: 'actualizarDocente', component: ActualizarDocenteModalComponent },
 
   //
-  {path: 'extra-actividades', component: ExtraActividadesComponent},
-  {path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent},
-  {path: 'listar-extra-actividades', component: ListarExtraActividadesComponent},
+  { path: 'extra-actividades', component: ExtraActividadesComponent },
+  { path: 'actualizar-extra-modal', component: ActualizarExtraModalComponent },
+  {
+    path: 'listar-extra-actividades',
+    component: ListarExtraActividadesComponent,
+  },
 
-  {path: 'actividades-docente', component: ActividadesDocenteComponent},
-  {path: 'listar-actividades-docente', component: ListarActividadesDocenteComponent},
+  { path: 'actividades-docente', component: ActividadesDocenteComponent },
+  {
+    path: 'listar-actividades-docente',
+    component: ListarActividadesDocenteComponent,
+  },
 
-  {path: 'crear-carrera', component: CrearCarreraComponent},
-  {path: 'listar-carrera', component: ListarCarreraComponent},
+  { path: 'crear-carrera', component: CrearCarreraComponent },
+  { path: 'listar-carrera', component: ListarCarreraComponent },
 
-  {path: 'crear-periodo', component: CrearPeriodoComponent},
-  {path: 'listar-periodo', component: ListarPeriodoComponent},
+  { path: 'crear-periodo', component: CrearPeriodoComponent },
+  { path: 'listar-periodo', component: ListarPeriodoComponent },
   //
   {path: 'listar-extraactividades', component: ListarExtraActividadesComponent},
   {path:'actualizarcarrera',component:ActualizarCarreraModalComponent},
-  {path:'home',component:HomeComponent}
+  {path:'home',component:HomeComponent},
 
+  { path: 'actualizarcarrera', component: ActualizarCarreraModalComponent },
+  { path: 'generarpdf', component: GenerarpdfComponent },
 ];
 
 @NgModule({
@@ -222,10 +234,12 @@ const routes: Routes = [
     ///
     ActualizarPeriodoModalComponent,
     ActuaizarDocenteModalComponent,
-    
+
     ActualizarTituloComponent,
           ActualizarNoDocenteComponent,
-          HomeComponent
+          HomeComponent,
+    ActualizarNoDocenteComponent,
+    GenerarpdfComponent,
   ],
 
   imports: [
@@ -238,12 +252,9 @@ const routes: Routes = [
     ModalModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
-    
   ],
   providers: [DatePipe], // Agrega DatePipe a la lista de proveedores
 
   bootstrap: [AppComponent],
 })
-
 export class AppModule {}
-

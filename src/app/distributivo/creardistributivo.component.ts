@@ -16,35 +16,35 @@ import { ActividadNoDocenteService } from '../actividades-no-docente/actividad-n
 @Component({
   selector: 'app-creardistributivo',
   templateUrl: './creardistributivo.component.html',
-  styleUrls: ['./creardistributivo.component.css']
+  styleUrls: ['./creardistributivo.component.css'],
 })
-
 export class CreardistributivoComponent implements OnInit {
   distributivo_id: number | undefined;
   docente: any[] = [];
-  nuevodocente : Docente = new Docente();
+  nuevodocente: Docente = new Docente();
   carreras: any[] = []; // Arreglo para almacenar las carreras
-  nuevoCarreras : Carrera = new Carrera();
+  nuevoCarreras: Carrera = new Carrera();
   jornadas: any[] = []; // Arreglo para almacenar las jornadas
-  nuevoJornda : Jornada = new Jornada();
-  curso : any[]=[];
-  nuevoCurso :Curso = new Curso();
-  periodo :any[]=[];
-  nuevoperidodo : Periodos = new Periodos();
-  asignatura :any[]=[];
-  nuevasigantura : Asignatura = new Asignatura();
-  actividaddocente : any[]=[];
-  nuevoacti : ActividadesDocente = new ActividadesDocente();
-  actividadnodocente: any[]=[];
-  nuevoactnodo : ActividadesNoDocente = new ActividadesNoDocente();
+  nuevoJornda: Jornada = new Jornada();
+  curso: any[] = [];
+  nuevoCurso: Curso = new Curso();
+  periodo: any[] = [];
+  nuevoperidodo: Periodos = new Periodos();
+  asignatura: any[] = [];
+  nuevasigantura: Asignatura = new Asignatura();
+  actividaddocente: any[] = [];
+  nuevoacti: ActividadesDocente = new ActividadesDocente();
+  actividadnodocente: any[] = [];
+  nuevoactnodo: ActividadesNoDocente = new ActividadesNoDocente();
 
-  constructor(private carreraService: CarreraService, 
-  private jornadaService: JornadaService, 
-  private docenteservice: DocenteService,
-  private asignaturaservice : AsignaturaService,
-  private actividadesDocenteService : ActividadesDocenteService,
-  private ActividadNoDocenteService: ActividadesnoDocenteService,
-  ) { }
+  constructor(
+    private carreraService: CarreraService,
+    private jornadaService: JornadaService,
+    private docenteservice: DocenteService,
+    private asignaturaservice: AsignaturaService,
+    private actividadesDocenteService: ActividadesDocenteService,
+    private ActividadNoDocenteService: ActividadNoDocenteService
+  ) {}
 
   ngOnInit(): void {
     this.cargarCarreras();
