@@ -43,7 +43,7 @@
       <!-- Aquí irán las filas de la tabla con datos de usuarios -->
       <tr *ngFor="let usuario of usuarios">
         <td>{{ usuario.usu_id }}</td>
-        <td>{{ usuario.usu_usuario }}</td>
+        <td>{{ usuario.username}}</td>
         <td>{{ usuario.usu_contrasena }}</td>
         <td>{{ usuario.persona.per_cedula}}</td>
         <td>{{ usuario.rol.rol_nombre }}</td>

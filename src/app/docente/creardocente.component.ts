@@ -26,26 +26,26 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./creardocente.component.css']
 })
 export class CreardocenteComponent implements OnInit {
-  docente_id:number| undefined;
+  docente_id: number | undefined;
   nuevodoce: Docente = new Docente();
 
-  persona:any[] = []; 
+  persona: any[] = [];
   nuevapersona: Persona = new Persona();
 
-  tipocontrato:any[] = [];
+  tipocontrato: any[] = [];
   nuevotipocontrato: TipoContrato = new TipoContrato();
 
-  cargo:any[] = [];
+  cargo: any[] = [];
   nuevocargo: Cargo = new Cargo();
 
-titulo:any[] = [];
-nuevotitulo:Titulo =new Titulo();
+  titulo: any[] = [];
+  nuevotitulo: Titulo = new Titulo();
 
-periodo:any[] = [];
-nuevoperiodo:Periodos =new Periodos();
-  
-grado:any[] = [];
-nuevogrado:GradoOcupacional =new GradoOcupacional();
+  periodo: any[] = [];
+  nuevoperiodo: Periodos = new Periodos();
+
+  grado: any[] = [];
+  nuevogrado: GradoOcupacional = new GradoOcupacional();
 
   updateForm!: FormGroup;
   @Input() docente: Docente | undefined;
@@ -75,9 +75,9 @@ nuevogrado:GradoOcupacional =new GradoOcupacional();
   botonDesactivado: boolean = false;
 
   docente_estado: string = '';
-  docente_fecha_ingreso1: Date | undefined ;
+  docente_fecha_ingreso1: Date | undefined;
 
-  
+
   constructor(
     private datePipe: DatePipe,
     public modalRef: BsModalRef,
@@ -116,14 +116,14 @@ nuevogrado:GradoOcupacional =new GradoOcupacional();
   initializeForm() {
     this.createForm();
   }
-/////
+  /////
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }
   cargarPersonas() {
     this.getPersonas().subscribe(personas => (this.persona1 = personas));
   }
-////
+  ////
 
   getcontratos(): Observable<TipoContrato[]> {
     return this.http.get<TipoContrato[]>('http://localhost:8080/tipocontratos');
@@ -131,7 +131,7 @@ nuevogrado:GradoOcupacional =new GradoOcupacional();
   cargarcontratos() {
     this.getcontratos().subscribe(contratos => (this.tipocontrato1 = contratos));
   }
-/////
+  /////
   getcargos(): Observable<Cargo[]> {
     return this.http.get<Cargo[]>('http://localhost:8080/cargo');
   }
@@ -142,11 +142,11 @@ nuevogrado:GradoOcupacional =new GradoOcupacional();
   gettitulos(): Observable<Titulo[]> {
     return this.http.get<Titulo[]>('http://localhost:8080/titulo');
   }
-  
+
   cargartitulos() {
     this.gettitulos().subscribe(titulos => (this.titulo1 = titulos));
   }
-//////
+  //////
   getperiodo(): Observable<Periodos[]> {
     return this.http.get<Periodos[]>('http://localhost:8080/periodos');
   }
@@ -176,91 +176,91 @@ nuevogrado:GradoOcupacional =new GradoOcupacional();
 
     });
   }
- 
-//////////////////////////////////////////////////////
-cargarListaper(): void {
-  this.docenteservice.getPersonas().subscribe(
-    personas => {
-      this.persona1 = personas;
-      this.isLoading = false;
-      console.log('Personas cargadas exitosamente:', personas);
-    },
-    error => {
-      console.error('Error al cargar las personas:', error);
-      this.isLoading = false;
-    }
-  );
-}
 
-cargarListacontrato(): void {
-  this.docenteservice.getTipoContratos().subscribe(
-    contratos => {
-      this.tipocontrato1 = contratos;
-      this.isLoading = false;
-      console.log('contratos cargadas exitosamente:', contratos);
-    },
-    error => {
-      console.error('Error al cargar las personas:', error);
-      this.isLoading = false;
-    }
-  );
-}
+  //////////////////////////////////////////////////////
+  cargarListaper(): void {
+    this.docenteservice.getPersonas().subscribe(
+      personas => {
+        this.persona1 = personas;
+        this.isLoading = false;
+        console.log('Personas cargadas exitosamente:', personas);
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
 
-cargarListacargo(): void {
-  this.docenteservice.getCargos().subscribe(
-    cargos => {
-      this.cargo1 = cargos;
-      this.isLoading = false;
-      console.log('cargos cargadas exitosamente:', cargos);
-    },
-    error => {
-      console.error('Error al cargar las personas:', error);
-      this.isLoading = false;
-    }
-  );
-}
+  cargarListacontrato(): void {
+    this.docenteservice.getTipoContratos().subscribe(
+      contratos => {
+        this.tipocontrato1 = contratos;
+        this.isLoading = false;
+        console.log('contratos cargadas exitosamente:', contratos);
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
 
-cargarListatitulos(): void {
-  this.docenteservice.getTitulos().subscribe(
-    titulos => {
-      this.titulo1 = titulos;
-      this.isLoading = false;
-      console.log('titulos cargadas exitosamente:', titulos);
-    },
-    error => {
-      console.error('Error al cargar las personas:', error);
-      this.isLoading = false;
-    }
-  );
-}
+  cargarListacargo(): void {
+    this.docenteservice.getCargos().subscribe(
+      cargos => {
+        this.cargo1 = cargos;
+        this.isLoading = false;
+        console.log('cargos cargadas exitosamente:', cargos);
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
 
-cargarListaPeriodo(): void {
-  this.docenteservice.getPeriodos().subscribe(
-    periodos => {
-      this.periodo1 = periodos;
-      this.isLoading = false;
-      console.log('periodos cargadas exitosamente:', periodos);
-    },
-    error => {
-      console.error('Error al cargar las personas:', error);
-      this.isLoading = false;
-    }
-  );
-}
+  cargarListatitulos(): void {
+    this.docenteservice.getTitulos().subscribe(
+      titulos => {
+        this.titulo1 = titulos;
+        this.isLoading = false;
+        console.log('titulos cargadas exitosamente:', titulos);
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
 
-cargarListaGrado(): void {
-  this.docenteservice.getGrados().subscribe(
-    grados => {
-      this.grado1 = grados;
-      this.isLoading = false;
-      console.log('grados cargadas exitosamente:', grados);
-    },
-    error => {
-      console.error('Error al cargar las personas:', error);
-      this.isLoading = false;
-    }
-  );
-}
+  cargarListaPeriodo(): void {
+    this.docenteservice.getPeriodos().subscribe(
+      periodos => {
+        this.periodo1 = periodos;
+        this.isLoading = false;
+        console.log('periodos cargadas exitosamente:', periodos);
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  cargarListaGrado(): void {
+    this.docenteservice.getGrados().subscribe(
+      grados => {
+        this.grado1 = grados;
+        this.isLoading = false;
+        console.log('grados cargadas exitosamente:', grados);
+      },
+      error => {
+        console.error('Error al cargar las personas:', error);
+        this.isLoading = false;
+      }
+    );
+  }
 
   onCedulaSelected(event: any) {
     this.cedulaSeleccionada = event.target.value;
@@ -293,15 +293,20 @@ cargarListaGrado(): void {
         if (contrato) {
           this.nuevotipocontrato = contrato;
           console.log('contrato encontrado:', this.nuevotipocontrato);
+
+          // Aquí se inicializa nuevotipocontrato correctamente
+          this.nuevodoce.tipo_contrato = this.nuevotipocontrato;
         } else {
           console.log('contrato no encontrado');
         }
       },
       (error) => {
+        
         console.error('Error al obtener la contrato:', error);
       }
     );
-  }
+}
+
   oncargoSelected(event: any) {
     this.cargoSeleccionada = event.target.value;
     const cargo = this.cargoSeleccionada;
@@ -376,26 +381,26 @@ cargarListaGrado(): void {
   }
 
 
-  
 
-  
+
+
 
   crearDocente() {
-  
+
     // Formatea la fecha
     const fechaIngreso = this.updateForm.get('docente_fecha_ingreso')?.value ?? new Date();
-    this.nuevodoce.docente_fecha_ingreso = fechaIngreso; 
+    this.nuevodoce.docente_fecha_ingreso = fechaIngreso;
     this.nuevodoce.docente_estado = this.updateForm.get('docente_estado')?.value;
 
     // Asigna los valores a los objetos correspondientes
-     if (this.nuevapersona) {
+    if (this.nuevapersona) {
       this.nuevodoce.persona = this.nuevapersona;
     }
 
     if (this.nuevotipocontrato) {
       this.nuevodoce.tipo_contrato = this.nuevotipocontrato;
-    }
-
+    } 
+    
     if (this.nuevocargo) {
       this.nuevodoce.cargo = this.nuevocargo;
       console.log(
@@ -431,7 +436,7 @@ cargarListaGrado(): void {
     );
   }
 
-  
+
   cancelar(): void {
     this.router.navigate(['/docente']);
   }

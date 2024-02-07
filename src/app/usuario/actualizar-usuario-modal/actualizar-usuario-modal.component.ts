@@ -125,7 +125,7 @@ export class ActualizarUsuarioModalComponent implements OnInit {
 
       // Actualizar el formulario con los IDs guardados
       this.updateForm.patchValue({
-        usu_usuario: this.usuario.usu_usuario,
+        usu_usuario: this.usuario.username,
         usu_contrasena: this.usuario.usu_contrasena,
         per_id: selectedPersona ? selectedPersona.per_id : null,
         rol_id: selectedRol ? selectedRol.rol_id : null,
@@ -133,7 +133,7 @@ export class ActualizarUsuarioModalComponent implements OnInit {
 
       // Imprimir en la consola los datos que se van a actualizar
       console.log('Datos que se van a actualizar:', {
-        usu_usuario: this.usuario.usu_usuario,
+        usu_usuario: this.usuario.username,
         usu_contrasena: this.usuario.usu_contrasena,
         per_id: selectedPersona ? selectedPersona.per_id : null,
         rol_id: selectedRol ? selectedRol.rol_id : null,
@@ -178,7 +178,7 @@ export class ActualizarUsuarioModalComponent implements OnInit {
       console.log('Se enviará usuario_idreceptor:', this.usu_usuario_receptor);
       console.log('Se enviará contrasenia_idreceptor:', this.usu_contrasena_receptor);
       this.usuario2.usu_id=this.user_idreceptor;
-      this.usuario2.usu_usuario= this.usu_usuario_receptor;
+      this.usuario2.username= this.usu_usuario_receptor;
       this.usuario2.usu_contrasena=this.usu_contrasena_receptor;
       this.usuario2.persona.per_id  =  this.persona_idreceptor;
     

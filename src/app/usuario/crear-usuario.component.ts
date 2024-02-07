@@ -9,7 +9,6 @@ import { Usuario } from './Usuario';
 import { Rol } from '../roles/roles';
 import { RolesService } from '../roles/roles.service';
 import { PersonaService } from '../persona/persona.service'
-
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,13 +25,14 @@ export class CrearUsuarioComponent implements OnInit {
   createpersona: Persona = new Persona();
   roles: Rol[] = [];
   isLoading: boolean = true;
-  usu_usuario: string = '';
+  username: string = '';
   usu_contrasena: string = '';
   nuevoUsu: Usuario = new Usuario();
   botonDesactivado: boolean = false;
   public ckeckrol: string = '';
   public rol2: Rol = new Rol();
   public cedulaSeleccionada: string = '';
+
   constructor(
     public modalRef: BsModalRef,
     private fb: FormBuilder,
@@ -43,7 +43,6 @@ export class CrearUsuarioComponent implements OnInit {
     private personaservice: PersonaService,
   ) {
     this.createForm();
-
   }
 
   ngOnInit() {
@@ -52,17 +51,16 @@ export class CrearUsuarioComponent implements OnInit {
     this.cargarRoles();
     this.cargarLista();
     this.cargarListarol();
-
-
   }
+
   initializeForm() {
     this.createForm();
   }
+
   getPersonas(): Observable<Persona[]> {
     return this.http.get<Persona[]>('http://localhost:8080/personas');
   }
 
-  // Cargar personas al inicializar el componente
   cargarPersonas() {
     this.getPersonas().subscribe(personas => (this.persona1 = personas));
   }
@@ -77,17 +75,17 @@ export class CrearUsuarioComponent implements OnInit {
 
   createForm() {
     this.updateForm = this.fb.group({
-      usu_usuario: ['', Validators.required],
-      usu_contrasena: ['', Validators.required], // Corregir el nombre del campo
+      username: ['', Validators.required],
+      usu_contrasena: ['', Validators.required],
       per_id: ['', Validators.required],
       rol_id: ['', Validators.required]
     });
   }
+
   onRolSelected(event: any) {
     this.ckeckrol = event.target.value;
     const name = this.ckeckrol;
 
-    // Llamada al servicio para verificar el rol
     this.rolservice.comboidrol(name).subscribe(
       (rolExists: boolean) => {
         if (rolExists) {
@@ -95,25 +93,18 @@ export class CrearUsuarioComponent implements OnInit {
           this.rolservice.getRolByName(name).subscribe(
             (rol: Rol | undefined) => {
               if (rol) {
-                // Hacer algo con el rol encontrado
-
                 this.rol2 = rol;
                 console.log('Rol encontrado:', this.rol2);
-
               } else {
-                // Manejar el caso en que no se encuentra el rol
                 console.log('Rol no encontrado');
               }
             },
             (error) => {
-              // Manejar errores de la solicitud HTTP
               console.error('Error al obtener el rol:', error);
             }
           );
-
         } else {
           console.log(`El rol ${name} no existe.`);
-
         }
       },
       (error) => {
@@ -121,6 +112,7 @@ export class CrearUsuarioComponent implements OnInit {
       }
     );
   }
+
   cargarLista(): void {
     this.usuarioService.getpers().subscribe(
       personas => {
@@ -148,48 +140,43 @@ export class CrearUsuarioComponent implements OnInit {
       }
     );
   }
+
   onCedulaSelected(event: any) {
     this.cedulaSeleccionada = event.target.value;
     const cedula = this.cedulaSeleccionada;
     this.personaservice.getbypersona(cedula).subscribe(
       (persona: Persona | undefined) => {
         if (persona) {
-
-
           this.createpersona = persona;
           console.log('Persona encontrado:', this.createpersona);
-
         } else {
-          // Manejar el caso en que no se encuentra el rol
           console.log('Persona no encontrado');
         }
       },
       (error) => {
-        // Manejar errores de la solicitud HTTP
         console.error('Error al obtener la persona:', error);
       }
     );
   }
   crearUsu() {
-    // Asigna el rol y la persona al nuevo usuario
     this.nuevoUsu.rol = this.rol2;
     this.nuevoUsu.persona = this.createpersona;
-    this.nuevoUsu.usu_usuario = this.usu_usuario;
+    this.nuevoUsu.username = this.username;
     this.nuevoUsu.usu_contrasena = this.usu_contrasena;
-    this.usuarioService.create(this.nuevoUsu).subscribe(
-      (response) => {
-
-        console.log('Usuario creado exitosamente:', response);
-
-        window.close();
-      },
-      (error) => {
-        // Manejo de errores
-        console.error('Error al crear el usuario:', error);
-      }
-    );
+  
+      this.usuarioService.create(this.nuevoUsu).subscribe(
+        (response) => {
+          console.log('Usuario creado exitosamente:', response);
+          window.close();
+        },
+        (error) => {
+          console.error('Error al crear el usuario:', error);
+          console.log('datos enviados',this.nuevoUsu )
+        }
+      );
+    
   }
-
+  
 
   cancelar(): void {
     this.router.navigate(['/usuario']);

@@ -102,7 +102,7 @@ export class UsuarioComponent implements OnInit {
   }
   textoBusqueda: string = '';
   usuMatchesSearch(usuario: Usuario): boolean {
-    return usuario.usu_usuario.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+    return usuario.username.toLowerCase().includes(this.textoBusqueda.toLowerCase());
   }
 
   buscar(): void {

@@ -3,7 +3,7 @@ import { Rol } from "../roles/roles";
 
 export class Usuario {
     'usu_id': number;
-    'usu_usuario': string;
+    'username': string;
     'usu_contrasena': string;
     'persona': Partial<Persona>; // Utiliza Partial<Persona> para permitir propiedades parciales de Persona
     'rol':  Partial<Rol>;

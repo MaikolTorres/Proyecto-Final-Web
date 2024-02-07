@@ -45,7 +45,7 @@ export class GenerarpdfComponent implements OnInit {
     private modalService: BsModalService,
     private router: Router,
     private docenteService: DocenteService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarLista();
