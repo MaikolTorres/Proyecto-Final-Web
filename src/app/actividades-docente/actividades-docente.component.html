@@ -41,18 +41,32 @@
             <option *ngFor="let extrass of extraActvidad1">{{extrass.extra_nombre_proyecto_investigacion+' / '+extrass.extra_detalle_hora_gestion_academico}} </option>
           </select>
 
-
+          <div class="botones-container">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-check"></i> Registrar
           </button>
           <button type="button" class="btn btn-danger" (click)="cancelar()">
             <i class="fa fa-times"></i> Cancelar
           </button>
+          </div>
         </div>
       </fieldset>
     </form>
+  </div>          
+  <div class="burbujas">
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
+    <div class="burbuja"></div>
   </div>
-  <app-footer></app-footer>
 </body>
+
+<app-footer></app-footer>
 
 </html>

@@ -11,19 +11,27 @@ body {
 }
 
 .panel {
-  padding: 50px 20px 0 20px;
-  width: 550px;
-  height: 300px;
   margin: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  font-family: Georgia, serif;
+  font-size: large;
   margin-top: 50px;
-  position: relative; /* Ajusta la posición a relativa */
+  width: 700px;
+  height: 450px;
+  border: 2px solid rgb(194, 194, 194);
+  border-radius: 7px;
+  overflow-y: auto;
+  position: relative;
   z-index: 1;
+  background: linear-gradient(135deg, #dee9ff, #f0f0f0);
+  padding: 20px;
+}
+
+label {
+  margin-bottom: 20px;
+  color: #555;
+  display: inline-block;
+  text-align: right;
+  margin-left: 90px;
 }
 
 .txt-2 {
@@ -74,8 +82,11 @@ label {
   pointer-events: none;
 }
 
-.buttons {
-  margin-top: 30px;
+.botones-container {
+  display: flex;
+  justify-content: center; /* Alinea horizontalmente */
+  align-items: center; /* Alinea verticalmente */
+  margin-top: 50px;
 }
 
 button {
@@ -118,10 +129,10 @@ button:hover {
   border-radius: 3px;
 }
 
-.input-container:hover .dropdown-content {
-  display: block;
+h2 {
+  margin-top: 50px;
+  color: #333;
 }
-
 
 .burbuja{
   border-radius: 50%;

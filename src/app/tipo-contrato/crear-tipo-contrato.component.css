@@ -1,14 +1,13 @@
 body {
-    font-family: Century Gothic, Arial, Helvetica, sans-serif;
-    background-color: rgb(255, 255, 255);
-    margin: 0;
-    /* Elimina el margen predeterminado del cuerpo */
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-    padding-top: 50px;
-    overflow: hidden;
-    position: relative;
+  font-family: Century Gothic,Arial,Helvetica,sans-serif;
+  background-color: rgb(255, 255, 255);
+  margin: 0; /* Elimina el margen predeterminado del cuerpo */
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+  overflow: hidden;
+  position: relative;
 }
 
 .formulario-container {
@@ -21,6 +20,8 @@ body {
     position: relative;
     /* Ajusta la posición a relativa */
     z-index: 1;
+    background: linear-gradient(135deg, #dee9ff, #f0f0f0);
+  padding: 20px;
 }
 
 h2 {
