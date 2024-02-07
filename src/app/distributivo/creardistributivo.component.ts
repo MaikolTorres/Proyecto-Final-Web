@@ -43,7 +43,6 @@ export class CreardistributivoComponent implements OnInit {
   private docenteservice: DocenteService,
   private asignaturaservice : AsignaturaService,
   private actividadesDocenteService : ActividadesDocenteService,
-  private ActividadNoDocenteService: ActividadesnoDocenteService,
   ) { }
 
   ngOnInit(): void {
